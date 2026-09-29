@@ -518,7 +518,7 @@ def build_story(sections: list[list[Block]], config: Config, styles: dict) -> li
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--input", "-i", type=Path, default=HERE / "silmarillion-game-report.md")
+    parser.add_argument("--input", "-i", type=Path, default=HERE / "docs" / "design" / "silmarillion-game-report.md")
     parser.add_argument("--output", "-o", type=Path, default=HERE / "silmarillion-game-design-report.pdf")
     parser.add_argument("--paper", choices=("a4", "large"), default="a4",
                         help="large is 225 × 310 mm; default is A4")

@@ -2,28 +2,48 @@
 
 An isometric strategy game design with painterly surroundings, small figures against expansive landscapes, distinct faction economies and one recreatable hero per faction.
 
-All resources and generated deliverables live directly in this project root. There is no `output` directory.
+> Working in this repo with an AI coding agent? Read [`AGENTS.md`](AGENTS.md) first.
+
+Generated build deliverables (PDF, JSON roster) and the hero-kit/data inputs live directly in this project root — there is no `output` directory. Authored design documentation lives under [`docs/design/`](docs/design/); see [`docs/README.md`](docs/README.md) for the full documentation map.
 
 ## Current design
 
-- [Design report](silmarillion-game-report.md) and [PDF edition](silmarillion-game-design-report.pdf): revision 6 is the current design.
-- [Hero powers and counters](hero-balance-roster.md) and [structured roster](hero-balance-roster.json): 55 starting profiles across 54 factions, including Melkor's two mutually exclusive doctrines.
+- [Design report](docs/design/silmarillion-game-report.md) and [PDF edition](silmarillion-game-design-report.pdf): revision 6 is the current design.
+- [Hero powers and counters](docs/design/hero-balance-roster.md) and [structured roster](hero-balance-roster.json): 55 starting profiles across 54 factions, including Melkor's two mutually exclusive doctrines.
 - Five named Istari (Gandalf, Saruman, Radagast, Alatar and Pallando) supplement the five generic orders; each faction has one hero. The two Blue Wizards are separate selections.
 - `hero-kits-valar-v5.json`, `hero-kits-peoples-v5.json`, `hero-kits-other-v5.json` and `hero-kits-named-istari-v6.json` are the hero-kit inputs. Melkor's two profiles are defined in `build_hero_roster.py`.
 
 These rules are proposed designs, not evidence of validated competitive balance.
 
+## Shared visual and interaction direction
+
+Every agent working on art, narrative, maps, assets or UI/UX starts with
+[`silmarillion-art-direction`](.agents/skills/silmarillion-art-direction/SKILL.md).
+The [resource package](docs/design/art-direction/README.md) contains the source
+hierarchy, research ledger, visual and narrative rules, faction/profile matrix,
+UI states, portable tokens, asset specifications, templates and review gates.
+Inspect the [original visual gallery](docs/design/art-direction/gallery/index.html)
+for conceptual screen examples and the
+[verification record](docs/design/art-direction/verification.md) for measured
+results and remaining checks.
+
+The roster combines identities from different eras; scenarios must label their
+chronology and sandbox geography. No game runtime manifest was present at initial inspection. A concurrently
+added [saved implementation handoff](docs/project/INITIATE.md) names Phaser,
+TypeScript and Vite; this resource task does not execute that handoff. Gallery
+formats and target sizes remain portable design-study contracts.
+
 ## Source material and artwork
 
-- [Supplied book](silmarillion.pdf) and [retained extracted text](silmarillion-extracted-text.txt).
-- `reading-*.md` contains the source-reading notes.
-- [Brethil concept art](brethil-isometric-concept.png), [art notes](brethil-concept-readme.md) and [generation prompt](concept-prompt.txt).
+- [Supplied book](silmarillion.pdf) and [retained extracted text](silmarillion-extracted-text.txt) stay at the project root as vendored reference material.
+- [`docs/design/reading-notes/`](docs/design/reading-notes/) contains the source-reading notes (`reading-*.md`).
+- [Brethil concept art](docs/design/concept-art/brethil-isometric-concept.png), [art notes](docs/design/concept-art/brethil-concept-readme.md) and [generation prompt](docs/design/concept-art/concept-prompt.txt).
 
 The reading notes retain historical references to temporary inspection files that had already been removed before this repository migration.
 
 ## Earlier work
 
-`silmarillion-game-report-v1.md` through `silmarillion-game-report-v5.md` and their matching `silmarillion-game-design-report-v*.pdf` files preserve earlier revisions. Their rules may be superseded by revision 6. Historical PDFs retain their original wording; archived Markdown links have been adjusted to this root layout. `design-notes-*.md` contains supporting drafts rather than current rules. The older fifty hero profiles remain unchanged while their offensive redesign is pending; the five named Wizard kits are new proposals.
+[`docs/design/iterations/`](docs/design/iterations/) holds `silmarillion-game-report-v1.md` through `silmarillion-game-report-v5.md` and their matching `silmarillion-game-design-report-v*.pdf` files, preserving earlier revisions. Their rules may be superseded by revision 6. Historical PDFs retain their original wording; archived Markdown links have been adjusted to match the current layout. [`docs/design/`](docs/design/) also holds `design-notes-*.md`, supporting drafts rather than current rules. The older fifty hero profiles remain unchanged while their offensive redesign is pending; the five named Wizard kits are new proposals.
 
 ## Rebuild
 
@@ -35,4 +55,4 @@ python3 build_report.py --check
 python3 build_report.py
 ```
 
-Both builders resolve inputs and destinations relative to their own location, so they also work when invoked from another directory. The current PDF, Markdown roster and JSON roster are written here at the project root.
+Both builders resolve inputs and destinations relative to their own location, so they also work when invoked from another directory. The design report source lives at `docs/design/silmarillion-game-report.md`; the current PDF and JSON roster are written at the project root.

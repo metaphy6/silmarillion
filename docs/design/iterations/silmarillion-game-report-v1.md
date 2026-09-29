@@ -8,7 +8,7 @@
 
 Working title only; not an announced or licensed product.
 
-![Proposed Brethil crossing: small travellers and a modest camp inside a dominant landscape](brethil-isometric-concept.png)
+![Proposed Brethil crossing: small travellers and a modest camp inside a dominant landscape](../concept-art/brethil-isometric-concept.png)
 
 This original concept plate studies composition and scale. It is an invented local scene, not a canonical map or a working game. Generated with the built-in image-generation tool; the prompt accompanies the image in `concept-prompt.txt`.
 

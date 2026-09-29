@@ -1,0 +1,429 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Disco Elysium research evidence ledger",
+  "access_date": "2026-09-29",
+  "scope": "Primary developer text, credited art, official public game screenshots, sampled official talk frames, and one explicitly secondary transcript.",
+  "status_vocabulary": {
+    "text_read": "Article body read with web reader",
+    "image_visually_inspected": "Image viewed through browser screenshot",
+    "text_and_image_inspected": "Article/page text and credited image inspected",
+    "description_read_and_video_frames_sampled": "Description read and identified video frames/captions inspected; not a full watch",
+    "full_transcription_read": "Full third-party transcript body read; attribution caveat applies",
+    "inaccessible": "Attempt failed; do not derive content claims"
+  },
+  "provenance_policy": "Reference URLs are study references only. No third-party reference image was copied into production assets. Original gallery artwork has separate provenance in asset-manifest.json. Publication/access is not an asset-use license.",
+  "interpretation_policy": "Observation records inspected evidence. Interpretation and design_consequence are this package’s analysis and adaptation, not developer quotations. Development intent is not treated as released-game verification.",
+  "references": [
+    {
+      "id": "DE-01",
+      "creator": "Aleksander Rostov / ZA/UM",
+      "title": "Village Concept Art",
+      "url": "https://discoelysium.com/devblog/2016/06/29/fishing-village-concept-art",
+      "access_date": "2026-09-29",
+      "locator": "2016-06-29; paragraphs beginning There is a general back and forth / The player is free / I block the level / Once the drawing / Another bonus",
+      "source_type": "primary_development_post",
+      "access_status": "text_read",
+      "observation": "Writers and artist establish routes, elevation and asymmetric composition; block-ins test scale. Shape layers permit texture without losing edges.",
+      "interpretation": "Composition and play routes are developed together, not decorated independently.",
+      "design_consequence": "Review path layout and value masses before detail. Preserve material boundaries beneath expressive paint. See AD-01 and AD-02.",
+      "topics": [
+        "composition",
+        "scale",
+        "production",
+        "edges"
+      ],
+      "limitations": "Development workflow, not proof of final runtime behavior. Original inline process pictures were not separately inspected; DE-08 is the credited finished concept."
+    },
+    {
+      "id": "DE-02",
+      "creator": "Aleksander Rostov / ZA/UM",
+      "title": "Gorgeous ground",
+      "url": "https://discoelysium.com/devblog/2016/03/29/gorgeous-ground",
+      "access_date": "2026-09-29",
+      "locator": "2016-03-29; paragraphs on Blender underpaint, displacement/normal masking and beach clutter",
+      "source_type": "primary_development_post",
+      "access_status": "text_read",
+      "observation": "Rendered underpainting combines surface patterns, worn paths and clutter before painting.",
+      "interpretation": "Travel and repeated labor can become visible material history.",
+      "design_consequence": "Author path wear from actual destination/use; no universal noise texture. The described Blender shader is reference technique, not a selected Silmarillion pipeline.",
+      "topics": [
+        "terrain",
+        "materials",
+        "texture",
+        "production"
+      ],
+      "limitations": "Text inspected; node diagram and original ground images not inspected."
+    },
+    {
+      "id": "DE-03",
+      "creator": "ZA/UM art team; individual image credit unspecified",
+      "title": "Official media: climbing screenshot",
+      "url": "https://discoelysium.com/media",
+      "access_date": "2026-09-29",
+      "locator": "Screenshots carousel; screenshot_climbing.jpg; 2560×1440 image viewed fitted to 1280×720 browser viewport",
+      "source_type": "official_game_screenshot",
+      "access_status": "image_visually_inspected",
+      "observation": "A small figure sits within a large statue, vehicles, rails and diagonal routes; quiet road tones organize dense props.",
+      "interpretation": "Landmarks and circulation carry hierarchy before character detail.",
+      "design_consequence": "Use broad terrain routes and a few silhouette landmarks; reserve portrait detail for inspection. AD-03.",
+      "topics": [
+        "isometric",
+        "hierarchy",
+        "scale",
+        "negative_space",
+        "props"
+      ],
+      "image_url": "https://res.cloudinary.com/disco-elysium/images/w_2560,h_1440,c_scale/f_auto,q_auto/v1607616920/screenshot_climbing/screenshot_climbing.jpg?_i=AA",
+      "limitations": "Published game image, build/version unspecified; no game executable inspected."
+    },
+    {
+      "id": "DE-04",
+      "creator": "ZA/UM art team; individual image credit unspecified",
+      "title": "Official media: interior meeting screenshot",
+      "url": "https://discoelysium.com/media",
+      "access_date": "2026-09-29",
+      "locator": "Screenshots carousel; screenshot_communist-room.jpg; 2560×1440 image viewed fitted to 1280×720",
+      "source_type": "official_game_screenshot",
+      "access_status": "image_visually_inspected",
+      "observation": "Warm amber people, rug and seating occupy a light island surrounded by violet-blue broken floor and deep shadow.",
+      "interpretation": "Warmth can locate fragile social shelter without erasing damage.",
+      "design_consequence": "Compose shelter as a limited warm pool; keep surrounding shadow chromatic and traversable surfaces readable. AD-04.",
+      "topics": [
+        "lighting",
+        "palette",
+        "negative_space",
+        "interiors",
+        "storytelling"
+      ],
+      "image_url": "https://res.cloudinary.com/disco-elysium/images/w_2560,h_1440,c_scale/f_auto,q_auto/v1607616942/screenshot_communist-room/screenshot_communist-room.jpg?_i=AA",
+      "limitations": "Filename identifies the reference setting, not an institution to import; no historical claim about Silmarillion follows."
+    },
+    {
+      "id": "DE-05",
+      "creator": "ZA/UM art and interface teams; individual image credit unspecified",
+      "title": "Official media: Doom Spiral dialogue screenshot",
+      "url": "https://discoelysium.com/media",
+      "access_date": "2026-09-29",
+      "locator": "Screenshots carousel; de-doomspiral_251673110.jpg; 3840×2160 image viewed fitted to 1280×720; right dialogue panel and bottom controls",
+      "source_type": "official_game_screenshot",
+      "access_status": "image_visually_inspected",
+      "observation": "The right dark text column separates portrait, speaker names and numbered choices. Small bottom icons coexist with a large scene; clothing accents separate nearby figures.",
+      "interpretation": "Reading has a stable home; expression is carried at two scales.",
+      "design_consequence": "Provide an opaque reading surface, plain action labels and separate portraits; enlarge targets independently of map artwork. AD-05 and AD-06.",
+      "topics": [
+        "dialogue",
+        "typography",
+        "icons",
+        "information_density",
+        "clothing"
+      ],
+      "image_url": "https://res.cloudinary.com/disco-elysium/images/f_auto,q_auto/v1607347216/de-doomspiral_251673110/de-doomspiral_251673110.jpg?_i=AA",
+      "limitations": "Font family and contrast values were not measured. Small labels are not an accessibility standard. Screenshot dialogue is not copied into examples."
+    },
+    {
+      "id": "DE-06",
+      "creator": "ZA/UM art and interface teams; individual image credit unspecified",
+      "title": "Official media: character sheet screenshot",
+      "url": "https://discoelysium.com/media",
+      "access_date": "2026-09-29",
+      "locator": "Screenshots carousel; disco_elysium_skills-1.jpg; 2560×1440 fitted to 1280×720; selected Authority tile, detail pane and action row",
+      "source_type": "official_game_screenshot",
+      "access_status": "image_visually_inspected",
+      "observation": "A dense illustrated grid has repeated label/number positions; a bright border selects one tile, with larger art and details beside it. Headings appear sans serif; descriptive text appears serif.",
+      "interpretation": "Repetition assists scanning, but dense pictures and small capitals need deliberate readability checks.",
+      "design_consequence": "Use progressive disclosure for hero progression; selection requires border, text/state and focus, not hue alone. AD-07.",
+      "topics": [
+        "selection",
+        "typography",
+        "density",
+        "portraits",
+        "panels"
+      ],
+      "image_url": "https://res.cloudinary.com/disco-elysium/images/w_2560,h_1440,c_scale/f_auto,q_auto/v1607629543/disco_elysium_skills-1/disco_elysium_skills-1.jpg?_i=AA",
+      "limitations": "No exact font identification; no copied skill pictures, four-attribute grid or inner-voice taxonomy."
+    },
+    {
+      "id": "DE-07",
+      "creator": "Aleksander Rostov",
+      "title": "Disco Elysium Archetypes",
+      "url": "https://rostovjanka.artstation.com/projects/6aAL8x",
+      "access_date": "2026-09-29",
+      "locator": "Archetypes together, 1920×882 image; Logician, Sensitive and Physical captions",
+      "source_type": "primary_artist_portfolio",
+      "access_status": "text_and_image_inspected",
+      "observation": "Related faces differ through gaze, shoulder angle and hands; cyan, violet and red fields frame selectively sharp features and broken outer edges.",
+      "interpretation": "A portrait can communicate a state of mind through gesture and paint, without a literal icon for every trait.",
+      "design_consequence": "Give each hero an original posture, focal feature, material clue and controlled accent field; preserve likeness across scale variants. AD-08.",
+      "topics": [
+        "portraits",
+        "anatomy",
+        "expression",
+        "silhouette",
+        "brushwork"
+      ],
+      "image_url": "https://cdnb.artstation.com/p/assets/images/images/026/371/685/large/aleksander-rostov-archetypes-laid-out.jpg?1588607325",
+      "limitations": "Only the combined image and page captions inspected; individual high-resolution crops not examined. Do not reproduce Harry Du Bois likeness or clothing."
+    },
+    {
+      "id": "DE-08",
+      "creator": "Aleksander Rostov",
+      "title": "Disco Elysium Village",
+      "url": "https://rostovjanka.artstation.com/projects/QERm4",
+      "access_date": "2026-09-29",
+      "locator": "Single fishing-village concept; 1920×980; signed No Truce / Fishing Village, 02/2016",
+      "source_type": "primary_artist_portfolio_concept",
+      "access_status": "text_and_image_inspected",
+      "observation": "Asymmetric houses and a jetty frame a broad work court. Blue tarp, ochre boat and a red shed interrupt cold sea and snow; repairs expose differing materials.",
+      "interpretation": "Settlement life is readable through working connections and accumulated repair.",
+      "design_consequence": "Production sites need entrances, yards, access routes and signs of maintenance specific to their economy. AD-09.",
+      "topics": [
+        "settlements",
+        "palette",
+        "materials",
+        "routes",
+        "environmental_storytelling"
+      ],
+      "image_url": "https://cdnb.artstation.com/p/assets/images/images/002/447/399/large/aleksander-rostov-fishing-village.jpg?1461843283",
+      "limitations": "Concept art, not a released level or canonical Silmarillion plan. No reference image copied into repository production assets."
+    },
+    {
+      "id": "DE-09",
+      "creator": "Mikk Metsniit / ZA/UM",
+      "title": "FELD PLAYBACK EXPERIMENT",
+      "url": "https://discoelysium.com/devblog/2016/12/20/feld-playback-experiment",
+      "access_date": "2026-09-29",
+      "locator": "2016-12-20; paragraphs defining the menu device and dice feedback",
+      "source_type": "primary_development_post",
+      "access_status": "text_read",
+      "observation": "An invented tape-computer metaphor organizes menus; the post describes tape motion, subtle result lighting and delicate sound.",
+      "interpretation": "Material metaphor can unify feedback while remaining subordinate to reading.",
+      "design_consequence": "Transform the principle into restrained craft and archive cues; reject the Feld device and tape aesthetic. AD-10.",
+      "topics": [
+        "interface",
+        "feedback",
+        "motion",
+        "sound"
+      ],
+      "limitations": "Development description only; described sound and animation were not listened to or played in this session."
+    },
+    {
+      "id": "DE-10",
+      "creator": "Markus Härma / ZA/UM",
+      "title": "From Render to Paintover",
+      "url": "https://discoelysium.com/devblog/2019/01/23/from-render-to-paintover",
+      "access_date": "2026-09-29",
+      "locator": "2019-01-23; paragraphs on realtime objects, creek planes, water plants and final land treatment",
+      "source_type": "primary_development_post",
+      "access_status": "text_read",
+      "observation": "The post separates changing objects from painted backgrounds and describes region-composed water, vegetation and ambient movement.",
+      "interpretation": "Still painting and selective movement can coexist without animating every surface.",
+      "design_consequence": "Specify moving and static layers separately; reserve movement for causally meaningful activity and quiet atmosphere. AD-11.",
+      "topics": [
+        "motion",
+        "layers",
+        "water",
+        "lighting",
+        "regional_variation"
+      ],
+      "limitations": "Text read; embedded animation playback not inspected. Technique does not select an engine or shader implementation."
+    },
+    {
+      "id": "DE-11",
+      "creator": "Markus Rondo / ZA/UM",
+      "title": "Audio & Action",
+      "url": "https://discoelysium.com/devblog/2016/08/02/audio-action",
+      "access_date": "2026-09-29",
+      "locator": "2016-08-02; repetition/crossfade discussion, sound map and dialogue stage directions",
+      "source_type": "primary_development_post",
+      "access_status": "text_read",
+      "observation": "Position triggers shape ambience; repeated effects require explicit handling, and dialogue can sequence actions.",
+      "interpretation": "Audio needs spatial and interaction rules, not only a music playlist.",
+      "design_consequence": "Define calm regional ambience, distinct confirmations and repeated-action throttling; preserve equivalent visual information and mute controls. AD-12.",
+      "topics": [
+        "sound",
+        "motion",
+        "dialogue",
+        "feedback"
+      ],
+      "limitations": "Pipeline intent only. No listening test, loudness measurement or final-game audio behavior verified; do not require the named middleware."
+    },
+    {
+      "id": "DE-12",
+      "creator": "Justin Keenan / ZA/UM; GDC 2021",
+      "title": "Disco Elysium: Meaningless Choices and Impractical Advice",
+      "url": "https://gdcvault.com/play/1027160/-Disco-Elysium-Meaningless-Choices",
+      "access_date": "2026-09-29",
+      "locator": "Official video samples: approximately 00:10 title/introduction; 05:46 micro-reactivity slide; 11:53 looping dialogue graph; 19:39 class-symmetry example. Duration displayed approximately 31:47.",
+      "source_type": "primary_developer_talk",
+      "access_status": "description_read_and_video_frames_sampled",
+      "observation": "Sampled slides/captions establish small-choice reactivity and dialogue structure as design subjects; the description identifies branching design and production effort.",
+      "interpretation": "Narrative consequences need deliberate scope and continuity tracking.",
+      "design_consequence": "Track a small set of authored memories and test their later references; do not promise unlimited reactive prose. AD-13.",
+      "topics": [
+        "narrative",
+        "memory",
+        "branching",
+        "production"
+      ],
+      "player_url": "https://gdcvault.blazestreaming.com/?id=345081f081924e16ab9a4b80c2f255aa",
+      "limitations": "Not watched end-to-end and not listened to. Samples were paused frames/captions; broader claims are attributed separately to DE-13. Alternate official dev.gdcvault.com endpoint returned 502; canonical gdcvault.com page/player worked."
+    },
+    {
+      "id": "DE-13",
+      "creator": "ikesau.co transcription of Justin Keenan; transcriber attribution not established",
+      "title": "justin keenan: meaningless choices and impractical advice",
+      "url": "https://ikesau.co/justin-keenan-meaningless-choices-and-impractical-advice/",
+      "access_date": "2026-09-29",
+      "locator": "Article body under Meaningless Choices and Impractical Advice; sections on micro-reactivity, rhetorical structure, signaling and radical asymmetry",
+      "source_type": "secondary_transcription_of_primary_talk",
+      "access_status": "full_transcription_read",
+      "observation": "The transcript describes distinctive people beyond their quest function, small-choice callbacks, expressive branch shapes, restrained signaling and unequal narrative experiences.",
+      "interpretation": "These principles concern authored experience; they do not justify opaque strategy rules or arbitrary balance.",
+      "design_consequence": "Transform selective signaling: keep interpretive dialogue open while disclosing all commitment costs and prerequisites. AD-14 and AD-15.",
+      "topics": [
+        "narrative",
+        "humor",
+        "branching",
+        "asymmetry",
+        "information"
+      ],
+      "limitations": "Third-party transcription, not an official transcript. Only sampled elements were cross-checked with DE-12; no verbatim dialogue reused."
+    },
+    {
+      "id": "DE-14",
+      "creator": "Justin Keenan interviewed by Eva Padilla / RPGFan",
+      "title": "Dream Quests and Desires: An Interview with Disco Elysium’s Justin Keenan",
+      "url": "https://www.rpgfan.com/feature/dream-quests-and-desires-an-interview-with-disco-elysiums-justin-keenan/",
+      "access_date": "2026-09-29",
+      "locator": "2021-05-06; answers on Final Cut, political setting, accessibility and Harry as character",
+      "source_type": "primary_developer_interview_in_secondary_publication",
+      "access_status": "text_read",
+      "observation": "Keenan describes a protagonist with an interior life, rejects simple good/bad/sarcastic choice categories, and discusses place-specific material realities.",
+      "interpretation": "Psychological specificity can deepen identification without a blank-slate hero.",
+      "design_consequence": "Write original contradictions, memories and obligations for fixed faction heroes; translate politics into this project’s oaths, stewardship and possession. AD-16.",
+      "topics": [
+        "voice",
+        "psychology",
+        "politics",
+        "identity"
+      ],
+      "limitations": "Developer answers are primary testimony; the interviewer’s art comparisons and praise are secondary interpretation, not used as facts."
+    },
+    {
+      "id": "DE-15",
+      "creator": "Robert Kurvitz interviewed by Izual / Canard PC; translation Steph Noviss; official repost by Dani",
+      "title": "Choose Your Own Misadventure – Part 2",
+      "url": "https://discoelysium.com/devblog/2019/07/23/choose-your-own-misadventure-part-2",
+      "access_date": "2026-09-29",
+      "locator": "2019-07-23; first answer on failure; answers on comic/tragic bodily experience and fragmentary world knowledge",
+      "source_type": "primary_developer_interview_official_repost",
+      "access_status": "text_read",
+      "observation": "Kurvitz frames failure as revealing character and changing later interactions; comedy and tragedy coexist, and world knowledge can be fragmentary.",
+      "interpretation": "A setback can retain narrative value while having real consequences.",
+      "design_consequence": "After loss, show a concrete remembered consequence and next available path. Keep rule explanations complete even when testimony is uncertain. AD-17.",
+      "topics": [
+        "failure",
+        "humor",
+        "grief",
+        "voice",
+        "uncertainty"
+      ],
+      "limitations": "Pre-release design interview, not proof every shipped failure behaves this way; the copied examples and dialogue are not reused."
+    },
+    {
+      "id": "DE-16",
+      "creator": "Aleksander Rostov and Robert Kurvitz interviewed by Erik Meyer / Indiegraze; official repost by Bogdan Aksenenko",
+      "title": "Intriguing Indigraze Interview",
+      "url": "https://discoelysium.com/devblog/2017/08/02/intriguing-indigraze-interview",
+      "access_date": "2026-09-29",
+      "locator": "2017-08-02; paragraphs on fragmented hue, accumulated history and modified old houses",
+      "source_type": "primary_developer_interview_official_repost",
+      "access_status": "text_read",
+      "observation": "Developers describe complementary hue fragments within nominally plain surfaces, and history retained through adapted structures.",
+      "interpretation": "Chromatic complexity and practical reuse can express time without uniform decay.",
+      "design_consequence": "Paint local hue variation within stable value groups; show care, repair and changing use as well as ruin. AD-18 and AD-19.",
+      "topics": [
+        "palette",
+        "memory",
+        "materials",
+        "history",
+        "regional_variation"
+      ],
+      "limitations": "Early development discussion; political institutions and thought mechanics are not Silmarillion requirements."
+    },
+    {
+      "id": "DE-17",
+      "creator": "Dani / ZA/UM",
+      "title": "Jamais Vu Update & huge thanks for 2021!",
+      "url": "https://discoelysium.com/devblog/2022/02/07/jamais-vu-update-huge-thanks-for-2021",
+      "access_date": "2026-09-29",
+      "locator": "2022-02-07; retrospective bullet list of Final Cut additions",
+      "source_type": "primary_release_retrospective",
+      "access_status": "text_read",
+      "observation": "The retrospective lists controller support, larger text options, full English voiceover and additional music.",
+      "interpretation": "Reading-heavy interfaces require presentation options; a screenshot cannot certify accessibility.",
+      "design_consequence": "Validate text scaling and alternate controls independently of art approval. Never make narration the only information channel. AD-20.",
+      "topics": [
+        "accessibility",
+        "sound",
+        "controls",
+        "typography"
+      ],
+      "limitations": "Feature announcement; no accessibility compliance or actual option behavior measured."
+    },
+    {
+      "id": "DE-18",
+      "creator": "Justin Keenan / GDC",
+      "title": "Meaningless Choices and Impractical Advice slide PDF",
+      "url": "https://media.gdcvault.com/GDC%2B2021/GDC%2B2021%2BUpdated%2BTemplates.pdf",
+      "access_date": "2026-09-29",
+      "locator": "Search-indexed title; direct web fetch returned HTTP 403",
+      "source_type": "primary_talk_slides",
+      "access_status": "inaccessible",
+      "observation": "The PDF could not be retrieved with the web reader.",
+      "interpretation": "No claim about its pages or full slide content is justified.",
+      "design_consequence": "Use DE-12’s accessible official video samples and keep the missing PDF access explicit.",
+      "topics": [
+        "access_limit"
+      ],
+      "limitations": "Not read; search title alone is not content evidence."
+    },
+    {
+      "id": "DE-19",
+      "creator": "ZA/UM art team; individual image credit unspecified",
+      "title": "Official media: wakeup room screenshot",
+      "url": "https://discoelysium.com/media",
+      "access_date": "2026-09-29",
+      "locator": "First screenshot; de-wakeup_2376311b5.jpg; viewed in official carousel at approximately 748×414",
+      "source_type": "official_game_screenshot",
+      "access_status": "image_visually_inspected",
+      "observation": "A cutaway room groups discarded clothes, damaged furnishings and a lone figure around a bright floor path; surrounding black isolates the interior.",
+      "interpretation": "Objects can establish a prior event before exposition.",
+      "design_consequence": "Use a small set of causal props in inspection scenes; do not spread equal detail over every surface. AD-21.",
+      "topics": [
+        "environmental_storytelling",
+        "objects",
+        "composition"
+      ],
+      "image_url": "https://res.cloudinary.com/disco-elysium/images/f_auto,q_auto/v1607593984/de-wakeup_2376311b5/de-wakeup_2376311b5.jpg?_i=AA",
+      "limitations": "Promotional screenshot; observed at carousel size, not a pixel-level material analysis."
+    },
+    {
+      "id": "DE-20",
+      "creator": "Aleksander Rostov",
+      "title": "Portfolio index",
+      "url": "https://rostovjanka.artstation.com/",
+      "access_date": "2026-09-29",
+      "locator": "Project list: Disco Elysium Village and Disco Elysium Archetypes",
+      "source_type": "primary_artist_portfolio_index",
+      "access_status": "text_read",
+      "observation": "The index credits Rostov as art director and links the two inspected projects.",
+      "interpretation": "Creator attribution must follow a credited page, not an unattributed image board.",
+      "design_consequence": "Preserve creator, project page and image locator whenever adding a reference.",
+      "topics": [
+        "provenance"
+      ],
+      "limitations": "Other listed artwork was not inspected or used as evidence."
+    }
+  ]
+}

@@ -10,7 +10,7 @@ Paid jobs still need their resources, people, queues and source access. Producti
 
 **Ordinary interface information stays universal.** Known costs, prerequisites, inventory, repair needs and observed report times are visible to everyone. Intelligence perks reveal additional world evidence or preserve information; they never require hiding basic controls or known facts from other factions.
 
-**Reading order:** Valar; Elven clans, kingdoms and other peoples; named Istari; generic Istari, other Maiar and guardians; Melkor's two doctrines. Faction production and hero recipes remain in `silmarillion-game-report.md`. The machine-readable companion is `hero-balance-roster.json`.
+**Reading order:** Valar; Elven clans, kingdoms and other peoples; named Istari; generic Istari, other Maiar and guardians; Melkor's two doctrines. Faction production and hero recipes remain in `docs/design/silmarillion-game-report.md`. The machine-readable companion is `hero-balance-roster.json`.
 
 ## Valar
 

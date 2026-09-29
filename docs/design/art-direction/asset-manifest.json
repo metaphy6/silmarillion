@@ -1,0 +1,3754 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-29",
+  "status": "Concept resource package; no full production inventory claim",
+  "token_source": "tokens.json",
+  "asset_contracts": {
+    "character": {
+      "master": [
+        1024,
+        1280
+      ],
+      "format": "PNG RGBA for standalone portrait; portrait layers; linked world-figure study"
+    },
+    "settlement": {
+      "master": [
+        3840,
+        2160
+      ],
+      "format": "PNG layered environment; footprint and occlusion metadata"
+    },
+    "production": {
+      "master": [
+        1024,
+        1024
+      ],
+      "format": "PNG RGBA building; input/output/entry layers"
+    },
+    "army": {
+      "master": [
+        256,
+        256
+      ],
+      "format": "PNG RGBA figure; separate identity/selection/ownership"
+    },
+    "artifact": {
+      "master": [
+        1024,
+        1024
+      ],
+      "format": "PNG RGBA or authored SVG; history/condition metadata"
+    },
+    "magic": {
+      "master": [
+        512,
+        512
+      ],
+      "format": "RGBA concept plus vector warning boundary"
+    },
+    "terrain": {
+      "master": [
+        3840,
+        2160
+      ],
+      "format": "RGB terrain plus separate traversal/evidence data"
+    }
+  },
+  "assets": [
+    {
+      "id": "sm-faction-portraits-v1",
+      "path": "gallery/art/faction-portraits-v1.png",
+      "purpose": "Rohan, Aulë and Dark Architect comparison; full bodies are enlarged studies.",
+      "status": "concept-reviewed",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "1536:1024",
+      "alpha": false,
+      "layers": "flattened RGB painting",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "built-in image_gen",
+        "date": "2026-09-29",
+        "prompt_ref": "generation-prompts.md#factions",
+        "source_inputs": [],
+        "sha256": "ca9988f9bd58770cd5ecd6494b89098c2d9863d6c5bc31fbdd4b65a8fedf4e43",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-horse-crest-v1",
+      "path": "gallery/art/horse-crest-v1.svg",
+      "purpose": "Original schematic iron component with copper repair; not a canonical relic.",
+      "status": "schematic-reviewed",
+      "source_type": "original-vector",
+      "format": "svg",
+      "width": 320,
+      "height": 320,
+      "aspect_ratio": "320:320",
+      "alpha": false,
+      "layers": "editable SVG groups",
+      "palette_refs": [
+        "tokens.json",
+        "art-bible.md"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "authored SVG",
+        "date": "2026-09-29",
+        "prompt_ref": "templates.md",
+        "source_inputs": [],
+        "sha256": "7148d7b7eb3bbd6b002f0f67160cd55cf7d0f5f8ad8c8033aceed45808a7944a",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-local-stead-v1",
+      "path": "gallery/art/local-stead-v1.png",
+      "purpose": "Rohan production worksite; flattened concept, workers not calibrated sprites.",
+      "status": "concept-reviewed",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "aspect_ratio": "1672:941",
+      "alpha": false,
+      "layers": "flattened RGB painting",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "built-in image_gen",
+        "date": "2026-09-29",
+        "prompt_ref": "generation-prompts.md#local",
+        "source_inputs": [],
+        "sha256": "69a0de7ac5b8da2846f0fbe605e2c27c51b9315eddff7b1c3063df2d028d0b7c",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-review-examples-v1",
+      "path": "gallery/art/review-examples-v1.svg",
+      "purpose": "Annotated pass/fail teaching image; right side deliberately violates rules.",
+      "status": "schematic-reviewed",
+      "source_type": "original-vector",
+      "format": "svg",
+      "width": 1200,
+      "height": 540,
+      "aspect_ratio": "1200:540",
+      "alpha": false,
+      "layers": "editable SVG groups",
+      "palette_refs": [
+        "tokens.json",
+        "art-bible.md"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "authored SVG",
+        "date": "2026-09-29",
+        "prompt_ref": "templates.md",
+        "source_inputs": [],
+        "sha256": "72ca0c069edf22cb8b55ec31f3426b74ecaff8f3bc9a169fa86807e445fa85f7",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-sandbox-map-v1",
+      "path": "gallery/art/sandbox-map-v1.svg",
+      "purpose": "Invented basin topology; functional overlays separate in gallery HTML.",
+      "status": "schematic-reviewed",
+      "source_type": "original-vector",
+      "format": "svg",
+      "width": 1000,
+      "height": 650,
+      "aspect_ratio": "1000:650",
+      "alpha": false,
+      "layers": "editable SVG groups",
+      "palette_refs": [
+        "tokens.json",
+        "art-bible.md"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "authored SVG",
+        "date": "2026-09-29",
+        "prompt_ref": "templates.md",
+        "source_inputs": [],
+        "sha256": "b64ea9a14b952e0690ba8a4df28a02c5ead339552521ae6e0af30e683c330714",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-strategic-rohan-v1",
+      "path": "gallery/art/strategic-rohan-v1.png",
+      "purpose": "Landscape-dominant grassland basin, invented sandbox composition.",
+      "status": "concept-reviewed",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "aspect_ratio": "1672:941",
+      "alpha": false,
+      "layers": "flattened RGB painting",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "built-in image_gen",
+        "date": "2026-09-29",
+        "prompt_ref": "generation-prompts.md#strategic",
+        "source_inputs": [],
+        "sha256": "b20ee728231df80ba4c76ebdcd5a9573e17c5f43bc5f6c8f3b720471142f019b",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-world-figures-v1",
+      "path": "gallery/art/world-figures-v1.svg",
+      "purpose": "Original vector silhouette strip; 14px display/44px selection study.",
+      "status": "schematic-reviewed",
+      "source_type": "original-vector",
+      "format": "svg",
+      "width": 144,
+      "height": 48,
+      "aspect_ratio": "144:48",
+      "alpha": true,
+      "layers": "editable SVG groups",
+      "palette_refs": [
+        "tokens.json",
+        "art-bible.md"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "authored SVG",
+        "date": "2026-09-29",
+        "prompt_ref": "templates.md",
+        "source_inputs": [],
+        "sha256": "e63f7901c59bd898da53c8babe809bbb4493b81363cdfa0c13199c3c737805be",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-dialogue-1440",
+      "path": "gallery/evidence/dialogue-1440.png",
+      "purpose": "Rendered documentation evidence: dialogue-1440",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1440,
+      "height": 923,
+      "aspect_ratio": "1440:923",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "129aac11f6d3c3fe95925915b55b5b47aab7347e493302a88f1aff7db9860504",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-factions-1440",
+      "path": "gallery/evidence/factions-1440.png",
+      "purpose": "Rendered documentation evidence: factions-1440",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1440,
+      "height": 903,
+      "aspect_ratio": "1440:903",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "a39c1694766b4826372d2a6f197bb3ad58ee76a9ae6403a5e1810b8dcae07833",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-keyboard-focus-1440",
+      "path": "gallery/evidence/keyboard-focus-1440.png",
+      "purpose": "Rendered documentation evidence: keyboard-focus-1440",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1440,
+      "height": 902,
+      "aspect_ratio": "1440:902",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "1d347f0a69bab29fccd2b81227d83afc93cbd95218fbacebdcd76e6c5e8226ac",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-local-1024-text200",
+      "path": "gallery/evidence/local-1024-text200.png",
+      "purpose": "Rendered documentation evidence: local-1024-text200",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1024,
+      "height": 2372,
+      "aspect_ratio": "1024:2372",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "bbe974e6b0333b64bfe27450e816d5045e03e7a00f40263d624607702c0259d0",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-local-1440",
+      "path": "gallery/evidence/local-1440.png",
+      "purpose": "Rendered documentation evidence: local-1440",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1440,
+      "height": 902,
+      "aspect_ratio": "1440:902",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "9b167a9a563b1ce5c779cb48b01d47c0b78493524875397fc83fd24b940150e8",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-map-1440",
+      "path": "gallery/evidence/map-1440.png",
+      "purpose": "Rendered documentation evidence: map-1440",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1440,
+      "height": 1052,
+      "aspect_ratio": "1440:1052",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "ec8d96e6a978e7b6637b3fb28a53de51b488fb8884e30316a66b74b6b02c34a5",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-review-examples-1200",
+      "path": "gallery/evidence/review-examples-1200.png",
+      "purpose": "Rendered documentation evidence: review-examples-1200",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1200,
+      "height": 540,
+      "aspect_ratio": "1200:540",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "05ddb42149f04bbf3270c36dd44594f19cdc4df7d57c792a7db62d95a33c9d8d",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    },
+    {
+      "id": "sm-strategic-1440",
+      "path": "gallery/evidence/strategic-1440.png",
+      "purpose": "Rendered documentation evidence: strategic-1440",
+      "status": "rendered-evidence",
+      "source_type": "rendered-evidence",
+      "format": "png",
+      "width": 1440,
+      "height": 902,
+      "aspect_ratio": "1440:902",
+      "alpha": false,
+      "layers": "flattened rendered screenshot",
+      "palette_refs": [
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex / Astra, original authored design",
+        "tool": "Playwright with installed Chromium",
+        "date": "2026-09-29",
+        "prompt_ref": "render-gallery.mjs",
+        "source_inputs": [
+          "gallery/index.html",
+          "gallery/gallery.css",
+          "gallery/gallery.js"
+        ],
+        "sha256": "e5ec24a3720bfc52df62487a51e373d87578fb67b7c7730e126b02c7bfc69af2",
+        "rights_note": "Original conceptual work within a Tolkien-based project; no third-party reference pixels imported and no commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "File exists; dimensions and SHA256 measured; concept-only status explicit.",
+        "Visually inspected in composed gallery; see verification.md for limits."
+      ]
+    }
+  ],
+  "production_requirements": [
+    {
+      "profile_id": "manwe",
+      "faction": "Manwë's highlands",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#manwe",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-manwe-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-manwe-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-manwe-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-manwe-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-manwe-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-manwe-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-manwe-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "varda",
+      "faction": "Varda's beacon settlements",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#varda",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-varda-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-varda-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-varda-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-varda-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-varda-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-varda-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-varda-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "ulmo",
+      "faction": "Ulmo's waterside enclaves",
+      "family": "river-sea",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#ulmo",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-ulmo-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-ulmo-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-ulmo-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-ulmo-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-ulmo-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-ulmo-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-ulmo-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "aule",
+      "faction": "Aulë's workshops",
+      "family": "worked-stone",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#aule",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-aule-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-aule-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-aule-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-aule-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-aule-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-aule-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-aule-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "yavanna",
+      "faction": "Yavanna's living groves",
+      "family": "living-refuge",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#yavanna",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-yavanna-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-yavanna-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-yavanna-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-yavanna-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-yavanna-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-yavanna-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-yavanna-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "namo",
+      "faction": "Mandos's sanctuary halls",
+      "family": "memory-threshold",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#namo",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-namo-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-namo-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-namo-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-namo-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-namo-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-namo-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-namo-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "irmo",
+      "faction": "Lórien's dream gardens",
+      "family": "living-refuge",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#irmo",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-irmo-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-irmo-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-irmo-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-irmo-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-irmo-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-irmo-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-irmo-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "nienna",
+      "faction": "Nienna's refuge cloisters",
+      "family": "memory-threshold",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#nienna",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-nienna-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-nienna-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-nienna-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-nienna-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-nienna-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-nienna-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-nienna-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "orome",
+      "faction": "Oromë's frontier lodges",
+      "family": "path-and-pursuit",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#orome",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-orome-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-orome-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-orome-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-orome-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-orome-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-orome-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-orome-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "tulkas",
+      "faction": "Tulkas's muster grounds",
+      "family": "mortal-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#tulkas",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-tulkas-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-tulkas-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-tulkas-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-tulkas-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-tulkas-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-tulkas-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-tulkas-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "nessa",
+      "faction": "Nessa's relay settlements",
+      "family": "path-and-pursuit",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#nessa",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-nessa-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-nessa-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-nessa-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-nessa-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-nessa-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-nessa-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-nessa-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "vana",
+      "faction": "Vána's bloom nurseries",
+      "family": "living-refuge",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#vana",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-vana-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-vana-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-vana-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-vana-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-vana-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-vana-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-vana-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "este",
+      "faction": "Estë's healing refuges",
+      "family": "living-refuge",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#este",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-este-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-este-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-este-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-este-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-este-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-este-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-este-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "vaire",
+      "faction": "Vairë's archive halls",
+      "family": "memory-threshold",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#vaire",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-vaire-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-vaire-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-vaire-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-vaire-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-vaire-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-vaire-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-vaire-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_vanyar",
+      "faction": "Vanyar",
+      "family": "elven-house",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_vanyar",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-vanyar-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-vanyar-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-vanyar-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-vanyar-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-vanyar-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-vanyar-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-vanyar-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_feanor",
+      "faction": "House of Fëanor",
+      "family": "worked-stone",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_feanor",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-feanor-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-feanor-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-feanor-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-feanor-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-feanor-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-feanor-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-feanor-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_fingolfin",
+      "faction": "House of Fingolfin",
+      "family": "elven-house",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_fingolfin",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-fingolfin-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-fingolfin-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-fingolfin-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-fingolfin-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-fingolfin-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-fingolfin-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-fingolfin-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_finarfin",
+      "faction": "House of Finarfin",
+      "family": "elven-house",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_finarfin",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-finarfin-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-finarfin-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-finarfin-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-finarfin-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-finarfin-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-finarfin-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-finarfin-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_falmari",
+      "faction": "Falmari",
+      "family": "river-sea",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_falmari",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-falmari-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-falmari-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-falmari-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-falmari-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-falmari-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-falmari-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-falmari-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_sindar",
+      "faction": "Sindar",
+      "family": "elven-house",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_sindar",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-sindar-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-sindar-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-sindar-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-sindar-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-sindar-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-sindar-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-sindar-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_nandor",
+      "faction": "Nandor",
+      "family": "path-and-pursuit",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_nandor",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-nandor-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-nandor-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-nandor-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-nandor-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-nandor-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-nandor-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-nandor-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "elf_avari",
+      "faction": "Avari clan",
+      "family": "path-and-pursuit",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#elf_avari",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-elf-avari-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-elf-avari-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-elf-avari-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-elf-avari-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-elf-avari-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-elf-avari-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-elf-avari-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "human_gondor",
+      "faction": "Gondor",
+      "family": "mortal-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#human_gondor",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-human-gondor-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-human-gondor-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-human-gondor-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-human-gondor-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-human-gondor-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-human-gondor-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-human-gondor-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "human_rohan",
+      "faction": "Rohan",
+      "family": "mortal-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#human_rohan",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-human-rohan-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-human-rohan-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-human-rohan-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-human-rohan-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-human-rohan-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-human-rohan-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-human-rohan-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "human_numenor",
+      "faction": "Númenor",
+      "family": "river-sea",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#human_numenor",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-human-numenor-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-human-numenor-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-human-numenor-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-human-numenor-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-human-numenor-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-human-numenor-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-human-numenor-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "dwarf_khazad_dum",
+      "faction": "Khazad-dûm",
+      "family": "worked-stone",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#dwarf_khazad_dum",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-dwarf-khazad-dum-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-dwarf-khazad-dum-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-dwarf-khazad-dum-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-dwarf-khazad-dum-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-dwarf-khazad-dum-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-dwarf-khazad-dum-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-dwarf-khazad-dum-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "dwarf_belegost",
+      "faction": "Belegost",
+      "family": "worked-stone",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#dwarf_belegost",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-dwarf-belegost-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-dwarf-belegost-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-dwarf-belegost-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-dwarf-belegost-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-dwarf-belegost-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-dwarf-belegost-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-dwarf-belegost-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "dwarf_nogrod",
+      "faction": "Nogrod",
+      "family": "worked-stone",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#dwarf_nogrod",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-dwarf-nogrod-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-dwarf-nogrod-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-dwarf-nogrod-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-dwarf-nogrod-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-dwarf-nogrod-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-dwarf-nogrod-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-dwarf-nogrod-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "orc_fortress_clan",
+      "faction": "Orc fortress-clan",
+      "family": "dominion-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#orc_fortress_clan",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-orc-fortress-clan-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-orc-fortress-clan-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-orc-fortress-clan-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-orc-fortress-clan-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-orc-fortress-clan-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-orc-fortress-clan-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-orc-fortress-clan-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "hobbit_shire",
+      "faction": "Hobbit Shire",
+      "family": "commons",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#hobbit_shire",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-hobbit-shire-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-hobbit-shire-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-hobbit-shire-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-hobbit-shire-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-hobbit-shire-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-hobbit-shire-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-hobbit-shire-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "troll_hold",
+      "faction": "Troll Hold",
+      "family": "embodied-wild",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#troll_hold",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-troll-hold-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-troll-hold-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-troll-hold-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-troll-hold-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-troll-hold-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-troll-hold-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-troll-hold-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "wolf_pack",
+      "faction": "Wolf Pack",
+      "family": "embodied-wild",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#wolf_pack",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-wolf-pack-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-wolf-pack-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-wolf-pack-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-wolf-pack-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-wolf-pack-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-wolf-pack-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-wolf-pack-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_gandalf",
+      "faction": "Gandalf's Fellowship",
+      "family": "commons",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_gandalf",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-gandalf-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-gandalf-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-gandalf-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-gandalf-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-gandalf-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-gandalf-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-gandalf-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_saruman",
+      "faction": "Saruman's White Tower",
+      "family": "dominion-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_saruman",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-saruman-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-saruman-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-saruman-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-saruman-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-saruman-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-saruman-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-saruman-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_radagast",
+      "faction": "Radagast's Woodland Circle",
+      "family": "living-refuge",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_radagast",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-radagast-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-radagast-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-radagast-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-radagast-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-radagast-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-radagast-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-radagast-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_alatar",
+      "faction": "Alatar's Eastern Hunt",
+      "family": "path-and-pursuit",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_alatar",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-alatar-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-alatar-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-alatar-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-alatar-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-alatar-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-alatar-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-alatar-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_pallando",
+      "faction": "Pallando's Eastern Resistance",
+      "family": "commons",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_pallando",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-pallando-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-pallando-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-pallando-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-pallando-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-pallando-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-pallando-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-pallando-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "sauron",
+      "faction": "Sauron",
+      "family": "dominion-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#sauron",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-sauron-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-sauron-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-sauron-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-sauron-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-sauron-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-sauron-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-sauron-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_ember",
+      "faction": "Ember Order",
+      "family": "commons",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_ember",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-ember-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-ember-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-ember-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-ember-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-ember-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-ember-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-ember-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_grove",
+      "faction": "Grove Order",
+      "family": "living-refuge",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_grove",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-grove-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-grove-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-grove-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-grove-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-grove-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-grove-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-grove-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_veil",
+      "faction": "Veil Order",
+      "family": "veiled-path",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_veil",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-veil-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-veil-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-veil-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-veil-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-veil-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-veil-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-veil-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_forge",
+      "faction": "Forge Order",
+      "family": "worked-stone",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_forge",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-forge-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-forge-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-forge-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-forge-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-forge-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-forge-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-forge-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "istari_star",
+      "faction": "Star Order",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#istari_star",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-istari-star-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-istari-star-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-istari-star-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-istari-star-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-istari-star-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-istari-star-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-istari-star-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "melian",
+      "faction": "Melian",
+      "family": "memory-threshold",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#melian",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-melian-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-melian-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-melian-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-melian-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-melian-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-melian-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-melian-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "osse",
+      "faction": "Ossë",
+      "family": "river-sea",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#osse",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-osse-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-osse-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-osse-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-osse-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-osse-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-osse-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-osse-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "uinen",
+      "faction": "Uinen",
+      "family": "river-sea",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#uinen",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-uinen-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-uinen-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-uinen-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-uinen-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-uinen-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-uinen-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-uinen-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "arien",
+      "faction": "Arien",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#arien",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-arien-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-arien-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-arien-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-arien-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-arien-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-arien-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-arien-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "tilion",
+      "faction": "Tilion",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#tilion",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-tilion-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-tilion-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-tilion-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-tilion-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-tilion-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-tilion-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-tilion-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "eonwe",
+      "faction": "Eönwë",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#eonwe",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-eonwe-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-eonwe-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-eonwe-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-eonwe-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-eonwe-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-eonwe-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-eonwe-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "ilmare",
+      "faction": "Ilmarë",
+      "family": "high-air",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#ilmare",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-ilmare-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-ilmare-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-ilmare-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-ilmare-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-ilmare-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-ilmare-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-ilmare-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "ent_grove",
+      "faction": "Ent Grove",
+      "family": "embodied-wild",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#ent_grove",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-ent-grove-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-ent-grove-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-ent-grove-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-ent-grove-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-ent-grove-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-ent-grove-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-ent-grove-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "eagle_eyrie",
+      "faction": "Eagle Eyrie",
+      "family": "embodied-wild",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#eagle_eyrie",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-eagle-eyrie-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-eagle-eyrie-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-eagle-eyrie-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-eagle-eyrie-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-eagle-eyrie-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-eagle-eyrie-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-eagle-eyrie-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "spider_brood",
+      "faction": "Spider Brood",
+      "family": "embodied-wild",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#spider_brood",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-spider-brood-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-spider-brood-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-spider-brood-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-spider-brood-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-spider-brood-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-spider-brood-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-spider-brood-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "melkor_worldbreaker",
+      "faction": "Melkor",
+      "family": "dominion-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#melkor_worldbreaker",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-melkor-worldbreaker-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-melkor-worldbreaker-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-melkor-worldbreaker-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-melkor-worldbreaker-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-melkor-worldbreaker-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-melkor-worldbreaker-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-melkor-worldbreaker-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    },
+    {
+      "profile_id": "melkor_dark_architect",
+      "faction": "Melkor",
+      "family": "dominion-works",
+      "status": "specified-not-produced",
+      "treatments_ref": "faction-matrix.json#melkor_dark_architect",
+      "domains": [
+        {
+          "domain": "character",
+          "proposed_asset_id": "sm-character-melkor-dark-architect-v1",
+          "contract": "character",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "settlement",
+          "proposed_asset_id": "sm-settlement-melkor-dark-architect-v1",
+          "contract": "settlement",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "production",
+          "proposed_asset_id": "sm-production-melkor-dark-architect-v1",
+          "contract": "production",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "army",
+          "proposed_asset_id": "sm-army-melkor-dark-architect-v1",
+          "contract": "army",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "artifact",
+          "proposed_asset_id": "sm-artifact-melkor-dark-architect-v1",
+          "contract": "artifact",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "magic",
+          "proposed_asset_id": "sm-magic-melkor-dark-architect-v1",
+          "contract": "magic",
+          "path": null,
+          "status": "specified-not-produced"
+        },
+        {
+          "domain": "terrain",
+          "proposed_asset_id": "sm-terrain-melkor-dark-architect-v1",
+          "contract": "terrain",
+          "path": null,
+          "status": "specified-not-produced"
+        }
+      ]
+    }
+  ],
+  "reference_material": [
+    {
+      "path": "../concept-art/brethil-isometric-concept.png",
+      "status": "pre-existing original concept reference, not new production output"
+    },
+    {
+      "path": "reference-index.md",
+      "status": "third-party evidence links only; no imported reference art"
+    },
+    {
+      "path": "source-authority.md",
+      "status": "book/reading evidence locators, no book page re-export"
+    }
+  ]
+}

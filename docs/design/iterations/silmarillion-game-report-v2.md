@@ -8,7 +8,7 @@ Choose a named Power, a wandering Wizard, a people and culture, or a creature so
 
 **Recommendation:** a single-player, turn-based narrative strategy sandbox with radically different playable Origins, consequential diplomacy, direct character control and regional warfare. All fourteen Valar are individually playable. Melkor, Sauron and the Istari have their own systems; Elves, Dwarves, human peoples, Orcs and major creatures have complete campaign routes.
 
-![Scale study: tiny travellers and a crossing inside a dominant landscape](brethil-isometric-concept.png)
+![Scale study: tiny travellers and a crossing inside a dominant landscape](../concept-art/brethil-isometric-concept.png)
 
 The existing original Brethil concept remains the visual scale reference. This is a composition study, not a canonical map or gameplay screenshot. Working title and all systems are design proposals.
 

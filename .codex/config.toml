@@ -1,0 +1,12 @@
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+developer_instructions = "Read AGENTS.md, CONVENTIONS.md, docs/tracking/context.md and docs/guides/CODEX_SETUP.md before work. The Codex guide translates client-specific mechanics, not project policy. Read the instruction files listed below and apply each when its applyTo scope matches the work. Use the native tools available in this session, never invent VS Code tools. Do not commit or push. Use --agent=codex for tracking rows. Preserve existing human changes.\n.github/instructions/codegraph.instructions.md\n.github/instructions/tests.instructions.md\n.github/instructions/tracking.instructions.md\n.github/instructions/silmarillion-design.instructions.md\nFor Silmarillion planning, art, narrative, maps, assets, UI/UX implementation, review or verification, load .agents/skills/silmarillion-art-direction/SKILL.md and its applicable resources before work. Follow the shared source hierarchy, tokens, asset contracts and review gates. The discovery matrix records each client and role route; Copilot scoped instruction globs do not automatically load in Codex."
+
+[mcp_servers.codegraph]
+command = "npx"
+args = ["-y", "@colbymchenry/codegraph", "serve", "--mcp", "--path", "/home/serhatakbak/code/projects/silmarillion"]
+cwd = "/home/serhatakbak/code/projects/silmarillion"
+startup_timeout_sec = 60
+
+[mcp_servers.codegraph.env]
+"CODEGRAPH_MCP_TOOLS" = "explore,node,search,callers,callees,impact"

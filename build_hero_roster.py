@@ -45,7 +45,7 @@ Paid jobs still need their resources, people, queues and source access. Producti
 
 **Ordinary interface information stays universal.** Known costs, prerequisites, inventory, repair needs and observed report times are visible to everyone. Intelligence perks reveal additional world evidence or preserve information; they never require hiding basic controls or known facts from other factions.
 
-**Reading order:** Valar; Elven clans, kingdoms and other peoples; named Istari; generic Istari, other Maiar and guardians; Melkor's two doctrines. Faction production and hero recipes remain in `silmarillion-game-report.md`. The machine-readable companion is `hero-balance-roster.json`.
+**Reading order:** Valar; Elven clans, kingdoms and other peoples; named Istari; generic Istari, other Maiar and guardians; Melkor's two doctrines. Faction production and hero recipes remain in `docs/design/silmarillion-game-report.md`. The machine-readable companion is `hero-balance-roster.json`.
 '''
 chunks=[intro]
 for cat in ['Valar','Peoples and communities','Named Istari','Istari, Maiar and guardians','Melkor doctrines']:
@@ -56,5 +56,7 @@ for cat in ['Valar','Peoples and communities','Named Istari','Istari, Maiar and 
    q=r[key]
    chunks.append('**'+kind+' - '+q['name']+':** '+q['effect']+'\n\n- **Cost:** '+q['cost']+'\n- **Reach / duration:** '+q['range']+'; '+q['duration']+'\n- **Counter:** '+q['counter']+'\n')
   a=r['passive'];chunks.append('**Passive - '+a['name']+':** '+a['effect']+' **Limit:** '+a['limit']+'\n')
-(O/'hero-balance-roster.md').write_text('\n'.join(chunks))
+out_md=O/'docs'/'design'/'hero-balance-roster.md'
+out_md.parent.mkdir(parents=True,exist_ok=True)
+out_md.write_text('\n'.join(chunks))
 print('Validated 55 hero profiles,110 powers,55 passives; wrote Markdown + JSON.')

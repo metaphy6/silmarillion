@@ -1,0 +1,1932 @@
+{
+  "version": 1,
+  "source_revision": 6,
+  "status": "new presentation decisions; gameplay remains proposed and not playtested",
+  "source": "../../../hero-balance-roster.json",
+  "faction_count": 54,
+  "profile_count": 55,
+  "authority": "Per-profile visual details are owned by this JSON; faction-matrix.md is a derived reading view. Mechanics are never owned here.",
+  "sources": {
+    "PROJECT-01": "../silmarillion-game-report.md",
+    "PROJECT-02": "../../../hero-balance-roster.json",
+    "lore_ledger": "source-authority.md"
+  },
+  "domain_keys": [
+    "character",
+    "settlement",
+    "production",
+    "army",
+    "artifact",
+    "magic",
+    "terrain"
+  ],
+  "global_rules": [
+    "A family is a reusable visual grammar, never a claim of common ancestry or mandatory allegiance.",
+    "Decorative palette swatches never replace semantic functional UI colors or encode a state alone.",
+    "All specific invented production assets, portrait details and effect treatments below are new presentation decisions anchored to current gameplay.",
+    "Portraits preserve identity cues; map figures stay small, target regions remain larger, and text stays in an interface layer.",
+    "Source-inspired does not imply a literal canonical building, outfit, social institution or historical coexistence."
+  ],
+  "families": [
+    {
+      "id": "high-air",
+      "name": "Air, light and signals",
+      "shape": "Long narrow verticals; open sightlines; small bright nodes",
+      "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+      "decorative_palette": [
+        "#182B47",
+        "#6A8297",
+        "#DED8AF"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "river-sea",
+      "name": "Water, shore and voyages",
+      "shape": "Horizontal sweeps, sheltered concavities, hull curves",
+      "materials": "Wet stone, worked timber, rope, shell, salt-worn metal",
+      "decorative_palette": [
+        "#163D46",
+        "#618C89",
+        "#DECE9F"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "living-refuge",
+      "name": "Living growth and care",
+      "shape": "Nested canopy, porous edges, varied growth stages",
+      "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+      "decorative_palette": [
+        "#193D34",
+        "#678C55",
+        "#D4B47D"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "memory-threshold",
+      "name": "Memory, waiting and sanctuary",
+      "shape": "Measured thresholds, still verticals, cloth planes",
+      "materials": "Basalt, pale stone, woven records, soft weathered textiles",
+      "decorative_palette": [
+        "#302A40",
+        "#847D97",
+        "#D5C2A0"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "path-and-pursuit",
+      "name": "Paths, passage and pursuit",
+      "shape": "Diagonals, directional gaps, light mobile shelters",
+      "materials": "Weathered timber, leather, cord, local stone and travel cloth",
+      "decorative_palette": [
+        "#273B38",
+        "#A0804D",
+        "#B7CFBC"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "worked-stone",
+      "name": "Craft, excavation and fitted work",
+      "shape": "Heavy load-bearing forms with precise small joints",
+      "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+      "decorative_palette": [
+        "#242D37",
+        "#745B4E",
+        "#DBA85F"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "elven-house",
+      "name": "Elven community and skilled tradition",
+      "shape": "Restrained branching/arched forms; distinct house organization",
+      "materials": "Fitted wood and stone, woven cloth, maintained metal",
+      "decorative_palette": [
+        "#263D47",
+        "#6F927E",
+        "#D8CEA3"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "mortal-works",
+      "name": "Mortal civic and agricultural work",
+      "shape": "Useful repetitive bays and broad work/service routes",
+      "materials": "Dressed masonry or timber, iron fittings, grain, wool",
+      "decorative_palette": [
+        "#333E42",
+        "#92794D",
+        "#D8C596"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "commons",
+      "name": "Refuge, household and mutual work",
+      "shape": "Low inviting clusters, open working courts, human-scaled doors",
+      "materials": "Repaired cloth, plaster, timber, earthen stores, small lamps",
+      "decorative_palette": [
+        "#313C3A",
+        "#866B50",
+        "#DBB168"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "veiled-path",
+      "name": "Concealment and qualified evidence",
+      "shape": "Offset layers and interrupted edges with readable exits",
+      "materials": "Frosted glass, thin cloth screens, local masonry, wax",
+      "decorative_palette": [
+        "#293A49",
+        "#77728B",
+        "#C0B9A8"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "dominion-works",
+      "name": "Coercive or contested industry",
+      "shape": "Compressed monumental planes and exposed service dependencies",
+      "materials": "Black iron, basalt, salvaged metal, soot and worn banners",
+      "decorative_palette": [
+        "#272633",
+        "#615361",
+        "#D29A53"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    },
+    {
+      "id": "embodied-wild",
+      "name": "Habitats and nonhuman bodies",
+      "shape": "Body-appropriate shelter, movement and storage shapes",
+      "materials": "Local living/rock materials; no default humanoid furnishings",
+      "decorative_palette": [
+        "#283836",
+        "#777B66",
+        "#B9A17A"
+      ],
+      "palette_status": "Art swatches only; functional UI uses tokens.json permitted pairings."
+    }
+  ],
+  "profiles": [
+    {
+      "id": "manwe",
+      "faction": "Manwë's highlands",
+      "hero": "Manwë",
+      "category": "Valar",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile manwe",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Windwatch and Herald Court; tiny sanctuary, messenger reach",
+      "domains": {
+        "character": "Upright open mantle, narrow sceptre and windward stance; attentive portrait",
+        "settlement": "Open Windwatch above a stepped Herald Court; no imperial city",
+        "production": "Crystal cutting and message-handling benches exposed to air",
+        "army": "Spear heralds in spaced files; courier-eagles need landing ledges",
+        "artifact": "Sapphire command sceptre and wind-carved crystal with worked mounts",
+        "magic": "Wind bends cloth, grass and projectile paths along a bounded corridor",
+        "terrain": "Bare high ridge, cloud shadow and readable descent"
+      },
+      "exceptions": [
+        "Do not make air reports omniscient or replace roads with free flight"
+      ],
+      "validation": [
+        "Identify Manwë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Windwatch and Herald Court and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 manwe costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "varda",
+      "faction": "Varda's beacon settlements",
+      "hero": "Varda",
+      "category": "Valar",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile varda",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Star Observatory and Beacon Terrace; observation with staffed sites",
+      "domains": {
+        "character": "Tall dark silhouette with a small pale face plane and star-lens gesture",
+        "settlement": "Low observation roof and separated beacon terrace in deep night",
+        "production": "Lens alignment, lamp maintenance and survey marks",
+        "army": "Lantern guards carry shielded lamps; lumen constructs remain distinct ordinary units",
+        "artifact": "Star-glass lens, faceted rim and repair case",
+        "magic": "Restrained points and revealed silhouettes inside an explicit area",
+        "terrain": "Clear horizon, cold indigo rock, warm beacon maintenance niche"
+      },
+      "exceptions": [
+        "Starlight is not a global reveal of underground activity"
+      ],
+      "validation": [
+        "Identify Varda through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Star Observatory and Beacon Terrace and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 varda costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "ulmo",
+      "faction": "Ulmo's waterside enclaves",
+      "hero": "Ulmo",
+      "category": "Valar",
+      "family": "river-sea",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile ulmo",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Spring Sanctuary and Tide Gate; water routes and crews",
+      "domains": {
+        "character": "Foam-edged dark mantle, shell horn, weight like a breaking wave",
+        "settlement": "Spring court linked to a working tide gate, never a generic naval palace",
+        "production": "Sluices, shell-work, crews and stored building timber",
+        "army": "Ford keepers and current-spirits follow accessible water",
+        "artifact": "White shell focus with salt wear and fitted carrying sling",
+        "magic": "Water level/flow changes bounded by marked banks and route limits",
+        "terrain": "Wet slate, teal depth, pale foam; dry divides stay legible"
+      },
+      "exceptions": [
+        "Do not depict the source's remote Ulmo as canonically running this invented enclave"
+      ],
+      "validation": [
+        "Identify Ulmo through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Spring Sanctuary and Tide Gate and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 ulmo costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "aule",
+      "faction": "Aulë's workshops",
+      "hero": "Aulë",
+      "category": "Valar",
+      "family": "worked-stone",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile aule",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01",
+        "LORE-02"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Master Forge and Stone Workshop; outstanding work with few queues",
+      "domains": {
+        "character": "Broad apron mass, capable hands, compact maker hammer; absorbed portrait",
+        "settlement": "Open-sided forge beside a low stone workshop, few occupied plots",
+        "production": "Jigs, cooling work, labeled inputs and one paid job per queue",
+        "army": "Smith-guards and articulated stone porters with visible load joints",
+        "artifact": "Forged core and maker hammer show tool marks, not jewel rarity glow",
+        "magic": "Dust and brace deformation reveal a specific repair or break",
+        "terrain": "Quarry edge, mineral blue shadows, contained furnace gold"
+      },
+      "exceptions": [
+        "Aulë cannot factory-create independent souls or a limitless industrial empire"
+      ],
+      "validation": [
+        "Identify Aulë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Master Forge and Stone Workshop and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 aule costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "yavanna",
+      "faction": "Yavanna's living groves",
+      "hero": "Yavanna",
+      "category": "Valar",
+      "family": "living-refuge",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile yavanna",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01",
+        "LORE-02"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Seed Vault and Living Grove; viable habitat and water",
+      "domains": {
+        "character": "Green robe with branching contour; patient protective gaze",
+        "settlement": "Seed vault nested beneath living canopy; roots retain growing space",
+        "production": "Grafting benches, seed stores, water channels and tended understory",
+        "army": "Grove tenders carry tools; root guardians differ from the unique hero",
+        "artifact": "Living seed in a breathable crafted holder",
+        "magic": "Local roots flex through earth; growth never erases costs or maturity limits",
+        "terrain": "Deep viridian, luminous new green and occasional yellow fruit"
+      },
+      "exceptions": [
+        "No instant forest restoration or identical flower effects for every living faction"
+      ],
+      "validation": [
+        "Identify Yavanna through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Seed Vault and Living Grove and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 yavanna costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "namo",
+      "faction": "Mandos's sanctuary halls",
+      "hero": "Námo / Mandos",
+      "category": "Valar",
+      "family": "memory-threshold",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile namo",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Hall of Waiting and Judgment Gate; guarded thresholds",
+      "domains": {
+        "character": "Still vertical cloak, closed gesture, stone seal; grave rather than sadistic",
+        "settlement": "Quiet hall and precisely bounded gate, small sanctuary footprint",
+        "production": "Seal cutting, threshold upkeep and waiting spaces",
+        "army": "Sentinels hold edges; oath-echo units are labeled invented manifestations",
+        "artifact": "Stone judgment seal, worn at contact faces",
+        "magic": "One clear threshold line and a visible warning before restraint",
+        "terrain": "Basalt planes, cool plum recesses, pale doorway"
+      },
+      "exceptions": [
+        "No resurrection power or undead army inferred from the Houses of the Dead"
+      ],
+      "validation": [
+        "Identify Námo / Mandos through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Hall of Waiting and Judgment Gate and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 namo costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "irmo",
+      "faction": "Lórien's dream gardens",
+      "hero": "Irmo / Lórien",
+      "category": "Valar",
+      "family": "living-refuge",
+      "project_locator": "PROJECT-01 §04; PROJECT-02 profile irmo",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Dream Garden and Vision Pavilion; preparation and rehearsal",
+      "domains": {
+        "character": "Soft layered shawl, tilted listening head, dim lantern",
+        "settlement": "Sheltered garden paths lead to an open pavilion, not a maze hiding controls",
+        "production": "Water care, quiet resting places and rehearsal mats",
+        "army": "Attendants and phantom hounds have separate physical/illusory cues",
+        "artifact": "Dreamglass and shuttered lantern, clouded polished surface",
+        "magic": "Soft duplicate edges stay within the disclosed effect footprint",
+        "terrain": "Lake reflections, willow shade, violet-blue with warm sheltered light"
+      },
+      "exceptions": [
+        "Dream imagery never conceals real costs, targets or failure conditions"
+      ],
+      "validation": [
+        "Identify Irmo / Lórien through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Dream Garden and Vision Pavilion and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 irmo costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "nienna",
+      "faction": "Nienna's refuge cloisters",
+      "hero": "Nienna",
+      "category": "Valar",
+      "family": "memory-threshold",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile nienna",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "House of Mourning and Refuge Cloister; care and restitution",
+      "domains": {
+        "character": "Grey mantle, unguarded hands and sustained attention; no compulsory tears",
+        "settlement": "Windows open outward; seats, shelter and uncluttered thresholds",
+        "production": "Mended cloth, named records, food carried to occupied places",
+        "army": "Mercy attendants carry practical supplies; memory lantern units remain finite",
+        "artifact": "Mourning veil with repeated repairs, no harvestable grief jewel",
+        "magic": "Warmth steadies a small group; effect includes readable duration",
+        "terrain": "Rain-silver stone, ash violet, a narrow amber interior"
+      },
+      "exceptions": [
+        "Sorrow never generates resources and care never grants permanent immunity"
+      ],
+      "validation": [
+        "Identify Nienna through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show House of Mourning and Refuge Cloister and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 nienna costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "orome",
+      "faction": "Oromë's frontier lodges",
+      "hero": "Oromë",
+      "category": "Valar",
+      "family": "path-and-pursuit",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile orome",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Hunt Lodge and Trail Kennel; one maintained wild route",
+      "domains": {
+        "character": "Forward rider silhouette, horn at shoulder, watchful anger",
+        "settlement": "Low lodge, tack court and airy kennels at a trailhead",
+        "production": "Tracks recorded, harness repaired, hounds fed; roads remain work",
+        "army": "Mounted trackers and hound packs with purposeful spacing",
+        "artifact": "Carved horn and repaired straps, distinct from random loot horns",
+        "magic": "A readable intercept route and quarry evidence, not a map-wide hunt pulse",
+        "terrain": "Pine green, exposed rust earth and a cool misted pass"
+      },
+      "exceptions": [
+        "Nahar and the canonical horn are not duplicated as ordinary mount/equipment stock"
+      ],
+      "validation": [
+        "Identify Oromë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Hunt Lodge and Trail Kennel and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 orome costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "tulkas",
+      "faction": "Tulkas's muster grounds",
+      "hero": "Tulkas",
+      "category": "Valar",
+      "family": "mortal-works",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile tulkas",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Wrestling Yard and Muster Ground; physical work with few queues",
+      "domains": {
+        "character": "Golden hair and beard, open hands, grounded athletic stance and ready laughter",
+        "settlement": "Unroofed yard and simple muster shelters; no colossal arena",
+        "production": "Grip-wrap preparation, maintained exercise space and supplied haul crews",
+        "army": "Wrestlers and pack aurochs occupy practical loading space",
+        "artifact": "Forged grip bands and worn wraps with pressure marks",
+        "magic": "Impact reads through posture, displaced dust and a bounded grapple",
+        "terrain": "Sun-warm earth, cold stone shade and ruddy cloth"
+      },
+      "exceptions": [
+        "Hands are his source-grounded weapons; strength supplies neither materials nor a factory network"
+      ],
+      "validation": [
+        "Identify Tulkas through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Wrestling Yard and Muster Ground and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 tulkas costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "nessa",
+      "faction": "Nessa's relay settlements",
+      "hero": "Nessa",
+      "category": "Valar",
+      "family": "path-and-pursuit",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile nessa",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Dance Court and Relay Stable; fast bodies, limited freight",
+      "domains": {
+        "character": "Lithe diagonal posture, flowing relay cord, light footfall",
+        "settlement": "Open court links modest relay shelters; no cavalry fortress",
+        "production": "Water, rest and baton/cord exchange at staffed stops",
+        "army": "Runners and courier stags; cargo visibly small",
+        "artifact": "Woven relay cord and step-light anklets",
+        "magic": "Brief step trail ends at reachable ground; no teleport language",
+        "terrain": "Spring grass, stone steps, warm russet against pale air"
+      },
+      "exceptions": [
+        "Speed does not produce road capacity or move unlimited cargo"
+      ],
+      "validation": [
+        "Identify Nessa through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Dance Court and Relay Stable and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 nessa costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "vana",
+      "faction": "Vána's bloom nurseries",
+      "hero": "Vána",
+      "category": "Valar",
+      "family": "living-refuge",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile vana",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Bloom Nursery and Song Aviary; prepared fields and workers",
+      "domains": {
+        "character": "Flowering circlet, lifted head and small bright sleeves",
+        "settlement": "Nursery beds and woven aviary roofs in a tended clearing",
+        "production": "Seedlings at different stages, irrigation and pruning tools",
+        "army": "Garden tenders and small songbird groups avoid battlefield swarm clutter",
+        "artifact": "Renewal wreath and living flowering circlet",
+        "magic": "Localized bloom moves through existing tended plants",
+        "terrain": "Leaf green, lilac shade, limited coral blossom accents"
+      },
+      "exceptions": [
+        "Distinct from Yavanna's mature forest stewardship; never instant double harvest"
+      ],
+      "validation": [
+        "Identify Vána through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Bloom Nursery and Song Aviary and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 vana costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "este",
+      "faction": "Estë's healing refuges",
+      "hero": "Estë",
+      "category": "Valar",
+      "family": "living-refuge",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile este",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Rest House and Healing Pool; finite recovery and supplied care",
+      "domains": {
+        "character": "Grey veil, compact seated or steady stance, hands at a vessel",
+        "settlement": "Low rest house beside shaded still water and accessible paths",
+        "production": "Clean cloth, prepared salves and replenished drinking vessels",
+        "army": "Healers and rescue hinds look laden and purposeful",
+        "artifact": "Healing vessel has washable glaze and visible wear",
+        "magic": "Quiet bounded glow marks recovery; no resurrection beam",
+        "terrain": "Cool water, soft grey-green, warm linen near shelter"
+      },
+      "exceptions": [
+        "Differentiate death from treatable wounds and portray disability with dignity"
+      ],
+      "validation": [
+        "Identify Estë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Rest House and Healing Pool and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 este costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "vaire",
+      "faction": "Vairë's archive halls",
+      "hero": "Vairë",
+      "category": "Valar",
+      "family": "memory-threshold",
+      "project_locator": "PROJECT-01 §05; PROJECT-02 profile vaire",
+      "lore_status": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Timeless/early divine identity used in a cross-era playable sanctuary",
+      "economy_anchor": "Chronicle Loom and Archive Hall; records preserve skilled work",
+      "domains": {
+        "character": "Layered woven mantle, shuttle in hand, exact attentive eyes",
+        "settlement": "Long low archive bays with a small loom court",
+        "production": "Threads, labeled cases, repaired patterns and copied records",
+        "army": "Recorder-guards protect carriers; threadward effigies are clearly constructs",
+        "artifact": "Woven memory and shuttle show pattern continuity through repairs",
+        "magic": "Selected traces align into a readable past report, not current omniscience",
+        "terrain": "Muted indigo cloth, red-brown thread and pale stone"
+      },
+      "exceptions": [
+        "Records never rebuild absent machinery, labor or materials for free"
+      ],
+      "validation": [
+        "Identify Vairë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Chronicle Loom and Archive Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 vaire costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_vanyar",
+      "faction": "Vanyar",
+      "hero": "Concord Singer",
+      "category": "Peoples and communities",
+      "family": "elven-house",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_vanyar",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Chorus Court; costly banner fellowships and ceremonial craft",
+      "domains": {
+        "character": "Upright paired cloak lines, held instrument, composed breath",
+        "settlement": "Open chorus court with acoustic walls and simple ordered steps",
+        "production": "Instrument making, banner weaving and rehearsal places",
+        "army": "Small disciplined banner groups with pale standards",
+        "artifact": "Tuned songstone held in a finely fitted acoustic frame",
+        "magic": "Resonant bands mark a limited formation rather than damage fireworks",
+        "terrain": "Pale limestone, warm cream cloth and quiet gold"
+      },
+      "exceptions": [
+        "Original Concord Singer is not a new canonical Vanyar ruler"
+      ],
+      "validation": [
+        "Identify Concord Singer through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Chorus Court and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_vanyar costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_feanor",
+      "faction": "House of Fëanor",
+      "hero": "Jewelwright",
+      "category": "Peoples and communities",
+      "family": "worked-stone",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_feanor",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08",
+        "LORE-03",
+        "LORE-13"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Gem Atelier; rare inputs and masterwork equipment",
+      "domains": {
+        "character": "Angular sleeves, jewel-setting loupe/tool and intense focused portrait",
+        "settlement": "Compact atelier with controlled daylight and secure work trays",
+        "production": "Cutting tables, abrasive slurry, blade fittings and unfinished settings",
+        "army": "Few elite equipped specialists, each tool visibly maintained",
+        "artifact": "Cut crystal in precise geometric settings; not a duplicate Silmaril",
+        "magic": "Prismatic flare with narrow angular facets and clear affected area",
+        "terrain": "Dark cool stone, blue-violet shadow and concentrated garnet/copper"
+      },
+      "exceptions": [
+        "Craft beauty remains real; oath history does not force every player choice or grant canonical jewels"
+      ],
+      "validation": [
+        "Identify Jewelwright through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Gem Atelier and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_feanor costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_fingolfin",
+      "faction": "House of Fingolfin",
+      "hero": "Shield Marshal",
+      "category": "Peoples and communities",
+      "family": "elven-house",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_fingolfin",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08",
+        "LORE-13"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Pass-watch Fortress; gates and mounted wardens",
+      "domains": {
+        "character": "Shield-forward upright figure, blue-silver cloth break, measured gaze",
+        "settlement": "Tiered gatehouse fitted to an actual pass, modest rear court",
+        "production": "Gate braces, remount shelter and armor repair racks",
+        "army": "Few costly wardens maintain gaps and rearguard lines",
+        "artifact": "Forged shield seal and durable fittings",
+        "magic": "Protective arcs follow formation edges; withdrawals have routes",
+        "terrain": "Cold scree, blue shadow, weathered pale stone"
+      },
+      "exceptions": [
+        "No full cavalry charge through impossible terrain or endless elite replacement"
+      ],
+      "validation": [
+        "Identify Shield Marshal through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Pass-watch Fortress and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_fingolfin costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_finarfin",
+      "faction": "House of Finarfin",
+      "hero": "Lore Envoy",
+      "category": "Peoples and communities",
+      "family": "elven-house",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_finarfin",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Hall of Welcome; healing singers and guest workshops",
+      "domains": {
+        "character": "Open cloak shape, inscribed pact case, listening expression",
+        "settlement": "Welcoming court with shared benches and separate work bays",
+        "production": "Translation tables, salves and guest makers using real inputs",
+        "army": "Healers and guarded envoys; small escort formations",
+        "artifact": "Inscribed pact with witnesses and repaired protective case",
+        "magic": "Restorative song reaches a bounded supplied group",
+        "terrain": "Warm sandstone, green-grey shadow, restrained pale gold"
+      },
+      "exceptions": [
+        "Hospitality does not automatically buy allegiance or erase disagreement"
+      ],
+      "validation": [
+        "Identify Lore Envoy through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Hall of Welcome and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_finarfin costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_falmari",
+      "faction": "Falmari",
+      "hero": "Tide Captain",
+      "category": "Peoples and communities",
+      "family": "river-sea",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_falmari",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08",
+        "LORE-03"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Harbor Hall; swan-ships and harbor beacons",
+      "domains": {
+        "character": "Curved sea cloak, shell compass, salt-weathered calm",
+        "settlement": "Low harbor hall follows quays; elegant hulls dominate workspaces",
+        "production": "Timber curing, sail weaving and rigging laid at physical scale",
+        "army": "Mariners disembark through safe lanes, not instant inland armies",
+        "artifact": "Shell compass and finely joined oar; each ship has a work history",
+        "magic": "Calm corridors marked on water with shore limits",
+        "terrain": "Pearl grey, sea blue, weathered white timber and coral rope"
+      },
+      "exceptions": [
+        "Swan shapes stay structural and restrained; named irreplaceable ships are not generic duplicates"
+      ],
+      "validation": [
+        "Identify Tide Captain through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Harbor Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_falmari costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_sindar",
+      "faction": "Sindar",
+      "hero": "March Warden",
+      "category": "Peoples and communities",
+      "family": "elven-house",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_sindar",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08",
+        "LORE-04",
+        "LORE-05"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Hidden Court; watch-houses and woodland companies",
+      "domains": {
+        "character": "Grey-green mantle, long bow, quiet sideways attention",
+        "settlement": "Carved woodland court can include worked stone; small hidden watch-houses",
+        "production": "Weaving, bow repair and attended boundary paths",
+        "army": "Woodland companies merge into cover but remain selectable",
+        "artifact": "Woven veil and carved boundary tokens",
+        "magic": "Retreat veil with clear extent; observed silhouettes never disappear from owner UI",
+        "terrain": "Beech trunks, silver moss, deep green and warm lamp points"
+      },
+      "exceptions": [
+        "No free racial Girdle; Melian's specific power remains hers"
+      ],
+      "validation": [
+        "Identify March Warden through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Hidden Court and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_sindar costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_nandor",
+      "faction": "Nandor",
+      "hero": "Woodland Pathfinder",
+      "category": "Peoples and communities",
+      "family": "path-and-pursuit",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_nandor",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Forest Waystation; canopy scouts and woodland mounts",
+      "domains": {
+        "character": "Low travel posture, practical bow, leaf-shaped trailmark",
+        "settlement": "Light waystations thread through canopy without huge clearings",
+        "production": "Mount care, rope bridges, bark-protected markers and bow work",
+        "army": "Scouts travel singly or in loose strings; little heavy armor",
+        "artifact": "Living trailmark and weathered short bow",
+        "magic": "Rootwise passage uses existing habitat and visible exits",
+        "terrain": "Luminous green breaks over dark fern beds and wet roots"
+      },
+      "exceptions": [
+        "Nandor is not interchangeable with Avari or a generic savage woodland race"
+      ],
+      "validation": [
+        "Identify Woodland Pathfinder through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Forest Waystation and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_nandor costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "elf_avari",
+      "faction": "Avari clan",
+      "hero": "Frontier Mediator",
+      "category": "Peoples and communities",
+      "family": "path-and-pursuit",
+      "project_locator": "PROJECT-01 §07; PROJECT-02 profile elf_avari",
+      "lore_status": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds.",
+      "lore_refs": [
+        "LORE-08"
+      ],
+      "chronology": "Ancestral/house identities span different histories; original fixed hero in cross-era scenario",
+      "economy_anchor": "Clan Lodge; portable workshops and decentralized waymarks",
+      "domains": {
+        "character": "Layered travel cloth, carrying frame, local stone token",
+        "settlement": "Several modest lodges and mobile work shelters, no obligatory central palace",
+        "production": "Foldable benches, repaired carts, region-specific local materials",
+        "army": "Small adaptable escort groups carrying visible supplies",
+        "artifact": "Local waystone and portable tool roll",
+        "magic": "Rendezvous signals require known locations and communication",
+        "terrain": "Authored regional materials; muted clay with a chosen textile accent"
+      },
+      "exceptions": [
+        "This clan's culture is invented, not a claim to describe all Avari"
+      ],
+      "validation": [
+        "Identify Frontier Mediator through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Clan Lodge and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 elf_avari costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "human_gondor",
+      "faction": "Gondor",
+      "hero": "Citadel Engineer",
+      "category": "Peoples and communities",
+      "family": "mortal-works",
+      "project_locator": "PROJECT-01 §08; PROJECT-02 profile human_gondor",
+      "lore_status": "Source kingdom; invented fixed hero, recipes and repeated return.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Númenor Second Age; Gondor later Second/Third Age; Rohan Third Age. Coexistence is sandbox.",
+      "economy_anchor": "Citadel Hall; depots, shield companies and engineering",
+      "domains": {
+        "character": "Square cloak/shield mass, survey tool, weathered practical portrait",
+        "settlement": "Joined masonry, store courts and maintained gates; expansion has service routes",
+        "production": "Stone cutting, braces, siege parts and visibly stocked depots",
+        "army": "Shield companies form readable blocks with exposed flanks",
+        "artifact": "Stone command seal and calibrated repair kit",
+        "magic": "Prepared standards/wards reinforce specific works; no inherent divine aura",
+        "terrain": "Pale dressed stone, charcoal shadow, muted blue cloth"
+      },
+      "exceptions": [
+        "A Citadel Engineer is an original role, not a duplicate named monarch or First Age Minas Tirith"
+      ],
+      "validation": [
+        "Identify Citadel Engineer through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Citadel Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 human_gondor costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "human_rohan",
+      "faction": "Rohan",
+      "hero": "Rider Marshal",
+      "category": "Peoples and communities",
+      "family": "mortal-works",
+      "project_locator": "PROJECT-01 §08; PROJECT-02 profile human_rohan",
+      "lore_status": "Source kingdom; invented fixed hero, recipes and repeated return.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Númenor Second Age; Gondor later Second/Third Age; Rohan Third Age. Coexistence is sandbox.",
+      "economy_anchor": "Muster Hall; horses, fodder, remounts and mobile relief",
+      "domains": {
+        "character": "Wide rider-and-horse silhouette, short cloak, alert sideward glance",
+        "settlement": "Timber muster hall, low fenced steads and extensive pasture",
+        "production": "Fodder stacks, watered troughs, tack repair and distinct growing/trained stock",
+        "army": "Rider groups leave room to turn; dismounted posture shown at gates",
+        "artifact": "Forged horse crest, worn saddle and rally horn",
+        "magic": "Rally follows a traversable route; dust/grass conveys movement",
+        "terrain": "Ochre grass, dark green lowlands, weathered timber, pale horse accent"
+      },
+      "exceptions": [
+        "Horses are supplied stock; no instantaneous mature mounts or charge through marsh/rock"
+      ],
+      "validation": [
+        "Identify Rider Marshal through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Muster Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 human_rohan costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "human_numenor",
+      "faction": "Númenor",
+      "hero": "Ocean Warden",
+      "category": "Peoples and communities",
+      "family": "river-sea",
+      "project_locator": "PROJECT-01 §08; PROJECT-02 profile human_numenor",
+      "lore_status": "Source kingdom; invented fixed hero, recipes and repeated return.",
+      "lore_refs": [
+        "LORE-10"
+      ],
+      "chronology": "Númenor Second Age; Gondor later Second/Third Age; Rohan Third Age. Coexistence is sandbox.",
+      "economy_anchor": "Admiralty Hall; shipyards, marines and long sea routes",
+      "domains": {
+        "character": "Long sea cloak, compass case, composed but burdened gaze",
+        "settlement": "Quays, sail lofts and heavy hull cradles; distinguish from light Falmari harbor",
+        "production": "Multiple timber/metal/textile inputs, navigation work and signal towers",
+        "army": "Marines and convoy crews; landing lanes and supplies matter",
+        "artifact": "Sea compass, disciplined navigation tools and repaired sea charts",
+        "magic": "Prepared sea wards sit on routes with known limits",
+        "terrain": "Deep ultramarine water, pale sea-stone, warm brass and vermilion cloth"
+      },
+      "exceptions": [
+        "Coexistence with Rohan/Gondor is sandbox; maritime grandeur is not automatic moral virtue"
+      ],
+      "validation": [
+        "Identify Ocean Warden through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Admiralty Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 human_numenor costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "dwarf_khazad_dum",
+      "faction": "Khazad-dûm",
+      "hero": "Deep Surveyor",
+      "category": "Peoples and communities",
+      "family": "worked-stone",
+      "project_locator": "PROJECT-01 §09; PROJECT-02 profile dwarf_khazad_dum",
+      "lore_status": "Source realm; invented hero and specialized production contract.",
+      "lore_refs": [
+        "LORE-04"
+      ],
+      "chronology": "Distinct realm traditions used together in sandbox; Khazad-dûm is not adjacent to the Blue Mountain realms",
+      "economy_anchor": "Deepworks Hall; mining engines, ventilation and food imports",
+      "domains": {
+        "character": "Broad low silhouette, survey rod/lens, dust on practical clothing",
+        "settlement": "Entrances connect deep halls; shafts and airways define layout",
+        "production": "Lifting machinery, survey marks and clear ventilation apparatus",
+        "army": "Tunnel guards and stone porters move through narrow lanes",
+        "artifact": "Survey core with mechanical mount and pressure fittings",
+        "magic": "Fault/airway evidence appears at inspected rock or connected workings",
+        "terrain": "Layered blue-black stone, mineral green and sheltered amber"
+      },
+      "exceptions": [
+        "Underground grandeur must show air, food and entrance dependencies"
+      ],
+      "validation": [
+        "Identify Deep Surveyor through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Deepworks Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 dwarf_khazad_dum costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "dwarf_belegost",
+      "faction": "Belegost",
+      "hero": "Armor Master",
+      "category": "Peoples and communities",
+      "family": "worked-stone",
+      "project_locator": "PROJECT-01 §09; PROJECT-02 profile dwarf_belegost",
+      "lore_status": "Source realm; invented hero and specialized production contract.",
+      "lore_refs": [
+        "LORE-04",
+        "LORE-06"
+      ],
+      "chronology": "Distinct realm traditions used together in sandbox; Khazad-dûm is not adjacent to the Blue Mountain realms",
+      "economy_anchor": "Mail Hall and Mask Workshop; slow fitted hazard protection",
+      "domains": {
+        "character": "Protective mask frame, broad shoulder line; unmasked portrait shows a person",
+        "settlement": "Low fortified mouth and vented metalwork court",
+        "production": "Mail links, mask plates, heat tests and chosen resistance fittings",
+        "army": "Masked vanguard in close formation with protected haulers",
+        "artifact": "Tempered armor seal and masks with replaceable fittings",
+        "magic": "Threat-specific treatment shown by marked panels, never universal immunity",
+        "terrain": "Iron blue, soot plum, dull copper and hot-work gold"
+      },
+      "exceptions": [
+        "Masks have source anchor LORE-06; this industry's recipes and Armor Master remain invention"
+      ],
+      "validation": [
+        "Identify Armor Master through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Mail Hall and Mask Workshop and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 dwarf_belegost costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "dwarf_nogrod",
+      "faction": "Nogrod",
+      "hero": "Master Artificer",
+      "category": "Peoples and communities",
+      "family": "worked-stone",
+      "project_locator": "PROJECT-01 §09; PROJECT-02 profile dwarf_nogrod",
+      "lore_status": "Source realm; invented hero and specialized production contract.",
+      "lore_refs": [
+        "LORE-04"
+      ],
+      "chronology": "Distinct realm traditions used together in sandbox; Khazad-dûm is not adjacent to the Blue Mountain realms",
+      "economy_anchor": "Precision Forge and Commission House; rare specialist labor",
+      "domains": {
+        "character": "Tool-dense belt, compact precise pose, evaluating gaze",
+        "settlement": "Workshop clusters and commission benches organized around measured work",
+        "production": "Small mechanisms, breach wedges, inscriptions and careful tooling",
+        "army": "Engineers and tool-bearing guards; fewer heavy protective ranks",
+        "artifact": "Master-tool core with calibrated joints and maker marks",
+        "magic": "Exact breach effect follows a known weak joint",
+        "terrain": "Dark stone, oxidized bronze, narrow white work light"
+      },
+      "exceptions": [
+        "Keep Nogrod distinct from Belegost; political history does not make all Dwarves treacherous"
+      ],
+      "validation": [
+        "Identify Master Artificer through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Precision Forge and Commission House and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 dwarf_nogrod costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "orc_fortress_clan",
+      "faction": "Orc fortress-clan",
+      "hero": "Warband Organizer",
+      "category": "Peoples and communities",
+      "family": "dominion-works",
+      "project_locator": "PROJECT-01 §09; PROJECT-02 profile orc_fortress_clan",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "Warband Hall; salvage, finite spoils and food demand",
+      "domains": {
+        "character": "Repaired layered armor, share badge, varied alert expressions",
+        "settlement": "Incremental defenses and reusable scrap structures with food stores",
+        "production": "Sorted salvage, mismatched replacement parts, trained mount pens",
+        "army": "Mixed raiders/wolf riders; organization readable through formation, not race caricature",
+        "artifact": "Black iron badge and reworked weapons with visible prior ownership",
+        "magic": "Rally and salvage cues depend on real crews and spoils",
+        "terrain": "Rust earth, slate debris, olive cloth and restrained ember"
+      },
+      "exceptions": [
+        "Orc identity does not mandate allegiance; do not turn suffering into comic texture"
+      ],
+      "validation": [
+        "Identify Warband Organizer through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Warband Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 orc_fortress_clan costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "hobbit_shire",
+      "faction": "Hobbit Shire",
+      "hero": "Shirekeeper",
+      "category": "Peoples and communities",
+      "family": "commons",
+      "project_locator": "PROJECT-01 §09; PROJECT-02 profile hobbit_shire",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "Common Hall and Commons Farm; stores, travel kits and mutual aid",
+      "domains": {
+        "character": "Short grounded figure, pack and lantern, observant open face",
+        "settlement": "Low earth-sheltered homes, useful gardens and a common hall",
+        "production": "Food drying, careful storage, packing and shared work tables",
+        "army": "Bounders and fieldhands avoid heavy-army silhouettes; pack ponies carry goods",
+        "artifact": "Hearth token, weatherproof food parcel and cared-for lantern",
+        "magic": "Hearthward/safe departure effects are subtle and bounded",
+        "terrain": "Leaf green, warm soil, cream plaster and small amber windows"
+      },
+      "exceptions": [
+        "Domestic does not mean childish, harmless or a comedy accent; occupation remains threatening"
+      ],
+      "validation": [
+        "Identify Shirekeeper through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Common Hall and Commons Farm and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 hobbit_shire costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "troll_hold",
+      "faction": "Troll Hold",
+      "hero": "Stonebreaker",
+      "category": "Peoples and communities",
+      "family": "embodied-wild",
+      "project_locator": "PROJECT-01 §10; PROJECT-02 profile troll_hold",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "Chieftain Hall; drill yard, supplied breach crews",
+      "domains": {
+        "character": "Massive low shoulders, grounded hands and useful protective plate",
+        "settlement": "Heavy stone shelter and broad haulways scaled to bodies",
+        "production": "Large braces, stone blocks, food storage and maintained breach tools",
+        "army": "Shield Trolls and siege crews show slow deliberate repositioning",
+        "artifact": "Iron-stone badge and fitted Stonehide Plate",
+        "magic": "Stone dust and physical fracture map the exact impact area",
+        "terrain": "Cold boulders, grey-green moss and ochre work lamps"
+      },
+      "exceptions": [
+        "Large bodies do not imply unlimited force, instant industry or stupid dialogue"
+      ],
+      "validation": [
+        "Identify Stonebreaker through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Chieftain Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 troll_hold costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "wolf_pack",
+      "faction": "Wolf Pack",
+      "hero": "Packwarden",
+      "category": "Peoples and communities",
+      "family": "embodied-wild",
+      "project_locator": "PROJECT-01 §10; PROJECT-02 profile wolf_pack",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "Gathering Den; hunting territory and finite prey",
+      "domains": {
+        "character": "Low elongated silhouette; portrait attention through ears, muzzle and eyes",
+        "settlement": "Dens, dry resting shelves and scent routes; no humanoid town",
+        "production": "Food caches, tracked prey access and protected pup/recruit spaces",
+        "army": "Trackers/runners maintain pursuit arcs; no army in human armor",
+        "artifact": "Scent token and territory-mark object appropriate to anatomy",
+        "magic": "Scent/track evidence becomes a labeled interface trail, not neon world paint",
+        "terrain": "Grey fur, muted blue rocks, tawny grass and warm den earth"
+      },
+      "exceptions": [
+        "No swords/boots; pack hierarchy and gameplay roles are authored, not animal-science claims"
+      ],
+      "validation": [
+        "Identify Packwarden through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Gathering Den and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 wolf_pack costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "istari_gandalf",
+      "faction": "Gandalf's Fellowship",
+      "hero": "Gandalf",
+      "category": "Named Istari",
+      "family": "commons",
+      "project_locator": "PROJECT-01 §06a; PROJECT-02 profile istari_gandalf",
+      "lore_status": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Named Wizard identities are imported into the cross-era roster; scenario determines form and artifact custody",
+      "economy_anchor": "Fellowship Refuge and Council Hall; limited industry and courage",
+      "domains": {
+        "character": "Weathered grey mantle, small staff accent, warmth with impatience",
+        "settlement": "Refuge benches, simple hearth and a council room open to travelers",
+        "production": "Wardstones, supplied resolve standards and repaired travel gear",
+        "army": "Free-company wardens retain their own practical clothing and clear allegiance",
+        "artifact": "Emberwood focus and working staff; no automatically duplicated unique ring/sword",
+        "magic": "White fire has a defined warning/area and leaves readable silhouettes",
+        "terrain": "Rain-grey roads, deep blue-green shadows and fragile warm hearth"
+      },
+      "exceptions": [
+        "Grey/White are one identity; no second hero or automatic death-triggered upgrade"
+      ],
+      "validation": [
+        "Identify Gandalf through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Fellowship Refuge and Council Hall and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_gandalf costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "istari_saruman",
+      "faction": "Saruman's White Tower",
+      "hero": "Saruman",
+      "category": "Named Istari",
+      "family": "dominion-works",
+      "project_locator": "PROJECT-01 §06a; PROJECT-02 profile istari_saruman",
+      "lore_status": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Named Wizard identities are imported into the cross-era roster; scenario determines form and artifact custody",
+      "economy_anchor": "Orthanc Workshop and Muster Foundry; three queues, same enclave limits",
+      "domains": {
+        "character": "Pale severe vertical robe, resonant core, controlled exact gesture",
+        "settlement": "Dark vertical tower reference beside compact paid workshops, not a giant industrial continent",
+        "production": "Metal stores, siege assembly and one bound Sentinel's work area",
+        "army": "Uruk companies and constructs differentiated from the hero",
+        "artifact": "Resonant core with smooth rings and stressed fastenings",
+        "magic": "Force lane/construct commission visibly bounded and paid",
+        "terrain": "Black stone, cold white cloth, smoke plum and furnace orange"
+      },
+      "exceptions": [
+        "Power cannot command Melkor's creatures; tower silhouette is original, not a copied film design"
+      ],
+      "validation": [
+        "Identify Saruman through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Orthanc Workshop and Muster Foundry and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_saruman costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "istari_radagast",
+      "faction": "Radagast's Woodland Circle",
+      "hero": "Radagast",
+      "category": "Named Istari",
+      "family": "living-refuge",
+      "project_locator": "PROJECT-01 §06a; PROJECT-02 profile istari_radagast",
+      "lore_status": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Named Wizard identities are imported into the cross-era roster; scenario determines form and artifact custody",
+      "economy_anchor": "Woodland Sanctuary and Beast Refuge; living terrain and healing",
+      "domains": {
+        "character": "Brown-green layered travel wear, seed focus, alert listening posture",
+        "settlement": "Sheltered animal recovery pens nested in living woodland",
+        "production": "Salve preparation, habitat repair and supplied beast care",
+        "army": "Woodland defenders and beast companions retain species-appropriate scale",
+        "artifact": "Living seed and stained medicine pouch",
+        "magic": "Root/thorn lines emerge from existing vegetation with clear affected area",
+        "terrain": "Loam umber, saturated fern green and warm russet"
+      },
+      "exceptions": [
+        "Barren ground and fire remain counters; animal friendship is not unlimited control"
+      ],
+      "validation": [
+        "Identify Radagast through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Woodland Sanctuary and Beast Refuge and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_radagast costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "istari_alatar",
+      "faction": "Alatar's Eastern Hunt",
+      "hero": "Alatar (Blue Wizard)",
+      "category": "Named Istari",
+      "family": "path-and-pursuit",
+      "project_locator": "PROJECT-01 §06a; PROJECT-02 profile istari_alatar",
+      "lore_status": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Named Wizard identities are imported into the cross-era roster; scenario determines form and artifact custody",
+      "economy_anchor": "Eastern Hunt Lodge and Outrider Camp; single-target pursuit",
+      "domains": {
+        "character": "Deep blue narrow cloak, stone hunter seal and aiming stillness",
+        "settlement": "Low lodge with sightline terrace and practical outrider shelters",
+        "production": "Marked-shot tools, maintained saddles and survey records",
+        "army": "Hunters and outriders spread along approaches; limited crowd coverage",
+        "artifact": "Hunter seal with directional cuts and repaired carrying wrap",
+        "magic": "A narrow aimed spear/mark silhouette discloses exposure and target",
+        "terrain": "Authored eastern upland, storm blue cloth, ochre stone and silver grass"
+      },
+      "exceptions": [
+        "Names come from wider material; exact eastern culture, appearance and hunter role are inventions"
+      ],
+      "validation": [
+        "Identify Alatar (Blue Wizard) through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Eastern Hunt Lodge and Outrider Camp and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_alatar costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "istari_pallando",
+      "faction": "Pallando's Eastern Resistance",
+      "hero": "Pallando (Blue Wizard)",
+      "category": "Named Istari",
+      "family": "commons",
+      "project_locator": "PROJECT-01 §06a; PROJECT-02 profile istari_pallando",
+      "lore_status": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here.",
+      "lore_refs": [
+        "LORE-11"
+      ],
+      "chronology": "Named Wizard identities are imported into the cross-era roster; scenario determines form and artifact custody",
+      "economy_anchor": "Resistance Hall and Ward Workshop; prepared lore/essence and limited protection",
+      "domains": {
+        "character": "Blue broad shoulder wrap, crystal ward-knot, attentive measured stance",
+        "settlement": "Shared hall and compact ward workshop with open assembly space",
+        "production": "Ward-breaker tools, braided charms and stocked lore worktables",
+        "army": "Small resistance companies; protected groups visibly bounded",
+        "artifact": "Ward-knot combines crystal and textile, unlike Alatar's stone seal",
+        "magic": "Broken hostile spell edge and fixed protective circle remain readable",
+        "terrain": "Authored eastern settlement, ink blue, dusty coral cloth and pale quartz"
+      },
+      "exceptions": [
+        "Do not collapse two Blue Wizards into one choice or invent a canonical resistance biography"
+      ],
+      "validation": [
+        "Identify Pallando (Blue Wizard) through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Resistance Hall and Ward Workshop and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_pallando costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "sauron",
+      "faction": "Sauron",
+      "hero": "Sauron",
+      "category": "Istari, Maiar and guardians",
+      "family": "dominion-works",
+      "project_locator": "PROJECT-01 §06; PROJECT-02 profile sauron",
+      "lore_status": "Source-named Maia; industrial controller faction and repeatable return are adaptations.",
+      "lore_refs": [
+        "LORE-01",
+        "LORE-11"
+      ],
+      "chronology": "One identity with scenario-specific form and Ring custody across ages",
+      "economy_anchor": "Binding Forge and Command Tower; workshops, tribute and dependent clients",
+      "domains": {
+        "character": "Controlled symmetrical mantle with plausible crafted surfaces; no mandatory giant eye",
+        "settlement": "Organized foundries, depots and command tower with exposed links",
+        "production": "Repeated fittings, inspection stations, binding-ring work and material queues",
+        "army": "Armored overseers, werewolves and siege equipment follow supply roads",
+        "artifact": "Forged binding core and ordinary lesser rings distinct from unique One Ring",
+        "magic": "Command links reveal their range/dependency; terror does not become ally control",
+        "terrain": "Soot violet, black iron, cold polished metal and narrow red furnace light"
+      },
+      "exceptions": [
+        "Never controls/creates/revives Dragons or Balrogs; attractive craft may still serve coercion"
+      ],
+      "validation": [
+        "Identify Sauron through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Binding Forge and Command Tower and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 sauron costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "istari_ember",
+      "faction": "Ember Order",
+      "hero": "Kindler",
+      "category": "Istari, Maiar and guardians",
+      "family": "commons",
+      "project_locator": "PROJECT-01 §06; PROJECT-02 profile istari_ember",
+      "lore_status": "Entire order, fixed generated hero and institutional identity are original gameplay inventions.",
+      "lore_refs": [],
+      "chronology": "Original order placed by scenario; no claimed canonical founding date",
+      "economy_anchor": "Hearth Sanctuary and Refuge Lodge; occupied shelter and supplies",
+      "domains": {
+        "character": "Rounded cloak, ember focus held low, worn practical hands",
+        "settlement": "Hearth court and low refuge lodge with stocked sleeping spaces",
+        "production": "Blanket repair, food preparation and paid shelter wards",
+        "army": "Hearth Wardens and finite Ashlight spirits",
+        "artifact": "Oath Lantern with repair seams and shuttered glow",
+        "magic": "A small warm shelter edge with explicit duration/occupancy",
+        "terrain": "Charcoal timber, blue dusk, dull brick and amber"
+      },
+      "exceptions": [
+        "Kindler is generated original identity, not Gandalf under another name"
+      ],
+      "validation": [
+        "Identify Kindler through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Hearth Sanctuary and Refuge Lodge and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_ember costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "istari_grove",
+      "faction": "Grove Order",
+      "hero": "Grovekeeper",
+      "category": "Istari, Maiar and guardians",
+      "family": "living-refuge",
+      "project_locator": "PROJECT-01 §06; PROJECT-02 profile istari_grove",
+      "lore_status": "Entire order, fixed generated hero and institutional identity are original gameplay inventions.",
+      "lore_refs": [],
+      "chronology": "Original order placed by scenario; no claimed canonical founding date",
+      "economy_anchor": "Seedwell and Medicine Nursery; habitat, staff and measured remedies",
+      "domains": {
+        "character": "Short layered green mantle, growth focus, close observation",
+        "settlement": "Small seedwell and medicinal beds, unlike Yavanna's forest sanctuary",
+        "production": "Sorted remedies, nursery recovery and clean water",
+        "army": "Thornkeepers and bounded Moth Clouds; no giant forest army",
+        "artifact": "Growth focus and Renewal Charm with handled organic surfaces",
+        "magic": "Healing/root effects follow prepared plants and defined areas",
+        "terrain": "Moss jade, blue shade, pale seed heads and copper vessels"
+      },
+      "exceptions": [
+        "Generated Grovekeeper remains distinct from Radagast's named biography"
+      ],
+      "validation": [
+        "Identify Grovekeeper through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Seedwell and Medicine Nursery and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_grove costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "istari_veil",
+      "faction": "Veil Order",
+      "hero": "Veilweaver",
+      "category": "Istari, Maiar and guardians",
+      "family": "veiled-path",
+      "project_locator": "PROJECT-01 §06; PROJECT-02 profile istari_veil",
+      "lore_status": "Entire order, fixed generated hero and institutional identity are original gameplay inventions.",
+      "lore_refs": [],
+      "chronology": "Original order placed by scenario; no claimed canonical founding date",
+      "economy_anchor": "Hidden Observatory and Safehouse; contacts and fragile decoys",
+      "domains": {
+        "character": "Asymmetric layered grey cloak, glass focus, sideward glance",
+        "settlement": "Modest safehouse entries and a screened observatory, not invisible free buildings",
+        "production": "Glass work, message cases, staffed contacts and replaceable decoy props",
+        "army": "Quiet Envoys and clearly signaled friendly Mist Doubles",
+        "artifact": "Mist focus and False-Signal Seal, worn glass and wax",
+        "magic": "Double edges/false signals label what the owner knows is decoy",
+        "terrain": "Fog blue, muted mauve, dusty linen and small copper glints"
+      },
+      "exceptions": [
+        "Deception never removes known costs or labels from opponents' ordinary controls"
+      ],
+      "validation": [
+        "Identify Veilweaver through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Hidden Observatory and Safehouse and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_veil costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "istari_forge",
+      "faction": "Forge Order",
+      "hero": "Artificer",
+      "category": "Istari, Maiar and guardians",
+      "family": "worked-stone",
+      "project_locator": "PROJECT-01 §06; PROJECT-02 profile istari_forge",
+      "lore_status": "Entire order, fixed generated hero and institutional identity are original gameplay inventions.",
+      "lore_refs": [],
+      "chronology": "Original order placed by scenario; no claimed canonical founding date",
+      "economy_anchor": "Arcane Foundry and Service Depot; paid repairs and standard fittings",
+      "domains": {
+        "character": "Apron over travel robe, binding focus, measured working posture",
+        "settlement": "Compact foundry linked to a depot with visible service lanes",
+        "production": "Replacement parts, repair matrices, input bins and staffed benches",
+        "army": "Wrought Sentinels and Bound Sparks; clear construct joints",
+        "artifact": "Binding focus and Repair Matrix in a portable frame",
+        "magic": "Braces light only at repaired joints; supplies remain visibly consumed",
+        "terrain": "Gunmetal, clay red, dark blue and limited molten gold"
+      },
+      "exceptions": [
+        "Artificer is an original order hero, not Aulë or Saruman and not free manufacturing"
+      ],
+      "validation": [
+        "Identify Artificer through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Arcane Foundry and Service Depot and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_forge costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "istari_star",
+      "faction": "Star Order",
+      "hero": "Wayseer",
+      "category": "Istari, Maiar and guardians",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §06; PROJECT-02 profile istari_star",
+      "lore_status": "Entire order, fixed generated hero and institutional identity are original gameplay inventions.",
+      "lore_refs": [],
+      "chronology": "Original order placed by scenario; no claimed canonical founding date",
+      "economy_anchor": "Astral Hall and Beacon Station; connected observations",
+      "domains": {
+        "character": "Hooded upward profile, crystal wayglass, survey stance",
+        "settlement": "Astral hall with low observation apertures and connected beacon stations",
+        "production": "Lens cleaning, chart preparation and timed signal records",
+        "army": "Beacon Riders and bounded Star Motes",
+        "artifact": "Star focus and Wayglass with readable calibrated rim",
+        "magic": "Signals travel between known stations; gaps remain gaps",
+        "terrain": "Ink blue, silver stone, muted brass and pinpoint pale light"
+      },
+      "exceptions": [
+        "Generated Wayseer cannot see every hidden place or conjure transportation"
+      ],
+      "validation": [
+        "Identify Wayseer through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Astral Hall and Beacon Station and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 istari_star costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "melian",
+      "faction": "Melian",
+      "hero": "Melian",
+      "category": "Istari, Maiar and guardians",
+      "family": "memory-threshold",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile melian",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-01",
+        "LORE-04",
+        "LORE-05"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Sanctuary Court and Veil Garden; stationary protection and Anchors",
+      "domains": {
+        "character": "Layered mantle, listening head and songlike calm with firm boundary",
+        "settlement": "Sanctuary court combining carved boughs, lamps and garden thresholds",
+        "production": "Veil weaving, refuge care and maintained boundary sites",
+        "army": "Border attendants and finite veil wisps, not another royal hero",
+        "artifact": "Woven sanctuary seal with layered threads and visible care",
+        "magic": "Girdle boundary is spatially explicit; anchor dependencies remain readable",
+        "terrain": "Deep beech green, marble shadow, warm gold lamps"
+      },
+      "exceptions": [
+        "Major Girdle is Melian-specific, uses current Anchor rules and is not universal Sindar protection"
+      ],
+      "validation": [
+        "Identify Melian through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Sanctuary Court and Veil Garden and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 melian costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "osse",
+      "faction": "Ossë",
+      "hero": "Ossë",
+      "category": "Istari, Maiar and guardians",
+      "family": "river-sea",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile osse",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Storm Haven and Surf Works; working tides and hazardous coasts",
+      "domains": {
+        "character": "Sharp windward cloak contour, storm-shell core, exhilarated intensity",
+        "settlement": "Breakwater haven with practical surf-work platforms",
+        "production": "Skiff repair, weighted lines and weather-beaten tools",
+        "army": "Shore guards and surf constructs brace against waves",
+        "artifact": "Storm-shell core with chipped outer ridges",
+        "magic": "Wave fronts show approach and landing danger, including friendly risk",
+        "terrain": "Cold aquamarine, violet-black rocks and salt-white edges"
+      },
+      "exceptions": [
+        "Keep coastal domain distinct from Ulmo's deep/widespread waters and Uinen's shelter"
+      ],
+      "validation": [
+        "Identify Ossë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Storm Haven and Surf Works and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 osse costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "uinen",
+      "faction": "Uinen",
+      "hero": "Uinen",
+      "category": "Istari, Maiar and guardians",
+      "family": "river-sea",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile uinen",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Haven Pool and Rescue Yard; protected craft and finite crews",
+      "domains": {
+        "character": "Flowing horizontal mantle/hair rhythm, current-knot, attentive calm",
+        "settlement": "Protected basin and low rescue yard beside clear embarkation edges",
+        "production": "Lifelines, hull repair, fishing gear and crew rest",
+        "army": "Rescue crews and protected fishing craft carry actual loads",
+        "artifact": "Pearl current-knot and practical safe-passage token",
+        "magic": "Calm pockets retain visible boundaries and moving water beyond",
+        "terrain": "Sea green, pearl grey, deep blue and warm rope ochre"
+      },
+      "exceptions": [
+        "Calm does not replace destroyed fleets or inland supplies"
+      ],
+      "validation": [
+        "Identify Uinen through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Haven Pool and Rescue Yard and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 uinen costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "arien",
+      "faction": "Arien",
+      "hero": "Arien",
+      "category": "Istari, Maiar and guardians",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile arien",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-12"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Solar Court and Dawn Terrace; local manifested light",
+      "domains": {
+        "character": "Compact flame-edged figure with readable silhouette, no face-searing glare",
+        "settlement": "Open solar court and angled mirror terrace",
+        "production": "Light mirrors, timed worksite preparation and supplied sentries",
+        "army": "Dawn sentries and finite sun-motes stand apart from the hero",
+        "artifact": "Fire crystal and daylight lens with dark shielding",
+        "magic": "Directional light exposes a bounded area after warning",
+        "terrain": "Dawn coral, indigo shadow, bright cream and restrained hot gold"
+      },
+      "exceptions": [
+        "Local playable form/return is sandbox; death does not extinguish or replace the Sun"
+      ],
+      "validation": [
+        "Identify Arien through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Solar Court and Dawn Terrace and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 arien costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "tilion",
+      "faction": "Tilion",
+      "hero": "Tilion",
+      "category": "Istari, Maiar and guardians",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile tilion",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-12"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Lunar Lodge and Nightwatch Platform; patrol and interception",
+      "domains": {
+        "character": "Silver-bow contour, lunar mark, mobile watchful posture",
+        "settlement": "Low lodge and exposed watch platform on a traversable ridge",
+        "production": "Patrol equipment, silver fittings and night-route reports",
+        "army": "Night scouts, patrol riders and finite moon-motes",
+        "artifact": "Silver moon-mark and sight instrument",
+        "magic": "Silver interception trail respects one route and actual patrol reach",
+        "terrain": "Deep cobalt, cool silver and warm shelter windows"
+      },
+      "exceptions": [
+        "Local embodiment is sandbox; the Moon is not a recruitable object"
+      ],
+      "validation": [
+        "Identify Tilion through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Lunar Lodge and Nightwatch Platform and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 tilion costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "eonwe",
+      "faction": "Eönwë",
+      "hero": "Eönwë",
+      "category": "Istari, Maiar and guardians",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile eonwe",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Herald Hall and Expedition Camp; supplied concentrated host",
+      "domains": {
+        "character": "Long standard line, heraldic seal, open commanding posture",
+        "settlement": "Campaign hall with organized tents and stores, no endless imperial capital",
+        "production": "Maintained banners, siege crew tools and written commissions",
+        "army": "Supplied herald companies and banner guards with clear terms",
+        "artifact": "Commission banner with maker/custody record",
+        "magic": "Advance/rally cues align a bounded group and connected front",
+        "terrain": "Wind-scoured stone, ivory cloth, blue shade and quiet gold"
+      },
+      "exceptions": [
+        "Martial stature never supplies provisions or extra hero commitments"
+      ],
+      "validation": [
+        "Identify Eönwë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Herald Hall and Expedition Camp and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 eonwe costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "ilmare",
+      "faction": "Ilmarë",
+      "hero": "Ilmarë",
+      "category": "Istari, Maiar and guardians",
+      "family": "high-air",
+      "project_locator": "PROJECT-01 §11; PROJECT-02 profile ilmare",
+      "lore_status": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures.",
+      "lore_refs": [
+        "LORE-01"
+      ],
+      "chronology": "Source-named Maia placed by scenario; local return rule is sandbox",
+      "economy_anchor": "Signal Court and Star Relay; staffed evidence chain",
+      "domains": {
+        "character": "Narrow mantle and hand-held signal glass, exact listening gaze",
+        "settlement": "Small court with separated low relays and open sightlines",
+        "production": "Lamp upkeep, witness records and couriers at stations",
+        "army": "Beacon keepers, couriers and signal motes",
+        "artifact": "Signal crystal and witness glass in protective fittings",
+        "magic": "A second signal confirms a message, never global clairvoyance",
+        "terrain": "Cold indigo, silver flecks and tiny warm staffed windows"
+      },
+      "exceptions": [
+        "Source names her briefly; this communication economy and character detail are inventions"
+      ],
+      "validation": [
+        "Identify Ilmarë through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Signal Court and Star Relay and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 ilmare costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "ent_grove",
+      "faction": "Ent Grove",
+      "hero": "Grove Elder",
+      "category": "Istari, Maiar and guardians",
+      "family": "embodied-wild",
+      "project_locator": "PROJECT-01 §10; PROJECT-02 profile ent_grove",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [
+        "LORE-02"
+      ],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "Moot Grove and Rootworks; slow habitat defense",
+      "domains": {
+        "character": "Branching asymmetric body, eyes held in bark folds, rooted weight",
+        "settlement": "An inhabited grove with open moot space, no tree-shaped human castle",
+        "production": "Nursery stages, water access and living root shelters",
+        "army": "Sapling Guardians distinct in species/age, no duplicated Grove Elder",
+        "artifact": "Living heartwood and Rootward Totem integrated with anatomy",
+        "magic": "Roots form a specific screen or passage; growth remains bounded",
+        "terrain": "Dark earth, saturated moss, pale bark and sunlit new leaves"
+      },
+      "exceptions": [
+        "Magical campaign growth is declared invention; fire and slowness remain real"
+      ],
+      "validation": [
+        "Identify Grove Elder through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Moot Grove and Rootworks and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 ent_grove costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "eagle_eyrie",
+      "faction": "Eagle Eyrie",
+      "hero": "Skywarden",
+      "category": "Istari, Maiar and guardians",
+      "family": "embodied-wild",
+      "project_locator": "PROJECT-01 §10; PROJECT-02 profile eagle_eyrie",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [
+        "LORE-02"
+      ],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "High Nest and Training Ledge; small loads and exposed eyries",
+      "domains": {
+        "character": "Wide wing silhouette, compact perched portrait with intent eyes",
+        "settlement": "High nest, safe landing ledges and a scale-credible harness perch",
+        "production": "Harness work, cared-for landing area and provision caches",
+        "army": "Scout/Rescue Flights differ by load and flight pattern",
+        "artifact": "Feather sky-knot and appropriate rescue harness",
+        "magic": "Wind guidance highlights a route and landing, not control of all air",
+        "terrain": "Slate peaks, cold blue distance, warm russet feathers"
+      },
+      "exceptions": [
+        "Air units must land for objective capture; no humanoid city or infinite airlift"
+      ],
+      "validation": [
+        "Identify Skywarden through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show High Nest and Training Ledge and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 eagle_eyrie costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "spider_brood",
+      "faction": "Spider Brood",
+      "hero": "Brood Matriarch",
+      "category": "Istari, Maiar and guardians",
+      "family": "embodied-wild",
+      "project_locator": "PROJECT-01 §10; PROJECT-02 profile spider_brood",
+      "lore_status": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification.",
+      "lore_refs": [],
+      "chronology": "Community or creature identity in a declared sandbox; no single fixed historical ruler implied",
+      "economy_anchor": "Royal Hollow and Silk Nursery; prey and prepared ambush terrain",
+      "domains": {
+        "character": "Low broad radial silhouette, eye cluster and poised forelimbs",
+        "settlement": "Hollows, suspended nursery pockets and accessible maintenance strands",
+        "production": "Silk stages, prey stores and layered web supports",
+        "army": "Weblayers/Stalkers use different limb posture and occupied lanes",
+        "artifact": "Venom-silk spindle and Nightweb Snare appropriate to body plan",
+        "magic": "Visible selected web boundaries plus tremor evidence; no hidden UI traps",
+        "terrain": "Indigo hollow, moss black, pearl silk and sparse amber eyes"
+      },
+      "exceptions": [
+        "Original brood economy; no claim this is Ungoliant or a copied film monster"
+      ],
+      "validation": [
+        "Identify Brood Matriarch through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Royal Hollow and Silk Nursery and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 spider_brood costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "gameplay-only-unverified-lore"
+    },
+    {
+      "id": "melkor_worldbreaker",
+      "faction": "Melkor",
+      "hero": "Melkor - Worldbreaker",
+      "category": "Melkor doctrines",
+      "family": "dominion-works",
+      "project_locator": "PROJECT-01 §05a–05c; PROJECT-02 profile melkor_worldbreaker",
+      "lore_status": "Source-named Power; doctrine, capacities, exclusive game command and production rules are adaptations.",
+      "lore_refs": [
+        "LORE-01",
+        "LORE-12"
+      ],
+      "chronology": "One identity; source stages motivate but do not canonize the two locked sandbox doctrines",
+      "economy_anchor": "Dark Sanctuary; one core plus four supports, finite creature calls",
+      "domains": {
+        "character": "One black iron identity, broad fractured mantle, force held in a still stance",
+        "settlement": "Small sanctuary against enormous scarred land; never city sprawl",
+        "production": "Few occupied worksites; existing-creature mustering has a real arrival route",
+        "army": "Small supporting force; called Dragon/Balrog retains individual map ID",
+        "artifact": "Black iron component, no unearned Silmarils in the crown",
+        "magic": "Visible Worldbreak wind-up; call trail starts at a living discovered creature",
+        "terrain": "Cold basalt, bruised violet, exposed iron and restrained ember cracks"
+      },
+      "exceptions": [
+        "Locked doctrine; cannot hatch/create/revive creatures, even in captured production buildings"
+      ],
+      "validation": [
+        "Identify Melkor - Worldbreaker through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Dark Sanctuary and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 melkor_worldbreaker costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    },
+    {
+      "id": "melkor_dark_architect",
+      "faction": "Melkor",
+      "hero": "Melkor - Dark Architect",
+      "category": "Melkor doctrines",
+      "family": "dominion-works",
+      "project_locator": "PROJECT-01 §05a–05c; PROJECT-02 profile melkor_dark_architect",
+      "lore_status": "Source-named Power; doctrine, capacities, exclusive game command and production rules are adaptations.",
+      "lore_refs": [
+        "LORE-01",
+        "LORE-12"
+      ],
+      "chronology": "One identity; source stages motivate but do not canonize the two locked sandbox doctrines",
+      "economy_anchor": "Black Citadel and Fortress Holds; costly capped industry and exposed networks",
+      "domains": {
+        "character": "Same Melkor identity, disciplined iron mantle planes, command gesture",
+        "settlement": "Citadel/holds show controlled sprawl within actual limits, linked by supply roads",
+        "production": "Brood vault/crucible queues, paid inputs, staff and capacity reservations",
+        "army": "Individually counted great creatures with exclusive command marks",
+        "artifact": "Black iron component shares identity with Worldbreaker, not a second hero",
+        "magic": "Coordinated order paths and a bounded Forge Will job cue",
+        "terrain": "Ash-purple industry, cold iron, sulfur ochre and furnace amber"
+      },
+      "exceptions": [
+        "Can call existing and produce new creatures; lower personal intervention and declared caps remain visible"
+      ],
+      "validation": [
+        "Identify Melkor - Dark Architect through silhouette/posture and one material accent at map scale; portrait preserves those cues.",
+        "Show Black Citadel and Fortress Holds and their actual work/dependencies without changing costs or capacities.",
+        "Ability cues must use PROJECT-02 melkor_dark_architect costs, reach, duration, counters and retained weakness; art adds no free power."
+      ],
+      "lore_evidence_status": "inspected-source"
+    }
+  ]
+}

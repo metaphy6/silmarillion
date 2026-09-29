@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+<title id="title">Invented cross-era river basin</title><desc id="desc">Schematic terrain, two approaches to each of three objective sites, source access and an unconfirmed eastern district. Not a canonical map. Functional routes are a separate gallery layer.</desc>
+<defs><pattern id="grain" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M3 22l8-3M20 8l5-2" stroke="#526458" stroke-width="1"/></pattern><pattern id="unknown" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M0 14L14 0" stroke="#C8BED9" stroke-opacity=".23"/></pattern></defs>
+<rect width="1000" height="650" fill="#344D43"/><rect width="1000" height="650" fill="url(#grain)"/>
+<path d="M0 0H390L354 99 300 140 236 206 171 193 102 274 0 293Z" fill="#304751"/>
+<path d="M0 31L75 114 106 53 172 143 207 87 284 160 333 85" fill="none" stroke="#7C8983" stroke-width="10"/>
+<path d="M405-30C250 105 460 179 487 291S645 371 608 487 777 579 681 690" fill="none" stroke="#182F39" stroke-width="68"/>
+<path d="M405-30C250 105 460 179 487 291S645 371 608 487 777 579 681 690" fill="none" stroke="#78A4AD" stroke-width="32"/>
+<path d="M0 471C66 340 176 331 274 446S343 602 387 650H0Z" fill="#214B48"/>
+<path d="M72 477l26-45 26 45M129 431l28-51 28 51M188 519l30-55 30 55M60 554l26-44 26 44M230 575l30-58 30 58" fill="#253D3D" stroke="#688572" stroke-width="3"/>
+<path d="M618 0L594 144 637 293 712 420 795 650H1000V0Z" fill="#2C283A" opacity=".82"/>
+<path d="M618 0L594 144 637 293 712 420 795 650H1000V0Z" fill="url(#unknown)"/>
+<g fill="#C6AB72" stroke="#182F39" stroke-width="4"><path d="M187 263l23-19 23 19v34h-46Z"/><path d="M234 274l16-15 16 15v29h-32Z"/></g>
+<g stroke="#F2E8D5" stroke-width="3" fill="#192A30"><path d="M424 179l14-14 14 14-14 14Z"/><path d="M399 456l14-14 14 14-14 14Z"/><path d="M724 290l14-14 14 14-14 14Z"/></g>
+<g font-family="Noto Sans,Arial,sans-serif" font-size="18" fill="#F2E8D5">
+<g transform="translate(38 283)"><rect width="157" height="34" fill="#192A30"/><text x="12" y="24">Muster stead</text></g>
+<g transform="translate(338 124)"><rect width="173" height="34" fill="#192A30"/><text x="12" y="24">A · Upper ford</text></g>
+<g transform="translate(314 482)"><rect width="184" height="34" fill="#192A30"/><text x="12" y="24">B · Grove road</text></g>
+<g transform="translate(706 326)"><rect width="176" height="34" fill="#192A30"/><text x="12" y="24">C · East watch</text></g>
+<g transform="translate(681 58)"><rect width="258" height="54" fill="#192A30"/><text x="12" y="23">Unconfirmed district</text><text x="12" y="44" font-size="16" fill="#C8BED9">Last observed: week 6</text></g>
+<g transform="translate(64 75)"><rect width="230" height="34" fill="#192A30"/><text x="12" y="24">M · Stone access</text></g>
+<g transform="translate(104 183)"><rect width="212" height="34" fill="#192A30"/><text x="12" y="24">P · Grazing ground</text></g>
+<g transform="translate(55 576)"><rect width="220" height="34" fill="#192A30"/><text x="12" y="24">K · Archive outpost</text></g>
+<g transform="translate(716 514)"><rect width="219" height="34" fill="#192A30"/><text x="12" y="24">E · Sanctuary site</text></g>
+<text x="932" y="620">↑ N</text></g></svg>

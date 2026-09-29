@@ -1,0 +1,408 @@
+{
+  "status": "passed",
+  "scope": "Documentation gallery only",
+  "referenceViewport": [
+    1440,
+    900
+  ],
+  "checks": [
+    {
+      "view": "strategic",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollWidth": 1440,
+      "bodyHeight": 902,
+      "loadedImages": true,
+      "visibleStudy": "strategic",
+      "textSizes": [
+        14,
+        16,
+        14,
+        16,
+        14
+      ],
+      "buttonTargets": [
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 156.15625,
+          "height": 44
+        },
+        {
+          "width": 165.453125,
+          "height": 44
+        },
+        {
+          "width": 181,
+          "height": 44
+        },
+        {
+          "width": 176.734375,
+          "height": 44
+        },
+        {
+          "width": 151.953125,
+          "height": 44
+        },
+        {
+          "width": 222.828125,
+          "height": 44
+        },
+        {
+          "width": 148.84375,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "view": "local",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollWidth": 1440,
+      "bodyHeight": 902,
+      "loadedImages": true,
+      "visibleStudy": "local",
+      "textSizes": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "buttonTargets": [
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 156.15625,
+          "height": 44
+        },
+        {
+          "width": 165.453125,
+          "height": 44
+        },
+        {
+          "width": 181,
+          "height": 44
+        },
+        {
+          "width": 176.734375,
+          "height": 44
+        },
+        {
+          "width": 151.953125,
+          "height": 44
+        },
+        {
+          "width": 319,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "view": "factions",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollWidth": 1440,
+      "bodyHeight": 903,
+      "loadedImages": true,
+      "visibleStudy": "factions",
+      "textSizes": [
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "buttonTargets": [
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 156.15625,
+          "height": 44
+        },
+        {
+          "width": 165.453125,
+          "height": 44
+        },
+        {
+          "width": 181,
+          "height": 44
+        },
+        {
+          "width": 176.734375,
+          "height": 44
+        },
+        {
+          "width": 151.953125,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "view": "map",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollWidth": 1440,
+      "bodyHeight": 1052,
+      "loadedImages": true,
+      "visibleStudy": "map",
+      "textSizes": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "buttonTargets": [
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 156.15625,
+          "height": 44
+        },
+        {
+          "width": 165.453125,
+          "height": 44
+        },
+        {
+          "width": 181,
+          "height": 44
+        },
+        {
+          "width": 176.734375,
+          "height": 44
+        },
+        {
+          "width": 151.953125,
+          "height": 44
+        },
+        {
+          "width": 289,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "view": "dialogue",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scrollWidth": 1440,
+      "bodyHeight": 923,
+      "loadedImages": true,
+      "visibleStudy": "dialogue",
+      "textSizes": [
+        14,
+        14,
+        14,
+        16,
+        16,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "buttonTargets": [
+        {
+          "width": 86,
+          "height": 44
+        },
+        {
+          "width": 156.15625,
+          "height": 44
+        },
+        {
+          "width": 165.453125,
+          "height": 44
+        },
+        {
+          "width": 181,
+          "height": 44
+        },
+        {
+          "width": 176.734375,
+          "height": 44
+        },
+        {
+          "width": 151.953125,
+          "height": 44
+        },
+        {
+          "width": 451,
+          "height": 44
+        },
+        {
+          "width": 451,
+          "height": 44
+        },
+        {
+          "width": 451,
+          "height": 44
+        }
+      ]
+    },
+    {
+      "view": "strategic",
+      "textScale": 1,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "local",
+      "textScale": 1,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "factions",
+      "textScale": 1,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "map",
+      "textScale": 1,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "dialogue",
+      "textScale": 1,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "strategic",
+      "textScale": 2,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "local",
+      "textScale": 2,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "factions",
+      "textScale": 2,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "map",
+      "textScale": 2,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "view": "dialogue",
+      "textScale": 2,
+      "viewport": [
+        1024,
+        900
+      ],
+      "horizontalOverflow": false
+    }
+  ],
+  "keyboardFocus": {
+    "style": "solid",
+    "width": "3px"
+  },
+  "tabOrderChecked": true,
+  "targets": [
+    {
+      "label": "100%150%200%",
+      "width": 122,
+      "height": 58
+    },
+    {
+      "label": "01 · Strategic world",
+      "width": 282.3125,
+      "height": 62
+    },
+    {
+      "label": "02 · Work and return",
+      "width": 300.90625,
+      "height": 62
+    },
+    {
+      "label": "03 · Faces and distance",
+      "width": 331.984375,
+      "height": 62
+    },
+    {
+      "label": "04 · Map and evidence",
+      "width": 323.453125,
+      "height": 60
+    },
+    {
+      "label": "05 · An object's life",
+      "width": 273.890625,
+      "height": 60
+    },
+    {
+      "label": "Review the complete cost",
+      "width": 951,
+      "height": 60
+    }
+  ],
+  "consoleErrors": [],
+  "notTested": [
+    "game runtime",
+    "screen reader operation",
+    "touch/controller",
+    "actual audio",
+    "competitive balance",
+    "fresh client skill loading"
+  ]
+}
