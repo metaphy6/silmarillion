@@ -1,0 +1,394 @@
+[
+  {
+    "id": "manwe",
+    "faction": "Manwë's highlands",
+    "hero": "Manwë",
+    "compensates": "Sparse messenger and convoy-coordination infrastructure.",
+    "field_power": {
+      "name": "Skyhand",
+      "effect": "Push one exposed formation a short distance; cannot push it across lethal edges or into impassable terrain.",
+      "cost": "2 Readiness",
+      "range": "Visible local encounter; one formation",
+      "duration": "One pulse after a visible wind-up",
+      "counter": "Brace behind anchored cover, interrupt the wind-up, or spread formations."
+    },
+    "support_power": {
+      "name": "Heralds on the Wind",
+      "effect": "Relay one convoy's warning and revised route without a staffed relay building; movement, escorts and cargo remain ordinary.",
+      "cost": "3 Readiness + one weekly hero commitment; existing convoy crew and supplies",
+      "range": "One connected region; one existing convoy",
+      "duration": "One week",
+      "counter": "Break the route, conceal an ambush, or force competing emergencies."
+    },
+    "passive": {
+      "name": "Clear Signals",
+      "effect": "Nearby allied formations recover coordination after receiving verified orders.",
+      "limit": "Once per formation per encounter; no extra actions or immunity to fear."
+    },
+    "retained_weakness": "Cannot replace roads, cargo capacity, food production or multiple relay networks."
+  },
+  {
+    "id": "varda",
+    "faction": "Varda's beacon settlements",
+    "hero": "Varda",
+    "compensates": "Limited observation-post coverage.",
+    "field_power": {
+      "name": "Unclouded Flash",
+      "effect": "Expose concealed silhouettes in one illuminated patch; does not reveal intentions, inventories or enemies behind solid walls.",
+      "cost": "2 Readiness",
+      "range": "One visible local patch",
+      "duration": "Three encounter beats",
+      "counter": "Use solid cover, smoke, tunnels or movement beyond the lit patch."
+    },
+    "support_power": {
+      "name": "Starwatch Circuit",
+      "effect": "Provide intermittent reports of exposed movement along one surveyed route without constructing its watchtowers.",
+      "cost": "3 Readiness + one weekly hero commitment; maintained survey records",
+      "range": "One connected region; one route",
+      "duration": "One week",
+      "counter": "Travel under cover, sever the route, or send decoys; reports remain dated observations."
+    },
+    "passive": {
+      "name": "Steady Bearing",
+      "effect": "Nearby travelers resist one navigation delay on already surveyed ground.",
+      "limit": "Once per journey; cannot bypass terrain, danger or supply costs."
+    },
+    "retained_weakness": "Observation yields neither production capacity nor automatic knowledge of underground activity."
+  },
+  {
+    "id": "ulmo",
+    "faction": "Ulmo's waterside enclaves",
+    "hero": "Ulmo",
+    "compensates": "Insufficient ferry and crossing infrastructure.",
+    "field_power": {
+      "name": "Surging Passage",
+      "effect": "Redirect existing shallow water to disrupt one formation's footing or open a brief withdrawal lane.",
+      "cost": "2 Readiness",
+      "range": "One visible crossing in the local encounter",
+      "duration": "Two encounter beats",
+      "counter": "Take higher ground, brace, delay the crossing or interrupt Ulmo."
+    },
+    "support_power": {
+      "name": "Current-Borne Crossing",
+      "effect": "Carry one normally loaded convoy across one surveyed water obstacle without a permanent ferry; no additional movement or cargo.",
+      "cost": "3 Readiness + one weekly hero commitment; crew and normal convoy supplies",
+      "range": "One connected region; one crossing",
+      "duration": "One convoy passage during the week",
+      "counter": "Contest either landing, obstruct access or force an alternative crossing."
+    },
+    "passive": {
+      "name": "Reading the Flow",
+      "effect": "Inspection reveals the current crossing's flow and immediate navigational hazards.",
+      "limit": "Existing nearby water only; no enemy-location or future-weather guarantee."
+    },
+    "retained_weakness": "Dry divides, imported construction materials and limited transport crews still restrict expansion."
+  },
+  {
+    "id": "aule",
+    "faction": "Aulë's workshops",
+    "hero": "Aulë",
+    "compensates": "Low repair-workshop throughput.",
+    "field_power": {
+      "name": "Break the Brace",
+      "effect": "Heavily damage one exposed cover piece or siege brace; never instantly destroy a hero or a complete fortified settlement.",
+      "cost": "2 Readiness",
+      "range": "Adjacent object in the local encounter",
+      "duration": "One strike after a visible wind-up",
+      "counter": "Screen the structure, interrupt the approach or build layered defenses."
+    },
+    "support_power": {
+      "name": "Master's Repair",
+      "effect": "Perform one normal repair job without its specialist workshop; the original repair recipe and crew requirements still apply.",
+      "cost": "3 Readiness + one weekly hero commitment + the repair's full tagged M cost",
+      "range": "One worksite in one connected region",
+      "duration": "One repair job during the week",
+      "counter": "Disrupt material delivery, attack the worksite or spread damage across several sites."
+    },
+    "passive": {
+      "name": "Sound Workmanship",
+      "effect": "At one personally inspected owned worksite, reduce the first routine wear event by one severity step.",
+      "limit": "One worksite per week; no reduction of combat damage, free repairs, material refunds or stacking."
+    },
+    "retained_weakness": "One excellent commission cannot replace food imports, extraction or a broad factory network."
+  },
+  {
+    "id": "yavanna",
+    "faction": "Yavanna's living groves",
+    "hero": "Yavanna",
+    "compensates": "Limited fortification-building capacity.",
+    "field_power": {
+      "name": "Root's Grasp",
+      "effect": "Existing roots slow one formation crossing a marked patch; affected units can still fight or cut themselves free.",
+      "cost": "2 Readiness",
+      "range": "One rooted patch in the local encounter",
+      "duration": "Three encounter beats",
+      "counter": "Cut or burn the roots, interrupt the casting or take another approach."
+    },
+    "support_power": {
+      "name": "Living Buttress",
+      "effect": "Turn existing mature vegetation into one temporary defensive barrier protecting a worksite; cannot harvest it for new M.",
+      "cost": "3 Readiness + one weekly hero commitment; suitable living vegetation",
+      "range": "One site in one connected region",
+      "duration": "One week or until destroyed",
+      "counter": "Use fire, cutting tools, siege attacks or an approach outside the barrier."
+    },
+    "passive": {
+      "name": "Tread Lightly",
+      "effect": "Nearby allied travel causes less routine habitat damage.",
+      "limit": "Does not cancel harvesting, fire, construction damage or enemy destruction."
+    },
+    "retained_weakness": "Needs mature habitat and water; cannot instantly rebuild forests or support extensive metal industry."
+  },
+  {
+    "id": "namo",
+    "faction": "Mandos's sanctuary halls",
+    "hero": "Námo / Mandos",
+    "compensates": "Thin local guard coverage around vulnerable workplaces.",
+    "field_power": {
+      "name": "Declared Threshold",
+      "effect": "Mark one narrow threshold; the first hostile formation crossing it loses momentum and becomes briefly slowed.",
+      "cost": "2 Readiness",
+      "range": "One visible threshold in the local encounter",
+      "duration": "Three beats; triggers once",
+      "counter": "Go around, trigger it with a small detachment or interrupt the declaration."
+    },
+    "support_power": {
+      "name": "Ward of Waiting",
+      "effect": "Warn one staffed worksite of a direct approach and enable one organized evacuation; production stops when workers leave.",
+      "cost": "3 Readiness + one weekly hero commitment; existing workers and evacuation route",
+      "range": "One worksite in one connected region",
+      "duration": "One week; one evacuation",
+      "counter": "Block the exit, use concealed infiltration or threaten several worksites."
+    },
+    "passive": {
+      "name": "Shelter of the Threshold",
+      "effect": "The first ordinary allied company withdrawing through an active Declared Threshold loses one fewer cohesion step.",
+      "limit": "Once per encounter; excludes Dragons and Balrogs. Does not prevent pursuit, damage or enemy passage."
+    },
+    "retained_weakness": "Cannot replace standing guards, broad food production or permanent defenses; grants no resurrection."
+  },
+  {
+    "id": "irmo",
+    "faction": "Lórien's dream gardens",
+    "hero": "Irmo / Lórien",
+    "compensates": "Limited military training facilities.",
+    "field_power": {
+      "name": "Drowsing Veil",
+      "effect": "Disorient one formation in a small patch, reducing reaction speed without removing its ability to act.",
+      "cost": "2 Readiness",
+      "range": "One visible patch in the local encounter",
+      "duration": "Two encounter beats",
+      "counter": "Raise an alarm, move out, interrupt the caster or have an ally rally the formation."
+    },
+    "support_power": {
+      "name": "Rehearsal in Dream",
+      "effect": "Prepare one existing company for one chosen contingency, reducing its first coordination penalty when that contingency occurs.",
+      "cost": "3 Readiness + one weekly hero commitment; company's rest assignment and normal P upkeep",
+      "range": "One resting company in one connected region",
+      "duration": "Next encounter within one week; triggers once",
+      "counter": "Interrupt rest, scout the preparation or force a different tactical situation."
+    },
+    "passive": {
+      "name": "Lucid Adaptation",
+      "effect": "After a fresh verified scouting report, replace one company's prepared dream contingency without repeating its rest assignment.",
+      "limit": "Once per weekly preparation; replaces rather than adds a contingency. Its original expiry and single-use limit remain."
+    },
+    "retained_weakness": "Cannot manufacture equipment, train extra companies or substitute dreams for supplied troops."
+  },
+  {
+    "id": "nienna",
+    "faction": "Nienna's refuge cloisters",
+    "hero": "Nienna",
+    "compensates": "Limited institutions for restoring cooperation after local losses.",
+    "field_power": {
+      "name": "Hold Fast",
+      "effect": "Reduce one nearby allied formation's current panic by one step, allowing it to regroup or retreat.",
+      "cost": "2 Readiness",
+      "range": "One nearby allied formation in the local encounter",
+      "duration": "Immediate recovery; later pressure applies normally",
+      "counter": "Renew pressure, isolate the formation or interrupt Nienna before completion."
+    },
+    "support_power": {
+      "name": "Council of Repair",
+      "effect": "Resolve one recorded local grievance between willing parties after its negotiated restitution is actually delivered.",
+      "cost": "3 Readiness + one weekly hero commitment + agreed existing stocks or service",
+      "range": "Two participating groups in one connected region",
+      "duration": "One settlement during the week; new grievances remain possible",
+      "counter": "Disrupt delivery, expose unfulfilled terms or continue the underlying injury."
+    },
+    "passive": {
+      "name": "Leave None Uncounted",
+      "effect": "Keep known separated survivors visible in recovery planning after a nearby retreat.",
+      "limit": "Does not locate unknown survivors, revive deaths or recover anyone automatically."
+    },
+    "retained_weakness": "Care and restitution consume real capacity; grief generates no resources or permanent morale immunity."
+  },
+  {
+    "id": "orome",
+    "faction": "Oromë's frontier lodges",
+    "hero": "Oromë",
+    "compensates": "Insufficient patrol-barracks coverage of wilderness routes.",
+    "field_power": {
+      "name": "Hunter's Interception",
+      "effect": "Charge along an open approach to disrupt one attacking formation and briefly check its advance.",
+      "cost": "2 Readiness",
+      "range": "One formation reached by a clear local charge lane",
+      "duration": "One impact; brief stagger",
+      "counter": "Brace, deploy stakes, block the lane or bait the charge into supporting fire."
+    },
+    "support_power": {
+      "name": "Keep the Wild Road",
+      "effect": "Personally patrol one marked route, producing warning reports and deterring minor harassment without a new barracks.",
+      "cost": "3 Readiness + one weekly hero commitment; normal travel supplies",
+      "range": "One route in one connected region",
+      "duration": "One week",
+      "counter": "Avoid the patrol, set an ambush or concentrate a force requiring an actual battle."
+    },
+    "passive": {
+      "name": "Persistent Trail",
+      "effect": "Retain pursuit clues longer after personally observing a quarry's passage.",
+      "limit": "Known tracks only; weather, concealment and deliberate false trails still interfere."
+    },
+    "retained_weakness": "One hunter cannot guard every route, sustain a siege or replace local production."
+  },
+  {
+    "id": "tulkas",
+    "faction": "Tulkas's muster grounds",
+    "hero": "Tulkas",
+    "compensates": "Weak heavy-construction equipment and lifting capacity.",
+    "field_power": {
+      "name": "Unyielding Grapple",
+      "effect": "Briefly restrain one adjacent opponent while Tulkas remains occupied; causes no automatic kill.",
+      "cost": "2 Readiness; Tulkas cannot perform another action while maintaining it",
+      "range": "One adjacent opponent in the local encounter",
+      "duration": "Up to two beats; same opponent once per encounter",
+      "counter": "Dodge the telegraphed approach, interrupt Tulkas or use allied attacks to break the hold."
+    },
+    "support_power": {
+      "name": "Shoulder the Burden",
+      "effect": "Replace a crane or lifting crew for one construction phase; all other labor, materials and building prerequisites remain.",
+      "cost": "3 Readiness + one weekly hero commitment + the phase's full tagged M cost",
+      "range": "One worksite in one connected region",
+      "duration": "One construction phase during the week",
+      "counter": "Cut material delivery, attack the exposed site or force Tulkas to leave."
+    },
+    "passive": {
+      "name": "Stand Beside Me",
+      "effect": "Nearby allies suffer a smaller first fear-induced coordination loss.",
+      "limit": "Once per encounter; does not prevent retreat, injury or later panic."
+    },
+    "retained_weakness": "Physical strength supplies neither materials nor advanced industry; dispersed threats still outnumber his interventions."
+  },
+  {
+    "id": "nessa",
+    "faction": "Nessa's relay settlements",
+    "hero": "Nessa",
+    "compensates": "Limited evacuation and civilian-transfer infrastructure.",
+    "field_power": {
+      "name": "Impossible Step",
+      "effect": "Lead one nearby ordinary allied formation through a short, rapid reposition along a visible traversable path; excludes all Dragons and Balrogs.",
+      "cost": "2 Readiness",
+      "range": "One nearby formation; short local path",
+      "duration": "One movement action",
+      "counter": "Block the path, prepare interceptors or burden the formation with cargo it cannot carry quickly."
+    },
+    "support_power": {
+      "name": "Gather the Stragglers",
+      "effect": "Organize one existing civilian group's transfer without a dedicated relay stable; actual destination consent and carrying limits apply.",
+      "cost": "3 Readiness + one weekly hero commitment + normal P travel rations",
+      "range": "One known route in one connected region",
+      "duration": "One transfer during the week",
+      "counter": "Contest chokepoints, sever the route or force incompatible rescue priorities."
+    },
+    "passive": {
+      "name": "Shared Pace",
+      "effect": "Groups personally accompanied by Nessa are less likely to separate on difficult ground.",
+      "limit": "Does not increase cargo, ignore barriers or protect against combat casualties."
+    },
+    "retained_weakness": "Speed cannot replace freight capacity, stocked refuges, fortified roads or manufacturing."
+  },
+  {
+    "id": "vana",
+    "faction": "Vána's bloom nurseries",
+    "hero": "Vána",
+    "compensates": "Limited nursery capacity and vulnerable agricultural timing.",
+    "field_power": {
+      "name": "Bloomscreen",
+      "effect": "Existing shrubs flower densely enough to obscure one small patch and help a party change position.",
+      "cost": "2 Readiness",
+      "range": "One vegetated patch in the local encounter",
+      "duration": "Three encounter beats",
+      "counter": "Use fire, cutting tools, elevated observation or another approach."
+    },
+    "support_power": {
+      "name": "Season Brought Forward",
+      "effect": "Advance one already planted plot by one growth stage; its predetermined harvest amount and remaining upkeep stay unchanged.",
+      "cost": "3 Readiness + one weekly hero commitment; planted seed inputs, irrigation and tending labor",
+      "range": "One plot in one connected region",
+      "duration": "One growth-stage advance; once per crop cycle",
+      "counter": "Damage irrigation, raid the field or interrupt tending; failed crops yield nothing."
+    },
+    "passive": {
+      "name": "Signs of Renewal",
+      "effect": "Inspection identifies viable plants and whether a cultivated plot can recover.",
+      "limit": "Knowledge of condition only; creates no seeds, provisions or automatic recovery."
+    },
+    "retained_weakness": "Needs real fields, water and workers; cannot multiply harvests or accelerate mature forests."
+  },
+  {
+    "id": "este",
+    "faction": "Estë's healing refuges",
+    "hero": "Estë",
+    "compensates": "Limited hospital beds and medical-workshop access.",
+    "field_power": {
+      "name": "Still the Wound",
+      "effect": "Stabilize one living wounded target against immediate deterioration; it remains impaired and cannot instantly resume full combat.",
+      "cost": "2 Readiness; uninterrupted treatment",
+      "range": "One adjacent living target in the local encounter",
+      "duration": "Until encounter end or renewed injury",
+      "counter": "Interrupt treatment, separate healer and patient or inflict a new wound."
+    },
+    "support_power": {
+      "name": "Rest Without Walls",
+      "effect": "Treat one resting party as if a basic recovery facility were available, reducing one recoverable injury tier under normal care rules.",
+      "cost": "3 Readiness + one weekly hero commitment + normal P care supplies and any required medical M",
+      "range": "One sheltered party in one connected region",
+      "duration": "One week; one treatment result",
+      "counter": "Interrupt rest, cut supplies or force the party to move."
+    },
+    "passive": {
+      "name": "Care on the Road",
+      "effect": "One personally treated ordinary party preserves accumulated recovery progress through its first routine evacuation journey.",
+      "limit": "One party per week; normal travel costs and fatigue apply. New injury still disrupts care; no extra healing, Readiness or resurrection."
+    },
+    "retained_weakness": "One party's recovery cannot absorb mass casualties; death and missing supply infrastructure remain consequential."
+  },
+  {
+    "id": "vaire",
+    "faction": "Vairë's archive halls",
+    "hero": "Vairë",
+    "compensates": "Fragile access to specialist production records after a workshop is lost.",
+    "field_power": {
+      "name": "Read the Broken Pattern",
+      "effect": "Reconstruct one recent movement through inspected traces, producing a dated track rather than a live target marker.",
+      "cost": "2 Readiness; stationary inspection",
+      "range": "One accessible trace site in the local encounter",
+      "duration": "One report; becomes stale as units move",
+      "counter": "Erase or overlay traces, leave decoys or attack during inspection."
+    },
+    "support_power": {
+      "name": "The Remembered Workshop",
+      "effect": "Let one basic workshop complete one previously unlocked faction item from a preserved plan despite losing its specialist archive.",
+      "cost": "3 Readiness + one weekly hero commitment + the item's full recipe and normal crew/time",
+      "range": "One workshop in one connected region",
+      "duration": "One week; unfinished work requires renewed commitment",
+      "counter": "Destroy the preserved plan, interrupt the workshop or deny recipe inputs."
+    },
+    "passive": {
+      "name": "Portable Chronicle",
+      "effect": "Carry a recoverable copy of one owned production plan or witnessed agreement.",
+      "limit": "No foreign recipes, hero recipes, unit commands, equipment copies or free K."
+    },
+    "retained_weakness": "Records cannot replace extraction, labor, surviving machinery or the rebuilding of an industrial network."
+  }
+]

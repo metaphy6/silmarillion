@@ -1,0 +1,450 @@
+[
+  {
+    "id": "sauron",
+    "faction": "Sauron",
+    "hero": "Sauron",
+    "compensates": "Industrial armies lose effectiveness when their supply network is disrupted.",
+    "field_power": {
+      "name": "Black Command",
+      "effect": "One owned ordinary company regains one lost cohesion step and can execute its declared fallback. Never affects Dragons or Balrogs.",
+      "cost": "2 readiness",
+      "range": "One visible company within 12 metres in the current encounter",
+      "duration": "Two tactical phases; no stacking",
+      "counter": "Break line of sight, isolate the company or keep its fallback route blocked."
+    },
+    "support_power": {
+      "name": "Redundant Supply",
+      "effect": "Prepare an alternate route for one funded convoy between owned depots. It may reroute once when its original path closes; goods still travel normally.",
+      "cost": "3 readiness, weekly hero assignment, 10M and 5K",
+      "range": "One connected region with two owned depots and a surveyed open alternate route",
+      "duration": "One week",
+      "counter": "Block the alternate route, damage a depot or intercept the convoy."
+    },
+    "passive": {
+      "name": "Reserved Rations",
+      "effect": "One selected owned ordinary company may carry up to 5P of paid reserve provisions beyond its normal load, reducing reliance on its next convoy.",
+      "limit": "Stocks must be deducted from a depot; upkeep consumes them normally. One company at a time; no Dragons or Balrogs."
+    },
+    "retained_weakness": "The army still needs provisions, depots and travel; exposed clients can secede."
+  },
+  {
+    "id": "istari_ember",
+    "faction": "Ember Order",
+    "hero": "Kindler",
+    "compensates": "Small support armies struggle to keep workers active near a threatening front.",
+    "field_power": {
+      "name": "Hold the Hearth",
+      "effect": "Two nearby owned ordinary groups reduce their current panic by one step. Damage and fatigue remain.",
+      "cost": "2 readiness",
+      "range": "Two groups within 8 metres of the Kindler in the current encounter",
+      "duration": "Two tactical phases; one application per group per encounter",
+      "counter": "Separate the groups, force the Kindler away or apply fresh pressure after the effect ends."
+    },
+    "support_power": {
+      "name": "Refuge Shift",
+      "effect": "Prepare shelter and an evacuation drill for one staffed worksite. Its workers can withdraw once to the selected nearby refuge; the abandoned job pauses rather than producing remotely.",
+      "cost": "3 readiness, weekly hero assignment, 10P and 10M",
+      "range": "One connected region; worksite and refuge linked by an open route",
+      "duration": "One week or one evacuation",
+      "counter": "Cut the route, occupy the refuge or force evacuation before the job completes."
+    },
+    "passive": {
+      "name": "Shared Warmth",
+      "effect": "One ordinary company resting with the Kindler removes one additional fatigue step.",
+      "limit": "Once per week at a supplied refuge; no readiness, stock or injury restoration."
+    },
+    "retained_weakness": "Shelters cannot replace a field army, and displaced workers stop production."
+  },
+  {
+    "id": "istari_grove",
+    "faction": "Grove Order",
+    "hero": "Grovekeeper",
+    "compensates": "Specialist training makes replacing injured personnel expensive.",
+    "field_power": {
+      "name": "Living Dressing",
+      "effect": "Stabilize one nonfatal wound on an owned ordinary unit, preventing that wound worsening during withdrawal. Does not restore combat strength or revive the dead.",
+      "cost": "2 readiness and 5P",
+      "range": "Physical contact in the current encounter",
+      "duration": "Until encounter end or the unit suffers another wound",
+      "counter": "Interrupt contact, deny a retreat route or inflict a new wound."
+    },
+    "support_power": {
+      "name": "Nursery Recovery",
+      "effect": "Treat up to two injured ordinary units at a staffed medicine nursery; each completes one additional step of its existing recovery schedule.",
+      "cost": "3 readiness, weekly hero assignment, 10P and 10M",
+      "range": "One connected region; patients physically present at the nursery",
+      "duration": "This week's recovery resolution",
+      "counter": "Raid the nursery, interrupt supplies or force the patients to move."
+    },
+    "passive": {
+      "name": "Measured Remedies",
+      "effect": "One ordinary patient treated by Grovekeeper retains one already completed recovery step that would otherwise be lost during its first evacuation from the nursery.",
+      "limit": "One patient per week and once per injury; no new healing, readiness restoration, supply generation or resurrection."
+    },
+    "retained_weakness": "Care depends on viable habitat, staff and supplies; overwhelming losses still exhaust the order."
+  },
+  {
+    "id": "istari_veil",
+    "faction": "Veil Order",
+    "hero": "Veilweaver",
+    "compensates": "Fragile agents cannot afford repeated losses while gathering information.",
+    "field_power": {
+      "name": "Borrowed Shadow",
+      "effect": "Place one stationary silhouette of an ordinary infantry scout to draw observation. It cannot attack, carry goods, capture sites or copy a hero, Dragon or Balrog.",
+      "cost": "2 readiness and 5K",
+      "range": "One visible location within 12 metres in the current encounter",
+      "duration": "Two tactical phases or until physically examined",
+      "counter": "Scout from another angle, touch the silhouette or watch whether it interacts with terrain."
+    },
+    "support_power": {
+      "name": "Quiet Exchange",
+      "effect": "Cross-check one dated report through two staffed safehouses, identifying contradictions and source uncertainty. It does not reveal unobserved facts.",
+      "cost": "3 readiness, weekly hero assignment and 10K",
+      "range": "One connected region containing both safehouses",
+      "duration": "One report delivered at weekly resolution",
+      "counter": "Close a safehouse, intercept its courier or supply independently consistent false evidence."
+    },
+    "passive": {
+      "name": "Compartmented Contacts",
+      "effect": "Capture of one ordinary agent reveals only that agent's current assignment and contacts.",
+      "limit": "Does not conceal information already learned elsewhere or automatically rescue the captive."
+    },
+    "retained_weakness": "The order lacks durable troops, and deception cannot substitute for holding ground."
+  },
+  {
+    "id": "istari_forge",
+    "faction": "Forge Order",
+    "hero": "Artificer",
+    "compensates": "A small number of expensive constructs makes repair downtime costly.",
+    "field_power": {
+      "name": "Brace the Mechanism",
+      "effect": "Restore one movement impairment on an owned nonhero construct made by this order. No lost unit is recreated, and destroyed parts remain destroyed.",
+      "cost": "2 readiness and 10M",
+      "range": "Physical contact in the current encounter",
+      "duration": "Until encounter end or another disabling hit",
+      "counter": "Interrupt the repair, separate the Artificer from the machine or damage the repaired joint."
+    },
+    "support_power": {
+      "name": "Service Overhaul",
+      "effect": "Advance one already-funded repair job by one turn. It cannot complete in the turn it starts; excludes hero creation, new-unit production, Dragons and Balrogs.",
+      "cost": "3 readiness, weekly hero assignment, 15M and 5K",
+      "range": "One staffed service depot in the connected region",
+      "duration": "One repair job; once per job",
+      "counter": "Occupy the depot, remove its crew or deny its required source access."
+    },
+    "passive": {
+      "name": "Standard Fittings",
+      "effect": "An ordinary repair kit made by this order fits any of its own ordinary constructs.",
+      "limit": "Every repair still consumes the kit, materials and its normal action; never grants another faction's recipe."
+    },
+    "retained_weakness": "Constructs remain material-intensive, and repair cannot compensate for destroyed production facilities."
+  },
+  {
+    "id": "istari_star",
+    "faction": "Star Order",
+    "hero": "Wayseer",
+    "compensates": "A dispersed small army often receives warnings too late to concentrate.",
+    "field_power": {
+      "name": "Signal Flash",
+      "effect": "One visible owned ordinary group may revise its declared fallback before the next tactical resolution; its movement allowance does not increase.",
+      "cost": "2 readiness",
+      "range": "One group within 15 metres in the current encounter",
+      "duration": "Next tactical phase",
+      "counter": "Obscure the signal, block the fallback or pressure a different group."
+    },
+    "support_power": {
+      "name": "Beacon Concord",
+      "effect": "Prepare one verified warning relay between three staffed beacons. An observed attack is reported at the next planning phase, without revealing events outside their sightlines.",
+      "cost": "3 readiness, weekly hero assignment, 10M and 5K",
+      "range": "One connected region with an intact beacon chain",
+      "duration": "One week",
+      "counter": "Cut a relay, approach under cover or use a diversion beyond its sightlines."
+    },
+    "passive": {
+      "name": "Veiled Starlight",
+      "effect": "One staffed beacon link previously surveyed by Wayseer can transmit one already-observed warning through light fog that would normally block its visual signal.",
+      "limit": "Once per week across one link; normal actions, staffing, costs, range and delivery time apply. No extra messages, improved observation, passage through solid cover or transmission through heavy fog or storms."
+    },
+    "retained_weakness": "Knowledge does not create troops or transport; unconnected regions remain difficult to protect."
+  },
+  {
+    "id": "melian",
+    "faction": "Melian",
+    "hero": "Melian",
+    "compensates": "A stationary sanctuary depends on vulnerable trips beyond its protected boundary.",
+    "field_power": {
+      "name": "Veil the Departing",
+      "effect": "Conceal the visible trail of one consenting ordinary party while it withdraws. Attacking or crossing open ground ends the concealment.",
+      "cost": "2 readiness",
+      "range": "One party within 10 metres in a wooded encounter",
+      "duration": "Two tactical phases",
+      "counter": "Watch exits, inspect fresh tracks from another angle or force the party into open terrain."
+    },
+    "support_power": {
+      "name": "Guest Road",
+      "effect": "Ward one surveyed wooded supply route against casual observation. Convoys still require transport, provisions and ordinary travel time.",
+      "cost": "3 readiness, weekly hero assignment, 10M, 5K and one Anchor",
+      "range": "One connected region adjoining the sanctuary",
+      "duration": "One week; ends early if its prepared markers are destroyed",
+      "counter": "Patrol the route closely, clear cover or seize an endpoint."
+    },
+    "passive": {
+      "name": "Known Thresholds",
+      "effect": "One staffed sanctuary entrance records arrivals and departures for later inspection.",
+      "limit": "One entrance at a time; cannot identify a concealed identity or observe outside the boundary."
+    },
+    "retained_weakness": "Protection remains stationary and cannot solve internal disputes or sustain distant armies."
+  },
+  {
+    "id": "osse",
+    "faction": "Ossë",
+    "hero": "Ossë",
+    "compensates": "Coastal workshops and landings lose productive access when channels are obstructed.",
+    "field_power": {
+      "name": "Break the Landing",
+      "effect": "Raise hazardous surf across one short landing approach, slowing ships and swimmers physically. Friendly vessels face the same hazard.",
+      "cost": "2 readiness",
+      "range": "One visible coastal strip within 15 metres in the current encounter",
+      "duration": "Two tactical phases",
+      "counter": "Use another beach, wait out the surf or approach from land."
+    },
+    "support_power": {
+      "name": "Workable Tide",
+      "effect": "Help a supplied shore crew clear one silted or debris-blocked harbor channel, completing one step of its funded repair. No new harbor or ship is created.",
+      "cost": "3 readiness, weekly hero assignment and 20M",
+      "range": "One owned harbor in a connected coastal region",
+      "duration": "This week's repair resolution",
+      "counter": "Disrupt the shore crew, damage its equipment or renew the physical obstruction."
+    },
+    "passive": {
+      "name": "Read the Shoals",
+      "effect": "Inspection reveals safe draft and current hazards for one local channel.",
+      "limit": "One inspected channel per week; information becomes stale after storms or sabotage."
+    },
+    "retained_weakness": "Inland threats remain difficult to answer, and storm magic endangers friendly shipping."
+  },
+  {
+    "id": "uinen",
+    "faction": "Uinen",
+    "hero": "Uinen",
+    "compensates": "Small maritime forces cannot replace damaged transport quickly.",
+    "field_power": {
+      "name": "Stillwater Pocket",
+      "effect": "Reduce wave hazard by one severity step around one damaged vessel so its crew can attempt repair or rescue. Enemy attacks remain effective.",
+      "cost": "2 readiness",
+      "range": "One vessel within 15 metres in the current encounter",
+      "duration": "Two tactical phases",
+      "counter": "Attack from shore, obstruct its route or force it beyond the calm pocket."
+    },
+    "support_power": {
+      "name": "Sheltered Refit",
+      "effect": "A staffed rescue yard advances repairs on one existing transport by one step while Uinen maintains workable water conditions.",
+      "cost": "3 readiness, weekly hero assignment, 10P and 15M",
+      "range": "One rescue yard in a connected coastal region",
+      "duration": "This week's repair resolution; once per repair job",
+      "counter": "Blockade the yard, interrupt materials or raid the repair crew."
+    },
+    "passive": {
+      "name": "Ready Lifelines",
+      "effect": "One prepared friendly rescue craft can begin a rescue without first deploying its rigging.",
+      "limit": "One rescue per encounter; normal load, movement and casualty limits still apply."
+    },
+    "retained_weakness": "She cannot replace destroyed fleets or secure inland supply lines through calming water alone."
+  },
+  {
+    "id": "arien",
+    "faction": "Arien",
+    "hero": "Arien",
+    "compensates": "A small terrestrial workforce struggles to operate under hostile concealment.",
+    "field_power": {
+      "name": "Unclouded Glimpse",
+      "effect": "Thin ordinary smoke or mist in one visible area, exposing silhouettes without identifying hidden motives or targets behind solid cover.",
+      "cost": "2 readiness",
+      "range": "One 6-metre area within 15 metres in the current encounter",
+      "duration": "Two tactical phases",
+      "counter": "Use roofs, tunnels, solid cover or fresh smoke outside the illuminated area."
+    },
+    "support_power": {
+      "name": "Dawn Worksite",
+      "effect": "Illuminate one prepared worksite so its existing crew can perform its normal shift despite darkness. No extra production cycle, workers or free materials are granted.",
+      "cost": "3 readiness, weekly hero assignment, 10M and 5K",
+      "range": "One connected region; one staffed site with a maintained mirror station",
+      "duration": "One week",
+      "counter": "Destroy the mirrors, attack the exposed crew or obstruct the sightline with solid cover."
+    },
+    "passive": {
+      "name": "Long Shadows",
+      "effect": "An occupied dawn watchpost records the direction of exposed movement crossing its lit approach.",
+      "limit": "One selected post; only visible movement, with no tracking after cover is reached."
+    },
+    "retained_weakness": "Illumination cannot hold territory, enter sealed interiors or replace conventional defense."
+  },
+  {
+    "id": "tilion",
+    "faction": "Tilion",
+    "hero": "Tilion",
+    "compensates": "Limited patrol numbers leave nocturnal routes poorly covered.",
+    "field_power": {
+      "name": "Silver Interception",
+      "effect": "Make one aimed attack against an exposed attacker preparing to strike a nearby ordinary ally. It can interrupt that attack but cannot guarantee a kill.",
+      "cost": "2 readiness",
+      "range": "One visible target within 15 metres in the current encounter",
+      "duration": "Next tactical phase",
+      "counter": "Use cover, feint with one attacker and strike with another, or engage beyond the protected lane."
+    },
+    "support_power": {
+      "name": "Watch of the Moon",
+      "effect": "Survey one declared night route personally and report observed crossings at the next planning phase. It does not reveal interiors or unvisited branches.",
+      "cost": "3 readiness, weekly hero assignment and 10P for supporting scouts",
+      "range": "One connected region and one traversable patrol route",
+      "duration": "One week",
+      "counter": "Travel outside the route, use overhead cover or stage a diversion."
+    },
+    "passive": {
+      "name": "Night Bearings",
+      "effect": "One ordinary scout group accompanying Tilion reduces a routefinding delay by one tactical phase when retracing a route he personally surveyed.",
+      "limit": "Once per encounter; does not bypass blockades, increase movement allowance or disclose new terrain."
+    },
+    "retained_weakness": "A single patrol cannot protect multiple fronts, and dependable reports still require exposure."
+  },
+  {
+    "id": "eonwe",
+    "faction": "Eönwë",
+    "hero": "Eönwë",
+    "compensates": "A compact expeditionary economy struggles with dispersed military commitments.",
+    "field_power": {
+      "name": "Heralds Advance",
+      "effect": "Lead up to two owned ordinary companies in a coordinated advance, reducing separation by allowing a shared pace. Movement and damage remain otherwise normal.",
+      "cost": "2 readiness",
+      "range": "Two companies within 10 metres in the current encounter",
+      "duration": "Two tactical phases",
+      "counter": "Block their shared route, attack their flanks or force different terrain speeds."
+    },
+    "support_power": {
+      "name": "Muster by Terms",
+      "effect": "Prepare one rally point and timed arrival plan for three owned ordinary companies. They retain separate travel requirements and can join one declared operation when they arrive.",
+      "cost": "3 readiness, weekly hero assignment, 15P and 10M",
+      "range": "One connected region with surveyed routes and a supplied rally point",
+      "duration": "One week",
+      "counter": "Intercept one route, deny the rally point or draw the force toward another objective."
+    },
+    "passive": {
+      "name": "Clear Commission",
+      "effect": "One supplied ordinary company operating under his written mission retains its declared fallback if communications are cut.",
+      "limit": "One company and one mission; cannot issue new orders remotely or apply to Dragons or Balrogs."
+    },
+    "retained_weakness": "Concentrating the host exposes other routes, and his martial strength cannot replace provisions."
+  },
+  {
+    "id": "ilmare",
+    "faction": "Ilmarë",
+    "hero": "Ilmarë",
+    "compensates": "A lightly defended communications network is easily disrupted.",
+    "field_power": {
+      "name": "Witness Flare",
+      "effect": "Mark the observed position of one visible attacker for nearby defenders. The mark does not follow the target after it reaches cover.",
+      "cost": "2 readiness",
+      "range": "One visible target within 15 metres in the current encounter",
+      "duration": "Two tactical phases",
+      "counter": "Change position under cover, obscure the flare or attack from another direction."
+    },
+    "support_power": {
+      "name": "Second Signal",
+      "effect": "Prepare a redundant physical relay for one staffed communications link. If its primary station fails, a courier can use the surveyed alternate route.",
+      "cost": "3 readiness, weekly hero assignment, 15M and 5K",
+      "range": "One connected region with an available courier and alternate route",
+      "duration": "One week or one rerouted message",
+      "counter": "Intercept the courier, block the alternate route or feed false reports into the surviving station."
+    },
+    "passive": {
+      "name": "Witness Chain",
+      "effect": "The first report crossing her network each week preserves the identities of its observed relay stations and its timestamp.",
+      "limit": "Provenance supports checking, not guaranteed truth; generates no fresh observations."
+    },
+    "retained_weakness": "Reliable communications still need staffed sites and cannot substitute for a defending army."
+  },
+  {
+    "id": "ent_grove",
+    "faction": "Ent Grove",
+    "hero": "Grove Elder",
+    "compensates": "Slow movement makes separated habitats and work areas difficult to defend.",
+    "field_power": {
+      "name": "Rooted Screen",
+      "effect": "Raise existing roots across one short approach, slowing passage and sheltering withdrawal without sealing every exit.",
+      "cost": "2 readiness",
+      "range": "One rooted area within 10 metres in the current encounter",
+      "duration": "Three tactical phases",
+      "counter": "Cut or burn the roots, use a different approach or attack from range."
+    },
+    "support_power": {
+      "name": "Living Causeway",
+      "effect": "Shape existing timber and roots into one short crossing for ordinary movement. Requires a working crew and suitable banks; does not create mature trees.",
+      "cost": "3 readiness, weekly hero assignment, 20M and 10P",
+      "range": "One connected region; a surveyed gap no wider than 15 metres",
+      "duration": "Completed physical crossing persists until damaged",
+      "counter": "Attack the builders, burn the crossing or block its far bank."
+    },
+    "passive": {
+      "name": "Root Memory",
+      "effect": "Once per week, inspect one connected grove for recent logging or heavy passage and identify its direction.",
+      "limit": "Records disturbance rather than identities; disconnected land remains unknown."
+    },
+    "retained_weakness": "The faction remains slow, habitat-dependent and vulnerable to sustained fire."
+  },
+  {
+    "id": "eagle_eyrie",
+    "faction": "Eagle Eyrie",
+    "hero": "Skywarden",
+    "compensates": "Secure aerial territory still has little capacity to move supplies or rescue grounded allies.",
+    "field_power": {
+      "name": "Lift the Stranded",
+      "effect": "Carry one willing light nonhero ally to a safe landing point. Excludes large creatures, Dragons and Balrogs; both take the risk of the exposed flight.",
+      "cost": "2 readiness",
+      "range": "Pickup by contact; landing within 20 metres in the current encounter",
+      "duration": "One flight across two tactical phases",
+      "counter": "Guard the landing point, use ranged attacks or deny sufficient landing space."
+    },
+    "support_power": {
+      "name": "Eyrie Relay",
+      "effect": "Move up to 20 units of existing P or K between two prepared ledges using one committed ordinary flight. It cannot transport M, E, troops or a second load.",
+      "cost": "3 readiness, weekly hero assignment, 10P and 5M",
+      "range": "Two owned or consenting ledges within one connected region",
+      "duration": "One delivery at weekly resolution",
+      "counter": "Threaten a ledge, intercept the flight or force weather delays."
+    },
+    "passive": {
+      "name": "Landing Survey",
+      "effect": "Before one rescue or delivery each week, reveal visible obstacles and available space at the inspected destination.",
+      "limit": "Requires line of sight; concealed defenders remain concealed."
+    },
+    "retained_weakness": "Loads stay small, eyries remain exposed, and air superiority does not establish ground control."
+  },
+  {
+    "id": "spider_brood",
+    "faction": "Spider Brood",
+    "hero": "Brood Matriarch",
+    "compensates": "A prey-dependent economy struggles to connect separated lairs safely.",
+    "field_power": {
+      "name": "Layered Snare",
+      "effect": "Web one short approach, reducing ordinary ground movement through it and revealing physical crossings. It does not issue orders or permanently immobilize targets.",
+      "cost": "2 readiness and 5M",
+      "range": "One 6-metre approach within 10 metres in the current encounter",
+      "duration": "Three tactical phases or until cleared",
+      "counter": "Cut or burn the web, cross elsewhere or attack from range."
+    },
+    "support_power": {
+      "name": "Brood Bridge",
+      "effect": "Build one silk crossing between prepared anchors, opening a route for ordinary brood workers and hunters. Hunting and transport still require their normal assignments.",
+      "cost": "3 readiness, weekly hero assignment, 20M and 10P",
+      "range": "One connected region; a surveyed gap no wider than 15 metres",
+      "duration": "Physical crossing persists until damaged",
+      "counter": "Destroy an anchor, clear the crossing or ambush its exit."
+    },
+    "passive": {
+      "name": "Tremor Ledger",
+      "effect": "One occupied lair records the time and direction of crossings touching its connected web routes.",
+      "limit": "No identity detection, remote control or information beyond intact connected silk."
+    },
+    "retained_weakness": "The brood still depends on prey and prepared terrain; fire and cleared routes remain effective counters."
+  }
+]

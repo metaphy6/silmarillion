@@ -1,0 +1,1615 @@
+{
+  "revision": 6,
+  "status": "proposed; not playtested",
+  "faction_count": 54,
+  "starting_profile_count": 55,
+  "defaults": {
+    "readiness": 6,
+    "recovery_per_hero_commitment": 3,
+    "worldbreaker_readiness": 12,
+    "worldbreaker_recovery": 6,
+    "active_heroes_per_faction": 1,
+    "melkor_doctrine_locked": true,
+    "same_effect_stacking": "strongest effect only",
+    "hard_disable_reapplication_grace": "two tactical phases",
+    "production_acceleration": "no completion in the turn a job starts; no resource or entity duplication",
+    "exclusive_creatures": "All Balrogs and Dragon forms obey only Melkor; allied movement, rally and transport powers cannot issue or revise their orders. Worldbreaker calls existing living IDs, Dark Architect may also produce new ones"
+  },
+  "profiles": [
+    {
+      "id": "manwe",
+      "faction": "Manwë's highlands",
+      "hero": "Manwë",
+      "compensates": "Sparse messenger and convoy-coordination infrastructure.",
+      "field_power": {
+        "name": "Skyhand",
+        "effect": "Push one exposed formation a short distance; cannot push it across lethal edges or into impassable terrain.",
+        "cost": "2 readiness",
+        "range": "Visible local encounter; one formation",
+        "duration": "One pulse after a visible wind-up",
+        "counter": "Brace behind anchored cover, interrupt the wind-up, or spread formations."
+      },
+      "support_power": {
+        "name": "Heralds on the Wind",
+        "effect": "Relay one convoy's warning and revised route without a staffed relay building; movement, escorts and cargo remain ordinary.",
+        "cost": "3 readiness + one weekly hero commitment; existing convoy crew and supplies",
+        "range": "One connected region; one existing convoy",
+        "duration": "One week",
+        "counter": "Break the route, conceal an ambush, or force competing emergencies."
+      },
+      "passive": {
+        "name": "Clear Signals",
+        "effect": "Nearby allied formations recover coordination after receiving verified orders.",
+        "limit": "Once per formation per encounter; no extra actions or immunity to fear."
+      },
+      "retained_weakness": "Cannot replace roads, cargo capacity, food production or multiple relay networks.",
+      "category": "Valar"
+    },
+    {
+      "id": "varda",
+      "faction": "Varda's beacon settlements",
+      "hero": "Varda",
+      "compensates": "Limited observation-post coverage.",
+      "field_power": {
+        "name": "Unclouded Flash",
+        "effect": "Expose concealed silhouettes in one illuminated patch; does not reveal intentions, inventories or enemies behind solid walls.",
+        "cost": "2 readiness",
+        "range": "One visible local patch",
+        "duration": "Three tactical phases",
+        "counter": "Use solid cover, smoke, tunnels or movement beyond the lit patch."
+      },
+      "support_power": {
+        "name": "Starwatch Circuit",
+        "effect": "Provide intermittent reports of exposed movement along one surveyed route without constructing its watchtowers.",
+        "cost": "3 readiness + one weekly hero commitment; maintained survey records",
+        "range": "One connected region; one route",
+        "duration": "One week",
+        "counter": "Travel under cover, sever the route, or send decoys; reports remain dated observations."
+      },
+      "passive": {
+        "name": "Steady Bearing",
+        "effect": "Nearby travelers resist one navigation delay on already surveyed ground.",
+        "limit": "Once per journey; cannot bypass terrain, danger or supply costs."
+      },
+      "retained_weakness": "Observation yields neither production capacity nor automatic knowledge of underground activity.",
+      "category": "Valar"
+    },
+    {
+      "id": "ulmo",
+      "faction": "Ulmo's waterside enclaves",
+      "hero": "Ulmo",
+      "compensates": "Insufficient ferry and crossing infrastructure.",
+      "field_power": {
+        "name": "Surging Passage",
+        "effect": "Redirect existing shallow water to disrupt one formation's footing or open a brief withdrawal lane.",
+        "cost": "2 readiness",
+        "range": "One visible crossing in the local encounter",
+        "duration": "Two tactical phases",
+        "counter": "Take higher ground, brace, delay the crossing or interrupt Ulmo."
+      },
+      "support_power": {
+        "name": "Current-Borne Crossing",
+        "effect": "Carry one normally loaded convoy across one surveyed water obstacle without a permanent ferry; no additional movement or cargo.",
+        "cost": "3 readiness + one weekly hero commitment; crew and normal convoy supplies",
+        "range": "One connected region; one crossing",
+        "duration": "One convoy passage during the week",
+        "counter": "Contest either landing, obstruct access or force an alternative crossing."
+      },
+      "passive": {
+        "name": "Reading the Flow",
+        "effect": "Inspection reveals the current crossing's flow and immediate navigational hazards.",
+        "limit": "Existing nearby water only; no enemy-location or future-weather guarantee."
+      },
+      "retained_weakness": "Dry divides, imported construction materials and limited transport crews still restrict expansion.",
+      "category": "Valar"
+    },
+    {
+      "id": "aule",
+      "faction": "Aulë's workshops",
+      "hero": "Aulë",
+      "compensates": "Low repair-workshop throughput.",
+      "field_power": {
+        "name": "Break the Brace",
+        "effect": "Heavily damage one exposed cover piece or siege brace; never instantly destroy a hero or a complete fortified settlement.",
+        "cost": "2 readiness",
+        "range": "Adjacent object in the local encounter",
+        "duration": "One strike after a visible wind-up",
+        "counter": "Screen the structure, interrupt the approach or build layered defenses."
+      },
+      "support_power": {
+        "name": "Master's Repair",
+        "effect": "Perform one normal repair job without its specialist workshop; the original repair recipe and crew requirements still apply.",
+        "cost": "3 readiness + one weekly hero commitment + the repair's full tagged M cost",
+        "range": "One worksite in one connected region",
+        "duration": "One repair job during the week",
+        "counter": "Disrupt material delivery, attack the worksite or spread damage across several sites."
+      },
+      "passive": {
+        "name": "Sound Workmanship",
+        "effect": "At one personally inspected owned worksite, reduce the first routine wear event by one severity step.",
+        "limit": "One worksite per week; no reduction of combat damage, free repairs, material refunds or stacking."
+      },
+      "retained_weakness": "One excellent commission cannot replace food imports, extraction or a broad factory network.",
+      "category": "Valar"
+    },
+    {
+      "id": "yavanna",
+      "faction": "Yavanna's living groves",
+      "hero": "Yavanna",
+      "compensates": "Limited fortification-building capacity.",
+      "field_power": {
+        "name": "Root's Grasp",
+        "effect": "Existing roots slow one formation crossing a marked patch; affected units can still fight or cut themselves free.",
+        "cost": "2 readiness",
+        "range": "One rooted patch in the local encounter",
+        "duration": "Three tactical phases",
+        "counter": "Cut or burn the roots, interrupt the casting or take another approach."
+      },
+      "support_power": {
+        "name": "Living Buttress",
+        "effect": "Turn existing mature vegetation into one temporary defensive barrier protecting a worksite; cannot harvest it for new M.",
+        "cost": "3 readiness + one weekly hero commitment; suitable living vegetation",
+        "range": "One site in one connected region",
+        "duration": "One week or until destroyed",
+        "counter": "Use fire, cutting tools, siege attacks or an approach outside the barrier."
+      },
+      "passive": {
+        "name": "Tread Lightly",
+        "effect": "Nearby allied travel causes less routine habitat damage.",
+        "limit": "Does not cancel harvesting, fire, construction damage or enemy destruction."
+      },
+      "retained_weakness": "Needs mature habitat and water; cannot instantly rebuild forests or support extensive metal industry.",
+      "category": "Valar"
+    },
+    {
+      "id": "namo",
+      "faction": "Mandos's sanctuary halls",
+      "hero": "Námo / Mandos",
+      "compensates": "Thin local guard coverage around vulnerable workplaces.",
+      "field_power": {
+        "name": "Declared Threshold",
+        "effect": "Mark one narrow threshold; the first hostile formation crossing it loses momentum and becomes briefly slowed.",
+        "cost": "2 readiness",
+        "range": "One visible threshold in the local encounter",
+        "duration": "Three beats; triggers once",
+        "counter": "Go around, trigger it with a small detachment or interrupt the declaration."
+      },
+      "support_power": {
+        "name": "Ward of Waiting",
+        "effect": "Warn one staffed worksite of a direct approach and enable one organized evacuation; production stops when workers leave.",
+        "cost": "3 readiness + one weekly hero commitment; existing workers and evacuation route",
+        "range": "One worksite in one connected region",
+        "duration": "One week; one evacuation",
+        "counter": "Block the exit, use concealed infiltration or threaten several worksites."
+      },
+      "passive": {
+        "name": "Shelter of the Threshold",
+        "effect": "The first ordinary allied company withdrawing through an active Declared Threshold loses one fewer cohesion step.",
+        "limit": "Once per encounter; excludes Dragons and Balrogs. Does not prevent pursuit, damage or enemy passage."
+      },
+      "retained_weakness": "Cannot replace standing guards, broad food production or permanent defenses; grants no resurrection.",
+      "category": "Valar"
+    },
+    {
+      "id": "irmo",
+      "faction": "Lórien's dream gardens",
+      "hero": "Irmo / Lórien",
+      "compensates": "Limited military training facilities.",
+      "field_power": {
+        "name": "Drowsing Veil",
+        "effect": "Disorient one formation in a small patch, reducing reaction speed without removing its ability to act.",
+        "cost": "2 readiness",
+        "range": "One visible patch in the local encounter",
+        "duration": "Two tactical phases",
+        "counter": "Raise an alarm, move out, interrupt the caster or have an ally rally the formation."
+      },
+      "support_power": {
+        "name": "Rehearsal in Dream",
+        "effect": "Prepare one existing company for one chosen contingency, reducing its first coordination penalty when that contingency occurs.",
+        "cost": "3 readiness + one weekly hero commitment; company's rest assignment and normal P upkeep",
+        "range": "One resting company in one connected region",
+        "duration": "Next encounter within one week; triggers once",
+        "counter": "Interrupt rest, scout the preparation or force a different tactical situation."
+      },
+      "passive": {
+        "name": "Lucid Adaptation",
+        "effect": "After a fresh verified scouting report, replace one company's prepared dream contingency without repeating its rest assignment.",
+        "limit": "Once per weekly preparation; replaces rather than adds a contingency. Its original expiry and single-use limit remain."
+      },
+      "retained_weakness": "Cannot manufacture equipment, train extra companies or substitute dreams for supplied troops.",
+      "category": "Valar"
+    },
+    {
+      "id": "nienna",
+      "faction": "Nienna's refuge cloisters",
+      "hero": "Nienna",
+      "compensates": "Limited institutions for restoring cooperation after local losses.",
+      "field_power": {
+        "name": "Hold Fast",
+        "effect": "Reduce one nearby allied formation's current panic by one step, allowing it to regroup or retreat.",
+        "cost": "2 readiness",
+        "range": "One nearby allied formation in the local encounter",
+        "duration": "Immediate recovery; later pressure applies normally",
+        "counter": "Renew pressure, isolate the formation or interrupt Nienna before completion."
+      },
+      "support_power": {
+        "name": "Council of Repair",
+        "effect": "Resolve one recorded local grievance between willing parties after its negotiated restitution is actually delivered.",
+        "cost": "3 readiness + one weekly hero commitment + agreed existing stocks or service",
+        "range": "Two participating groups in one connected region",
+        "duration": "One settlement during the week; new grievances remain possible",
+        "counter": "Disrupt delivery, expose unfulfilled terms or continue the underlying injury."
+      },
+      "passive": {
+        "name": "Leave None Uncounted",
+        "effect": "Keep known separated survivors visible in recovery planning after a nearby retreat.",
+        "limit": "Does not locate unknown survivors, revive deaths or recover anyone automatically."
+      },
+      "retained_weakness": "Care and restitution consume real capacity; grief generates no resources or permanent morale immunity.",
+      "category": "Valar"
+    },
+    {
+      "id": "orome",
+      "faction": "Oromë's frontier lodges",
+      "hero": "Oromë",
+      "compensates": "Insufficient patrol-barracks coverage of wilderness routes.",
+      "field_power": {
+        "name": "Hunter's Interception",
+        "effect": "Charge along an open approach to disrupt one attacking formation and briefly check its advance.",
+        "cost": "2 readiness",
+        "range": "One formation reached by a clear local charge lane",
+        "duration": "One impact; brief stagger",
+        "counter": "Brace, deploy stakes, block the lane or bait the charge into supporting fire."
+      },
+      "support_power": {
+        "name": "Keep the Wild Road",
+        "effect": "Personally patrol one marked route, producing warning reports and deterring minor harassment without a new barracks.",
+        "cost": "3 readiness + one weekly hero commitment; normal travel supplies",
+        "range": "One route in one connected region",
+        "duration": "One week",
+        "counter": "Avoid the patrol, set an ambush or concentrate a force requiring an actual battle."
+      },
+      "passive": {
+        "name": "Persistent Trail",
+        "effect": "Retain pursuit clues longer after personally observing a quarry's passage.",
+        "limit": "Known tracks only; weather, concealment and deliberate false trails still interfere."
+      },
+      "retained_weakness": "One hunter cannot guard every route, sustain a siege or replace local production.",
+      "category": "Valar"
+    },
+    {
+      "id": "tulkas",
+      "faction": "Tulkas's muster grounds",
+      "hero": "Tulkas",
+      "compensates": "Weak heavy-construction equipment and lifting capacity.",
+      "field_power": {
+        "name": "Unyielding Grapple",
+        "effect": "Briefly restrain one adjacent opponent while Tulkas remains occupied; causes no automatic kill.",
+        "cost": "2 readiness; Tulkas cannot perform another action while maintaining it",
+        "range": "One adjacent opponent in the local encounter",
+        "duration": "Up to two beats; same opponent once per encounter",
+        "counter": "Dodge the telegraphed approach, interrupt Tulkas or use allied attacks to break the hold."
+      },
+      "support_power": {
+        "name": "Shoulder the Burden",
+        "effect": "Replace a crane or lifting crew for one construction phase; all other labor, materials and building prerequisites remain.",
+        "cost": "3 readiness + one weekly hero commitment + the phase's full tagged M cost",
+        "range": "One worksite in one connected region",
+        "duration": "One construction phase during the week",
+        "counter": "Cut material delivery, attack the exposed site or force Tulkas to leave."
+      },
+      "passive": {
+        "name": "Stand Beside Me",
+        "effect": "Nearby allies suffer a smaller first fear-induced coordination loss.",
+        "limit": "Once per encounter; does not prevent retreat, injury or later panic."
+      },
+      "retained_weakness": "Physical strength supplies neither materials nor advanced industry; dispersed threats still outnumber his interventions.",
+      "category": "Valar"
+    },
+    {
+      "id": "nessa",
+      "faction": "Nessa's relay settlements",
+      "hero": "Nessa",
+      "compensates": "Limited evacuation and civilian-transfer infrastructure.",
+      "field_power": {
+        "name": "Impossible Step",
+        "effect": "Lead one nearby ordinary allied formation through a short, rapid reposition along a visible traversable path; excludes all Dragons and Balrogs.",
+        "cost": "2 readiness",
+        "range": "One nearby formation; short local path",
+        "duration": "One movement action",
+        "counter": "Block the path, prepare interceptors or burden the formation with cargo it cannot carry quickly."
+      },
+      "support_power": {
+        "name": "Gather the Stragglers",
+        "effect": "Organize one existing civilian group's transfer without a dedicated relay stable; actual destination consent and carrying limits apply.",
+        "cost": "3 readiness + one weekly hero commitment + normal P travel rations",
+        "range": "One known route in one connected region",
+        "duration": "One transfer during the week",
+        "counter": "Contest chokepoints, sever the route or force incompatible rescue priorities."
+      },
+      "passive": {
+        "name": "Shared Pace",
+        "effect": "Groups personally accompanied by Nessa are less likely to separate on difficult ground.",
+        "limit": "Does not increase cargo, ignore barriers or protect against combat casualties."
+      },
+      "retained_weakness": "Speed cannot replace freight capacity, stocked refuges, fortified roads or manufacturing.",
+      "category": "Valar"
+    },
+    {
+      "id": "vana",
+      "faction": "Vána's bloom nurseries",
+      "hero": "Vána",
+      "compensates": "Limited nursery capacity and vulnerable agricultural timing.",
+      "field_power": {
+        "name": "Bloomscreen",
+        "effect": "Existing shrubs flower densely enough to obscure one small patch and help a party change position.",
+        "cost": "2 readiness",
+        "range": "One vegetated patch in the local encounter",
+        "duration": "Three tactical phases",
+        "counter": "Use fire, cutting tools, elevated observation or another approach."
+      },
+      "support_power": {
+        "name": "Season Brought Forward",
+        "effect": "Advance one already planted plot by one growth stage; its predetermined harvest amount and remaining upkeep stay unchanged.",
+        "cost": "3 readiness + one weekly hero commitment; planted seed inputs, irrigation and tending labor",
+        "range": "One plot in one connected region",
+        "duration": "One growth-stage advance; once per crop cycle",
+        "counter": "Damage irrigation, raid the field or interrupt tending; failed crops yield nothing."
+      },
+      "passive": {
+        "name": "Signs of Renewal",
+        "effect": "Inspection identifies viable plants and whether a cultivated plot can recover.",
+        "limit": "Knowledge of condition only; creates no seeds, provisions or automatic recovery."
+      },
+      "retained_weakness": "Needs real fields, water and workers; cannot multiply harvests or accelerate mature forests.",
+      "category": "Valar"
+    },
+    {
+      "id": "este",
+      "faction": "Estë's healing refuges",
+      "hero": "Estë",
+      "compensates": "Limited hospital beds and medical-workshop access.",
+      "field_power": {
+        "name": "Still the Wound",
+        "effect": "Stabilize one living wounded target against immediate deterioration; it remains impaired and cannot instantly resume full combat.",
+        "cost": "2 readiness; uninterrupted treatment",
+        "range": "One adjacent living target in the local encounter",
+        "duration": "Until encounter end or renewed injury",
+        "counter": "Interrupt treatment, separate healer and patient or inflict a new wound."
+      },
+      "support_power": {
+        "name": "Rest Without Walls",
+        "effect": "Treat one resting party as if a basic recovery facility were available, reducing one recoverable injury tier under normal care rules.",
+        "cost": "3 readiness + one weekly hero commitment + normal P care supplies and any required medical M",
+        "range": "One sheltered party in one connected region",
+        "duration": "One week; one treatment result",
+        "counter": "Interrupt rest, cut supplies or force the party to move."
+      },
+      "passive": {
+        "name": "Care on the Road",
+        "effect": "One personally treated ordinary party preserves accumulated recovery progress through its first routine evacuation journey.",
+        "limit": "One party per week; normal travel costs and fatigue apply. New injury still disrupts care; no extra healing, readiness or resurrection."
+      },
+      "retained_weakness": "One party's recovery cannot absorb mass casualties; death and missing supply infrastructure remain consequential.",
+      "category": "Valar"
+    },
+    {
+      "id": "vaire",
+      "faction": "Vairë's archive halls",
+      "hero": "Vairë",
+      "compensates": "Fragile access to specialist production records after a workshop is lost.",
+      "field_power": {
+        "name": "Read the Broken Pattern",
+        "effect": "Reconstruct one recent movement through inspected traces, producing a dated track rather than a live target marker.",
+        "cost": "2 readiness; stationary inspection",
+        "range": "One accessible trace site in the local encounter",
+        "duration": "One report; becomes stale as units move",
+        "counter": "Erase or overlay traces, leave decoys or attack during inspection."
+      },
+      "support_power": {
+        "name": "The Remembered Workshop",
+        "effect": "Let one basic workshop complete one previously unlocked faction item from a preserved plan despite losing its specialist archive.",
+        "cost": "3 readiness + one weekly hero commitment + the item's full recipe and normal crew/time",
+        "range": "One workshop in one connected region",
+        "duration": "One week; unfinished work requires renewed commitment",
+        "counter": "Destroy the preserved plan, interrupt the workshop or deny recipe inputs."
+      },
+      "passive": {
+        "name": "Portable Chronicle",
+        "effect": "Carry a recoverable copy of one owned production plan or witnessed agreement.",
+        "limit": "No foreign recipes, hero recipes, unit commands, equipment copies or free K."
+      },
+      "retained_weakness": "Records cannot replace extraction, labor, surviving machinery or the rebuilding of an industrial network.",
+      "category": "Valar"
+    },
+    {
+      "id": "elf_vanyar",
+      "faction": "Vanyar",
+      "hero": "Concord Singer",
+      "compensates": "Expensive elite formations cannot replace losses quickly.",
+      "field_power": {
+        "name": "Harmonic Cover",
+        "effect": "One own infantry company takes 25% less damage while holding formation; damage is never negated.",
+        "cost": "2 readiness",
+        "range": "Local encounter; within the hero's audible radius",
+        "duration": "One tactical phase",
+        "counter": "Flank the company, separate it from the singer, or interrupt the hero."
+      },
+      "support_power": {
+        "name": "Shared Rehearsal",
+        "effect": "Advance one already-paid infantry training job that was started in an earlier turn by one weekly progress step; retain its queue and workers. A job started this turn is ineligible, so this power cannot start and finish a job in the same turn.",
+        "cost": "3 readiness + one weekly hero commitment + 5K",
+        "range": "One connected region containing the hero and training facility",
+        "duration": "One weekly resolution; one job",
+        "counter": "Disrupt supplies, close the route, or attack the training facility."
+      },
+      "passive": {
+        "name": "Keep the Standard",
+        "effect": "One nearby own infantry company ignores its first formation-cohesion penalty from an allied retreat.",
+        "limit": "Once per encounter; casualties and other morale penalties still apply."
+      },
+      "retained_weakness": "Slow replacement, expensive equipment and limited army size remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_feanor",
+      "faction": "House of Fëanor",
+      "hero": "Jewelwright",
+      "compensates": "Rare-input masterworks are costly to replace and their specialists are vulnerable.",
+      "field_power": {
+        "name": "Prismatic Flare",
+        "effect": "A visible cone of radiance reduces ranged accuracy through it by 25%, including friendly fire.",
+        "cost": "2 readiness",
+        "range": "Local encounter; short cone from the hero",
+        "duration": "One tactical phase",
+        "counter": "Change firing angle, wait out the flare, or close to melee."
+      },
+      "support_power": {
+        "name": "Rework the Setting",
+        "effect": "Restore up to 25% durability to one existing crafted item; cannot copy it, recover spent charges, or produce salvage.",
+        "cost": "3 readiness + one weekly hero commitment + 10M + 5K; compatible material access, staffed workshop and its repair queue required",
+        "range": "One connected region; hero, workshop and item must be present",
+        "duration": "One week; repair capped at maximum durability",
+        "counter": "Contest the workshop, interrupt material delivery, or capture the item."
+      },
+      "passive": {
+        "name": "Careful Setting",
+        "effect": "One own crafted item carried with the hero loses 25% less durability on its first ordinary wear event each week.",
+        "limit": "One item and one event per week; does not restore durability, spent charges or salvage value."
+      },
+      "retained_weakness": "Rare materials, occupied queues and specialist training still limit throughput.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_fingolfin",
+      "faction": "House of Fingolfin",
+      "hero": "Shield Marshal",
+      "compensates": "Costly defenders must survive while defending dispersed approaches.",
+      "field_power": {
+        "name": "Shielded Withdrawal",
+        "effect": "One own infantry company withdraws toward a chosen clear exit with 25% less pursuit damage; it still travels through the encounter.",
+        "cost": "2 readiness",
+        "range": "Local encounter; company within command radius",
+        "duration": "One withdrawal phase",
+        "counter": "Block the exit, attack from another direction, or pursue with fresh troops."
+      },
+      "support_power": {
+        "name": "Watch Rotation",
+        "effect": "Two existing own garrisons exchange posts using an open road; their existing patrol coverage remains coordinated during transit. No new garrison or extra order is created.",
+        "cost": "3 readiness + one weekly hero commitment; normal movement orders and travel provisions required",
+        "range": "Two posts in one connected region",
+        "duration": "One week",
+        "counter": "Cut the road, attack a moving garrison, or threaten a third approach."
+      },
+      "passive": {
+        "name": "Measured Rearguard",
+        "effect": "One own formation near the hero recovers its facing immediately after an orderly withdrawal.",
+        "limit": "Once per encounter; no free movement, healing or attack."
+      },
+      "retained_weakness": "Few expensive formations cannot cover every pass or replace severe losses quickly.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_finarfin",
+      "faction": "House of Finarfin",
+      "hero": "Lore Envoy",
+      "compensates": "Specialist recovery and cooperation require facilities, time and consent.",
+      "field_power": {
+        "name": "Song of Steadiness",
+        "effect": "One own infantry company suppresses one fear penalty; existing casualties and movement restrictions remain.",
+        "cost": "2 readiness",
+        "range": "Local encounter; within audible radius",
+        "duration": "Two tactical phases",
+        "counter": "Separate the singers, interrupt the hero, or apply pressure from multiple directions."
+      },
+      "support_power": {
+        "name": "Restorative Assembly",
+        "effect": "One own company at a staffed refuge removes one noncritical wound condition one week sooner, never faster than one full week. Dead members do not return.",
+        "cost": "3 readiness + one weekly hero commitment + 5P + 5K; occupied recovery queue and normal upkeep required",
+        "range": "One connected region containing hero, refuge and company",
+        "duration": "One week",
+        "counter": "Threaten the refuge or interrupt its food and medicine route."
+      },
+      "passive": {
+        "name": "Hospitality",
+        "effect": "One own company completing a normal paid rest assignment at the hero's staffed refuge removes one additional fatigue point.",
+        "limit": "Once per week; minimum zero fatigue. Normal rest time, queue and provisions remain; wounds and casualties are unchanged."
+      },
+      "retained_weakness": "Recovery is finite, training remains slow, and allies may refuse.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_falmari",
+      "faction": "Falmari",
+      "hero": "Tide Captain",
+      "compensates": "Valuable ships and transported specialists are exposed during coastal movement.",
+      "field_power": {
+        "name": "Sheltered Disembarkation",
+        "effect": "One own transport unloads at a viable nearby landing with 25% less ranged damage during unloading; passengers are not immune.",
+        "cost": "2 readiness",
+        "range": "Local coastal encounter; hero aboard or at the landing",
+        "duration": "One unloading phase",
+        "counter": "Occupy the beach, use flanking fire, or force the ship toward an unsuitable landing."
+      },
+      "support_power": {
+        "name": "Beacon Passage",
+        "effect": "One existing convoy on an observed coastal route ignores a single ordinary fog-navigation delay; ships still sail the full route.",
+        "cost": "3 readiness + one weekly hero commitment + 5M for beacon fuel; existing staffed beacons, convoy order and provisions required",
+        "range": "One connected coastal region",
+        "duration": "One week; one convoy",
+        "counter": "Extinguish a beacon, blockade the route, or intercept the convoy."
+      },
+      "passive": {
+        "name": "Familiar Rigging",
+        "effect": "One own convoy accompanied by the hero ignores one ordinary handling-delay modifier on its first loading or unloading action each week.",
+        "limit": "One action per week; base handling time, cargo capacity, workers and material costs remain."
+      },
+      "retained_weakness": "Harbor dependence, limited inland influence and expensive hull replacement remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_sindar",
+      "faction": "Sindar",
+      "hero": "March Warden",
+      "compensates": "Hidden woodland defenses lose value once routes and companies are exposed.",
+      "field_power": {
+        "name": "Veil the Retreat",
+        "effect": "One own woodland company moving between existing cover is harder to target at range; ranged accuracy against it falls 25%.",
+        "cost": "2 readiness",
+        "range": "Local encounter; linked cover near the hero",
+        "duration": "One movement phase",
+        "counter": "Enter the cover, illuminate the route, or attack its exposed destination."
+      },
+      "support_power": {
+        "name": "Reweave the Watch",
+        "effect": "Relocate one existing watch-post's concealment and observation equipment to a surveyed nearby site; the old post loses those functions.",
+        "cost": "3 readiness + one weekly hero commitment + 5M; one worker project order and normal provisions required",
+        "range": "One connected woodland region",
+        "duration": "One week; only the completed new site remains active",
+        "counter": "Track workers, patrol both sites, or remove surrounding cover."
+      },
+      "passive": {
+        "name": "Border Memory",
+        "effect": "Detect a fresh crossing disturbance on a route the hero personally revisits.",
+        "limit": "One route per week; reveals neither identity nor exact troop count."
+      },
+      "retained_weakness": "Fire, lost woodland and sustained open combat still defeat concealment advantages.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_nandor",
+      "faction": "Nandor",
+      "hero": "Woodland Pathfinder",
+      "compensates": "Dispersed production and light companies depend on fragile woodland connections.",
+      "field_power": {
+        "name": "Rootwise Escape",
+        "effect": "One own light infantry company ignores one ordinary woodland movement penalty while using an already passable route.",
+        "cost": "2 readiness",
+        "range": "Local encounter; company near the hero",
+        "duration": "One movement phase",
+        "counter": "Guard the exit, cut the route, or intercept on open ground."
+      },
+      "support_power": {
+        "name": "Open the Old Trail",
+        "effect": "Restore one obstructed existing woodland trail for light convoys; cannot create a route through cliffs or unbridged rivers.",
+        "cost": "3 readiness + one weekly hero commitment + 5M for tools; one worker project order and normal provisions required",
+        "range": "One connected woodland region surveyed by the hero",
+        "duration": "One week to complete; trail persists and can be blocked again",
+        "counter": "Patrol the trail, damage its waystations, or fell cover at a chokepoint."
+      },
+      "passive": {
+        "name": "Light Footprint",
+        "effect": "The hero's accompanying light company leaves tracks that remain identifiable for one phase less.",
+        "limit": "Minimum one detectable phase; no effect on wagons, heavy formations or visible movement."
+      },
+      "retained_weakness": "Weak armor, poor open-field performance and dependence on living woodland remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "elf_avari",
+      "faction": "Avari clan",
+      "hero": "Frontier Mediator",
+      "compensates": "Mobile workshops and decentralized settlements lack concentrated protection.",
+      "field_power": {
+        "name": "Rendezvous Signal",
+        "effect": "Two own light companies near the hero synchronize their next retreat or advance without a coordination penalty; each spends its normal movement.",
+        "cost": "2 readiness",
+        "range": "Local encounter; both companies within signal radius",
+        "duration": "One movement phase",
+        "counter": "Block one route, separate the companies, or attack the signal position."
+      },
+      "support_power": {
+        "name": "Traveling Compact",
+        "effect": "Move one existing portable workshop and its staff between consenting own settlements without losing its stored work progress. It produces nothing while moving.",
+        "cost": "3 readiness + one weekly hero commitment + 5P; normal transport order, carrying capacity and open route required",
+        "range": "One connected region",
+        "duration": "One week; travel must fit the normal route time",
+        "counter": "Intercept the workshop or deny its destination and passage."
+      },
+      "passive": {
+        "name": "Travel Rigs",
+        "effect": "One own portable workshop moving with the hero suffers 25% less durability loss from its first rough-road wear event each week.",
+        "limit": "One relocation event per week; combat damage, transport costs and destination setup requirements remain."
+      },
+      "retained_weakness": "Small workshops, limited armor and distance between settlements still constrain output.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "human_gondor",
+      "faction": "Gondor",
+      "hero": "Citadel Engineer",
+      "compensates": "Walls, armies and depots consume substantial metal and maintenance.",
+      "field_power": {
+        "name": "Brace the Breach",
+        "effect": "Restore up to 15% structural durability to one damaged gate or barricade using an engineer company; cannot rebuild a destroyed structure.",
+        "cost": "2 readiness + 5M from a carried compatible repair kit; consumes the engineers' action",
+        "range": "Local encounter; hero and engineers adjacent to the structure",
+        "duration": "One action; repair cannot exceed maximum durability",
+        "counter": "Attack the repair crew, interrupt access, or bypass the structure."
+      },
+      "support_power": {
+        "name": "Supply Refit",
+        "effect": "Repair up to 25% durability on one existing fortification or siege machine at a supplied depot; no ammunition or new unit is created.",
+        "cost": "3 readiness + one weekly hero commitment + 10M; matching material access, workers and one repair queue required",
+        "range": "One connected region containing the hero, depot and target",
+        "duration": "One week; capped at maximum durability",
+        "counter": "Raid the depot, cut its supply road, or attack the repair site."
+      },
+      "passive": {
+        "name": "Stable Bracing",
+        "effect": "One staffed own defensive structure beside the hero suffers 25% less durability loss from its first ordinary weather or maintenance-wear event each week.",
+        "limit": "One structure and one event per week; upkeep is paid normally. Combat damage and existing repair needs are unchanged."
+      },
+      "retained_weakness": "High material demand and weak coverage away from prepared positions remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "human_rohan",
+      "faction": "Rohan",
+      "hero": "Rider Marshal",
+      "compensates": "Costly trained horses need fodder and lose effectiveness in broken terrain.",
+      "field_power": {
+        "name": "Relief Charge",
+        "effect": "One own mounted company suppresses an exposed enemy infantry company's pursuit for one phase after a successful normal charge; casualties still resolve.",
+        "cost": "2 readiness; cavalry spends its normal charge action",
+        "range": "Local encounter; viable charge lane within command radius",
+        "duration": "One tactical phase",
+        "counter": "Brace spears, occupy broken ground, or block the charge lane."
+      },
+      "support_power": {
+        "name": "Remount Circuit",
+        "effect": "Exchange tired mounts in one own rider company for an equal number of existing rested remounts at connected stables. Tired mounts remain and need normal recovery.",
+        "cost": "3 readiness + one weekly hero commitment + 5P for handlers and fodder; remount stock and normal transfer order required",
+        "range": "One connected region",
+        "duration": "One week; no net new horses",
+        "counter": "Raid the stables, intercept the transfer, or disrupt fodder supply."
+      },
+      "passive": {
+        "name": "Careful Pacing",
+        "effect": "One own rider company traveling with the hero gains one less fatigue point on its first ordinary travel leg each week.",
+        "limit": "Minimum zero fatigue gain; no reduction in distance, travel time, fodder or combat fatigue."
+      },
+      "retained_weakness": "Mount production, fodder demand and poor charge terrain remain hard constraints.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "human_numenor",
+      "faction": "Númenor",
+      "hero": "Ocean Warden",
+      "compensates": "Expensive fleets depend on harbors and vulnerable sea supply.",
+      "field_power": {
+        "name": "Coastal Landing",
+        "effect": "One own marine company disembarks in organized formation rather than suffering the normal unloading cohesion penalty; it still uses a viable landing and normal movement.",
+        "cost": "2 readiness",
+        "range": "Local coastal encounter; hero with the transport or landing force",
+        "duration": "One disembarkation phase",
+        "counter": "Fortify the landing, contest nearby water, or strike the transport before unloading."
+      },
+      "support_power": {
+        "name": "Convoy Command",
+        "effect": "Reassign existing escorts and cargo across up to three own ships without an organization delay; total cargo, escort strength and ship capacity do not increase.",
+        "cost": "3 readiness + one weekly hero commitment + 5P for handling crews; normal voyage order and ship upkeep required",
+        "range": "One connected coastal region with an accessible rendezvous harbor",
+        "duration": "One week; actual loading and sailing time still applies",
+        "counter": "Blockade the harbor, intercept the rendezvous, or force the convoy to split."
+      },
+      "passive": {
+        "name": "Fixed Lashings",
+        "effect": "One own convoy carrying the hero loses 25% less existing cargo to its first minor storm-loss event each week.",
+        "limit": "One convoy and one event per week; creates no cargo, changes no capacity and does not protect against combat or catastrophic wrecking."
+      },
+      "retained_weakness": "Complex ship recipes, harbor loss and deep inland commitments remain costly.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "dwarf_khazad_dum",
+      "faction": "Khazad-dûm",
+      "hero": "Deep Surveyor",
+      "compensates": "Underground production relies on narrow entrances, ventilation and food imports.",
+      "field_power": {
+        "name": "Read the Fault",
+        "effect": "Mark one observed unstable surface; an ordinary engineer attack against that obstacle gains 25% breach effectiveness. Occupied ground is not collapsed automatically.",
+        "cost": "2 readiness; engineer spends its normal action and tools",
+        "range": "Local encounter; visible stone obstacle within short survey range",
+        "duration": "One tactical phase",
+        "counter": "Guard the obstacle, move away, or attack the surveying hero."
+      },
+      "support_power": {
+        "name": "Restore the Airway",
+        "effect": "Repair one existing blocked ventilation shaft or supply passage; restores its original capacity, never creates a new tunnel.",
+        "cost": "3 readiness + one weekly hero commitment + 10M for supports and tools; worker project order and safe access required",
+        "range": "One connected underground region",
+        "duration": "One week",
+        "counter": "Contest shaft access, block the worksite, or raid its supplies."
+      },
+      "passive": {
+        "name": "Pressure Sense",
+        "effect": "Warns of a worsening airflow problem in the hero's occupied tunnel section before its next ordinary production penalty.",
+        "limit": "One local warning per week; does not prevent the failure or detect enemy plans."
+      },
+      "retained_weakness": "Food imports, bottlenecks and the expense of genuinely new excavation remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "dwarf_belegost",
+      "faction": "Belegost",
+      "hero": "Armor Master",
+      "compensates": "Slow, metal-intensive companies are vulnerable when their protection mismatches the threat.",
+      "field_power": {
+        "name": "Fit the Guard",
+        "effect": "One own armored infantry company takes 25% less damage from one selected ordinary hazard type after fitting a carried protection kit.",
+        "cost": "2 readiness + one existing protection kit; company spends its equipment action",
+        "range": "Local encounter; company beside the hero",
+        "duration": "Two tactical phases; only one fitted type at a time",
+        "counter": "Switch damage type, flank the company, or wait out the temporary fitting."
+      },
+      "support_power": {
+        "name": "Temper for the Threat",
+        "effect": "Refit one existing company's armor for one declared hazard; improves that resistance by 20% while increasing equipment burden. Replaces its previous special fitting.",
+        "cost": "3 readiness + one weekly hero commitment + 10M + 5K; metal access, staffed workshop and its queue required",
+        "range": "One connected region containing the hero, workshop and company",
+        "duration": "One week to fit; persists until replaced or destroyed",
+        "counter": "Use other attacks, exploit slower movement, or interrupt the refit."
+      },
+      "passive": {
+        "name": "Field Care",
+        "effect": "One own armored company near the hero suffers 20% less armor-durability loss during its first encounter each week.",
+        "limit": "One company per week; incoming damage, fitting costs and pre-existing wear are unchanged. Durability is never restored."
+      },
+      "retained_weakness": "Heavy equipment, slow queues and the need to choose the right protection remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "dwarf_nogrod",
+      "faction": "Nogrod",
+      "hero": "Master Artificer",
+      "compensates": "Rare inputs and specialist labor bottleneck tools and commissions.",
+      "field_power": {
+        "name": "Exact Breach",
+        "effect": "One own engineer company's next obstacle attack gains 25% breach effectiveness when using an existing breach-tool set; its normal wear still applies.",
+        "cost": "2 readiness; normal engineer action and tool wear",
+        "range": "Local encounter; hero beside engineers at the obstacle",
+        "duration": "One action",
+        "counter": "Defend the approach, damage the tools, or move the contested objective."
+      },
+      "support_power": {
+        "name": "Modular Refit",
+        "effect": "Convert one existing standard tool set to another already-researched compatible function. The original is consumed; rare or unique items are ineligible.",
+        "cost": "3 readiness + one weekly hero commitment + 10M + 5K; compatible inputs, staffed forge and one queue required",
+        "range": "One connected region containing hero, forge and item",
+        "duration": "One week; output keeps the input item's salvage-value ceiling",
+        "counter": "Interrupt the forge, deny compatible materials, or force a different operational need."
+      },
+      "passive": {
+        "name": "Calibrated Grip",
+        "effect": "One own engineer company beside the hero consumes 25% less breach-tool durability on its first ordinary obstacle attack each week.",
+        "limit": "One attack per week; normal attack action, tool requirements and recipe inputs remain. No resource refund or durability restoration."
+      },
+      "retained_weakness": "Rare commissions still require their full inputs, specialist queues and development time.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "orc_fortress_clan",
+      "faction": "Orc fortress-clan",
+      "hero": "Warband Organizer",
+      "compensates": "Large warbands consume food and divided command can destabilize operations.",
+      "field_power": {
+        "name": "Rally the Line",
+        "effect": "One own Orc infantry company removes one temporary rout condition and reforms at its current position; wounds and casualty losses remain.",
+        "cost": "2 readiness",
+        "range": "Local encounter; within the hero's command radius",
+        "duration": "One reform phase; renewed pressure can rout it again",
+        "counter": "Separate the hero, attack during reforming, or threaten another company."
+      },
+      "support_power": {
+        "name": "Count the Spoils",
+        "effect": "Advance one salvage job started in an earlier turn by one weekly progress step. Consume its finite claimed wreck once; normal salvage yield remains. A job started this turn is ineligible, so this power cannot start and finish a job in the same turn.",
+        "cost": "3 readiness + one weekly hero commitment + 5P; assigned workers, project order and foundry queue required",
+        "range": "One connected region with hero, wreck and receiving foundry",
+        "duration": "One weekly resolution; one salvage job",
+        "counter": "Recover or destroy the wreck, raid workers, or cut the return route."
+      },
+      "passive": {
+        "name": "Declared Shares",
+        "effect": "One own participating warband avoids a dispute penalty when the player delivers an agreed reward on time.",
+        "limit": "One fulfilled agreement per week; reward is paid normally and existing grievances remain."
+      },
+      "retained_weakness": "Food demand, disputed leadership and finite salvage continue to constrain expansion.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "hobbit_shire",
+      "faction": "Hobbit Shire",
+      "hero": "Shirekeeper",
+      "compensates": "Strong food production supports a community poorly suited to prolonged open battle.",
+      "field_power": {
+        "name": "Quiet Departure",
+        "effect": "One own civilian or light-infantry group withdraws through existing cover with 25% lower ranged targeting accuracy against it; visibility is not erased.",
+        "cost": "2 readiness",
+        "range": "Local encounter; group near hero and a viable covered exit",
+        "duration": "One withdrawal phase",
+        "counter": "Guard the exit, enter the cover, or attack the destination."
+      },
+      "support_power": {
+        "name": "Neighbors' Stores",
+        "effect": "Consolidate and move up to 10 existing P from willing own households to one refuge using available carriers; source stores lose the same amount.",
+        "cost": "3 readiness + one weekly hero commitment + 2P for transport; normal convoy order and carrying capacity required",
+        "range": "One connected region with an open route",
+        "duration": "One week; no stock duplication or capacity increase",
+        "counter": "Block the road, intercept carriers, or threaten the receiving refuge."
+      },
+      "passive": {
+        "name": "Packed for Rain",
+        "effect": "One supplied own civilian convoy accompanied by the hero ignores its first ordinary rain-fatigue increment each week.",
+        "limit": "One weather event per week; travel time, provisions, carrying capacity and all combat effects remain."
+      },
+      "retained_weakness": "Weak heavy forces, occupation risk and dependence on defensible refuge routes remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "troll_hold",
+      "faction": "Troll Hold",
+      "hero": "Stonebreaker",
+      "compensates": "Heavy Troll forces need substantial supplies and struggle to bypass fortifications.",
+      "field_power": {
+        "name": "Measured Shatter",
+        "effect": "The hero's next normal strike against a gate or barricade gains 25% breach effectiveness but exposes the hero to counterattack.",
+        "cost": "2 readiness; normal attack action",
+        "range": "Local encounter; melee contact with the obstacle",
+        "duration": "One attack",
+        "counter": "Use ranged focus, traps, a reserve barrier, or attacks during the exposed recovery."
+      },
+      "support_power": {
+        "name": "Clear the Haulway",
+        "effect": "Remove one ordinary fallen-stone or timber obstruction from an existing supply route. Cleared debris yields no resource stock.",
+        "cost": "3 readiness + one weekly hero commitment + 5P + 5M for provisions and tool wear; worker project order required",
+        "range": "One connected region; hero physically at the obstruction",
+        "duration": "One week; does not create bridges or passages through mountains",
+        "counter": "Contest the worksite, attack its supplies, or obstruct another route."
+      },
+      "passive": {
+        "name": "Shoulder the Load",
+        "effect": "The hero carries one existing heavy equipment piece during ordinary movement without requiring a separate porter.",
+        "limit": "One item; it occupies carrying capacity and prevents sprinting. No added supply ceiling."
+      },
+      "retained_weakness": "Food consumption, slow repositioning and exposure to coordinated ranged forces remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "wolf_pack",
+      "faction": "Wolf Pack",
+      "hero": "Packwarden",
+      "compensates": "Lightly protected packs rely on viable hunting territory and coordinated movement.",
+      "field_power": {
+        "name": "Split the Pursuit",
+        "effect": "Two own wolf groups approaching from different passable directions impose one temporary pursuit penalty on a single isolated enemy company.",
+        "cost": "2 readiness; both groups spend their normal movement",
+        "range": "Local encounter; groups within howling radius",
+        "duration": "One tactical phase",
+        "counter": "Close ranks, reach a defended crossing, or support the isolated company."
+      },
+      "support_power": {
+        "name": "Read the Hunting Ground",
+        "effect": "Survey one connected habitat for existing prey and recent danger; one normally assigned hunting group can choose its route using that report. Harvest still consumes finite prey.",
+        "cost": "3 readiness + one weekly hero commitment + 2P for the scouting pack; any hunt needs its normal separate order and upkeep",
+        "range": "One connected habitat region physically traversable by the hero",
+        "duration": "One week; report becomes stale as prey and threats move",
+        "counter": "Patrol the hunting route, defend prey areas, or force movement through chokepoints."
+      },
+      "passive": {
+        "name": "Recognized Scent",
+        "effect": "Distinguishes an own pack's recent trail from an unknown trail when the hero encounters it.",
+        "limit": "Fresh local traces only; reveals no remote position, identity or exact numbers."
+      },
+      "retained_weakness": "Finite prey, light protection, defended chokepoints and the lack of heavy industry remain.",
+      "category": "Peoples and communities"
+    },
+    {
+      "id": "istari_gandalf",
+      "faction": "Gandalf's Fellowship",
+      "hero": "Gandalf",
+      "compensates": "A small refuge network cannot field enough troops to withstand a concentrated assault.",
+      "field_power": {
+        "name": "Flame of the White Fire",
+        "effect": "After a visible wind-up, strike up to three exposed enemies in one 5-metre area with fire and light. Each takes damage equivalent to two of Gandalf's ordinary weapon hits, subject to normal defense; one selected victim also loses its current prepared ranged attack. The combined effect cannot kill a healthy hero or destroy a healthy capital in one use.",
+        "cost": "4 readiness and 10E; one local casting action within the battle commitment",
+        "range": "One visible 5-metre area centred within 18 metres",
+        "duration": "One-phase warning, then one burst; interruption affects only the currently prepared attack",
+        "counter": "Disperse before the burst, take solid cover, interrupt the wind-up or close on Gandalf from another direction."
+      },
+      "support_power": {
+        "name": "Stand of the Free",
+        "effect": "Remove one fear step from up to two nearby friendly units and ward each against its next damaging hit. Each ward absorbs at most the damage of one of Gandalf's ordinary weapon hits; excess damage passes through. Wards do not restore health or change orders or allegiance.",
+        "cost": "2 readiness and 10K; one local casting action within the battle commitment",
+        "range": "Two visible friendly units within 10 metres",
+        "duration": "Two tactical phases or until each ward absorbs one hit; same wards do not stack",
+        "counter": "Use repeated attacks, wait out the ward, separate its recipients or pressure an unprotected objective."
+      },
+      "passive": {
+        "name": "Hope Rekindled",
+        "effect": "The first panic-driven rout of one owned ordinary company within 10 metres of Gandalf becomes an orderly fallback for one tactical phase, preserving its formation while it withdraws.",
+        "limit": "One company per encounter; does not heal, add movement or prevent later panic. Requires a traversable fallback route and Gandalf to remain conscious; excludes Dragons and Balrogs."
+      },
+      "retained_weakness": "His strongest burst consumes most of his six readiness and exposes a small army to pressure elsewhere. Refuge staff, provisions and ordinary troops remain necessary; protection has limited targets and duration.",
+      "category": "Named Istari"
+    },
+    {
+      "id": "istari_saruman",
+      "faction": "Saruman's White Tower",
+      "hero": "Saruman",
+      "compensates": "A compact industrial enclave needs costly specialist defenders while workshops and workers are exposed.",
+      "field_power": {
+        "name": "Shattering Voice",
+        "effect": "Release a directed sonic-force blow through a 3-metre-wide lane, striking at most two exposed units for damage equivalent to two of Saruman's ordinary weapon hits each. It also pushes each struck unit up to 3 metres along traversable ground; it cannot push across lethal edges. Normal defense applies, and one use cannot kill a healthy hero or destroy a healthy capital. This is physical force, not compelled obedience.",
+        "cost": "3 readiness, 5K and 5E; one local casting action within the battle commitment",
+        "range": "One visible lane up to 16 metres long",
+        "duration": "One-phase audible wind-up followed by one pulse",
+        "counter": "Leave the lane, use solid barriers, brace against anchored cover to prevent the push, or interrupt Saruman before the pulse."
+      },
+      "support_power": {
+        "name": "Commission the Iron Servant",
+        "effect": "Create one ordinary Resonant Sentinel at a staffed Orthanc Workshop with a paid construct berth. It is an armed guard that may intercept one attack aimed at an adjacent ordinary ally per encounter, taking that attack's normal damage itself. It has no hero progression or hero slot. Creation occupies one ordinary queue for two turns and cannot attack in its completion resolution. This power cannot create, copy or command Dragons or Balrogs.",
+        "cost": "3 readiness and one weekly hero commitment at the start; 40M, 15K and 20E paid upfront; reserve 2 supply and 1 binding slot before work begins; upkeep 2M and 1E per turn after completion",
+        "range": "One reachable staffed Orthanc Workshop in the connected region; Sentinel appears only at its berth",
+        "duration": "Two production turns; at most one active or pending Sentinel from this power. It persists with upkeep until destroyed or deliberately dismantled; no material refund on dismantling",
+        "counter": "Raid the workshop or interrupt staff and inputs before completion; afterwards flank the guard, attack from range or disrupt its upkeep. Shortages disable its special interception and block another commission, without changing ownership."
+      },
+      "passive": {
+        "name": "Measured Demolition",
+        "effect": "One owned ordinary siege weapon within 12 metres of Saruman adds one ordinary-hit equivalent of its own damage to its first successful hit against a visible fortification in the encounter.",
+        "limit": "One weapon and one enhanced hit per encounter; ordinary action, ammunition, range and defense still apply. No extra shot, healthy-capital one-shot, or enhancement to a hero, Dragon or Balrog is granted."
+      },
+      "retained_weakness": "His three ordinary queues still share six support plots and supply 18. Industry, siege ammunition and his one bound Sentinel compete for materials and essence; his force lane needs positioning and offers no mass healing.",
+      "category": "Named Istari"
+    },
+    {
+      "id": "istari_radagast",
+      "faction": "Radagast's Woodland Circle",
+      "hero": "Radagast",
+      "compensates": "A habitat-dependent force cannot cheaply replace trained beasts and wounded defenders.",
+      "field_power": {
+        "name": "Wrath of Root and Thorn",
+        "effect": "Drive living roots and thorns into up to two grounded enemies in one vegetated patch. Each suffers damage equivalent to two of Radagast's ordinary weapon hits, with normal defense, and its next movement is limited to one 3-metre step. Roots do not change allegiance; the combined strike cannot kill a healthy hero or destroy a healthy capital in one use.",
+        "cost": "3 readiness, 5P and 5E; one local casting action within the battle commitment",
+        "range": "One visible 5-metre patch of living vegetation within 14 metres",
+        "duration": "One-phase visible wind-up; damage once and movement restriction for the next tactical phase; normal two-phase disable reapplication grace applies",
+        "counter": "Leave the growing roots during the warning, use paved or barren ground, cut or burn the roots, attack from range or take flight."
+      },
+      "support_power": {
+        "name": "Mending of Living Flesh",
+        "effect": "Heal one living friendly unit, including a hero, by an amount equal to two of Radagast's ordinary weapon hits of damage, capped at its missing health; also end one ordinary ongoing poison effect. It cannot resurrect, repair constructs, regrow a destroyed unit or remove a lasting campaign injury.",
+        "cost": "3 readiness, 10P and 5E; one uninterrupted local treatment action within the battle commitment",
+        "range": "Physical contact with one willing living patient",
+        "duration": "One tactical phase of treatment; each patient can receive this healing once per encounter",
+        "counter": "Interrupt contact, separate healer and patient, deny the required supplies or inflict fresh injuries after treatment."
+      },
+      "passive": {
+        "name": "Companion's Vigil",
+        "effect": "One owned ordinary beast adjacent to Radagast may interpose against the first attack aimed at him in an encounter, taking the attack's normal damage instead.",
+        "limit": "Once per encounter; the beast must already be adjacent, conscious and under its existing ownership. No free movement, attack, damage immunity or new beast is granted; Dragons and Balrogs are excluded."
+      },
+      "retained_weakness": "Offense requires living vegetation and grounded targets. Healing consumes the same readiness needed for attack, and neither healing nor a bodyguard replaces lost habitats, destroyed units or a conventional siege force.",
+      "category": "Named Istari"
+    },
+    {
+      "id": "istari_alatar",
+      "faction": "Alatar's Eastern Hunt",
+      "hero": "Alatar (Blue Wizard)",
+      "compensates": "A small hunting force must defeat dangerous individual opponents before they overwhelm its scattered outposts.",
+      "field_power": {
+        "name": "Spear of the Far Hunt",
+        "effect": "Launch one concentrated magical hunting strike at a visible enemy, dealing damage equivalent to three of Alatar's ordinary ranged weapon hits if it connects. Resolve normal armor and cover; a healthy hero or capital cannot be destroyed by this single strike. The attack is powerful against an exposed target but does not automatically hit or penetrate solid barriers.",
+        "cost": "4 readiness, 5K and 10E; one local casting action within the battle commitment",
+        "range": "One visible enemy within 24 metres",
+        "duration": "One-phase visible aiming warning followed by one strike",
+        "counter": "Break sight with solid cover, move out of the firing lane during the warning, close on Alatar or interrupt his aim."
+      },
+      "support_power": {
+        "name": "Quarry Sign",
+        "effect": "Mark one currently visible enemy. Its outline remains observable through ordinary mist and light foliage within range, allowing pursuit after those forms of concealment. The mark reveals no other units, intentions or unseen terrain and gives no command over its target.",
+        "cost": "2 readiness and 5K; one local casting action within the battle commitment",
+        "range": "One visible target within 24 metres; the mark stops providing information beyond that range",
+        "duration": "Three tactical phases; ends if the target leaves range or removes the visible mark with one ordinary cleansing action",
+        "counter": "Use solid walls, roofs or dense terrain that fully blocks sight; leave range, remove the mark or threaten Alatar while he pursues."
+      },
+      "passive": {
+        "name": "Prepared Ambush",
+        "effect": "After one full tactical phase without moving or attacking, Alatar's next ordinary ranged attack gains one additional ordinary-hit equivalent of damage if it hits.",
+        "limit": "Once per encounter, on an ordinary attack only; never stacks onto Spear of the Far Hunt. Normal attack action, ammunition, cover and armor still apply; it cannot make a single hit kill a healthy hero."
+      },
+      "retained_weakness": "High-value single-target attacks do not clear a massed army or hold several outposts. Aiming and marking expose his position; walls, dense cover, close pressure and multiple simultaneous threats remain effective.",
+      "category": "Named Istari"
+    },
+    {
+      "id": "istari_pallando",
+      "faction": "Pallando's Eastern Resistance",
+      "hero": "Pallando (Blue Wizard)",
+      "compensates": "A lightly equipped resistance force cannot afford enough specialist equipment to withstand hostile battle magic.",
+      "field_power": {
+        "name": "Word of Sundering",
+        "effect": "Strike one visible enemy with force equal to two of Pallando's ordinary weapon hits, subject to normal defense, and suppress one selected active cast ward or enchantment on it for two phases. One use cannot kill a healthy hero or destroy a healthy capital. Suppression never removes inherent abilities, destroys a created body, frees Anchor capacity, changes ownership or interrupts Melkor's command link to Dragons or Balrogs.",
+        "cost": "4 readiness, 10K and 5E; one local casting action within the battle commitment",
+        "range": "One visible enemy within 18 metres; the chosen enchantment must already be identified",
+        "duration": "One-phase spoken wind-up, damage once, then two-phase suppression; the original effect's duration and upkeep continue normally",
+        "counter": "Take solid cover, interrupt the incantation, rely on ordinary weapons or armor, or outlast the short suppression before committing another spell."
+      },
+      "support_power": {
+        "name": "Circle of Refusal",
+        "effect": "Ward up to two friendly units inside a prepared 5-metre circle, reducing damage from direct hostile spells by half while they remain inside. It also shortens the next magical fear or silence imposed on each by one phase, to a minimum of one phase. Physical attacks, environmental fire and movement remain normal; this grants resistance rather than immunity or control over another faction's units.",
+        "cost": "2 readiness, 10K and 5E; one local casting action within the battle commitment",
+        "range": "A 5-metre circle centred within 8 metres; select up to two friendly recipients",
+        "duration": "Two tactical phases; ends for a recipient that leaves the circle; same-effect protection uses the strongest source only",
+        "counter": "Use ordinary arrows or melee, destroy the visible ground markers, attack from outside the protected area or force the recipients to leave it."
+      },
+      "passive": {
+        "name": "Unbroken Incantation",
+        "effect": "The first magical interruption of a spell Pallando is actively casting delays its completion by one tactical phase instead of cancelling it.",
+        "limit": "Once per encounter; a further interruption cancels normally. Lethal or incapacitating damage, lost range, lost target sight and physical displacement still invalidate the cast; costs are not refunded and no extra action or spell is created."
+      },
+      "retained_weakness": "His spell suppression is temporary and his protection covers only two units in a small fixed area. Ordinary armies, dispersed attacks and sustained physical pressure remain dangerous; essence and prepared lore supplies limit repeated casting.",
+      "category": "Named Istari"
+    },
+    {
+      "id": "sauron",
+      "faction": "Sauron",
+      "hero": "Sauron",
+      "compensates": "Industrial armies lose effectiveness when their supply network is disrupted.",
+      "field_power": {
+        "name": "Black Command",
+        "effect": "One owned ordinary company regains one lost cohesion step and can execute its declared fallback. Never affects Dragons or Balrogs.",
+        "cost": "2 readiness",
+        "range": "One visible company within 12 metres in the current encounter",
+        "duration": "Two tactical phases; no stacking",
+        "counter": "Break line of sight, isolate the company or keep its fallback route blocked."
+      },
+      "support_power": {
+        "name": "Redundant Supply",
+        "effect": "Prepare an alternate route for one funded convoy between owned depots. It may reroute once when its original path closes; goods still travel normally.",
+        "cost": "3 readiness, weekly hero commitment, 10M and 5K",
+        "range": "One connected region with two owned depots and a surveyed open alternate route",
+        "duration": "One week",
+        "counter": "Block the alternate route, damage a depot or intercept the convoy."
+      },
+      "passive": {
+        "name": "Reserved Rations",
+        "effect": "One selected owned ordinary company may carry up to 5P of paid reserve provisions beyond its normal load, reducing reliance on its next convoy.",
+        "limit": "Stocks must be deducted from a depot; upkeep consumes them normally. One company at a time; no Dragons or Balrogs."
+      },
+      "retained_weakness": "The army still needs provisions, depots and travel; exposed clients can secede.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "istari_ember",
+      "faction": "Ember Order",
+      "hero": "Kindler",
+      "compensates": "Small support armies struggle to keep workers active near a threatening front.",
+      "field_power": {
+        "name": "Hold the Hearth",
+        "effect": "Two nearby owned ordinary groups reduce their current panic by one step. Damage and fatigue remain.",
+        "cost": "2 readiness",
+        "range": "Two groups within 8 metres of the Kindler in the current encounter",
+        "duration": "Two tactical phases; one application per group per encounter",
+        "counter": "Separate the groups, force the Kindler away or apply fresh pressure after the effect ends."
+      },
+      "support_power": {
+        "name": "Refuge Shift",
+        "effect": "Prepare shelter and an evacuation drill for one staffed worksite. Its workers can withdraw once to the selected nearby refuge; the abandoned job pauses rather than producing remotely.",
+        "cost": "3 readiness, weekly hero commitment, 10P and 10M",
+        "range": "One connected region; worksite and refuge linked by an open route",
+        "duration": "One week or one evacuation",
+        "counter": "Cut the route, occupy the refuge or force evacuation before the job completes."
+      },
+      "passive": {
+        "name": "Shared Warmth",
+        "effect": "One ordinary company resting with the Kindler removes one additional fatigue step.",
+        "limit": "Once per week at a supplied refuge; no readiness, stock or injury restoration."
+      },
+      "retained_weakness": "Shelters cannot replace a field army, and displaced workers stop production.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "istari_grove",
+      "faction": "Grove Order",
+      "hero": "Grovekeeper",
+      "compensates": "Specialist training makes replacing injured personnel expensive.",
+      "field_power": {
+        "name": "Living Dressing",
+        "effect": "Stabilize one nonfatal wound on an owned ordinary unit, preventing that wound worsening during withdrawal. Does not restore combat strength or revive the dead.",
+        "cost": "2 readiness and 5P",
+        "range": "Physical contact in the current encounter",
+        "duration": "Until encounter end or the unit suffers another wound",
+        "counter": "Interrupt contact, deny a retreat route or inflict a new wound."
+      },
+      "support_power": {
+        "name": "Nursery Recovery",
+        "effect": "Treat up to two injured ordinary units at a staffed medicine nursery; each completes one additional step of its existing recovery schedule.",
+        "cost": "3 readiness, weekly hero commitment, 10P and 10M",
+        "range": "One connected region; patients physically present at the nursery",
+        "duration": "This week's recovery resolution",
+        "counter": "Raid the nursery, interrupt supplies or force the patients to move."
+      },
+      "passive": {
+        "name": "Measured Remedies",
+        "effect": "One ordinary patient treated by Grovekeeper retains one already completed recovery step that would otherwise be lost during its first evacuation from the nursery.",
+        "limit": "One patient per week and once per injury; no new healing, readiness restoration, supply generation or resurrection."
+      },
+      "retained_weakness": "Care depends on viable habitat, staff and supplies; overwhelming losses still exhaust the order.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "istari_veil",
+      "faction": "Veil Order",
+      "hero": "Veilweaver",
+      "compensates": "Fragile agents cannot afford repeated losses while gathering information.",
+      "field_power": {
+        "name": "Borrowed Shadow",
+        "effect": "Place one stationary silhouette of an ordinary infantry scout to draw observation. It cannot attack, carry goods, capture sites or copy a hero, Dragon or Balrog.",
+        "cost": "2 readiness and 5K",
+        "range": "One visible location within 12 metres in the current encounter",
+        "duration": "Two tactical phases or until physically examined",
+        "counter": "Scout from another angle, touch the silhouette or watch whether it interacts with terrain."
+      },
+      "support_power": {
+        "name": "Quiet Exchange",
+        "effect": "Cross-check one dated report through two staffed safehouses, identifying contradictions and source uncertainty. It does not reveal unobserved facts.",
+        "cost": "3 readiness, weekly hero commitment and 10K",
+        "range": "One connected region containing both safehouses",
+        "duration": "One report delivered at weekly resolution",
+        "counter": "Close a safehouse, intercept its courier or supply independently consistent false evidence."
+      },
+      "passive": {
+        "name": "Compartmented Contacts",
+        "effect": "Capture of one ordinary agent reveals only that agent's current assignment and contacts.",
+        "limit": "Does not conceal information already learned elsewhere or automatically rescue the captive."
+      },
+      "retained_weakness": "The order lacks durable troops, and deception cannot substitute for holding ground.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "istari_forge",
+      "faction": "Forge Order",
+      "hero": "Artificer",
+      "compensates": "A small number of expensive constructs makes repair downtime costly.",
+      "field_power": {
+        "name": "Brace the Mechanism",
+        "effect": "Restore one movement impairment on an owned nonhero construct made by this order. No lost unit is recreated, and destroyed parts remain destroyed.",
+        "cost": "2 readiness and 10M",
+        "range": "Physical contact in the current encounter",
+        "duration": "Until encounter end or another disabling hit",
+        "counter": "Interrupt the repair, separate the Artificer from the machine or damage the repaired joint."
+      },
+      "support_power": {
+        "name": "Service Overhaul",
+        "effect": "Advance one already-funded repair job by one turn. It cannot complete in the turn it starts; excludes hero creation, new-unit production, Dragons and Balrogs.",
+        "cost": "3 readiness, weekly hero commitment, 15M and 5K",
+        "range": "One staffed service depot in the connected region",
+        "duration": "One repair job; once per job",
+        "counter": "Occupy the depot, remove its crew or deny its required source access."
+      },
+      "passive": {
+        "name": "Standard Fittings",
+        "effect": "An ordinary repair kit made by this order fits any of its own ordinary constructs.",
+        "limit": "Every repair still consumes the kit, materials and its normal action; never grants another faction's recipe."
+      },
+      "retained_weakness": "Constructs remain material-intensive, and repair cannot compensate for destroyed production facilities.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "istari_star",
+      "faction": "Star Order",
+      "hero": "Wayseer",
+      "compensates": "A dispersed small army often receives warnings too late to concentrate.",
+      "field_power": {
+        "name": "Signal Flash",
+        "effect": "One visible owned ordinary group may revise its declared fallback before the next tactical resolution; its movement allowance does not increase.",
+        "cost": "2 readiness",
+        "range": "One group within 15 metres in the current encounter",
+        "duration": "Next tactical phase",
+        "counter": "Obscure the signal, block the fallback or pressure a different group."
+      },
+      "support_power": {
+        "name": "Beacon Concord",
+        "effect": "Prepare one verified warning relay between three staffed beacons. An observed attack is reported at the next planning phase, without revealing events outside their sightlines.",
+        "cost": "3 readiness, weekly hero commitment, 10M and 5K",
+        "range": "One connected region with an intact beacon chain",
+        "duration": "One week",
+        "counter": "Cut a relay, approach under cover or use a diversion beyond its sightlines."
+      },
+      "passive": {
+        "name": "Veiled Starlight",
+        "effect": "One staffed beacon link previously surveyed by Wayseer can transmit one already-observed warning through light fog that would normally block its visual signal.",
+        "limit": "Once per week across one link; normal actions, staffing, costs, range and delivery time apply. No extra messages, improved observation, passage through solid cover or transmission through heavy fog or storms."
+      },
+      "retained_weakness": "Knowledge does not create troops or transport; unconnected regions remain difficult to protect.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "melian",
+      "faction": "Melian",
+      "hero": "Melian",
+      "compensates": "A stationary sanctuary depends on vulnerable trips beyond its protected boundary.",
+      "field_power": {
+        "name": "Veil the Departing",
+        "effect": "Conceal the visible trail of one consenting ordinary party while it withdraws. Attacking or crossing open ground ends the concealment.",
+        "cost": "2 readiness",
+        "range": "One party within 10 metres in a wooded encounter",
+        "duration": "Two tactical phases",
+        "counter": "Watch exits, inspect fresh tracks from another angle or force the party into open terrain."
+      },
+      "support_power": {
+        "name": "Guest Road",
+        "effect": "Ward one surveyed wooded supply route against casual observation. Convoys still require transport, provisions and ordinary travel time.",
+        "cost": "3 readiness, weekly hero commitment, 10M, 5K and one Anchor",
+        "range": "One connected region adjoining the sanctuary",
+        "duration": "One week; ends early if its prepared markers are destroyed",
+        "counter": "Patrol the route closely, clear cover or seize an endpoint."
+      },
+      "passive": {
+        "name": "Known Thresholds",
+        "effect": "One staffed sanctuary entrance records arrivals and departures for later inspection.",
+        "limit": "One entrance at a time; cannot identify a concealed identity or observe outside the boundary."
+      },
+      "retained_weakness": "Protection remains stationary and cannot solve internal disputes or sustain distant armies.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "osse",
+      "faction": "Ossë",
+      "hero": "Ossë",
+      "compensates": "Coastal workshops and landings lose productive access when channels are obstructed.",
+      "field_power": {
+        "name": "Break the Landing",
+        "effect": "Raise hazardous surf across one short landing approach, slowing ships and swimmers physically. Friendly vessels face the same hazard.",
+        "cost": "2 readiness",
+        "range": "One visible coastal strip within 15 metres in the current encounter",
+        "duration": "Two tactical phases",
+        "counter": "Use another beach, wait out the surf or approach from land."
+      },
+      "support_power": {
+        "name": "Workable Tide",
+        "effect": "Help a supplied shore crew clear one silted or debris-blocked harbor channel, completing one step of its funded repair. No new harbor or ship is created.",
+        "cost": "3 readiness, weekly hero commitment and 20M",
+        "range": "One owned harbor in a connected coastal region",
+        "duration": "This week's repair resolution",
+        "counter": "Disrupt the shore crew, damage its equipment or renew the physical obstruction."
+      },
+      "passive": {
+        "name": "Read the Shoals",
+        "effect": "Inspection reveals safe draft and current hazards for one local channel.",
+        "limit": "One inspected channel per week; information becomes stale after storms or sabotage."
+      },
+      "retained_weakness": "Inland threats remain difficult to answer, and storm magic endangers friendly shipping.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "uinen",
+      "faction": "Uinen",
+      "hero": "Uinen",
+      "compensates": "Small maritime forces cannot replace damaged transport quickly.",
+      "field_power": {
+        "name": "Stillwater Pocket",
+        "effect": "Reduce wave hazard by one severity step around one damaged vessel so its crew can attempt repair or rescue. Enemy attacks remain effective.",
+        "cost": "2 readiness",
+        "range": "One vessel within 15 metres in the current encounter",
+        "duration": "Two tactical phases",
+        "counter": "Attack from shore, obstruct its route or force it beyond the calm pocket."
+      },
+      "support_power": {
+        "name": "Sheltered Refit",
+        "effect": "A staffed rescue yard advances repairs on one existing transport by one step while Uinen maintains workable water conditions.",
+        "cost": "3 readiness, weekly hero commitment, 10P and 15M",
+        "range": "One rescue yard in a connected coastal region",
+        "duration": "This week's repair resolution; once per repair job",
+        "counter": "Blockade the yard, interrupt materials or raid the repair crew."
+      },
+      "passive": {
+        "name": "Ready Lifelines",
+        "effect": "One prepared friendly rescue craft can begin a rescue without first deploying its rigging.",
+        "limit": "One rescue per encounter; normal load, movement and casualty limits still apply."
+      },
+      "retained_weakness": "She cannot replace destroyed fleets or secure inland supply lines through calming water alone.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "arien",
+      "faction": "Arien",
+      "hero": "Arien",
+      "compensates": "A small terrestrial workforce struggles to operate under hostile concealment.",
+      "field_power": {
+        "name": "Unclouded Glimpse",
+        "effect": "Thin ordinary smoke or mist in one visible area, exposing silhouettes without identifying hidden motives or targets behind solid cover.",
+        "cost": "2 readiness",
+        "range": "One 6-metre area within 15 metres in the current encounter",
+        "duration": "Two tactical phases",
+        "counter": "Use roofs, tunnels, solid cover or fresh smoke outside the illuminated area."
+      },
+      "support_power": {
+        "name": "Dawn Worksite",
+        "effect": "Illuminate one prepared worksite so its existing crew can perform its normal shift despite darkness. No extra production cycle, workers or free materials are granted.",
+        "cost": "3 readiness, weekly hero commitment, 10M and 5K",
+        "range": "One connected region; one staffed site with a maintained mirror station",
+        "duration": "One week",
+        "counter": "Destroy the mirrors, attack the exposed crew or obstruct the sightline with solid cover."
+      },
+      "passive": {
+        "name": "Long Shadows",
+        "effect": "An occupied dawn watchpost records the direction of exposed movement crossing its lit approach.",
+        "limit": "One selected post; only visible movement, with no tracking after cover is reached."
+      },
+      "retained_weakness": "Illumination cannot hold territory, enter sealed interiors or replace conventional defense.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "tilion",
+      "faction": "Tilion",
+      "hero": "Tilion",
+      "compensates": "Limited patrol numbers leave nocturnal routes poorly covered.",
+      "field_power": {
+        "name": "Silver Interception",
+        "effect": "Make one aimed attack against an exposed attacker preparing to strike a nearby ordinary ally. It can interrupt that attack but cannot guarantee a kill.",
+        "cost": "2 readiness",
+        "range": "One visible target within 15 metres in the current encounter",
+        "duration": "Next tactical phase",
+        "counter": "Use cover, feint with one attacker and strike with another, or engage beyond the protected lane."
+      },
+      "support_power": {
+        "name": "Watch of the Moon",
+        "effect": "Survey one declared night route personally and report observed crossings at the next planning phase. It does not reveal interiors or unvisited branches.",
+        "cost": "3 readiness, weekly hero commitment and 10P for supporting scouts",
+        "range": "One connected region and one traversable patrol route",
+        "duration": "One week",
+        "counter": "Travel outside the route, use overhead cover or stage a diversion."
+      },
+      "passive": {
+        "name": "Night Bearings",
+        "effect": "One ordinary scout group accompanying Tilion reduces a routefinding delay by one tactical phase when retracing a route he personally surveyed.",
+        "limit": "Once per encounter; does not bypass blockades, increase movement allowance or disclose new terrain."
+      },
+      "retained_weakness": "A single patrol cannot protect multiple fronts, and dependable reports still require exposure.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "eonwe",
+      "faction": "Eönwë",
+      "hero": "Eönwë",
+      "compensates": "A compact expeditionary economy struggles with dispersed military commitments.",
+      "field_power": {
+        "name": "Heralds Advance",
+        "effect": "Lead up to two owned ordinary companies in a coordinated advance, reducing separation by allowing a shared pace. Movement and damage remain otherwise normal.",
+        "cost": "2 readiness",
+        "range": "Two companies within 10 metres in the current encounter",
+        "duration": "Two tactical phases",
+        "counter": "Block their shared route, attack their flanks or force different terrain speeds."
+      },
+      "support_power": {
+        "name": "Muster by Terms",
+        "effect": "Prepare one rally point and timed arrival plan for three owned ordinary companies. They retain separate travel requirements and can join one declared operation when they arrive.",
+        "cost": "3 readiness, weekly hero commitment, 15P and 10M",
+        "range": "One connected region with surveyed routes and a supplied rally point",
+        "duration": "One week",
+        "counter": "Intercept one route, deny the rally point or draw the force toward another objective."
+      },
+      "passive": {
+        "name": "Clear Commission",
+        "effect": "One supplied ordinary company operating under his written mission retains its declared fallback if communications are cut.",
+        "limit": "One company and one mission; cannot issue new orders remotely or apply to Dragons or Balrogs."
+      },
+      "retained_weakness": "Concentrating the host exposes other routes, and his martial strength cannot replace provisions.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "ilmare",
+      "faction": "Ilmarë",
+      "hero": "Ilmarë",
+      "compensates": "A lightly defended communications network is easily disrupted.",
+      "field_power": {
+        "name": "Witness Flare",
+        "effect": "Mark the observed position of one visible attacker for nearby defenders. The mark does not follow the target after it reaches cover.",
+        "cost": "2 readiness",
+        "range": "One visible target within 15 metres in the current encounter",
+        "duration": "Two tactical phases",
+        "counter": "Change position under cover, obscure the flare or attack from another direction."
+      },
+      "support_power": {
+        "name": "Second Signal",
+        "effect": "Prepare a redundant physical relay for one staffed communications link. If its primary station fails, a courier can use the surveyed alternate route.",
+        "cost": "3 readiness, weekly hero commitment, 15M and 5K",
+        "range": "One connected region with an available courier and alternate route",
+        "duration": "One week or one rerouted message",
+        "counter": "Intercept the courier, block the alternate route or feed false reports into the surviving station."
+      },
+      "passive": {
+        "name": "Witness Chain",
+        "effect": "The first report crossing her network each week preserves the identities of its observed relay stations and its timestamp.",
+        "limit": "Provenance supports checking, not guaranteed truth; generates no fresh observations."
+      },
+      "retained_weakness": "Reliable communications still need staffed sites and cannot substitute for a defending army.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "ent_grove",
+      "faction": "Ent Grove",
+      "hero": "Grove Elder",
+      "compensates": "Slow movement makes separated habitats and work areas difficult to defend.",
+      "field_power": {
+        "name": "Rooted Screen",
+        "effect": "Raise existing roots across one short approach, slowing passage and sheltering withdrawal without sealing every exit.",
+        "cost": "2 readiness",
+        "range": "One rooted area within 10 metres in the current encounter",
+        "duration": "Three tactical phases",
+        "counter": "Cut or burn the roots, use a different approach or attack from range."
+      },
+      "support_power": {
+        "name": "Living Causeway",
+        "effect": "Shape existing timber and roots into one short crossing for ordinary movement. Requires a working crew and suitable banks; does not create mature trees.",
+        "cost": "3 readiness, weekly hero commitment, 20M and 10P",
+        "range": "One connected region; a surveyed gap no wider than 15 metres",
+        "duration": "Completed physical crossing persists until damaged",
+        "counter": "Attack the builders, burn the crossing or block its far bank."
+      },
+      "passive": {
+        "name": "Root Memory",
+        "effect": "Once per week, inspect one connected grove for recent logging or heavy passage and identify its direction.",
+        "limit": "Records disturbance rather than identities; disconnected land remains unknown."
+      },
+      "retained_weakness": "The faction remains slow, habitat-dependent and vulnerable to sustained fire.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "eagle_eyrie",
+      "faction": "Eagle Eyrie",
+      "hero": "Skywarden",
+      "compensates": "Secure aerial territory still has little capacity to move supplies or rescue grounded allies.",
+      "field_power": {
+        "name": "Lift the Stranded",
+        "effect": "Carry one willing light nonhero ally to a safe landing point. Excludes large creatures, Dragons and Balrogs; both take the risk of the exposed flight.",
+        "cost": "2 readiness",
+        "range": "Pickup by contact; landing within 20 metres in the current encounter",
+        "duration": "One flight across two tactical phases",
+        "counter": "Guard the landing point, use ranged attacks or deny sufficient landing space."
+      },
+      "support_power": {
+        "name": "Eyrie Relay",
+        "effect": "Move up to 20 units of existing P or K between two prepared ledges using one committed ordinary flight. It cannot transport M, E, troops or a second load.",
+        "cost": "3 readiness, weekly hero commitment, 10P and 5M",
+        "range": "Two owned or consenting ledges within one connected region",
+        "duration": "One delivery at weekly resolution",
+        "counter": "Threaten a ledge, intercept the flight or force weather delays."
+      },
+      "passive": {
+        "name": "Landing Survey",
+        "effect": "Before one rescue or delivery each week, reveal visible obstacles and available space at the inspected destination.",
+        "limit": "Requires line of sight; concealed defenders remain concealed."
+      },
+      "retained_weakness": "Loads stay small, eyries remain exposed, and air superiority does not establish ground control.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "spider_brood",
+      "faction": "Spider Brood",
+      "hero": "Brood Matriarch",
+      "compensates": "A prey-dependent economy struggles to connect separated lairs safely.",
+      "field_power": {
+        "name": "Layered Snare",
+        "effect": "Web one short approach, reducing ordinary ground movement through it and revealing physical crossings. It does not issue orders or permanently immobilize targets.",
+        "cost": "2 readiness and 5M",
+        "range": "One 6-metre approach within 10 metres in the current encounter",
+        "duration": "Three tactical phases or until cleared",
+        "counter": "Cut or burn the web, cross elsewhere or attack from range."
+      },
+      "support_power": {
+        "name": "Brood Bridge",
+        "effect": "Build one silk crossing between prepared anchors, opening a route for ordinary brood workers and hunters. Hunting and transport still require their normal assignments.",
+        "cost": "3 readiness, weekly hero commitment, 20M and 10P",
+        "range": "One connected region; a surveyed gap no wider than 15 metres",
+        "duration": "Physical crossing persists until damaged",
+        "counter": "Destroy an anchor, clear the crossing or ambush its exit."
+      },
+      "passive": {
+        "name": "Tremor Ledger",
+        "effect": "One occupied lair records the time and direction of crossings touching its connected web routes.",
+        "limit": "No identity detection, remote control or information beyond intact connected silk."
+      },
+      "retained_weakness": "The brood still depends on prey and prepared terrain; fire and cleared routes remain effective counters.",
+      "category": "Istari, Maiar and guardians"
+    },
+    {
+      "id": "melkor_worldbreaker",
+      "faction": "Melkor",
+      "hero": "Melkor - Worldbreaker",
+      "compensates": "A tiny sanctuary cannot maintain broad industry or replace a large army.",
+      "field_power": {
+        "name": "Worldbreak",
+        "effect": "Damage one defended obstacle or clustered position after a visible wind-up; cannot destroy a healthy hero or capital in one use.",
+        "cost": "4 readiness; ordinary local attack commitment",
+        "range": "One visible local encounter position",
+        "duration": "One attack after a one-phase warning",
+        "counter": "Disperse, use layered barriers, interrupt the approach or attack another objective."
+      },
+      "support_power": {
+        "name": "Call of the Dark",
+        "effect": "Activate one discovered, living Balrog or Dragon with an existing map ID. It walks or flies from its real location; no new entity, hatching or resurrection is created.",
+        "cost": "3 readiness + one weekly hero commitment + 20P + 20M + 10E; reserve full supply and great-creature points; normal movement operations thereafter",
+        "range": "One discovered candidate with a known traversable route; no teleportation",
+        "duration": "One call; arrival follows actual travel time",
+        "counter": "Scout its departure, block or intercept the route, or kill the finite candidate before deployment."
+      },
+      "passive": {
+        "name": "Unspent Might",
+        "effect": "Maximum readiness is 12 and a recovery commitment restores 6, enabling more personal intervention.",
+        "limit": "One hero commitment per week; sanctuary supply 12 and great-creature capacity 2 remain fixed. It grants no new creature production or extra map presence."
+      },
+      "retained_weakness": "Small economy, limited simultaneous coverage and a finite, nonrenewable pool of living Balrogs and Dragons.",
+      "category": "Melkor doctrines"
+    },
+    {
+      "id": "melkor_dark_architect",
+      "faction": "Melkor",
+      "hero": "Melkor - Dark Architect",
+      "compensates": "Expensive creature industry matures slowly and needs coordination across vulnerable sites.",
+      "field_power": {
+        "name": "Iron Edict",
+        "effect": "Coordinate a synchronized plan for up to three owned great creatures on one connected front; no additional attacks, movement or foreign control.",
+        "cost": "3 readiness + one weekly hero commitment; units retain normal movement and supply requirements",
+        "range": "One connected front with surveyed routes",
+        "duration": "One weekly operation; plans resolve through ordinary tactical phases",
+        "counter": "Divide the front, block one route, interrupt preparation or threaten an uncovered city."
+      },
+      "support_power": {
+        "name": "Forge Will",
+        "effect": "Advance one fully paid, staffed production job by one turn; cannot finish in the turn it starts and cannot create duplicate outputs.",
+        "cost": "3 readiness + one weekly hero commitment + 10E; all original inputs, workers, capacity and facility remain required",
+        "range": "One reachable owned worksite in one connected region",
+        "duration": "One job at one weekly resolution; at most once per turn",
+        "counter": "Raid the facility, deny inputs, displace workers or destroy the job before completion."
+      },
+      "passive": {
+        "name": "Brood Discipline",
+        "effect": "After research, reduce future Dragon/Balrog base production time by 25%, rounded up; costs do not fall.",
+        "limit": "Unlock costs 60M + 40K + 30E and three research turns. Six ordinary queues maximum, full reservations and upkeep; never applies to hero recreation."
+      },
+      "retained_weakness": "Lower personal combat capacity, slower economic setup and expensive, exposed production. Existing-creature calls remain available at the same cost; new Dragons and Balrogs require this doctrine.",
+      "category": "Melkor doctrines"
+    }
+  ]
+}

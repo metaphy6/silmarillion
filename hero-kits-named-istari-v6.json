@@ -1,0 +1,142 @@
+[
+  {
+    "id": "istari_gandalf",
+    "faction": "Gandalf's Fellowship",
+    "hero": "Gandalf",
+    "compensates": "A small refuge network cannot field enough troops to withstand a concentrated assault.",
+    "field_power": {
+      "name": "Flame of the White Fire",
+      "effect": "After a visible wind-up, strike up to three exposed enemies in one 5-metre area with fire and light. Each takes damage equivalent to two of Gandalf's ordinary weapon hits, subject to normal defense; one selected victim also loses its current prepared ranged attack. The combined effect cannot kill a healthy hero or destroy a healthy capital in one use.",
+      "cost": "4 readiness and 10E; one local casting action within the battle commitment",
+      "range": "One visible 5-metre area centred within 18 metres",
+      "duration": "One-phase warning, then one burst; interruption affects only the currently prepared attack",
+      "counter": "Disperse before the burst, take solid cover, interrupt the wind-up or close on Gandalf from another direction."
+    },
+    "support_power": {
+      "name": "Stand of the Free",
+      "effect": "Remove one fear step from up to two nearby friendly units and ward each against its next damaging hit. Each ward absorbs at most the damage of one of Gandalf's ordinary weapon hits; excess damage passes through. Wards do not restore health or change orders or allegiance.",
+      "cost": "2 readiness and 10K; one local casting action within the battle commitment",
+      "range": "Two visible friendly units within 10 metres",
+      "duration": "Two tactical phases or until each ward absorbs one hit; same wards do not stack",
+      "counter": "Use repeated attacks, wait out the ward, separate its recipients or pressure an unprotected objective."
+    },
+    "passive": {
+      "name": "Hope Rekindled",
+      "effect": "The first panic-driven rout of one owned ordinary company within 10 metres of Gandalf becomes an orderly fallback for one tactical phase, preserving its formation while it withdraws.",
+      "limit": "One company per encounter; does not heal, add movement or prevent later panic. Requires a traversable fallback route and Gandalf to remain conscious; excludes Dragons and Balrogs."
+    },
+    "retained_weakness": "His strongest burst consumes most of his six readiness and exposes a small army to pressure elsewhere. Refuge staff, provisions and ordinary troops remain necessary; protection has limited targets and duration."
+  },
+  {
+    "id": "istari_saruman",
+    "faction": "Saruman's White Tower",
+    "hero": "Saruman",
+    "compensates": "A compact industrial enclave needs costly specialist defenders while workshops and workers are exposed.",
+    "field_power": {
+      "name": "Shattering Voice",
+      "effect": "Release a directed sonic-force blow through a 3-metre-wide lane, striking at most two exposed units for damage equivalent to two of Saruman's ordinary weapon hits each. It also pushes each struck unit up to 3 metres along traversable ground; it cannot push across lethal edges. Normal defense applies, and one use cannot kill a healthy hero or destroy a healthy capital. This is physical force, not compelled obedience.",
+      "cost": "3 readiness, 5K and 5E; one local casting action within the battle commitment",
+      "range": "One visible lane up to 16 metres long",
+      "duration": "One-phase audible wind-up followed by one pulse",
+      "counter": "Leave the lane, use solid barriers, brace against anchored cover to prevent the push, or interrupt Saruman before the pulse."
+    },
+    "support_power": {
+      "name": "Commission the Iron Servant",
+      "effect": "Create one ordinary Resonant Sentinel at a staffed Orthanc Workshop with a paid construct berth. It is an armed guard that may intercept one attack aimed at an adjacent ordinary ally per encounter, taking that attack's normal damage itself. It has no hero progression or hero slot. Creation occupies one ordinary queue for two turns and cannot attack in its completion resolution. This power cannot create, copy or command Dragons or Balrogs.",
+      "cost": "3 readiness and one weekly hero commitment at the start; 40M, 15K and 20E paid upfront; reserve 2 supply and 1 binding slot before work begins; upkeep 2M and 1E per turn after completion",
+      "range": "One reachable staffed Orthanc Workshop in the connected region; Sentinel appears only at its berth",
+      "duration": "Two production turns; at most one active or pending Sentinel from this power. It persists with upkeep until destroyed or deliberately dismantled; no material refund on dismantling",
+      "counter": "Raid the workshop or interrupt staff and inputs before completion; afterwards flank the guard, attack from range or disrupt its upkeep. Shortages disable its special interception and block another commission, without changing ownership."
+    },
+    "passive": {
+      "name": "Measured Demolition",
+      "effect": "One owned ordinary siege weapon within 12 metres of Saruman adds one ordinary-hit equivalent of its own damage to its first successful hit against a visible fortification in the encounter.",
+      "limit": "One weapon and one enhanced hit per encounter; ordinary action, ammunition, range and defense still apply. No extra shot, healthy-capital one-shot, or enhancement to a hero, Dragon or Balrog is granted."
+    },
+    "retained_weakness": "His three ordinary queues still share six support plots and supply 18. Industry, siege ammunition and his one bound Sentinel compete for materials and essence; his force lane needs positioning and offers no mass healing."
+  },
+  {
+    "id": "istari_radagast",
+    "faction": "Radagast's Woodland Circle",
+    "hero": "Radagast",
+    "compensates": "A habitat-dependent force cannot cheaply replace trained beasts and wounded defenders.",
+    "field_power": {
+      "name": "Wrath of Root and Thorn",
+      "effect": "Drive living roots and thorns into up to two grounded enemies in one vegetated patch. Each suffers damage equivalent to two of Radagast's ordinary weapon hits, with normal defense, and its next movement is limited to one 3-metre step. Roots do not change allegiance; the combined strike cannot kill a healthy hero or destroy a healthy capital in one use.",
+      "cost": "3 readiness, 5P and 5E; one local casting action within the battle commitment",
+      "range": "One visible 5-metre patch of living vegetation within 14 metres",
+      "duration": "One-phase visible wind-up; damage once and movement restriction for the next tactical phase; normal two-phase disable reapplication grace applies",
+      "counter": "Leave the growing roots during the warning, use paved or barren ground, cut or burn the roots, attack from range or take flight."
+    },
+    "support_power": {
+      "name": "Mending of Living Flesh",
+      "effect": "Heal one living friendly unit, including a hero, by an amount equal to two of Radagast's ordinary weapon hits of damage, capped at its missing health; also end one ordinary ongoing poison effect. It cannot resurrect, repair constructs, regrow a destroyed unit or remove a lasting campaign injury.",
+      "cost": "3 readiness, 10P and 5E; one uninterrupted local treatment action within the battle commitment",
+      "range": "Physical contact with one willing living patient",
+      "duration": "One tactical phase of treatment; each patient can receive this healing once per encounter",
+      "counter": "Interrupt contact, separate healer and patient, deny the required supplies or inflict fresh injuries after treatment."
+    },
+    "passive": {
+      "name": "Companion's Vigil",
+      "effect": "One owned ordinary beast adjacent to Radagast may interpose against the first attack aimed at him in an encounter, taking the attack's normal damage instead.",
+      "limit": "Once per encounter; the beast must already be adjacent, conscious and under its existing ownership. No free movement, attack, damage immunity or new beast is granted; Dragons and Balrogs are excluded."
+    },
+    "retained_weakness": "Offense requires living vegetation and grounded targets. Healing consumes the same readiness needed for attack, and neither healing nor a bodyguard replaces lost habitats, destroyed units or a conventional siege force."
+  },
+  {
+    "id": "istari_alatar",
+    "faction": "Alatar's Eastern Hunt",
+    "hero": "Alatar (Blue Wizard)",
+    "compensates": "A small hunting force must defeat dangerous individual opponents before they overwhelm its scattered outposts.",
+    "field_power": {
+      "name": "Spear of the Far Hunt",
+      "effect": "Launch one concentrated magical hunting strike at a visible enemy, dealing damage equivalent to three of Alatar's ordinary ranged weapon hits if it connects. Resolve normal armor and cover; a healthy hero or capital cannot be destroyed by this single strike. The attack is powerful against an exposed target but does not automatically hit or penetrate solid barriers.",
+      "cost": "4 readiness, 5K and 10E; one local casting action within the battle commitment",
+      "range": "One visible enemy within 24 metres",
+      "duration": "One-phase visible aiming warning followed by one strike",
+      "counter": "Break sight with solid cover, move out of the firing lane during the warning, close on Alatar or interrupt his aim."
+    },
+    "support_power": {
+      "name": "Quarry Sign",
+      "effect": "Mark one currently visible enemy. Its outline remains observable through ordinary mist and light foliage within range, allowing pursuit after those forms of concealment. The mark reveals no other units, intentions or unseen terrain and gives no command over its target.",
+      "cost": "2 readiness and 5K; one local casting action within the battle commitment",
+      "range": "One visible target within 24 metres; the mark stops providing information beyond that range",
+      "duration": "Three tactical phases; ends if the target leaves range or removes the visible mark with one ordinary cleansing action",
+      "counter": "Use solid walls, roofs or dense terrain that fully blocks sight; leave range, remove the mark or threaten Alatar while he pursues."
+    },
+    "passive": {
+      "name": "Prepared Ambush",
+      "effect": "After one full tactical phase without moving or attacking, Alatar's next ordinary ranged attack gains one additional ordinary-hit equivalent of damage if it hits.",
+      "limit": "Once per encounter, on an ordinary attack only; never stacks onto Spear of the Far Hunt. Normal attack action, ammunition, cover and armor still apply; it cannot make a single hit kill a healthy hero."
+    },
+    "retained_weakness": "High-value single-target attacks do not clear a massed army or hold several outposts. Aiming and marking expose his position; walls, dense cover, close pressure and multiple simultaneous threats remain effective."
+  },
+  {
+    "id": "istari_pallando",
+    "faction": "Pallando's Eastern Resistance",
+    "hero": "Pallando (Blue Wizard)",
+    "compensates": "A lightly equipped resistance force cannot afford enough specialist equipment to withstand hostile battle magic.",
+    "field_power": {
+      "name": "Word of Sundering",
+      "effect": "Strike one visible enemy with force equal to two of Pallando's ordinary weapon hits, subject to normal defense, and suppress one selected active cast ward or enchantment on it for two phases. One use cannot kill a healthy hero or destroy a healthy capital. Suppression never removes inherent abilities, destroys a created body, frees Anchor capacity, changes ownership or interrupts Melkor's command link to Dragons or Balrogs.",
+      "cost": "4 readiness, 10K and 5E; one local casting action within the battle commitment",
+      "range": "One visible enemy within 18 metres; the chosen enchantment must already be identified",
+      "duration": "One-phase spoken wind-up, damage once, then two-phase suppression; the original effect's duration and upkeep continue normally",
+      "counter": "Take solid cover, interrupt the incantation, rely on ordinary weapons or armor, or outlast the short suppression before committing another spell."
+    },
+    "support_power": {
+      "name": "Circle of Refusal",
+      "effect": "Ward up to two friendly units inside a prepared 5-metre circle, reducing damage from direct hostile spells by half while they remain inside. It also shortens the next magical fear or silence imposed on each by one phase, to a minimum of one phase. Physical attacks, environmental fire and movement remain normal; this grants resistance rather than immunity or control over another faction's units.",
+      "cost": "2 readiness, 10K and 5E; one local casting action within the battle commitment",
+      "range": "A 5-metre circle centred within 8 metres; select up to two friendly recipients",
+      "duration": "Two tactical phases; ends for a recipient that leaves the circle; same-effect protection uses the strongest source only",
+      "counter": "Use ordinary arrows or melee, destroy the visible ground markers, attack from outside the protected area or force the recipients to leave it."
+    },
+    "passive": {
+      "name": "Unbroken Incantation",
+      "effect": "The first magical interruption of a spell Pallando is actively casting delays its completion by one tactical phase instead of cancelling it.",
+      "limit": "Once per encounter; a further interruption cancels normally. Lethal or incapacitating damage, lost range, lost target sight and physical displacement still invalidate the cast; costs are not refunded and no extra action or spell is created."
+    },
+    "retained_weakness": "His spell suppression is temporary and his protection covers only two units in a small fixed area. Ordinary armies, dispersed attacks and sustained physical pressure remain dangerous; essence and prepared lore supplies limit repeated casting."
+  }
+]
