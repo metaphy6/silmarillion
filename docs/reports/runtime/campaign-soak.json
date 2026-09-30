@@ -1,0 +1,1033 @@
+{
+  "status": "passed",
+  "log": "/tmp/agent-runs/campaign-cooperative--20260930T074042Z-1490439.log",
+  "test_count": 56,
+  "seeds": [
+    7,
+    29,
+    113
+  ],
+  "unfiltered_campaign_count": 165,
+  "unfiltered_simulated_weeks": 2998,
+  "unfiltered_campaigns": [
+    {
+      "profile": "manwe",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "manwe",
+      "seed": 29,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "manwe",
+      "seed": 113,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "varda",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "varda",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "varda",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "ulmo",
+      "seed": 7,
+      "weeks": 25,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ulmo",
+      "seed": 29,
+      "weeks": 33,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ulmo",
+      "seed": 113,
+      "weeks": 25,
+      "outcome": "p1"
+    },
+    {
+      "profile": "aule",
+      "seed": 7,
+      "weeks": 23,
+      "outcome": "p1"
+    },
+    {
+      "profile": "aule",
+      "seed": 29,
+      "weeks": 22,
+      "outcome": "p1"
+    },
+    {
+      "profile": "aule",
+      "seed": 113,
+      "weeks": 22,
+      "outcome": "p1"
+    },
+    {
+      "profile": "yavanna",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "yavanna",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "yavanna",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "namo",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "namo",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "namo",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "irmo",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "irmo",
+      "seed": 29,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "irmo",
+      "seed": 113,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "nienna",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "nienna",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "nienna",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "orome",
+      "seed": 7,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "orome",
+      "seed": 29,
+      "weeks": 29,
+      "outcome": "p1"
+    },
+    {
+      "profile": "orome",
+      "seed": 113,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "tulkas",
+      "seed": 7,
+      "weeks": 21,
+      "outcome": "p1"
+    },
+    {
+      "profile": "tulkas",
+      "seed": 29,
+      "weeks": 23,
+      "outcome": "p1"
+    },
+    {
+      "profile": "tulkas",
+      "seed": 113,
+      "weeks": 21,
+      "outcome": "p1"
+    },
+    {
+      "profile": "nessa",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "nessa",
+      "seed": 29,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "nessa",
+      "seed": 113,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "vana",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "vana",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "vana",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "este",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "este",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "este",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "vaire",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "vaire",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "vaire",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_vanyar",
+      "seed": 7,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_vanyar",
+      "seed": 29,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_vanyar",
+      "seed": 113,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_feanor",
+      "seed": 7,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_feanor",
+      "seed": 29,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_feanor",
+      "seed": 113,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_fingolfin",
+      "seed": 7,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "elf_fingolfin",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "elf_fingolfin",
+      "seed": 113,
+      "weeks": 25,
+      "outcome": "p1"
+    },
+    {
+      "profile": "elf_finarfin",
+      "seed": 7,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_finarfin",
+      "seed": 29,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_finarfin",
+      "seed": 113,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_falmari",
+      "seed": 7,
+      "weeks": 21,
+      "outcome": "p1"
+    },
+    {
+      "profile": "elf_falmari",
+      "seed": 29,
+      "weeks": 20,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_falmari",
+      "seed": 113,
+      "weeks": 31,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_sindar",
+      "seed": 7,
+      "weeks": 37,
+      "outcome": "p1"
+    },
+    {
+      "profile": "elf_sindar",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_sindar",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_nandor",
+      "seed": 7,
+      "weeks": 37,
+      "outcome": "p1"
+    },
+    {
+      "profile": "elf_nandor",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_nandor",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_avari",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_avari",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p2"
+    },
+    {
+      "profile": "elf_avari",
+      "seed": 113,
+      "weeks": 20,
+      "outcome": "p2"
+    },
+    {
+      "profile": "human_gondor",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "human_gondor",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "human_gondor",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "human_rohan",
+      "seed": 7,
+      "weeks": 10,
+      "outcome": "p1"
+    },
+    {
+      "profile": "human_rohan",
+      "seed": 29,
+      "weeks": 10,
+      "outcome": "p1"
+    },
+    {
+      "profile": "human_rohan",
+      "seed": 113,
+      "weeks": 10,
+      "outcome": "p1"
+    },
+    {
+      "profile": "human_numenor",
+      "seed": 7,
+      "weeks": 21,
+      "outcome": "p2"
+    },
+    {
+      "profile": "human_numenor",
+      "seed": 29,
+      "weeks": 38,
+      "outcome": "p2"
+    },
+    {
+      "profile": "human_numenor",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_khazad_dum",
+      "seed": 7,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_khazad_dum",
+      "seed": 29,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_khazad_dum",
+      "seed": 113,
+      "weeks": 16,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_belegost",
+      "seed": 7,
+      "weeks": 22,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_belegost",
+      "seed": 29,
+      "weeks": 22,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_belegost",
+      "seed": 113,
+      "weeks": 22,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_nogrod",
+      "seed": 7,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_nogrod",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "dwarf_nogrod",
+      "seed": 113,
+      "weeks": 16,
+      "outcome": "p1"
+    },
+    {
+      "profile": "orc_fortress_clan",
+      "seed": 7,
+      "weeks": 17,
+      "outcome": "p2"
+    },
+    {
+      "profile": "orc_fortress_clan",
+      "seed": 29,
+      "weeks": 17,
+      "outcome": "p2"
+    },
+    {
+      "profile": "orc_fortress_clan",
+      "seed": 113,
+      "weeks": 10,
+      "outcome": "p2"
+    },
+    {
+      "profile": "hobbit_shire",
+      "seed": 7,
+      "weeks": 12,
+      "outcome": "p2"
+    },
+    {
+      "profile": "hobbit_shire",
+      "seed": 29,
+      "weeks": 12,
+      "outcome": "p2"
+    },
+    {
+      "profile": "hobbit_shire",
+      "seed": 113,
+      "weeks": 12,
+      "outcome": "p2"
+    },
+    {
+      "profile": "troll_hold",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "troll_hold",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "troll_hold",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "wolf_pack",
+      "seed": 7,
+      "weeks": 23,
+      "outcome": "p1"
+    },
+    {
+      "profile": "wolf_pack",
+      "seed": 29,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "wolf_pack",
+      "seed": 113,
+      "weeks": 21,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_gandalf",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_gandalf",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_gandalf",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_saruman",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_saruman",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_saruman",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_radagast",
+      "seed": 7,
+      "weeks": 16,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_radagast",
+      "seed": 29,
+      "weeks": 16,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_radagast",
+      "seed": 113,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_alatar",
+      "seed": 7,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_alatar",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_alatar",
+      "seed": 113,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_pallando",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_pallando",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_pallando",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "sauron",
+      "seed": 7,
+      "weeks": 20,
+      "outcome": "p1"
+    },
+    {
+      "profile": "sauron",
+      "seed": 29,
+      "weeks": 20,
+      "outcome": "p1"
+    },
+    {
+      "profile": "sauron",
+      "seed": 113,
+      "weeks": 21,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_ember",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_ember",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_ember",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_grove",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_grove",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_grove",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "istari_veil",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_veil",
+      "seed": 29,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_veil",
+      "seed": 113,
+      "weeks": 27,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_forge",
+      "seed": 7,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_forge",
+      "seed": 29,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_forge",
+      "seed": 113,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_star",
+      "seed": 7,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_star",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "istari_star",
+      "seed": 113,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "melian",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melian",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melian",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "osse",
+      "seed": 7,
+      "weeks": 16,
+      "outcome": "p1"
+    },
+    {
+      "profile": "osse",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "osse",
+      "seed": 113,
+      "weeks": 35,
+      "outcome": "p2"
+    },
+    {
+      "profile": "uinen",
+      "seed": 7,
+      "weeks": 16,
+      "outcome": "p1"
+    },
+    {
+      "profile": "uinen",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "uinen",
+      "seed": 113,
+      "weeks": 35,
+      "outcome": "p2"
+    },
+    {
+      "profile": "arien",
+      "seed": 7,
+      "weeks": 27,
+      "outcome": "p2"
+    },
+    {
+      "profile": "arien",
+      "seed": 29,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "arien",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p2"
+    },
+    {
+      "profile": "tilion",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "tilion",
+      "seed": 29,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "tilion",
+      "seed": 113,
+      "weeks": 27,
+      "outcome": "p1"
+    },
+    {
+      "profile": "eonwe",
+      "seed": 7,
+      "weeks": 20,
+      "outcome": "p1"
+    },
+    {
+      "profile": "eonwe",
+      "seed": 29,
+      "weeks": 20,
+      "outcome": "p1"
+    },
+    {
+      "profile": "eonwe",
+      "seed": 113,
+      "weeks": 21,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ilmare",
+      "seed": 7,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ilmare",
+      "seed": 29,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ilmare",
+      "seed": 113,
+      "weeks": 27,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ent_grove",
+      "seed": 7,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ent_grove",
+      "seed": 29,
+      "weeks": 15,
+      "outcome": "p1"
+    },
+    {
+      "profile": "ent_grove",
+      "seed": 113,
+      "weeks": 14,
+      "outcome": "p1"
+    },
+    {
+      "profile": "eagle_eyrie",
+      "seed": 7,
+      "weeks": 25,
+      "outcome": "p1"
+    },
+    {
+      "profile": "eagle_eyrie",
+      "seed": 29,
+      "weeks": 22,
+      "outcome": "p1"
+    },
+    {
+      "profile": "eagle_eyrie",
+      "seed": 113,
+      "weeks": 20,
+      "outcome": "p1"
+    },
+    {
+      "profile": "spider_brood",
+      "seed": 7,
+      "weeks": 23,
+      "outcome": "p1"
+    },
+    {
+      "profile": "spider_brood",
+      "seed": 29,
+      "weeks": 17,
+      "outcome": "p1"
+    },
+    {
+      "profile": "spider_brood",
+      "seed": 113,
+      "weeks": 21,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melkor_worldbreaker",
+      "seed": 7,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melkor_worldbreaker",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melkor_worldbreaker",
+      "seed": 113,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melkor_dark_architect",
+      "seed": 7,
+      "weeks": 26,
+      "outcome": "p1"
+    },
+    {
+      "profile": "melkor_dark_architect",
+      "seed": 29,
+      "weeks": 13,
+      "outcome": "p2"
+    },
+    {
+      "profile": "melkor_dark_architect",
+      "seed": 113,
+      "weeks": 26,
+      "outcome": "p1"
+    }
+  ],
+  "peaceful_economy": [
+    {
+      "seed": 7,
+      "weeks": 64,
+      "outcome": "ongoing"
+    },
+    {
+      "seed": 29,
+      "weeks": 64,
+      "outcome": "ongoing"
+    },
+    {
+      "seed": 113,
+      "weeks": 64,
+      "outcome": "ongoing"
+    }
+  ],
+  "long_run_policy": "Four-seat64-week peaceful economy deliberately defers AI move and attack orders. No stocks, terrain or heroes granted; no victory override. This is not unfiltered AI longevity.",
+  "checks": [
+    "real planAI/submit/resolveWeek",
+    "weekly authoritative semantic validation",
+    "repeated deterministic checkpoint restore replay",
+    "guest projection semantic validation",
+    "exact four nonnegative integer stocks",
+    "weekly operation and commitment reset",
+    "unique living hero slot"
+  ],
+  "harness_recovery": "Initial synchronous harness starved Vitest RPC; cooperative weekly yields fixed runner error. Ordinary victories end naturally at10-38weeks, so separate peaceful policy tests longevity.",
+  "duration_seconds": 166.55
+}

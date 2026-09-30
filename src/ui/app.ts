@@ -1,3 +1,5 @@
+import { panel as nightPanel, actionBuilder as nightAction, describe as nightDescription } from "./night-relay-controls";
+import { panel as equipmentLogisticsPanel, actionBuilder as equipmentLogisticsAction, describe as equipmentLogisticsDescription } from "./equipment-logistics-controls";
 import {
   panel as formationPanel,
   actionBuilder as formationAction,
@@ -56,7 +58,7 @@ import {
   type Order,
   type Stock,
 } from "../simulation/types";
-import { bootWorld } from "../render/world";
+import { bootWorld, RULES_TERRAIN_LEGEND } from "../render/world";
 import {
   encodeCheckpoint,
   decodeCheckpoint,
@@ -224,7 +226,7 @@ function render() {
     )
     .join(
       "",
-    )}</div><div><b>${v.operations}/3 operations</b><small>${v.commitment}/1 hero commitment</small></div></header><nav class="toolbar" aria-label="Game views">${["world", "economy", "hero", "diplomacy", "chronicle", "settings", "network"].map((t) => button(t[0].toUpperCase() + t.slice(1), `tab:${t}`, `aria-pressed="${tab === t}"`)).join("")}<span class="spacer"></span>${button("− Zoom", "zoom-out", 'aria-label="Zoom out"')}${button("+ Zoom", "zoom-in", 'aria-label="Zoom in"')}${button("Locate", "locate")}${button(panelHidden ? "Show controls" : "View landscape", "toggle-panel", `aria-expanded="${!panelHidden}"`)}</nav><section class="objectives" aria-label="Public objectives"><b>Keep 2 of 3 · from week 8</b> ${s.sites.map((t) => `<button data-action="site:${t.id}">${esc(t.name)}: ${esc(t.owner ?? "contested / unheld")}</button>`).join("")}<span>Hold streak ${p.streak}/3</span></section><section class="sidepanel ${tab === "world" ? "compact" : ""}" id="controls" ${panelHidden ? "hidden" : ""}><div class="panel-title"><h1>${tab === "world" ? "Places & companies" : tab[0].toUpperCase() + tab.slice(1)}</h1><span>${esc(pr.faction)}</span></div>${
+    )}</div><div><b>${v.operations}/3 operations</b><small>${v.commitment}/1 hero commitment</small></div></header><nav class="toolbar" aria-label="Game views">${["world", "economy", "hero", "diplomacy", "chronicle", "settings", "network"].map((t) => button(t[0].toUpperCase() + t.slice(1), `tab:${t}`, `aria-pressed="${tab === t}"`)).join("")}<span class="spacer"></span>${button("− Zoom", "zoom-out", 'aria-label="Zoom out"')}${button("+ Zoom", "zoom-in", 'aria-label="Zoom in"')}${button("Locate", "locate")}${button("Rules terrain", "rules-terrain", `aria-pressed="${world.scene.getRulesTerrain()}"`)}${button(panelHidden ? "Show controls" : "View landscape", "toggle-panel", `aria-expanded="${!panelHidden}"`)}</nav><section class="objectives" aria-label="Public objectives"><b>Keep 2 of 3 · from week 8</b> ${s.sites.map((t) => `<button data-action="site:${t.id}">${esc(t.name)}: ${esc(t.owner ?? "contested / unheld")}</button>`).join("")}<span>Hold streak ${p.streak}/3</span></section><section class="sidepanel ${tab === "world" ? "compact" : ""}" id="controls" ${panelHidden ? "hidden" : ""}><div class="panel-title"><h1>${tab === "world" ? "Places & companies" : tab[0].toUpperCase() + tab.slice(1)}</h1><span>${esc(pr.faction)}</span></div>${
     tab === "world"
       ? worldPanel(view)
       : tab === "economy"
@@ -308,7 +310,7 @@ function worldPanel(s: Match) {
             "",
           )}</select></label>${button("Review equip", "equip")}${entity.owner === "remnant" ? button("Call existing creature", "call") : ""}${entity.flying ? button(entity.landed ? "Take flight" : "Land for capture", "land") : ""}`
       : ""
-  }${entity && "workers" in entity ? `<p>Staff ${entity.workers} · ${entity.job ? `Queue ${esc(entity.job.recipe)}, ${entity.job.remaining} weeks remaining` : entity.repair ? `Repair ${esc(entity.repair.target)}, ${entity.repair.remaining} weeks remaining` : "Queue available"}</p>${button("Open production", "tab:economy")}` : ""}${conversationPanel(s)}${zonePanel(s)}${controlPowerPanel(s)}${tacticalPanel(s)}${chargePanel(s)}${fieldworkPanel(s)}${habitatPanel(s, seat)}${shorePanel(s, seat, selectedTile)}${formationPanel(s, seat, selectedTile)}${scoutingPanel(s)}<details><summary>Construction — provisional prices</summary><label>Building<select id="building">${Object.entries(
+  }${entity && "workers" in entity ? `<p>Staff ${entity.workers} · ${entity.job ? `Queue ${esc(entity.job.recipe)}, ${entity.job.remaining} weeks remaining` : entity.repair ? `Repair ${esc(entity.repair.target)}, ${entity.repair.remaining} weeks remaining` : "Queue available"}</p>${button("Open production", "tab:economy")}` : ""}${world.scene.getRulesTerrain() ? `<p class="terrain-legend">${esc(RULES_TERRAIN_LEGEND)} The landscape painting is atmospheric; this overlay shows the simulation terrain.</p>` : ""}${conversationPanel(s)}${zonePanel(s)}${controlPowerPanel(s)}${tacticalPanel(s)}${chargePanel(s)}${fieldworkPanel(s)}${habitatPanel(s, seat)}${shorePanel(s, seat, selectedTile)}${formationPanel(s, seat, selectedTile)}${nightPanel(s, seat, selectedTile)}${equipmentLogisticsPanel(s, seat, selectedTile)}${scoutingPanel(s)}<details><summary>Construction — provisional prices</summary><label>Building<select id="building">${Object.entries(
     buildings,
   )
     .map(
@@ -968,7 +970,7 @@ function diplomacyPanel(s: Match) {
     )}</select></label>${["peace", "alliance", "war"].map((x) => button(`Review ${x}`, `diplomacy:${x}`)).join("")}<label>Stock transfer<select id="trade-resource"><option>P</option><option>M</option><option>K</option><option>E</option></select></label><label>Amount<input id="trade-amount" type="number" min="1" value="10"></label>${button("Review stock transfer", "trade")}<h2>The spare peg</h2><p>The boatwright turns a pale peg between two fingers. “The old letters will remain. The river can carry a name as easily as a boat.”</p><p>An original sandbox scene. The previous owner's whereabouts are unknown.</p>${button("Inspect repair", "story-repair")}${button("Ask about its owner", "story-owner")}<p>Diplomatic resource transfer: allied stocks only. Unique heroes, recipes and Melkor creatures never transfer.</p>`;
 }
 function settingsPanel() {
-  return `<label>Text size<select id="text-scale">${[1, 1.25, 1.5, 2].map((n) => `<option value="${n}" ${n === textScale ? "selected" : ""}>${n * 100}%</option>`).join("")}</select></label><p>Arrow keys pan. Mouse wheel zooms. Right-drag pans. Use the named list for keyboard selection; Escape cancels reviews. All orders have a confirmation step.</p><p>Sound is off; all warnings are visible. No camera flights or flashing effects.</p>${button("Export host checkpoint", "export")}${button("Import host checkpoint", "import")}${button("Continue saved checkpoint", "load")}${button("New match", "new")}`;
+  return `<label>World motion<select id="world-motion"><option value="system" ${world.scene.getMotionMode() === "system" ? "selected" : ""}>Follow system · living world</option><option value="reduced" ${world.scene.getMotionMode() === "reduced" ? "selected" : ""}>Reduced · still world</option></select></label><p>Travel follows recorded routes. Working figures and distant birds are visual details; they do not advance turns. Reduced motion removes these effects; the Chronicle retains results.</p><label>Text size<select id="text-scale">${[1, 1.25, 1.5, 2].map((n) => `<option value="${n}" ${n === textScale ? "selected" : ""}>${n * 100}%</option>`).join("")}</select></label><p>Arrow keys pan. Mouse wheel zooms. Right-drag pans. Use the named list for keyboard selection; Escape cancels reviews. All orders have a confirmation step.</p><p>Sound is off; all warnings are visible. No camera flights or flashing effects.</p>${button("Export host checkpoint", "export")}${button("Import host checkpoint", "import")}${button("Continue saved checkpoint", "load")}${button("New match", "new")}`;
 }
 function networkPanel() {
   return `<h2>Private friends matches</h2><p>Host-authoritative WebRTC star, 2–4 players. The host can inspect and alter full state. Host loss stops play; restore a committed host checkpoint.</p><p id="network-status">${esc(netStatus)}</p><label><input id="local-network" type="checkbox"> Development same-device signaling (actual WebRTC, no remote reliability claim)</label><div class="button-row">${button("Host current match", "host-match")}${button("Reconnect seat", "reconnect")}${button("Close connection", "close-network")}</div><label>Private invitation<textarea id="invite" rows="5">${esc(inviteText)}</textarea></label><label>Your reserved seat<select id="seat"><option value="p2">Player 2</option><option value="p3">Player 3</option><option value="p4">Player 4</option></select></label>${button("Join private match", "join-match")}${network ? button("Commit my weekly orders", "ready") : ""}<p class="fine">Publishable Metered key supports signaling/ICE. Provider-enforced scoped room authorization requires a managed issuer; this unresolved production dependency is documented. Never expose a private provider key.</p>`;
@@ -1090,7 +1092,7 @@ function showReview(a: Action) {
   if (a.kind === "evacuate-worksite")
     info =
       "Use the existing one-use evacuation preparation. Transfer the site's existing staff along the still-open route to the refuge; no additional strategic operation. Blocked routes and occupied refuges prevent it.";
-  if (a.kind === "declare-tactical")
+  if (a.kind === "declare-tactical" && a.order.kind !== "ranged-attack")
     info =
       a.order.kind === "fallback"
         ? `Reserve one operation for this physical fallback: ${a.order.route.map((p) => `(${p.x},${p.y})`).join(" → ")}. One response phase; normal movement costs and possible pursuit attacks apply.`
@@ -1168,6 +1170,7 @@ function showReview(a: Action) {
   }
   if (a.kind === "move")
     info = `Move ${a.unit} to (${a.x}, ${a.y}). ${a.unit === p.hero.id ? "One hero commitment" : "One strategic operation"}. Other orders may change the route before resolution.`;
+  info = nightDescription(a) ?? equipmentLogisticsDescription(a) ?? info;
   d.innerHTML = `<h2>Review ${esc(a.kind)}</h2><p>${esc(info)}</p><p>${esc(reason || "Ready to reserve. Final legality is checked at resolution; invalidated orders charge nothing.")}</p><div class="button-row"><button id="confirm" class="primary" ${reason ? "disabled" : ""}>Confirm order</button><button id="cancel-review">Cancel</button></div>`;
   document.body.append(d);
   d.showModal();
@@ -1177,8 +1180,11 @@ function showReview(a: Action) {
     d.remove();
     opener?.focus();
   });
-  d.addEventListener("cancel", () => {
+  d.addEventListener("cancel", (event) => {
+    event.preventDefault();
     pending = undefined;
+    d.close();
+    d.remove();
     opener?.focus();
   });
   d.querySelector("#confirm")!.addEventListener("click", () => {
@@ -1217,6 +1223,7 @@ function bind() {
       selected = entity.value;
       selectedTile = undefined;
       render();
+      root().querySelector<HTMLSelectElement>("#entity")?.focus();
       world.scene.locate(selected);
     };
   const facility = root().querySelector<HTMLSelectElement>("#facility");
@@ -1224,12 +1231,21 @@ function bind() {
     facility.onchange = () => {
       selected = facility.value;
       render();
+      root().querySelector<HTMLSelectElement>("#facility")?.focus();
     };
+  const motion = root().querySelector<HTMLSelectElement>("#world-motion");
+  if (motion) motion.onchange = () => {
+    world.scene.setMotionMode(motion.value === "reduced" ? "reduced" : "system");
+    try { localStorage.setItem("silmarillion:motion", world.scene.getMotionMode()); } catch { /* In-memory preference works when storage is unavailable. */ }
+    render();
+    root().querySelector<HTMLSelectElement>("#world-motion")?.focus();
+  };
   const scale = root().querySelector<HTMLSelectElement>("#text-scale");
   if (scale)
     scale.onchange = () => {
       textScale = Number(scale.value);
       render();
+      root().querySelector<HTMLSelectElement>("#text-scale")?.focus();
     };
 }
 const value = (id: string) =>
@@ -1237,6 +1253,12 @@ const value = (id: string) =>
     ?.value;
 async function handle(action: string) {
   try {
+    if (action === "rules-terrain") {
+      world.scene.setRulesTerrain(!world.scene.getRulesTerrain());
+      render();
+      document.querySelector<HTMLButtonElement>('[data-action="rules-terrain"]')?.focus();
+      return;
+    }
     if (action === "toggle-panel") {
       panelHidden = !panelHidden;
       render();
@@ -1544,6 +1566,8 @@ async function handle(action: string) {
       });
       return;
     }
+    const domainOrder = nightAction(action, state, seat, value) ?? equipmentLogisticsAction(action, state, seat, value);
+    if (domainOrder) { review(domainOrder); return; }
     const formationOrder = formationAction(action, state, seat, value);
     if (formationOrder) {
       review(formationOrder);
@@ -2079,5 +2103,6 @@ export function start() {
       if (tab === "world") render();
     },
   );
+  try { world.scene.setMotionMode(localStorage.getItem("silmarillion:motion") === "reduced" ? "reduced" : "system"); } catch { /* System setting remains available. */ }
   setup();
 }

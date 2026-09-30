@@ -48,9 +48,46 @@
 - [x] Integrate bounded optical observation, full-cost movement preparation, physical crossings, convoy alternatives/relay, and paid fatigue recovery with targeted source and command regressions; retain incomplete power domains explicitly.
 - [ ] Run final rule/art/build/test/review gates; update runtime documentation, tracking and stage the complete inspected change set.
 
-Status: implementation in progress. The latest complete unit snapshot passed391 tests in57 files. Earlier312-test aggregate also passed typecheck, lint and production build; later work needs a refreshed aggregate. The pre-naval full browser suite passed17 tests, followed by7 portrait,3 naval/care/crop,4 tactical/worksite/restoration/trail,1 situated-dialogue and1 charge browser flows in separate runs. The naval temporal regressions are repaired with targeted evidence. Compact layout now preserves a map band and visible turn controls, including200% text reflow. Fieldwork, scouting and morale additions are in progress. Full adopted power/passive coverage, production art/narrative and external managed-service verification remain incomplete. Checked subdeliverables record bounded verified work, not completion of unchecked broader scope.
+Status: implementation in progress. The extended playtest passed 626 unit tests in 91 files, typecheck, lint, build, 100 distinct Chromium cases and Firefox local creation/reload. All 55 starting profiles completed normal hero creation and twelve UI weeks; 165 seeded AI campaigns plus three 64-week peaceful economies exercised 3,190 simulation weeks. See [extended playtest](../reports/2026-09-30-extended-playtest.md) for exact evidence and failures repaired. Full adopted power/passive coverage, production art alignment and external managed-service verification remain incomplete. Checked subdeliverables record bounded verified work, not completion of unchecked broader scope.
 
 ---
+
+## Extended playable audit — 2026-09-30
+
+Scope: resume interrupted build, play every starting profile through ordinary creation and weekly turns, exercise long campaigns and component-specific UI, then replay local multiplayer/recovery and inspect rendered views. This is a hardening pass, not a claim that unfinished mechanics are complete.
+
+- [x] Recover interrupted typechecking and complete the existing equipment integration gates.
+- [x] Exercise all 55 profiles through setup, normal component/hero queues, 12 weekly resolutions and checkpoint restore.
+- [x] Test long-campaign deterministic/save behavior and targeted combat, intelligence, production and UI regressions; repair reproduced failures.
+- [x] Run complete browser flows including 2/3/4 peers, fault recovery, compact/large text and actual rendered performance.
+- [x] Review screenshots, record actual coverage and limitations, run aggregate gates and stage the verified changes.
+
+## Living world — 2026-09-30
+
+**Goal.** Make committed play legible on the map through moving figures, inhabited work sites, restrained nature and bounded action effects.
+**Non-goals.** No new simulation rules, fake battles, hidden-information reveals, always-bobbing markers or external service purchases.
+**Touched files.** `src/render/`, private movement event/type/schema and compatibility fence, motion controls in `src/ui/app.ts`, presentation tests, runtime guides/reports and the current completion plan.
+**Art basis.** Art bible rules 1–5 and Lighting/weather/motion; world/narrative view boundaries; token reduced-motion contract. Original procedural motion layers reuse released figure/building atlases. Cross-era sandbox remains invented geography.
+**Test plan.** Unit tests first for visible-state transitions, route provenance, duplicate suppression and bounded effects; real browser temporal samples for travel/ambience/impact, reduced motion and unchanged simulation; existing UI/performance gates.
+**Risks.** Old/new snapshots can reveal unseen actors: retain only visible observations and never infer a death from disappearance. Animation clocks never mutate simulation. Reconnection/load establishes a baseline rather than replaying historical action. Work effects require real staffed queues. Painting alignment is a separate authored-data task.
+
+- [x] Add immutable visible presentation snapshots and bounded action cues with privacy/duplicate regressions.
+- [x] Animate verified own movement routes, selected figure gestures, staffed production and atmospheric nature; preserve selection and culling.
+- [x] Add user/system reduced-motion controls and meaningful action feedback without blocking turns.
+- [x] Measure actual animations and performance in Chromium, inspect desktop/compact views and run full relevant checks.
+- [x] Sequence unfinished mechanics, authored terrain alignment and managed-service verification with explicit acceptance gates; record evidence and stage.
+
+## Remaining implementation sequence — after living-world presentation
+
+These are implementation gates, not completion claims. The current [reachability audit](../design/runtime-ability-notes.md#reachability-audit-and-next-mechanics-batches--2026-09-30-follow-up) finds 103 routed powers and seven unrouted powers; routed does not mean every target class/passive is complete. Drain each batch through normal UI, strict commands, save/rejoin, guest privacy and source-qualified counters before ticking it.
+
+1. **Irmo and forest integration.** Connect existing dream/rest preparation and one-use report replacement, then Oromë patrol and both Melian powers to real movement/convoys/visibility. Preserve paid queues, original expiry, attack/open-ground/marker-loss counters and explicit consent. Acceptance: ordinary setup→preparation→qualifying event→one-use result, interrupted alternative, checkpoint/rejoin and no hidden identity leak.
+2. **Nienna, Vairë and Avari support.** Connect recorded grievances, finite restitution and bilateral consent; implement conserved unlocked plans after actual archive loss; move one eligible existing portable workshop with staff and paid progress suspended in transit. Acceptance: no generated stock/staff/production, no unique/hero copying, real carrier interception, consent revocation, identity-preserving recovery.
+3. **Routed scope and passive audit.** Finish Eagle consenting ledges, actual Gondor/Saruman siege targets, Aulë specialist substitutions and Belegost hazards only through authorized production. For all55 passives require normal producer→event→consumer→expiry evidence. Keep the older fifty-kit offensive review separate; do not silently redesign or claim balance.
+4. **Authored geography before final paint.** Create a versioned scenario terrain/landmark mask in existing content organization: river/cliff barriers, real crossings, roads, facility footprints and starts. Derive both traversal and visual placement from that source; repaint/compose original terrain inside those masks. Acceptance: every visible river/bridge/cliff agrees with tile inspection and path tests at three zooms; companies never walk painted water without a valid crossing. Preserve scenario chronology, unique custody and deliberately invented connections. Keep Rules terrain until this gate passes.
+5. **Production character motion and situated action.** Replace transform-only painted figures with original directional walk/work/attack frames for all material/species families. Current motion is an intermediate presentation layer. Acceptance: consistent feet/footprint, wing/body anatomy, no glyph wobble, bounded atlases, 44px targets and reduced-motion equivalents; real command captures for every animation family. Expand consequential scenes through ordinary paid commands.
+6. **Managed authorization before remote certification.** Resolve a provider-operated room/identity and scoped expiring signaling/TURN mechanism without owner backend. Implement exchange/renewal behind adapters, test denials/mismatches locally, then execute M01–M10 in [Multiplayer](../guides/MULTIPLAYER.md#remaining-managed-service-verification-plan--2026-09-30) on independent networks for2/3/4players and forced relay. Selected relay candidates, actual expiry and provider room denials are mandatory evidence. Shared public-key connectivity is not authorization. External setup is presently unresolved; do not mark real tests passed.
+7. **Release evidence.** Repeat full roster/long campaigns after mechanics changes, native Chromium/Firefox/Safari where available, physical-device frames/memory and full accessibility review. Preserve prior failed runs, immutable build/version boundaries and explicit checkpoint migration decisions. No commit, deployment or purchase by the agent.
 
 ## Art direction resources
 

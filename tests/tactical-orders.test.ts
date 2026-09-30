@@ -86,3 +86,4 @@ it('guest signals expose an affected own party and patch but no hidden caster or
 it('a projected maintained hold blocks guest movement even without the private enemy order',()=>{
  const{s,enemy,path}=setup('tulkas');enemy.x=10;enemy.y=10;applyTacticalPower(s,'p1',{mode:'grapple',target:enemy.id},path);s.revision++;resolveTacticalOrders(s,path,{pursuit:()=>{}});const guest={...structuredClone(s),tacticalOrders:{},tacticalSignals:projectTacticalSignals(s,'p2')};expect(grappleMovementBlocked(guest,enemy.id)).toBe(true);
 });
+it('blocked withdrawal clears its declaration marker instead of leaving a phantom fallback for abilities',()=>{const{s,u,path}=setup();declareTacticalOrder(s,'p1',{kind:'fallback',unit:u.id,route:[{x:10,y:10},{x:11,y:10}]},path);s.revision++;resolveTacticalOrders(s,()=>null,{pursuit:()=>{}});expect(s.tacticalOrders).toEqual({});expect(u.x).toBe(10);expect(u.effects.some(e=>e.kind==='declared-fallback')).toBe(false);});

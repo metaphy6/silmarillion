@@ -35,12 +35,14 @@
 
 ## Active context (update as the project evolves)
 
+Living-world presentation now includes verified own-route walking, species-aware staffed work, birds/mist and bounded observed action feedback with reduced motion. Current compatibility is `r6-sim-10-1ba24d66-protocol-2-save-2`; older saves require the previous build, with no migration. See `docs/reports/2026-09-30-living-world.md`. The roadmap sequences seven remaining batches; the source audit finds 103 routed powers and seven unrouted, without claiming full passive/target completion. Managed authorization and real remote verification remain unresolved.
+
 <!-- What is the team / agent working on right now?
      One short paragraph is enough. Agents read this to orient fast. -->
 
 Revision 6 of the design report and the 55-profile hero roster are current. The older fifty hero profiles (everything except the five named Istari) still need an offensive-capability redesign — see `docs/design/silmarillion-game-report.md`. Runtime and browser checks now exist; current evidence is in `docs/reports/runtime/VALIDATION.md`. These checks do not establish competitive balance.
 
-The browser alpha runs with `npm ci` then `npm run dev`. All 55 profiles are selectable. Physical combat, queues, transport, care, habitats, civilian conservation and many dedicated powers now have runtime coverage; the exact source-qualified ledger is `docs/design/runtime-ability-notes.md`. The full request remains unfinished: adopted powers and passives still need completion, ordinary tuning is provisional, world figures remain procedural and landscape alignment needs correction. Original54identity portraits and16building studies are integrated, plus three situated consequential dialogue scenes. See `docs/guides/GAME_RUNTIME.md` and current validation evidence.
+The browser alpha runs with `npm ci` then `npm run dev`. All 55 profiles are selectable. Physical combat, queues, transport, care, habitats, civilian conservation and many dedicated powers now have runtime coverage; the exact source-qualified ledger is `docs/design/runtime-ability-notes.md`. The full request remains unfinished: adopted powers and passives still need completion, ordinary tuning is provisional, some figures remain procedural and landscape alignment needs correction. Original 54 identity portraits, 16 building studies and a 16-archetype painted figure atlas are integrated, plus three situated consequential dialogue scenes. See `docs/guides/GAME_RUNTIME.md` and current validation evidence.
 
 For planning, art, narrative, maps, assets, UI/UX implementation, review and
 verification, load
@@ -86,3 +88,9 @@ make git.dry        # preview pending commits (read-only)
 make git            # commit + push (human runs this)
 make track.add ACTION=note SUMMARY="..."   # append tracking row
 ```
+
+### Extended playtest — 2026-09-30
+
+Run `playtest-20260930` repaired interrupted equipment integration, exposed missing tool research/UI routes, protected concealed formations and retained survey references, hardened snapshot/seat recovery, and fixed keyboard focus and ranged review. All 55 profiles passed ordinary twelve-week Chromium campaigns; 165 seeded simulation campaigns and three peaceful 64-week economies resolved 3,190 weeks. Final local gates: 626 unit tests, typecheck/lint/build, 100 distinct Chromium cases, Firefox local creation/reload and 1,700 static art checks passed. Actual 96×96/400-company renderer p95 was 33.4ms. Details and explicit limitations: `docs/reports/2026-09-30-extended-playtest.md`.
+
+Next implementation work remains forest/dream/council integration, Vairë/Avari support, source-qualified power/passive completion and terrain/painting alignment. Managed room authorization and scoped expiring TURN credentials remain external unresolved dependencies. Do not infer complete gameplay or remote reliability from this hardening pass.

@@ -251,6 +251,7 @@ export class HostAuthority {
           throw new Error(
             "Returning seat requires its saved rejoin credential",
           );
+        if(h.token&&Object.entries(this.seatTokens).some(([seat,token])=>seat!==h.seat&&token===h.token))throw new Error("Rejoin credential already belongs to another seat");
         const assigned = this.assignments[h.seat];
         if (this.bindings.has(peer) && this.bindings.get(peer) !== h.seat)
           throw new Error("Peer already bound to another seat");

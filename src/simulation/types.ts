@@ -183,12 +183,14 @@ export interface Site extends Pos {
   owner: string | null;
 }
 export interface GameEvent {
+  /** Trusted completed own movement; presentation only, never an order. */
+  motion?: { unit: string; route: Pos[] };
   id: number;
   turn: number;
   text: string;
   audience: string[] | "public";
 }
-export type Action = ToolAction | MountAction | WatchAction |
+export type Action = ToolAction | MountAction | WatchAction
  | NightAction
   | ({kind:"civilian"}&CivilianRequest)
  | {kind:"surge-passage";unit:string;tile:Pos}
@@ -428,5 +430,5 @@ export interface Profile {
   compensates: string;
   retained_weakness: string;
 }
-export const VERSION = `r6-sim-9-${CONTENT_FINGERPRINT}-protocol-1-save-2`;
+export const VERSION = `r6-sim-10-${CONTENT_FINGERPRINT}-protocol-2-save-2`;
 export const stocks = (P = 0, M = 0, K = 0, E = 0): Stock => ({ P, M, K, E });

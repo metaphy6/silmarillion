@@ -1,27 +1,31 @@
 {
-  "run_id": "game-runtime-20260929",
-  "step": "Complete current physical-domain integration, then aggregate and browser gates before next roster domains",
+  "run_id": "living-world-20260930",
+  "step": "Living-world presentation and remaining-work plan verified; ready for staging. Full game remains in progress.",
   "scope": "Phaser TypeScript Vite full playable game request; all54factions55profiles retained; implementation continues, not complete",
-  "last_command": "npm run check interrupted by concurrent TDD sources; await source freeze before rerunning",
+  "last_command": "Final 10 animation/native WebRTC browser cases passed; final typecheck lint build and27 affected regressions passed.",
   "completed": [
     "playable local alpha",
     "all55 roster identities and recipes",
     "indexedDB checkpoints and local nativeRTC2-4 flows",
     "physical convoy/naval/care/crop/fieldwork/habitat/shore/civilian systems",
-    "original54identityportraits and16buildingstudies"
+    "original54identityportraits and16buildingstudies",
+    "55 normal UI campaigns / 660 weeks",
+    "165 seeded AI campaigns plus three64-week peaceful economies /3190 simulation weeks",
+    "equipment/night UI and tool research routes; privacy/save/focus regressions repaired",
+    "Rules terrain inspection overlay and bounded texture soak",
+    "Verified own-route movement, species-aware work, atmospheric nature and bounded action feedback; reduced-motion controls; seven-batch completion plan"
   ],
   "pending": [
-    "Orome actualpreparedranged interception timing correction",
-    "clean civilianbrowserrestore",
-    "fresh aggregate typecheck lint unit build",
-    "refresh immutable5174 and all browser/performance/Firefox gates",
-    "16 adoptedpowers plus remainingpassives and source-domain qualifications",
-    "landscape/terrainalignment and broader visual/narrativeproduction",
-    "real managed authorization/TURN setup and remote tests"
+    "Integrate tested forest modules into engine schemas persistence projection and UI",
+    "Integrate dream-preparation and council modules; finish Vaire and Avari portable workshop mechanics",
+    "Audit remaining adopted powers and passive consumers against authoritative source",
+    "Finish terrain/painting alignment and production figure animation",
+    "Managed room authorization and scoped expiring TURN credentials; real service tests remain external"
   ],
   "external_dependencies": [
     "managed production room authorization and short-lived scoped TURN credential mechanism unresolved; no owner backend",
     "Safari unavailable; realcrossnetwork and forcedrelay service tests unexecuted"
   ],
-  "policy": "No commit push deploy purchase. Parent finaltracking/staging after scope and gates; preserve unrelatedchanges."
+  "policy": "No commit push deploy purchase. Parent finaltracking/staging after scope and gates; preserve unrelatedchanges.",
+  "last_verified": "637 aggregate unit tests /92 files plus final27 affected tests including one added habitat regression;49 distinct Chromium component/network cases;Firefox156 local;1702 art checks. Local gates green; external service evidence remains unavailable."
 }

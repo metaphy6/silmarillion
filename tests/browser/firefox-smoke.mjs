@@ -84,7 +84,7 @@ try {
     );
   await send("browsingContext.navigate", {
     context,
-    url: "http://127.0.0.1:5173/",
+    url: process.env.SILMARILLION_DEV_TEST_URL ?? "http://127.0.0.1:5173/",
     wait: "complete",
   });
   await wait(`document.querySelector('#setup-form')`);

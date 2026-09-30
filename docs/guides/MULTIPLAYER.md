@@ -139,3 +139,107 @@ Metered's API-reference example still describes publishable-key ICE data as
 undefined, while its authentication guide documents auto-injection. Installed
 SDK declarations accept optional welcome `iceServers`. Runtime validation is
 therefore mandatory; the adapter fails visibly when the provider omits them.
+
+## Remaining managed-service verification plan — 2026-09-30
+
+**Status: external verification blocked, not completed.** The current adapter
+accepts a publishable key only; it does not implement a provider-operated login,
+room-authorization exchange, JWT `tokenProvider`, credential renewal or a proven
+TURN expiry policy. Adding a dashboard key enables connectivity experiments; it
+does not close the authorization requirement. No external account, credential,
+purchase or deployment was created during this review.
+
+Current official documentation was rechecked on 2026-09-30:
+
+- [Metered SDK authentication](https://www.metered.ca/docs/realtime-messaging/sdk-javascript/guides/authentication/) still separates shared publishable-key permissions from private JWT issuance. Its auto-injection path requires active TURN service; shared keys have no origin restrictions.
+- [Metered scoped signaling example](https://www.metered.ca/docs/realtime-messaging/guides/integrations/webrtc-signalling/) obtains JWTs through a private key pair. Provider-hosted signing does not remove the private authorization caller.
+- [Metered no-backend guide](https://www.metered.ca/docs/realtime-messaging/guides/integrations/webrtc-signalling-no-backend/) describes identical scopes for all public-key users. It also mentions `allowedOrigins` and separate TURN fetching, contradicting the SDK authentication guide. Obtain provider clarification and inspect actual dashboard/response behavior; do not claim those restrictions exist.
+- [Cloudflare credential generation](https://developers.cloudflare.com/realtime/turn/generate-credentials/) requires private authorization to generate temporary credentials. It does not establish a browser-safe room-authorizing issuer for this game.
+
+### Gate A — architecture and external setup
+
+Before marking production multiplayer ready, select a **provider-operated**
+authorization mechanism that authenticates a returning player, grants only their
+allowed room/seat, issues bounded-lifetime signaling and TURN credentials, and
+supports revocation/renewal without owner-written server code or exposed private
+keys. Record its official API contract, operator, identity recovery policy,
+expiry limits, quotas and abuse controls. No compatible mechanism has yet been
+verified. An owner-maintained serverless function is not an exemption from the
+static-only constraint.
+
+After that mechanism is identified, implement its exchange behind the signaling
+adapter, then add mocked denial, expiry, renewal and cancellation tests. Keep the
+existing host seat capability separate from provider identity. TURN credentials
+are necessarily delivered to the browser: protect the private issuance secret,
+not a claim that browser users cannot inspect their own temporary credentials.
+Record signaling room scope separately from TURN relay authorization; a signaling
+JWT expiry does not by itself prove TURN allocations expire at the same instant.
+
+For a limited connectivity experiment with the existing adapter, an authorized
+operator can configure the documented public key, active TURN service and narrow
+channel/action permissions. Use an isolated provider project with a finite usage
+limit and only invited testers. This experiment remains **publishable-key mode**
+and cannot pass the per-player authorization/expiry rows below.
+
+### Gate B — build and test preparation
+
+1. Record the exact source revision, `VERSION`, build time, browser versions and
+   provider configuration revision. Run `npm ci` and `npm run check` from the
+   repository root. Keep credential values out of command logs and reports.
+2. Build two immutable static artifacts: ordinary connectivity with
+   `VITE_FORCE_TURN=false`, and forced relay with `VITE_FORCE_TURN=true` set in
+   the build environment before `npm run build`. Vite embeds these values at
+   build time; changing a hosting environment variable after building is
+   insufficient. Both artifacts need the authorized public/provider adapter
+   configuration. Hosting preparation is a separate authorized operator action.
+3. Serve `dist/` over HTTPS using static hosting. Open the game Network panel,
+   choose managed signaling, create a private room and distribute its invite
+   privately. Do not use local BroadcastChannel mode for any remote evidence.
+4. Use distinct devices and independently routed networks: one residential
+   connection, one mobile connection, and additional independent connections for
+   three/four players. Separate tabs or browsers behind one router are insufficient.
+5. Preserve only redacted diagnostics: elapsed times, candidate types, relay
+   protocol, frame/byte counts, turn/revision and command outcome. Remove invite
+   capabilities, seat tokens, JWTs, TURN usernames/passwords, SDP addresses and
+   authoritative hidden state from shared reports. Private host checkpoints may
+   be retained by the authorized host outside public build assets.
+
+### Gate C — execution matrix
+
+Every row below is **UNEXECUTED against managed services**. Run each applicable
+row for 2, 3 and 4 seats; repeat direct/automatic and forced-relay configurations.
+For cross-browser coverage, rotate host responsibility among installed Chrome,
+Firefox and Safari. Record unavailable browsers as gaps, never passes.
+
+| ID | Procedure | Required result and evidence |
+| --- | --- | --- |
+| M01 | Join distinct seats using the normal private invite UI; ready every living seat; submit legal orders and resolve 10 weeks. Repeat each player count three times. | All expected host–guest channels open reliably and ordered; no guest–guest simulation channel; all guests reach the same public turn/revision and their correct filtered views. Record each attempt, including failures and time to ready. |
+| M02 | Repeat M01 with the relay build on every device. Inspect the selected ICE candidate pair using browser WebRTC diagnostics or `RTCPeerConnection.getStats()` instrumentation. | Every host–guest connection has a selected relay candidate; record UDP/TCP/TLS where available. Merely seeing a configured TURN URL or an unused relay candidate is not a pass. Instrumentation exposing safe candidate statistics remains to be added if browser diagnostics are unavailable. |
+| M03 | On a new test client, attempt an uninvited room, another room's scoped credential, an expired credential and a revoked identity. Then attempt a wrong seat capability through the game handshake. | Provider denies room access at its boundary; host separately denies seat impersonation. A host denial alone does not prove provider room isolation. Current shared-key mode cannot satisfy provider per-player isolation. |
+| M04 | Obtain a short test lifetime from the selected managed issuer. Record issuance/expiry without recording the token. Test a fresh signaling connection and a fresh forced-relay allocation immediately before and after expiry. | Fresh use after expiry is rejected; authorized renewal produces new scoped credentials without a permanent secret in browser storage. Record behavior of already-established allocations separately, including documented grace periods; do not assume expiry instantly closes an existing channel. |
+| M05 | Interrupt one guest before command acceptance, after host acceptance but before its receipt, and after committed resolution. Rejoin using the same saved seat identity. | Pending commands retry once through normal validation; accepted IDs never spend stock/operations twice. Resolved commands remain committed. Wrong credentials fail, and superseded peers cannot send orders. Capture command IDs, receipt outcomes and revisions only. |
+| M06 | Interrupt a large guest snapshot mid-transfer; reconnect. Deliver delayed old-connection fragments and, using a bounded test harness, an older same-revision transfer after a newer one. | No partial view renders; retired connections and decreasing transfer ordinals cannot replace the newer view. A fresh authenticated welcome synchronizes the seat. Local mock evidence exists; managed-network fault injection still requires an external harness/test session. |
+| M07 | Close or suspend the host during planning and after a committed checkpoint. Attempt guest orders, then reopen the host from the saved checkpoint and create a new room. | Guests report stopped/unavailable host, not continuing simulation. Restored host preserves committed state, assignments' credentials and deduplication history; guests use the new invite and saved seat capability. Uncommitted plans may need re-entry. No seamless migration claim. |
+| M08 | Disconnect one ready guest; attempt host resolution, wait through connection timeout, then reconnect. Try an incompatible rules/save version separately. | Resolution pauses until all living seats reconnect and commit. Rejoin restores the original seat; mismatches receive actionable rejection and cannot silently migrate an active game. Record actual timeout and recovery duration. |
+| M09 | Compare each guest snapshot/export/log against a host-controlled hidden unit, enemy cargo/route and private production queue. Attempt malformed, stale and repeated commands through the test harness. | Hidden data stays absent from every guest surface; malformed/unauthorized inputs change no authoritative resources. Rate-limited peers cannot amplify broadcasts indefinitely. Host checkpoints must never be used as guest exports. |
+| M10 | Revoke the test key/authorization, exhaust a deliberately low test quota, and disable TURN on the isolated project. Restore configuration afterward. | Actionable setup/quota/revocation errors, cleanup and bounded retries; local single-player remains available. No silent fallback to permanent TURN credentials or assertion of relay coverage after STUN-only connection. Requires separately authorized provider configuration changes. |
+
+The existing `tests/browser/multiplayer.spec.ts` is a **local WebRTC regression
+suite**, not an executable remote-provider certification harness. Remote fault
+injection and safe per-peer statistics capture are remaining test tooling. Do
+not replace these matrix rows with its six passing local cases.
+
+### Evidence and acceptance
+
+For each run record: matrix ID, player count, artifact/version, UTC interval,
+browser/device/network categories, signaling mode, selected candidate types,
+expected result, actual result, sanitized log/screenshot locations, and
+PASS/FAIL/BLOCKED. Keep initial failures and root-cause fixes alongside reruns.
+Use the existing `docs/reports/runtime/` report location; do not create `output/`.
+
+The gate closes only when the static-owner authorization mechanism is verified
+and implemented, all required remote rows have recorded passes, and unresolved
+browser/network combinations are explicitly accepted or remain open. Until then,
+state the narrower result: local WebRTC and recovery are tested; managed adapter
+code exists; provider authorization, real relay reliability and credential
+lifecycle remain blocked/unverified.

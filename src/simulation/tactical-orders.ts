@@ -105,7 +105,7 @@ export function resolveTacticalOrders(s:TacticalState,path:MovementRouteFinder,c
  const ready=(q:TacticalOrder)=>q.createdRevision<s.revision;
  const retreats=Object.values(s.tacticalOrders).filter(q=>q.kind==='fallback'&&ready(q)).sort((a,b)=>a.unit.localeCompare(b.unit));
  for(const q of retreats){
-  if(q.kind!=='fallback')continue;delete s.tacticalOrders[q.id];const u=s.units[q.unit];
+  if(q.kind!=='fallback')continue;releaseTacticalOrder(s,q.id);const u=s.units[q.unit];
   if(!u?.alive||!u.active||!u.supplied||u.owner!==q.owner||q.until<s.revision||routeReason(s,q.owner,u,q.route,path))continue;
   const from={x:u.x,y:u.y};
   for(let i=1;i<q.route.length;i++){
@@ -132,7 +132,7 @@ export function resolveTacticalOrders(s:TacticalState,path:MovementRouteFinder,c
   if(distance(from,u)>0){travelFatigue(s,u,from,u);const index=q.route.findIndex(p=>distance(p,u)===0);retreatMorale(s,u,q.route.slice(0,index+1));}
   u.effects=u.effects.filter(e=>e.kind!=="declared-fallback");
  }
- for(const [id,q] of Object.entries(s.tacticalOrders))if(q.until<=s.revision||q.createdTurn!==s.turn)delete s.tacticalOrders[id];
+ for(const [id,q] of Object.entries(s.tacticalOrders))if(q.until<=s.revision||q.createdTurn!==s.turn)releaseTacticalOrder(s,id);
 }
 export function validateTacticalOrders(s:TacticalState,guestSeat?:string):void {
  const units=new Set<string>();

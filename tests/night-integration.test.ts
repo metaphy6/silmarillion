@@ -24,3 +24,18 @@ it('Dawn Worksite uses the adopted paid activation through normal commands and e
  s=order(s,{kind:'build',building:'mirror-station',x:f.x-1,y:f.y});s=finish(s);s=finish(s);s=finish(s);const mirror=Object.values(s.facilities).find(f=>f.kind==='mirror-station')!;
  s.infrastructureSites.site={id:'site',owner:'p1',x:f.x,y:f.y+1,kind:'haulway',blocked:true,originalCapacity:1,material:'timber',yield:{P:0,M:0,K:0,E:0},consumed:false};s=order(s,{kind:'infrastructure-work',site:'site',worker:u.id,facility:f.id});const job=Object.keys(preview(s,'p1').infrastructureWork)[0];s=order(s,{kind:'night',mode:'assign-shift',job});const shift=Object.keys(preview(s,'p1').darkShifts)[0];s=order(s,{kind:'night',mode:'light-shift',shift,method:'dawn',mirror:mirror.id});expect(preview(s,'p1').players.p1.commitment).toBe(0);expect(preview(s,'p1').players.p1.operations).toBe(1);s=finish(s);expect(s.darkShifts[shift].worked).toBe(true);expect(s.infrastructureWork[job].remaining).toBe(1);
 });
+it('rejects forged dark-shift ownership and job linkage in checkpoints',()=>{
+ let s=fixture('human_gondor');const f=s.facilities['p1:core'],u=Object.values(s.units).find(u=>u.owner==='p1'&&u.kind==='worker')!;u.x=f.x;u.y=f.y;
+ s.infrastructureSites.site={id:'site',owner:'p1',x:f.x,y:f.y+1,kind:'haulway',blocked:true,originalCapacity:1,material:'timber',yield:{P:0,M:0,K:0,E:0},consumed:false};
+ s=order(s,{kind:'infrastructure-work',site:'site',worker:u.id,facility:f.id});const job=Object.keys(preview(s,'p1').infrastructureWork)[0];
+ expect(submit(s,{id:'foreign-shift',seat:'p2',seq:s.nextSeq.p2,turn:s.turn,revision:s.revision,action:{kind:'night',mode:'assign-shift',job}}).ok).toBe(false);
+ s=order(s,{kind:'night',mode:'assign-shift',job});s=finish(s);expect(s.infrastructureWork[job].remaining).toBe(2);
+ const shift=Object.values(s.darkShifts)[0];shift.owner='p2';expect(()=>parseMatch(s)).toThrow();
+});
+it('paid lamps cannot be charged twice and loss of staff before acceptance cancels dependent orders',()=>{
+ let s=fixture('human_gondor');const f=s.facilities['p1:core'],u=Object.values(s.units).find(u=>u.owner==='p1'&&u.kind==='worker')!;u.x=f.x;u.y=f.y;
+ s.infrastructureSites.site={id:'site',owner:'p1',x:f.x,y:f.y+1,kind:'haulway',blocked:true,originalCapacity:1,material:'timber',yield:{P:0,M:0,K:0,E:0},consumed:false};
+ s=order(s,{kind:'infrastructure-work',site:'site',worker:u.id,facility:f.id});const job=Object.keys(preview(s,'p1').infrastructureWork)[0];s=order(s,{kind:'night',mode:'assign-shift',job});const shift=Object.keys(preview(s,'p1').darkShifts)[0];s=order(s,{kind:'night',mode:'light-shift',shift,method:'lamps'});
+ const funded=preview(s,'p1');expect(funded.players.p1.operations).toBe(0);expect(submit(s,{id:'double-light',seat:'p1',seq:s.nextSeq.p1,turn:s.turn,revision:s.revision,action:{kind:'night',mode:'light-shift',shift,method:'lamps'}}).ok).toBe(false);
+ s.units[u.id].supplied=false;s=finish(s);expect(s.infrastructureWork[job]).toBeUndefined();expect(s.darkShifts[shift]).toBeUndefined();expect(s.infrastructureSites.site.blocked).toBe(true);
+});

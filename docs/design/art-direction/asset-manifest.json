@@ -58,7 +58,7 @@
     {
       "id": "sm-faction-portraits-v1",
       "path": "gallery/art/faction-portraits-v1.png",
-      "purpose": "Rohan, Aul\u00eb and Dark Architect comparison; full bodies are enlarged studies.",
+      "purpose": "Rohan, Aulë and Dark Architect comparison; full bodies are enlarged studies.",
       "status": "concept-reviewed",
       "source_type": "original-generated",
       "format": "png",
@@ -798,7 +798,7 @@
       ]
     },
     {
-      "id": "sm-world-figures-v1",
+      "id": "sm-world-figure-atlas-v1",
       "path": "../../../public/assets/sm-world-figures-v1.webp",
       "purpose": "Sixteen original small-world figure archetypes; identity detail remains in54portraits.",
       "status": "runtime-integrated-provisional",
@@ -833,7 +833,7 @@
   "production_requirements": [
     {
       "profile_id": "manwe",
-      "faction": "Manw\u00eb's highlands",
+      "faction": "Manwë's highlands",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#manwe",
@@ -1007,7 +1007,7 @@
     },
     {
       "profile_id": "aule",
-      "faction": "Aul\u00eb's workshops",
+      "faction": "Aulë's workshops",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#aule",
@@ -1181,7 +1181,7 @@
     },
     {
       "profile_id": "irmo",
-      "faction": "L\u00f3rien's dream gardens",
+      "faction": "Lórien's dream gardens",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#irmo",
@@ -1297,7 +1297,7 @@
     },
     {
       "profile_id": "orome",
-      "faction": "Orom\u00eb's frontier lodges",
+      "faction": "Oromë's frontier lodges",
       "family": "path-and-pursuit",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#orome",
@@ -1471,7 +1471,7 @@
     },
     {
       "profile_id": "vana",
-      "faction": "V\u00e1na's bloom nurseries",
+      "faction": "Vána's bloom nurseries",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#vana",
@@ -1529,7 +1529,7 @@
     },
     {
       "profile_id": "este",
-      "faction": "Est\u00eb's healing refuges",
+      "faction": "Estë's healing refuges",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#este",
@@ -1587,7 +1587,7 @@
     },
     {
       "profile_id": "vaire",
-      "faction": "Vair\u00eb's archive halls",
+      "faction": "Vairë's archive halls",
       "family": "memory-threshold",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#vaire",
@@ -1703,7 +1703,7 @@
     },
     {
       "profile_id": "elf_feanor",
-      "faction": "House of F\u00ebanor",
+      "faction": "House of Fëanor",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#elf_feanor",
@@ -2225,7 +2225,7 @@
     },
     {
       "profile_id": "human_numenor",
-      "faction": "N\u00famenor",
+      "faction": "Númenor",
       "family": "river-sea",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#human_numenor",
@@ -2283,7 +2283,7 @@
     },
     {
       "profile_id": "dwarf_khazad_dum",
-      "faction": "Khazad-d\u00fbm",
+      "faction": "Khazad-dûm",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#dwarf_khazad_dum",
@@ -3385,7 +3385,7 @@
     },
     {
       "profile_id": "osse",
-      "faction": "Oss\u00eb",
+      "faction": "Ossë",
       "family": "river-sea",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#osse",
@@ -3617,7 +3617,7 @@
     },
     {
       "profile_id": "eonwe",
-      "faction": "E\u00f6nw\u00eb",
+      "faction": "Eönwë",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#eonwe",
@@ -3675,7 +3675,7 @@
     },
     {
       "profile_id": "ilmare",
-      "faction": "Ilmar\u00eb",
+      "faction": "Ilmarë",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#ilmare",

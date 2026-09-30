@@ -289,6 +289,8 @@ export const recipeKeys = [
   "equipment",
   "technique",
   "defenses",
+  "tool-breach",
+  "tool-repair",
   "summon",
   "sentinel",
   "brood",

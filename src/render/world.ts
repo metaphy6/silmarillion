@@ -1,3 +1,4 @@
+import { LivingWorld } from "./living-world";
 import { buildingFrame, figureFrame } from "./building-art";
 import { isAboard, isNavalCrew } from "../simulation/naval";
 import Phaser from "phaser";
@@ -66,6 +67,20 @@ export const isEditingTarget = (target: Element | null) =>
   );
 export const TERRAIN_CACHE_LIMIT = 16;
 export const TERRAIN_CACHE_MAX_BYTES = 16 * 1148 * 634 * 4;
+/** Inspection layer reads only the public terrain array, never entity state. */
+export const RULES_TERRAIN_LEGEND = "Rules terrain: Meadow = three grass strokes; Woodland = tree triangle; Water = parallel waves; Stone = square; Cliff = double chevrons; Unknown = cross. Tile type alone does not promise a clear route.";
+export function rulesTerrainStyle(terrain:string):{fill:number;symbol:string}{
+ switch(terrain){case'meadow':return{fill:0x304e42,symbol:'grass'};case'woodland':return{fill:0x163f3b,symbol:'tree'};case'water':return{fill:0x284d60,symbol:'waves'};case'stone':return{fill:0x454955,symbol:'square'};case'cliff':return{fill:0x302e40,symbol:'chevrons'};default:return{fill:0x192a30,symbol:'unknown'};}
+}
+function drawRuleMark(g:Phaser.GameObjects.Graphics,p:Pos,symbol:string):void{
+ g.lineStyle(3,0xf2e8d5,1);
+ if(symbol==='grass'){for(const dx of [-12,0,12])g.lineBetween(p.x+dx-3,p.y+8,p.x+dx+3,p.y-8);}
+ else if(symbol==='tree'){g.strokeTriangle(p.x,p.y-13,p.x-15,p.y+8,p.x+15,p.y+8);g.lineBetween(p.x,p.y+8,p.x,p.y+14);}
+ else if(symbol==='waves'){for(const dy of [-7,5])g.strokePoints([{x:p.x-20,y:p.y+dy},{x:p.x-10,y:p.y+dy-4},{x:p.x,y:p.y+dy},{x:p.x+10,y:p.y+dy-4},{x:p.x+20,y:p.y+dy}],false);}
+ else if(symbol==='square')g.strokeRect(p.x-11,p.y-10,22,20);
+ else if(symbol==='chevrons'){for(const dy of [-7,7])g.strokePoints([{x:p.x-17,y:p.y+dy+5},{x:p.x,y:p.y+dy-5},{x:p.x+17,y:p.y+dy+5}],false);}
+ else{g.lineBetween(p.x-9,p.y-9,p.x+9,p.y+9);g.lineBetween(p.x-9,p.y+9,p.x+9,p.y-9);}
+}
 type Chunk = {
   image?: Phaser.GameObjects.Image;
   texture?: string;
@@ -81,8 +96,13 @@ export class World extends Phaser.Scene {
   private marks = new Map<string, Phaser.GameObjects.Container>();
   private chunks: Chunk[] = [];
   private terrainSerial = 0;
+  private rulesTerrain = false;
+  private terrainStamp = "";
   private pool: Phaser.GameObjects.Container[] = [];
   private reducedMotion = false;
+  private motionMode: "system" | "reduced" = "system";
+  private life?: LivingWorld;
+  private motionQuery?: MediaQueryList;
   private selection?: Phaser.GameObjects.Graphics;
   private textureKeys = new Set<string>();
   private labels?: Phaser.GameObjects.Graphics;
@@ -123,9 +143,12 @@ export class World extends Phaser.Scene {
         .setDisplaySize(4400, 2600)
         .setDepth(-10);
     }
-    this.reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    this.motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    this.life = new LivingWorld(this, iso);
+    const motionChanged = () => this.setMotionMode(this.motionMode);
+    this.motionQuery.addEventListener("change", motionChanged);
+    motionChanged();
+    if (this.state) this.life.accept(this.state, this.seat);
     this.game.canvas.tabIndex = 0;
     this.game.canvas.setAttribute(
       "aria-label",
@@ -137,6 +160,9 @@ export class World extends Phaser.Scene {
     // Phaser cursor capture otherwise prevents arrow navigation inside DOM forms.
     this.input.keyboard?.removeCapture([37, 38, 39, 40]);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.motionQuery?.removeEventListener("change", motionChanged);
+      this.life?.destroy();
+      this.life = undefined;
       this.marks.clear();
       this.pool = [];
       for (const chunk of this.chunks) {
@@ -191,8 +217,24 @@ export class World extends Phaser.Scene {
       this.locate(`${this.seat}:core`);
     }
   }
+  getMotionMode() { return this.motionMode; }
+  setMotionMode(mode: "system" | "reduced") {
+    this.motionMode = mode;
+    this.reducedMotion = mode === "reduced" || !!this.motionQuery?.matches;
+    this.life?.setEnabled(!this.reducedMotion);
+  }
+  motionStats() { return this.life?.stats(); }
+  getRulesTerrain():boolean { return this.rulesTerrain; }
+  setRulesTerrain(enabled:boolean):void {
+    if(this.rulesTerrain===enabled)return;
+    this.rulesTerrain=enabled;
+    if(this.loaded){this.drawTerrain();this.refresh();}
+  }
   setState(s: Match, seat: string, selected: string) {
-    const changed = this.state?.id !== s.id;
+    const stamp = `${s.map.width}:${s.map.height}:${s.map.terrain.join(",")}`;
+    const changed = this.state?.id !== s.id || this.terrainStamp !== stamp;
+    this.terrainStamp=stamp;
+    this.life?.accept(s, seat);
     this.state = s;
     this.seat = seat;
     this.selected = selected;
@@ -240,7 +282,8 @@ export class World extends Phaser.Scene {
                   : terrain === "stone"
                     ? 0x8c9ca9
                     : 0x5f806d;
-            g.fillStyle(col, this.backdrop ? 0.13 : 0.72);
+            const rule = rulesTerrainStyle(terrain);
+            g.fillStyle(this.rulesTerrain ? rule.fill : col, this.rulesTerrain ? 1 : this.backdrop ? 0.13 : 0.72);
             g.fillPoints(
               [
                 { x: p.x, y: p.y - TILE_Y },
@@ -250,6 +293,12 @@ export class World extends Phaser.Scene {
               ],
               true,
             );
+            if(this.rulesTerrain){
+              g.lineStyle(1,0x7e9699,0.85);
+              g.strokePoints([{x:p.x,y:p.y-TILE_Y},{x:p.x+TILE_X,y:p.y},{x:p.x,y:p.y+TILE_Y},{x:p.x-TILE_X,y:p.y}],true);
+              drawRuleMark(g,p,rule.symbol);
+              continue;
+            }
             if (terrain === "water") {
               g.lineStyle(2, 0xb1d6d3, 0.55);
               g.lineBetween(p.x - 23, p.y + 3, p.x + 16, p.y + 7);
@@ -570,18 +619,8 @@ export class World extends Phaser.Scene {
     const fresh = c.getData("fresh");
     if (c.getData("targetX") !== p.x || c.getData("targetY") !== p.y || fresh) {
       this.tweens.killTweensOf(c);
-      if (fresh || building || this.reducedMotion)
+      if (fresh || building || this.reducedMotion || !this.life?.isWalking(id))
         c.setPosition(p.x, p.y).setDepth(p.y);
-      else
-        this.tweens.add({
-          targets: c,
-          x: p.x,
-          y: p.y,
-          duration: 180,
-          ease: "Sine.easeOut",
-          onUpdate: () =>
-            c.setDepth(c.getData("entityId") === this.selected ? 10000 : c.y),
-        });
       c.setData("targetX", p.x).setData("targetY", p.y).setData("fresh", false);
     }
     const target = markerTargetSize(this.cameras.main.zoom);
@@ -788,6 +827,7 @@ export class World extends Phaser.Scene {
   }
   update(_time: number, delta: number) {
     if (!this.loaded) return;
+    this.life?.update(delta, this.marks, this.selected);
     const c = this.cameras.main;
     if (this.keys && !isEditingTarget(document.activeElement)) {
       const speed = (Math.min(delta, 50) * 0.48) / c.zoom;

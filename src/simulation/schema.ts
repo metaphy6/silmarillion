@@ -575,6 +575,7 @@ export const matchSchema = z
             turn: n,
             text: z.string().max(1000),
             audience: z.union([z.literal("public"), z.array(id).max(4)]),
+            motion:z.object({unit:id,route:z.array(z.object(point).strict()).min(2).max(256)}).strict().optional(),
           })
           .strict(),
       )
@@ -1165,6 +1166,11 @@ export const matchSchema = z
   .strict();
 export function parseMatch(value: unknown, guestSeat?: string): Match {
   const s = matchSchema.parse(value) as Match;
+  for(const e of s.events)if(e.motion){
+    // Historical actors may be dead, captured or omitted from a later guest view.
+    // Ownership is asserted at emission; do not rewrite history from current owner.
+    if(e.audience==='public'||e.audience.length!==1||!s.players[e.audience[0]]||(guestSeat&&e.audience[0]!==guestSeat)||e.turn>s.turn||e.motion.route.some((p,i)=>p.x<0||p.y<0||p.x>=s.map.width||p.y>=s.map.height||i>0&&Math.abs(p.x-e.motion!.route[i-1].x)+Math.abs(p.y-e.motion!.route[i-1].y)!==1))throw new Error('Invalid private completed movement event');
+  }
   if (
     !guestSeat &&
     (s.attackPreparations !== undefined || s.observedAttackers !== undefined || s.chargeWarnings !== undefined || s.traceContacts !== undefined ||

@@ -47,23 +47,27 @@ export function decodeCheckpoint(text: string): Checkpoint {
   const state = parseMatch(d.state);
   if (state.orders.length || state.combatPhase)
     throw new Error("Checkpoint must be a committed turn boundary");
-  const mapping = (v: unknown) => {
+  const mapping = (v: unknown, credential: boolean) => {
     if (!v || typeof v !== "object" || Array.isArray(v))
       throw new Error("Invalid checkpoint assignments");
     const result: Record<string, string> = {};
+    const used = new Set<string>();
     for (const [k, x] of Object.entries(v)) {
-      if (!state.players[k] || typeof x !== "string" || x.length > 256)
+      if (!state.players[k] || k === "p1" || typeof x !== "string" || x.length > 256 || x.length < (credential ? 32 : 1) || used.has(x))
         throw new Error("Invalid checkpoint seat");
+      used.add(x);
       result[k] = x;
     }
     return result;
   };
+  const assignments=mapping(d.assignments,false),seatTokens=mapping(d.seatTokens,true);
+  if(Object.keys(assignments).some(seat=>!seatTokens[seat]))throw new Error("Assigned seat lacks its returning credential");
   return {
     kind: "authoritative-host",
     version: VERSION,
     state,
-    assignments: mapping(d.assignments),
-    seatTokens: mapping(d.seatTokens),
+    assignments,
+    seatTokens,
   };
 }
 function db(): Promise<IDBDatabase> {

@@ -49,6 +49,8 @@ export class MatchSession {
     { chunks: string[]; count: number; bytes: number; at: number }
   >();
   private sequence = 0;
+  private snapshotOrdinal = 0;
+  private lastSnapshot?: { revision:number; sequence:number };
   private hostPeer = "";
   private closed = false;
   private generation = 0;
@@ -129,6 +131,7 @@ export class MatchSession {
       i.version !== VERSION
     )
       throw new Error("Invalid or incompatible invitation");
+    this.lastSnapshot = undefined;
     this.info = i;
     this.invite = inviteText;
     this.seat = seat;
@@ -143,6 +146,7 @@ export class MatchSession {
     if (!this.info) return;
     const generation = ++this.generation;
     this.transfers.clear();
+    this.snapshotOrdinal = 0;
     const i = this.info;
     this.closed = false;
     this.transport = new StarTransport(
@@ -285,6 +289,10 @@ export class MatchSession {
         d.data.length > 24000
       )
         throw new Error("Invalid snapshot frame");
+      const ordinal = /^snapshot:([1-9][0-9]*)$/.exec(d.id);
+      const number = ordinal ? Number(ordinal[1]) : NaN;
+      if(!Number.isSafeInteger(number))throw new Error('Invalid snapshot ordinal');
+      if(number<=this.snapshotOrdinal){this.transfers.delete(d.id);throw new Error('Stale snapshot transfer rejected');}
       for (const [id, t] of this.transfers)
         if (performance.now() - t.at > 20000) this.transfers.delete(id);
       let transfer = this.transfers.get(d.id);
@@ -321,6 +329,10 @@ export class MatchSession {
         throw new Error("Snapshot belongs to another match");
       if (reply.type === "welcome" && reply.seat !== this.seat)
         throw new Error("Welcome belongs to another seat");
+      const sequence=snapshot.nextSeq[this.seat];
+      if(this.lastSnapshot&&(snapshot.revision<this.lastSnapshot.revision||sequence<this.lastSnapshot.sequence))throw new Error('Stale snapshot rejected; synchronize the current host state');
+      this.lastSnapshot={revision:snapshot.revision,sequence};
+      this.snapshotOrdinal=number;
       if (reply.type === "welcome") {
         this.token = reply.token;
         sessionStorage.setItem(

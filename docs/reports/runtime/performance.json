@@ -3,22 +3,22 @@
     "map": "96x96",
     "companies": 400,
     "weeks": 10,
-    "totalMs": 22.799999997019768,
-    "msPerWeek": 2.279999999701977
+    "totalMs": 29.200000002980232,
+    "msPerWeek": 2.9200000002980233
   },
   "pathfinding": {
     "requests": 100,
-    "totalMs": 14.299999997019768
+    "totalMs": 18.19999998807907
   },
   "render": {
     "scene": "default32x32",
     "samples": 120,
-    "p50Ms": 16.700000000000728,
-    "p95Ms": 33.40000000000009
+    "p50Ms": 33.30000000000018,
+    "p95Ms": 33.400000000000546
   },
-  "heap": 66005380,
+  "heap": 70721065,
   "userAgent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
-  "loadToMeasurementMs": 4527,
+  "loadToMeasurementMs": 5326,
   "budgets": {
     "loadMs": 8000,
     "heapBytes": 268435456,

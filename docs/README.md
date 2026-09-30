@@ -31,6 +31,8 @@ the explicit client and role routes.
 
 ## Playable runtime
 
-Start with [Game runtime](guides/GAME_RUNTIME.md) for development commands, the local loop, architecture and static deployment. [Multiplayer](guides/MULTIPLAYER.md) documents managed connectivity, setup and unresolved provider authorization. The [validation report](reports/runtime/VALIDATION.md) owns current results and coverage gaps; incomplete work remains on the [roadmap](planning/ROADMAP.md).
+[Living-world presentation](reports/2026-09-30-living-world.md) records current motion, privacy, compatibility boundaries and the remaining-work sequence.
+
+Start with [Game runtime](guides/GAME_RUNTIME.md) for development commands, the local loop, architecture and static deployment. [Multiplayer](guides/MULTIPLAYER.md) documents managed connectivity, setup and unresolved provider authorization. The [validation report](reports/runtime/VALIDATION.md) owns current results and coverage gaps; the [extended playtest](reports/2026-09-30-extended-playtest.md) records campaign sessions, reproduced defects and corrections; incomplete work remains on the [roadmap](planning/ROADMAP.md).
 
 The [content extraction and provisional tuning](design/runtime-content-notes.md), [ability coverage](design/runtime-ability-notes.md), and [runtime asset provenance](design/runtime-assets.md) separate the playable alpha from the complete revision-6 ambition. Source reports, historical notes and gallery studies remain in their existing locations.

@@ -847,7 +847,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
   const serviceBusy=(id:string)=>toolUnitBusy(s,id)||mountUnitBusy(s,id)||watchUnitBusy(s,id);
   const serviceUnits=[...("unit" in a?[a.unit]:[]),...("crew" in a?[a.crew]:[]),...("worker" in a?[a.worker]:[]),...("rider" in a?[a.rider]:[]),...("carrier" in a&&a.carrier?[a.carrier]:[]),...(a.kind==='declare-tactical'?[a.order.unit]:[]),...(a.kind==='movement-power'?a.members.map(m=>m.unit):[])];
   if(serviceUnits.some(serviceBusy))return 'Company is committed to a funded tool, mount or watch job';
-  if('facility' in a&&(toolFacilityBusy(s,a.facility)||mountFacilityBusy(s,a.facility)||watchFacilityBusy(s,a.facility)))return 'Facility queue is committed to tools, mounts or watch equipment';
+  if('facility' in a&&a.facility&&(toolFacilityBusy(s,a.facility)||mountFacilityBusy(s,a.facility)||watchFacilityBusy(s,a.facility)))return 'Facility queue is committed to tools, mounts or watch equipment';
   if(("unit" in a&&equipmentServiceBusy(s,a.unit))||("carrier" in a&&a.carrier&&equipmentServiceBusy(s,a.carrier))||("worker" in a&&equipmentServiceBusy(s,a.worker))||("crew" in a&&equipmentServiceBusy(s,a.crew))||(a.kind==="movement-power"&&a.members.some(m=>equipmentServiceBusy(s,m.unit)))||(a.kind==="declare-tactical"&&equipmentServiceBusy(s,a.order.unit)))return "Company is committed to armor refitting";
   if("facility" in a&&Object.values(s.equipmentServices).some(q=>q.facility===a.facility&&q.status==="working"))return "Workshop queue is committed to armor refitting";
   if(("unit" in a&&formationBusy(s,a.unit))||("worker" in a&&formationBusy(s,a.worker))||("carrier" in a&&a.carrier&&formationBusy(s,a.carrier))||("crew" in a&&formationBusy(s,a.crew))||(a.kind==="movement-power"&&a.members.some(m=>formationBusy(s,m.unit)))||(a.kind==="declare-tactical"&&formationBusy(s,a.order.unit)))return "Company is committed to an explicit formation route";
@@ -1129,6 +1129,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
     a.members.some((m) => logisticsUnitBusy(s, m.unit))
   )
     return "Formation is reserved by physical logistics";
+  if(heroAction&&serviceBusy(p.hero.id))return 'Hero is committed to funded equipment logistics';
   if(heroAction&&formationBusy(s,p.hero.id))return "Hero directs an explicit formation plan";
   if(heroAction&&habitatWorkerBusy(s,p.hero.id))return "Hero occupies a construction or trail role";
   if(heroAction&&huntingBusy(s,p.hero.id))return "Hero is surveying a habitat";
@@ -1212,7 +1213,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
   if(a.kind==="temper-armor")return temperReason(s,seat,a.unit,a.facility,a.hazard,(x,y)=>Boolean(path(s,x,y,false,s.units[p.hero.id])));
   if(a.kind === "fieldwork") {
     if(!factionBuilding(p.profile,a.form))return "This faction lacks the structural recipe";
-    const plots=Object.values(s.facilities).filter(f=>f.owner===seat&&f.hp>0&&!["core","hold"].includes(f.kind)).length+Object.values(s.fieldworkJobs).filter(q=>q.owner===seat&&q.status==="working").length;
+    const plots=Object.values(s.facilities).filter(f=>f.owner===seat&&f.hp>0&&!["core","hold"].includes(f.kind)).length+fieldworkPlotReservations(s,seat);
     if(plots>=limits(p.profile).plots)return "Support plots full";
     return fieldworkReason(s,seat,{worker:a.worker,facility:a.facility,kind:a.form,material:a.material,x:a.x,y:a.y},(x,y,u)=>Boolean(path(s,x,y,false,u)));
   }
@@ -2701,6 +2702,7 @@ export function resolveWeek(state: Match): Match {
       seats.length;
   const phase = (a: Action) =>
     [
+      "tool-service", "mounts", "watch-gear",
       "produce",
       "care",
       "care-power",
@@ -3130,9 +3132,11 @@ function applyNightOrder(s:Match,seat:string,a:NightAction):void{const checks=ci
 
 function equipmentPower(a:Action){return a.kind==='tool-service'&&a.mode==='refit'||a.kind==='mounts'&&a.mode==='exchange'||a.kind==='watch-gear'&&a.mode==='relocate';}
 function equipmentOperations(a:Action){return a.kind==='tool-service'?(a.mode==='repair'?1:0):a.kind==='mounts'?(a.mode==='exchange'?1:0):a.kind==='watch-gear'?(a.mode==='relocate'?1:0):1;}
-function equipmentChecks(s:Match){const c=civilianChecks(s);return {open:c.route,cost:c.cost,budget:(_s:Match,u:Unit)=>u.move,connected:(a:Pos,b:Pos,u:Unit)=>Boolean(path(s,a,b,false,u)),surveyed:(p:Pos)=>terrainObserved(s,typeof (p as Pos&{owner?:string}).owner==='string'?(p as Pos&{owner:string}).owner:'p1',p),moved:c.moved};}
+function equipmentChecks(s:Match){const c=civilianChecks(s);return {open:c.route,cost:c.cost,budget:(_s:Match,u:Unit)=>u.move,connected:(a:Pos,b:Pos,u:Unit)=>Boolean(path(s,a,b,false,u)),surveyed:()=>false,moved:c.moved};}
 function equipmentReason(s:Match,seat:string,a:Action):string{
  const connected=(x:Pos,y:Pos)=>Boolean(path(s,x,y,false));const c={...equipmentChecks(s),surveyed:(p:Pos)=>terrainObserved(s,seat,p)};
+ if(a.kind==='mounts'&&a.mode==='exchange'){for(const id of [a.crew,a.rider]){const u=s.units[id];if(!u)return 'Existing party required';const reason=actionReason(s,seat,{kind:'move',unit:id,x:u.x,y:u.y});if(reason)return reason;}}
+ if(a.kind==='watch-gear'&&a.mode==='relocate'){const u=s.units[a.worker];if(!u)return 'Existing worker required';const reason=actionReason(s,seat,{kind:'move',unit:u.id,x:u.x,y:u.y});if(reason)return reason;}
  if(a.kind==='tool-service'){if(a.mode==='make')return queueToolReason(s,seat,a.facility,a.function);if(a.mode==='refit')return refitToolReason(s,seat,a.item,a.facility,a.function,connected);return fieldRepairReason(s,seat,a.unit,a.tool,a.target);}
  if(a.kind==='mounts'){if(a.mode==='breed')return queueMountsReason(s,seat,a.facility);if(a.mode==='recover')return recoverMountsReason(s,seat,a.lot);return remountReason(s,seat,a.rider,a.lot,a.crew,a.route,c);}
  if(a.kind==='watch-gear')return a.mode==='make'?watchGearReason(s,seat,a.facility):reweaveReason(s,seat,a.facility,a.worker,a.route,c);return 'Unknown equipment service';

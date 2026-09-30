@@ -1,0 +1,86 @@
+{
+  "cycles": 16,
+  "samples": [
+    {
+      "count": 8,
+      "bytes": 23290624,
+      "textureCount": 8
+    },
+    {
+      "count": 14,
+      "bytes": 40758592,
+      "textureCount": 14
+    },
+    {
+      "count": 15,
+      "bytes": 43669920,
+      "textureCount": 15
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 15,
+      "bytes": 43669920,
+      "textureCount": 15
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    },
+    {
+      "count": 16,
+      "bytes": 46581248,
+      "textureCount": 16
+    }
+  ],
+  "scope": "Actual renderer overlay and pan cycles; texture allocation count, not measured GPU memory"
+}

@@ -1,22 +1,32 @@
+## Living-world follow-up — 30 September 2026
+
+Current version is **r6-sim-10-1ba24d66-protocol-2-save-2**. The evidence below this section describes the preceding playtest build unless explicitly refreshed here. Older peers/checkpoints are rejected; no migration is implemented and existing exports are untouched.
+
+- Aggregate: **637 tests / 92 files**, typecheck, lint and build passed (`living-full-check--20260930T080959Z-1565080.log`). A subsequent habitat regression increases the suite inventory by one; final **27 affected tests**, typecheck, lint and production build passed (`living-final--20260930T081735Z-1587412.log`). The complete long soak was not repeated for that visual-only addition.
+- Chromium component/render/accessibility checks: **43 passed**. Final four animation plus six native local WebRTC cases also passed (49 distinct cases total), including 2/3/4-seat flows and three interruption cases. Log: `living-final-browser--20260930T081804Z-1589487.log`. The prior 55 full UI campaigns were not rerun on this version; the aggregate simulation campaign soak was.
+- Firefox 156.0.1: local hero creation / IndexedDB reload passed again. Static art: **1,702 checks, zero failures, one limitation**. Safari, physical devices and all real managed-service runs remain unexecuted.
+- Updated 96×96 / 400-company fixture: load **710ms**, frame p95 **33.4ms**, JS heap **64,187,795 bytes**, eleven chunks / 32,024,608 estimated RGBA bytes. Ten simulation weeks **29.2ms**, 100 path requests **18.2ms**. Raw metrics linked below were refreshed. These are workstation measurements, not GPU-memory or remote reliability claims.
+- Current build: application **1,136.41kB / 285.06kB gzip**, Phaser **1,208.05kB / 330.07kB gzip**. Large-chunk/upstream annotation warnings remain.
+
+See [living-world changes and limits](../2026-09-30-living-world.md) and the ordered [remaining implementation plan](../../planning/ROADMAP.md#remaining-implementation-sequence--after-living-world-presentation). Typography remains unchanged; the Arial finding stands without suppression.
+
 # Runtime validation — 2026-09-30
 
-**Status: runnable alpha; the requested complete game is not finished. Final integrated checks are pending while implementation continues.** Results below describe particular runs, not certification of later edits. The coordinating agent must update this report after the final build and browser run. No remote reliability or demonstrated gameplay balance is claimed.
+**Status: playable alpha; extended local playtest and hardening gates passed. The complete requested game remains unfinished.** These results do not establish competitive balance or remote reliability. The [extended playtest report](../2026-09-30-extended-playtest.md) records reproduced bugs, retained failed runs, fixes and exact log paths.
 
-## Recorded checks
+## Current checks
 
 | Check | Actual evidence and boundary |
 |---|---|
-| Latest frozen `npm run check` | 489 tests across74files passed, plus typecheck, lint and production build. Log: `/tmp/agent-runs/phase-frozen-aggregate--20260929T234633Z-1236125.log`. Subsequent remaining-roster work needs another final aggregate gate. |
-| Full frozen Chromium suite | 37/37 passed including local gameplay, paid physical domains, civilian conservation, dialogue, portraits, 2/3/4-player same-device nativeWebRTC, reconnect faults and performance. Log: `/tmp/agent-runs/phase-full-browser--20260929T234708Z-1241432.log`. UI multiplayer used fresh immutable production preview5174; source-injected domain/fault tests used5173. |
-| Identity portraits | Seven Chromium UI flows and two asset-contract tests passed. Actual atlas crops inspected across all five atlases, both Melkor doctrines and a compact spider view; no neighboring-cell bleed. Only selected atlas loads. Log: `/tmp/agent-runs/portrait-browser-stable--20260929T223455Z-1013330.log`. Initial bootstrap test failure was caused by the then-missing navalRoute export and resolved before this passing run. |
-| Latest scoped networking/persistence | 30 tests passed; global typecheck and scoped network lint passed. Logs: `/tmp/agent-runs/network-repair-final--20260929T213021Z-837565.log`, `network-repair-types--20260929T213022Z-838754.log`, `network-repair-lint--20260929T213024Z-837564.log`. |
-| Integrated Chromium browser run | 10 of 11 passed; actual large-map renderer failed its unchanged `<50ms` frame p95 assertion at exactly 50ms. Log: `/tmp/agent-runs/current-browser-suite--20260929T212304Z-816376.log`. The failed gate is retained as evidence. |
-| Targeted renderer correction | Actual large-map renderer passed after terrain caching and removal of framebuffer multisampling; p95 33.4ms. Log: `/tmp/agent-runs/terrain-no-msaa-browser--20260929T212928Z-834585.log`. This targeted pass does not substitute for a final integrated rerun. |
-| Firefox 156.0.1 | Native WebDriver BiDi exercised hero creation and IndexedDB reload successfully. Controls were DOM-dispatched through real handlers; pointer/keyboard compatibility and multiplayer were not tested. Latest frozen rerun: `/tmp/agent-runs/phase-firefox--20260929T235023Z-1245934.log`. See [record](firefox.json) and [capture](firefox-local.png). |
-| Safari | Unavailable in this environment; no runtime or compatibility result. |
-| Static art checks | 1,689 checks passed,0failures,1declaredlimitation. Log: `/tmp/agent-runs/building-art-validator--20260929T234046Z-1214657.log`. Originalbuildingatlas integrated and rendered withoutbrowsererrors; staticchecks do not establish runtime/accessibility. |
+| `npm run check` | 626 tests across 91 files, typecheck, lint and production build passed against the frozen runtime. Log: `/tmp/agent-runs/playtest-frozen-check--20260930T074819Z-1519142.log`. |
+| All-profile Chromium campaigns | 55/55 normal setup/component/hero campaigns, twelve weekly resolutions and IndexedDB reload each: 660 weeks. No fixture resource grants. |
+| Chromium component and recovery suite | 45 distinct cases passed: 42-case local run plus three fault cases from the six-case fresh-production multiplayer rerun. Combined with campaigns: 100 distinct browser cases. |
+| Simulation campaigns | 165 ordinary seeded AI campaigns, 2,998 resolved weeks; three separately labeled peaceful four-seat economies, 192 weeks. Deterministic replay, save validation and guest projection checked. [Evidence](campaign-soak.json). |
+| Firefox 156.0.1 | Local hero creation and IndexedDB reload passed via native BiDi DOM-dispatched controls. Pointer/keyboard and multiplayer not tested. [Record](firefox.json), [capture](firefox-local.png). |
+| Safari / physical mobile | Unavailable; no runtime certification. |
+| Static art | 1,700 checks passed, zero failures, one declared limitation; does not establish rendered usability or accessibility. |
 
-Local Chromium tests cover hero creation, AI resolution, save/restore, visible objective victory, compact viewport, 200-percent text and keyboard cancellation. Screenshots include [desktop](local-1440.png) and [compact](compact-390.png). These are bounded flows, not a complete accessibility audit, touch-device certification or all-faction playthrough.
+Browser component flows cover paid tools/refitting and research, finite Rohan remount breeding, scout training, repairs, injury care, crops, cargo, naval landing, fieldworks, formations, declared charges, tactical responses, dated intelligence, dialogue, objectives and portrait loading. Isolated component fixtures are distinct from normal all-profile campaigns. Compact viewport, 200-percent text, Escape cancellation and select-focus retention passed. These are bounded checks, not a complete accessibility audit. [Desktop](local-1440.png), [compact](compact-390.png), [rules overlay](rules-terrain.png).
 
 ## Networking and recovery
 
@@ -30,21 +40,21 @@ The host remains trusted: it can inspect and alter authoritative state. Guest fi
 
 **Not executed:** real managed signaling, independent-network 2–4-player matches, forced TURN relay, provider credential expiration and provider-enforced room restrictions. No production credentials were available. Mocked SDK tests are not service evidence. Firefox multiplayer and all Safari checks also remain open.
 
-## Performance measurements
+## Current performance
 
-The actual Phaser renderer fixture is 96×96 terrain tiles with 400 company markers at 1440×1000, sampled for 120 frames on headless Chromium. The corrected run measured load553ms, p5033.3ms, p9533.4ms and JavaScript heap67,653,851bytes. Eleven visible cached chunks account for 32,024,608 RGBA bytes; heap does not include complete GPU/driver memory. Provisional targets are load under 8 seconds, heap under 256MiB and frame p95 34ms. See [raw metrics](large-render.json), [capture](large-map.png) and [diagnosis](../2026-09-30-renderer-performance.md).
+Actual Phaser fixture: 96×96 tiles and 400 companies at 1440×1000, 120 frame samples on headless Chromium. Load **621ms**, frame p50 **33.3ms**, p95 **33.4ms**, JS heap **68,103,917 bytes**. Eleven cached terrain chunks account for **32,024,608 estimated RGBA bytes**. Provisional targets remain load under 8s, heap under 256MiB and frame p95 34ms; the existing regression tolerance is under 50ms. [Raw metrics](large-render.json), [capture](large-map.png).
 
-The separately recorded simulation fixture processed ten weeks on a 96×96 map with 400 companies in 20.3ms total (2.03ms/week); 100 pathfinding requests took 13.5ms. Its latest default-map frame sample recorded p95 33.4ms. Earlier runs recorded p95 50ms; those failures and the terrain raster correction remain in the diagnosis document. See [separate simulation/default-render metrics](performance.json).
+Sixteen rules-overlay/camera cycles retained at most sixteen terrain textures, **46,581,248 estimated RGBA bytes**. This counts texture allocations, not GPU/driver memory. [Cache soak](terrain-cache-soak.json). Separate simulation fixture: ten weeks on a 96×96 map with 400 companies took **29.3ms total**, 100 pathfinding requests **17.6ms**; default scene p95 **33.4ms**. [Metrics](performance.json).
 
-These workstation measurements do not establish mobile, wide-zoom, physical-device, Firefox or Safari performance. Terrain textures are bounded to sixteen chunks; the wider-view Graphics fallback still needs profiling. Animation does not advance simulation time.
+Earlier 50ms frame failure and its correction remain in the [performance diagnosis](../2026-09-30-renderer-performance.md). Current workstation results do not establish mobile, Firefox/Safari or every wide-zoom case. Animation does not advance simulation. Production build retains large-chunk warnings: application 1,126.05kB / 281.60kB gzip; Phaser 1,208.05kB / 330.07kB gzip. Upstream Zod annotation warnings remain nonfatal.
 
-## Gameplay completion boundary
+## Gameplay and visual completion boundary
 
-All 55 starting profiles across 54 factions are selectable, preserving the two mutually exclusive Melkor doctrines under one faction identity. Runtime tests exercise operation budgets, four stocks versus source access, hero occupancy/creation/death/recreation, Melkor creature ownership restrictions, AI legality, deterministic resolution and checkpoint validation. Roster presence and invariant tests do not prove complete faction mechanics.
+All 55 exact profiles across 54 factions are selectable; Melkor's doctrines remain one mutually exclusive faction/hero identity. Normal UI campaigns exercised every hero recipe. Unit tests cover operation budgets, four stocks versus source access, hero occupancy/recreation/captivity, Melkor creature exclusivity, AI legality, command validation, deterministic resolution and checkpoints. These do not prove complete faction mechanics or balance.
 
-The current [ability ledger](../../design/runtime-ability-notes.md) records 36 of 110 dispatcher handlers and 15 earlier dedicated command routes, with intelligence, recovery, crop and naval routes being integrated and tested. The earlier 51 routed / 59 unavailable snapshot is being expanded; neither registered handlers nor new domain modules establish complete roster coverage. Selected equipment-wear passives now have consumers, but most passive execution remains missing. Registered handlers may require entities or conditions absent from the default scenario; unsupported powers are disabled with explicit reasons. The older fifty hero kits have not undergone the separate offensive review, and no balance claim is supported.
+The [ability ledger](../../design/runtime-ability-notes.md) remains authoritative for implemented versus incomplete routes. Forest, dream-preparation and council modules still require engine/UI integration; Vairë/Avari support, remaining source qualifications and passive consumers remain unfinished. The older fifty kits still await a separate offensive review. Ordinary economic/combat values remain explicitly provisional.
 
-Ordinary faction outputs, buildings, equipment and economic differences use explicitly provisional runtime values. Paid repair, durability, physical convoy loading/travel/unloading, recovery/rerouting, terrain zones and bilateral diplomacy now have integrated regression coverage. Full production/equipment/research trees, settlement-local transport inventories, all ability counters, consequential situated dialogue and finished production art remain incomplete. The 54 original identity portraits cover all 55 profiles; flattened portrait atlases and procedural map silhouettes still do not constitute the requested final painted character/building animation atlas. Consult [content limits](../../design/runtime-content-notes.md) and [asset provenance](../../design/runtime-assets.md). The default **Cross-era sandbox** is a deliberate chronology/geography adaptation, not a historical coexistence claim.
+Original identity portraits, building studies and a 16-archetype painted world-figure atlas are integrated; some creature silhouettes and animation remain provisional. The atmospheric painting does not align with all simulation terrain. **Rules terrain** exposes the actual tiles with color-independent symbols; it does not finish terrain art. More situated dialogue and production assets remain necessary. [Content limits](../../design/runtime-content-notes.md), [asset provenance](../../design/runtime-assets.md). **Cross-era sandbox** deliberately adapts chronology and geography, rather than claiming historical coexistence.
 
 ## Remaining service setup and reproducibility
 
@@ -63,6 +73,4 @@ SILMARILLION_BROWSER_EXECUTABLE=/absolute/path/to/chromium npm run test:browser
 python3 docs/design/art-direction/validate.py
 ```
 
-The browser suite expects Vite on port 5173. To validate immutable multiplayer UI, build and run `npm run preview -- --port 5174`, then set `SILMARILLION_TEST_URL=http://127.0.0.1:5174`; keep development Vite available for source-module fault fixtures. Run `npm run typecheck`, `npm run lint`, `npm test` and `npm run build` separately when diagnosing a failing aggregate gate. No publication, service purchase, commit or push is part of these checks.
-
-The 216-test integrated typecheck/lint/test/build snapshot passed. Browser repair/rerun after current edits and current art-validator evidence are **pending**; the latest expanded local browser gate remains failed under diagnosis. Unavailable service/browser tests and missing mechanics remain incomplete even if local gates become green.
+The browser suite defaults to Vite on port 5173. For extended sessions run `SILMARILLION_PLAYTEST=1 npm run dev -- --port 5180 --strictPort` and set `SILMARILLION_DEV_TEST_URL=http://127.0.0.1:5180` for the browser runner to avoid HMR interruptions. To validate immutable multiplayer UI, build and run `npm run preview -- --port 5174`, then set `SILMARILLION_TEST_URL=http://127.0.0.1:5174`; keep development Vite available for source-module fault fixtures. Run `npm run typecheck`, `npm run lint`, `npm test` and `npm run build` separately when diagnosing a failing aggregate gate. No publication, service purchase, commit or push is part of these checks.

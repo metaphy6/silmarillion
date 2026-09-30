@@ -59,7 +59,7 @@ The current dispatcher and dedicated command routes are individually listed in [
 
 Paid repair and fitting queues, finite cargo and civilian stores, physical loading/travel/unloading, recovery, naval counterplay, finite hunting, cultivated plots, terrain zones, staffed defenses, old woodland trails and mutual-consent diplomacy have integrated rules and regressions. Household ledgers preserve finite people and deposited Provisions; general settlement economies still use faction stocks. Faction output and ordinary numbers are provisional. See [content notes](../design/runtime-content-notes.md).
 
-Original 54 identity portraits cover 55 profiles with one shared Melkor face. Sixteen original painted building/habitat studies are integrated; tiny mobile figures remain procedural and move through cosmetic tweens. The huge landscape painting is atmospheric and does not yet align every feature with authoritative terrain. Three original situated dialogue scenes route through normal paid commands; this is not a complete narrative library. See [asset provenance](../design/runtime-assets.md).
+Original 54 identity portraits cover 55 profiles with one shared Melkor face. Sixteen original painted building/habitat studies are integrated; sixteen painted world-figure archetypes supplement procedural fallbacks and move through cosmetic tweens. The huge landscape painting is atmospheric and does not yet align every feature with authoritative terrain. Use **Rules terrain** for the exact tile categories and distinct color-independent marks; this inspection overlay does not claim to solve the underlying art alignment. Three original situated dialogue scenes route through normal paid commands; this is not a complete narrative library. See [asset provenance](../design/runtime-assets.md).
 
 
 Private multiplayer implementation includes local test signaling and a concrete managed provider adapter. Same-device browser tests are distinct from real internet matches. Scoped provider authorization, short-lived credential guarantees, forced TURN relay and service restrictions remain external requirements; see [Multiplayer](MULTIPLAYER.md). No claim of remote reliability follows from local-tab tests.
@@ -76,3 +76,21 @@ Publish **only `dist/`** to static HTTPS hosting. Vite includes imported modules
 The owner operates static files only. Managed signaling/STUN/TURN remain external services; WebRTC does not remove them. `.env.example` contains public configuration placeholders. Browser-exposed `VITE_*` values are public and cannot contain private provider keys or permanent TURN secrets. Deployments must preserve protocol/save/simulation/content compatibility; mismatches are rejected rather than silently migrated. No PWA offline-internet-multiplayer claim is made.
 
 Design reports and root roster builders remain separate from Vite. The revision-6 report and structured hero roster retain gameplay authority; historical drafts do not override them. Art-direction resources retain presentation authority. Consult the [roadmap](../planning/ROADMAP.md) before treating an alpha limitation as completed work.
+
+## Extended playtests
+
+Use a dedicated development server without hot reload so edits cannot reset an active test match:
+
+```bash
+SILMARILLION_PLAYTEST=1 npm run dev -- --port 5180 --strictPort
+# Separate terminal:
+SILMARILLION_DEV_TEST_URL=http://127.0.0.1:5180 npm run test:browser
+```
+
+`tests/browser/campaign-soak.spec.ts` plays all 55 profiles through ordinary component/hero creation, twelve weekly resolutions and reload. `tests/campaign-soak.test.ts` runs three deterministic seeds per profile until victory or 64 weeks, plus a separately labeled peaceful economy policy for 64-week persistence. The peaceful policy declines military orders; it is not evidence of a naturally long competitive match. See the [extended playtest report](../reports/2026-09-30-extended-playtest.md).
+
+### Living-world presentation
+
+Recorded own movement now plays along the real route; visible damage, arrival, losses, public control and zone changes have bounded map effects. Birds/mist and working-site gestures are decorative and do not advance turns. Settings → World motion follows system reduced motion or stops all ambient/idle effects; preference is local and persists. Creature work silhouettes remain nonhuman. See [delivery and limits](../reports/2026-09-30-living-world.md).
+
+**Version boundary:** this build is `r6-sim-10-1ba24d66-protocol-2-save-2`. Previous `r6-sim-9-1ba24d66-protocol-1-save-2` saves/peers are rejected; no automatic or manual migration is implemented. Preserve original exports and use their original build to finish those matches. Start a new match for this build. Do not update an active multiplayer match.

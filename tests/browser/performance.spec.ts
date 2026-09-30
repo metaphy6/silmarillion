@@ -163,3 +163,22 @@ test("actual large-map renderer culls 96x96 tiles and 400 companies", async ({
   expect(loadMs).toBeLessThan(8000);
   expect(frames.p95).toBeLessThan(50);
 });
+
+test('repeated rules overlays and camera travel retain bounded terrain textures',async({page})=>{
+ await page.goto('/tests/browser/render-harness.html');
+ await page.waitForFunction(()=>document.body.dataset.ready==='true');
+ const result=await page.evaluate(async()=>{
+  const scene=(window as unknown as {renderWorld:{scene:{setRulesTerrain:(v:boolean)=>void;locate:(id:string)=>void;zoom:(n:number)=>void;chunks:{image?:unknown;texture?:string;bounds:{width:number;height:number}}[];textures:{getTextureKeys:()=>string[]}}}}).renderWorld.scene;
+  const samples:{count:number;bytes:number;textureCount:number}[]=[];
+  for(let i=0;i<16;i++){
+   scene.setRulesTerrain(i%2===0);scene.locate(`stress:${(i*23)%400}`);scene.zoom(i%2===0?0.1:-0.1);
+   await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
+   const active=scene.chunks.filter(c=>c.image);
+   samples.push({count:active.length,bytes:active.reduce((n,c)=>n+c.bounds.width*c.bounds.height*4,0),textureCount:scene.textures.getTextureKeys().filter(k=>k.startsWith('terrain:')).length});
+  }
+  return samples;
+ });
+ expect(result).toHaveLength(16);
+ for(const sample of result){expect(sample.count).toBeLessThanOrEqual(16);expect(sample.bytes).toBeLessThanOrEqual(16*1148*634*4);expect(sample.textureCount).toBeGreaterThan(0);expect(sample.textureCount).toBeLessThanOrEqual(16);}
+ writeFileSync('docs/reports/runtime/terrain-cache-soak.json',JSON.stringify({cycles:16,samples:result,scope:'Actual renderer overlay and pan cycles; texture allocation count, not measured GPU memory'},null,2)+'\n');
+});

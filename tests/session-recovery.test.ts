@@ -44,10 +44,14 @@ const welcome = () => ({
   token: "saved-token-012345678901234567890123456789",
   snapshot: guestSnapshot(s, "p2"),
 });
-const frame = (id: string, data: string, index = 0, count = 1) =>
-  JSON.stringify({ type: "chunk", id, data, index, count });
+const frameIds=new Map<string,string>();
+const frame = (id: string, data: string, index = 0, count = 1) => {
+  if(!id.startsWith('snapshot:')){if(!frameIds.has(id))frameIds.set(id,`snapshot:${frameIds.size+1}`);id=frameIds.get(id)!;}
+  return JSON.stringify({ type: "chunk", id, data, index, count });
+};
 beforeEach(() => {
   mocks.transports.length = 0;
+  frameIds.clear();
   const storage = new Map<string, string>();
   vi.stubGlobal("sessionStorage", {
     getItem: (k: string) => storage.get(k) ?? null,
@@ -212,4 +216,28 @@ describe("snapshot recovery (mock transport)", () => {
       JSON.stringify({ type: "order", order: command }),
     );
   });
+});
+it('never rolls a synchronized guest back when an older partial snapshot finishes later',async()=>{
+ const changed=vi.fn(),status=vi.fn(),session=new MatchSession(changed,status);await session.join(invite,'p2');const send=mocks.transports[0].message;
+ const old=JSON.stringify(welcome());send('host',frame('older',old.slice(0,old.length/2),0,2));
+ const newer=structuredClone(s);newer.revision++;newer.turn++;
+ send('host',frame('newer',JSON.stringify({...welcome(),snapshot:guestSnapshot(newer,'p2')})));
+ expect(changed).toHaveBeenCalledOnce();expect(changed.mock.calls[0][0].revision).toBe(newer.revision);
+ send('host',frame('older',old.slice(old.length/2),1,2));
+ expect(changed).toHaveBeenCalledOnce();expect(status).toHaveBeenLastCalledWith(expect.stringMatching(/stale/i));session.close();
+});
+it('rejects an older assembled snapshot when only another seat readiness changed',async()=>{
+ const changed=vi.fn(),status=vi.fn(),session=new MatchSession(changed,status);await session.join(invite,'p2');const send=mocks.transports[0].message;
+ const old=JSON.stringify(welcome());send('host',frame('snapshot:10',old.slice(0,old.length/2),0,2));
+ const newer=structuredClone(s);newer.players.p1.ready=true;
+ send('host',frame('snapshot:11',JSON.stringify({...welcome(),snapshot:guestSnapshot(newer,'p2')})));
+ expect(changed).toHaveBeenCalledOnce();expect(changed.mock.calls[0][0].players.p1.ready).toBe(true);
+ send('host',frame('snapshot:10',old.slice(old.length/2),1,2));expect(changed).toHaveBeenCalledOnce();expect(status).toHaveBeenLastCalledWith(expect.stringMatching(/stale/i));session.close();
+});
+
+it('resets transfer ordinals on reconnect while preserving the revision fence',async()=>{
+ const changed=vi.fn(),status=vi.fn(),session=new MatchSession(changed,status);await session.join(invite,'p2');const newer=structuredClone(s);newer.revision++;newer.turn++;
+ const reply={...welcome(),snapshot:guestSnapshot(newer,'p2')};mocks.transports[0].message('host',frame('snapshot:100',JSON.stringify(reply)));expect(changed).toHaveBeenCalledOnce();
+ await session.reconnect();const send=mocks.transports[1].message;send('host',frame('snapshot:1',JSON.stringify(welcome())));expect(changed).toHaveBeenCalledOnce();
+ send('host',frame('snapshot:2',JSON.stringify(reply)));expect(changed).toHaveBeenCalledTimes(2);expect(status).toHaveBeenLastCalledWith('Connected as p2; filtered snapshot synchronized');session.close();
 });

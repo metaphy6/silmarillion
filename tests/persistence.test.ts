@@ -68,3 +68,13 @@ describe("committed checkpoints", () => {
     expect(() => encodeCheckpoint(s)).toThrow(/boundary/);
   });
 });
+it('rejects ambiguous or unusable returning-seat credentials without replacing the last checkpoint',async()=>{
+ const s=createMatch(['human_rohan','human_gondor','human_numenor'],15),token='seat-secret-012345678901234567890123456789';await saveCheckpoint(s,{p2:'peer2'},{p2:token});const before=await loadCheckpoint();
+ for(const[assignments,tokens]of [
+  [{p2:'peer2'},{p2:''}],
+  [{p2:'peer2'},{}],
+  [{p2:'peer2',p3:'peer3'},{p2:token,p3:token}],
+  [{p2:'same-peer',p3:'same-peer'},{p2:token,p3:token+'x'}],
+ ] as Array<[Record<string,string>,Record<string,string>]>)await expect(saveCheckpoint(s,assignments,tokens)).rejects.toThrow(/seat|credential|assignment/i);
+ expect(await loadCheckpoint()).toEqual(before);
+});

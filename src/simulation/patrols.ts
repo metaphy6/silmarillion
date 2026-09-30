@@ -22,6 +22,10 @@ function report(s:PatrolState,owner:string,kind:PatrolReport['kind'],points:Pos[
 export function recordPatrolMovement(s:PatrolState,u:Unit,route:Pos[]):void {
  if(!u.alive||route.length<2)return;
  if(s.units[u.id]!==u||route.length>256||distance(route.at(-1)!,u)!==0||route.some((p,i)=>!bounded(s,p)||(i>0&&distance(p,route[i-1])!==1)))throw new Error('Movement evidence requires actual adjacent traversed route');
+ if(s.players[u.owner]){
+  s.events.push({id:s.nextId++,turn:s.turn,audience:[u.owner],text:`${u.name} completed its recorded movement.`,motion:{unit:u.id,route:clone(route)}});
+  if(s.events.length>400)s.events.splice(0,s.events.length-400);
+ }
  recordNightMovement(s,u,route);recordDawnMovement(s,u,route);
  if(u.flying&&!u.landed)return;
  recordFormationObservation(s,u,route);
@@ -29,7 +33,19 @@ export function recordPatrolMovement(s:PatrolState,u:Unit,route:Pos[]):void {
  recordHabitatTravel(s,u,route);
  for(const[id,t]of Object.entries(s.movementTraces))if(t.turn<s.turn-1)delete s.movementTraces[id];
  const id=`trace:${s.nextId++}`;s.movementTraces[id]={id,owner:u.owner,route:clone(route),turn:s.turn,revision:s.revision,erased:false};cap(s.movementTraces,512);
- if(s.players[u.owner]){const survey=`survey:${s.nextId++}`;s.routeSurveys[survey]={id:survey,owner:u.owner,route:clone(route),turn:s.turn,revision:s.revision};cap(s.routeSurveys,256);}
+ if(s.players[u.owner]){
+  // Existing assignments remain valid checkpoints. Never evict a referenced
+  // route to make room for unrelated travel history.
+  const pinned=new Set([...Object.values(s.garrisonPosts??{}).map(g=>g.survey),...Object.values(s.patrolWatches).filter(w=>w.turn===s.turn).map(w=>w.survey)]);
+  const oldest=Object.keys(s.routeSurveys).find(id=>!pinned.has(id));
+  if(Object.keys(s.routeSurveys).length<256||oldest){
+   if(Object.keys(s.routeSurveys).length>=256&&oldest)delete s.routeSurveys[oldest];
+   const survey=`survey:${s.nextId++}`;s.routeSurveys[survey]={id:survey,owner:u.owner,route:clone(route),turn:s.turn,revision:s.revision};
+  }else{
+   s.events.push({id:s.nextId++,turn:s.turn,audience:[u.owner],text:'Survey archive full: all 256 routes support existing assignments. Travel completed, but no new survey was stored; release an unused garrison or route watch to make room.'});
+   if(s.events.length>400)s.events.splice(0,s.events.length-400);
+  }
+ }
  for(const w of Object.values(s.patrolWatches)){
   if(w.turn!==s.turn||w.lastReportRevision===s.revision||w.route.some(p=>(['water','cliff'].includes(s.map.terrain[p.y*s.map.width+p.x])||infrastructureBlocked(s,p,'land'))))continue;
   const at=route.find(p=>w.route.some(q=>distance(p,q)===0)&&exposed(s,u,p));

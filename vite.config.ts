@@ -6,6 +6,8 @@ export default defineConfig({
     rollupOptions: { output: { manualChunks: { phaser: ["phaser"] } } },
   },
   server: {
+    // Extended playtests must not reload a running match when source changes.
+    hmr: process.env.SILMARILLION_PLAYTEST === "1" ? false : undefined,
     fs: {
       deny: [
         "**/.env*",

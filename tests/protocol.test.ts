@@ -470,3 +470,17 @@ it("filters every guest channel and authenticates seat restoration", () => {
     ).type,
   ).toBe("welcome");
 });
+it('reserves a distinct returning capability per guest seat',()=>{
+ const state=createMatch(['human_rohan','human_gondor','human_numenor'],8),invite='private-room-capability-0123456789',token='distinct-seat-capability-01234567890123456789',host=new HostAuthority(state,invite);
+ const hello=(seat:string)=>JSON.stringify({type:'hello',version:VERSION,invite,seat,token});
+ expect(host.receive('peer2',hello('p2'),0).type).toBe('welcome');expect(host.receive('peer3',hello('p3'),1)).toMatchObject({type:'error',message:'Rejoin credential already belongs to another seat'});expect(host.assignments.p2).toBe('peer2');expect(host.assignments.p3).toBeUndefined();
+});
+it('retains exactly-once receipt identity through repeated host restoration and stale-peer retries',()=>{
+ const invite='restore-room-capability-0123456789',token='restore-seat-capability-01234567890123456789';let host=new HostAuthority(createMatch(['human_rohan','human_gondor'],31),invite);const hello=JSON.stringify({type:'hello',version:VERSION,invite,seat:'p2',token});expect(host.receive('original',hello,0).type).toBe('welcome');
+ const guest={id:'committed-guest',seat:'p2',seq:1,turn:1,revision:0,action:{kind:'ready' as const}};expect(host.receive('original',JSON.stringify({type:'order',order:guest}),1)).toMatchObject({type:'receipt',ok:true});expect(host.local({...guest,id:'committed-host',seat:'p1'}).ok).toBe(true);host.resolve();const committed=structuredClone(host.state);
+ for(let n=0;n<64;n++){
+  const saved=decodeCheckpoint(encodeCheckpoint(host.state,host.assignments,host.seatTokens));host=new HostAuthority(saved.state,invite,saved.seatTokens);expect(host.canResolve()).toBe(false);expect(host.receive(`peer-${n}`,hello,n*1000).type).toBe('welcome');
+  for(let retry=0;retry<3;retry++)expect(host.receive(`peer-${n}`,JSON.stringify({type:'order',order:guest}),n*1000+retry+1)).toMatchObject({type:'receipt',ok:true,message:'Already accepted'});
+  expect(host.receive('stale-peer',JSON.stringify({type:'order',order:guest}),n*1000+5).type).toBe('error');expect(host.state).toEqual(committed);expect(host.state.orders).toHaveLength(0);
+ }
+});
