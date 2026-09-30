@@ -1,3 +1,4 @@
+import { dreamMitigation } from "./dream-preparation";
 import type { Match, Unit, Pos } from "./types";
 import { activeEffects, sightline } from "./effects";
 import { effectiveRelation } from "./diplomacy";
@@ -87,7 +88,7 @@ export function damageMorale(
     loss--;
     mark(s, tulkas, "stand-beside-used");
   }
-  set(s, u, "cohesion-loss", ordinaryAmount(s, u, "cohesion-loss") + loss);
+  set(s, u, "cohesion-loss", ordinaryAmount(s, u, "cohesion-loss") + dreamMitigation(s,u,"fear",loss));
   if (fear < 2 || amount(s, u, "fear-suppression") > 0) return;
   const p = s.players[u.owner],
     h = p && s.units[p.hero.id];
@@ -227,7 +228,7 @@ export function retreatMorale(s: Match, departing: Unit, route: Pos[]): void {
       s,
       departing,
       "cohesion-loss",
-      ordinaryAmount(s, departing, "cohesion-loss") + 1,
+      ordinaryAmount(s, departing, "cohesion-loss") + dreamMitigation(s,departing,"withdrawal",1),
     );
 }
 export function finishMoraleEncounter(s: Match): void {

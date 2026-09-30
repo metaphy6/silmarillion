@@ -1,8 +1,8 @@
 {
-  "run_id": "living-world-20260930",
-  "step": "Living-world presentation and remaining-work plan verified; ready for staging. Full game remains in progress.",
+  "run_id": "dream-forest-20260930",
+  "step": "Dream and forest integration verified; ready for staging. Full project remains in progress.",
   "scope": "Phaser TypeScript Vite full playable game request; all54factions55profiles retained; implementation continues, not complete",
-  "last_command": "Final 10 animation/native WebRTC browser cases passed; final typecheck lint build and27 affected regressions passed.",
+  "last_command": "npm run check: 652 tests passed; nine Chromium dream/forest/native WebRTC flows passed.",
   "completed": [
     "playable local alpha",
     "all55 roster identities and recipes",
@@ -13,11 +13,11 @@
     "165 seeded AI campaigns plus three64-week peaceful economies /3190 simulation weeks",
     "equipment/night UI and tool research routes; privacy/save/focus regressions repaired",
     "Rules terrain inspection overlay and bounded texture soak",
-    "Verified own-route movement, species-aware work, atmospheric nature and bounded action feedback; reduced-motion controls; seven-batch completion plan"
+    "Verified own-route movement, species-aware work, atmospheric nature and bounded action feedback; reduced-motion controls; seven-batch completion plan",
+    "Irmo dream preparation and report replacement; Orome patrol; Melian consenting withdrawal veil and Guest Road integrated into commands, UI, actual events and private snapshots"
   ],
   "pending": [
-    "Integrate tested forest modules into engine schemas persistence projection and UI",
-    "Integrate dream-preparation and council modules; finish Vaire and Avari portable workshop mechanics",
+    "Integrate Nienna council, Vaire archive-loss plans and Avari portable workshop mechanics",
     "Audit remaining adopted powers and passive consumers against authoritative source",
     "Finish terrain/painting alignment and production figure animation",
     "Managed room authorization and scoped expiring TURN credentials; real service tests remain external"
@@ -27,5 +27,5 @@
     "Safari unavailable; realcrossnetwork and forcedrelay service tests unexecuted"
   ],
   "policy": "No commit push deploy purchase. Parent finaltracking/staging after scope and gates; preserve unrelatedchanges.",
-  "last_verified": "637 aggregate unit tests /92 files plus final27 affected tests including one added habitat regression;49 distinct Chromium component/network cases;Firefox156 local;1702 art checks. Local gates green; external service evidence remains unavailable."
+  "last_verified": "652 tests /94 files, typecheck lint production build; nine Chromium flows. External service tests remain unexecuted."
 }

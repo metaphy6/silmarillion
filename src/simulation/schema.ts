@@ -1,3 +1,5 @@
+import {validateForest} from "./forest-routes";
+import {validateDreams} from "./dream-preparation";
 import {validateTools} from './tool-services';
 import {validateMounts} from './remounts';
 import {validateWatches} from './watch-posts';
@@ -62,6 +64,11 @@ const huntingBase={id,owner:id,unit:id,turn:n,revision:n,origin:z.object(point).
 const formationMembers=z.array(z.object({unit:id,route:huntRoute}).strict()).min(2).max(3);
 const formationBase={id,owner:id,hero:id,origin:z.object(point).strict(),turn:n,revision:n,until:n,communicationsCut:z.boolean(),members:formationMembers};
 const action = z.discriminatedUnion("kind", [
+ z.object({kind:z.literal("consent-veil"),unit:id,melian:id,accept:z.boolean()}).strict(),
+ z.discriminatedUnion("mode",[z.object({kind:z.literal("forest-power"),mode:z.literal("departing"),unit:id}).strict(),z.object({kind:z.literal("forest-power"),mode:z.literal("wild-road"),survey:id}).strict(),z.object({kind:z.literal("forest-power"),mode:z.literal("guest-road"),survey:id,origin:id,destination:id}).strict()]),
+ z.object({kind:z.literal("forest-entrance"),facility:id}).strict(),z.object({kind:z.literal("release-forest"),id}).strict(),z.object({kind:z.literal("harass-convoy"),unit:id,target:id}).strict(),z.object({kind:z.literal("inspect-forest"),unit:id,point:z.object(point).strict()}).strict(),
+ z.object({kind:z.literal("prepare-dream"),unit:id,facility:id,contingency:z.enum(["fear","withdrawal","landing"])}).strict(),
+ z.object({kind:z.literal("replace-dream"),plan:id,report:id,contingency:z.enum(["fear","withdrawal","landing"])}).strict(),
  z.discriminatedUnion('mode',[
  z.object({kind:z.literal('tool-service'),mode:z.literal('make'),facility:id,function:z.enum(['breach','repair'])}).strict(),
  z.object({kind:z.literal('tool-service'),mode:z.literal('refit'),facility:id,item:id,function:z.enum(['breach','repair'])}).strict(),
@@ -514,6 +521,12 @@ const receipt = z
   .strict();
 export const matchSchema = z
   .object({
+    forestConsents:z.record(id,z.object({unit:id,owner:id,melian:id,fallback:id,until:n}).strict()),
+    forestRoutes:z.record(id,z.object({id,owner:id,hero:id,kind:z.enum(["wild-road","guest-road"]),survey:id,route:huntRoute,turn:n,revision:n,markers:z.array(id).max(2),origin:id.optional(),destination:id.optional(),released:z.boolean(),patrolled:z.boolean()}).strict()),
+    forestVeils:z.record(id,z.object({unit:id,owner:id,hero:id,until:n,fallback:id,trail:z.array(z.object(point).strict()).max(128)}).strict()),
+    forestReports:z.record(id,z.object({id,owner:id,kind:z.enum(["passage","entrance"]),point:z.object(point).strict(),turn:n,revision:n,expires:n,uncertainty:z.string().max(400)}).strict()),
+    forestEntrances:z.record(id,z.object({owner:id,facility:id}).strict()),
+    dreamPlans:z.record(id,z.object({id,owner:id,unit:id,facility:id,rest:id,contingency:z.enum(["fear","withdrawal","landing"]),phase:z.enum(["resting","ready","spent"]),createdTurn:n.min(1),createdRevision:n,expiresTurn:n.min(1),replaced:z.boolean()}).strict()),
     version: z.literal(VERSION),
     id,
     scenario: z.literal("Cross-era sandbox"),
@@ -1192,6 +1205,7 @@ export function parseMatch(value: unknown, guestSeat?: string): Match {
   if(s.observedAttackers?.some(id=>!s.units[id])||s.chargeWarnings?.some(w=>!s.units[w.target]||w.origin.x>=s.map.width||w.origin.y>=s.map.height||w.until<=s.revision))throw new Error("Invalid charge observations");
   if(s.tacticalSignals&&(new Set(s.tacticalSignals.map(q=>q.id)).size!==s.tacticalSignals.length||s.tacticalSignals.some(q=>!s.units[q.target]||q.origin.x>=s.map.width||q.origin.y>=s.map.height||q.until<=s.revision)))throw new Error("Invalid tactical observations");
   validateShoreState(s,guestSeat);
+  validateDreams(s,guestSeat);validateForest(s,guestSeat);
   validateTools(s,guestSeat);validateMounts(s,guestSeat);validateWatches(s,guestSeat);
   validateEquipmentServices(s,guestSeat);
   validateFieldworkState(s,guestSeat);
@@ -1314,12 +1328,13 @@ export function parseMatch(value: unknown, guestSeat?: string): Match {
     if (
       f.id !== key ||
       !s.players[f.owner] ||
-      !buildings[f.kind] ||
+      (!buildings[f.kind] && f.kind!=="guest-marker") ||
       f.hp > f.maxHp ||
       f.x >= s.map.width ||
       f.y >= s.map.height
     )
       throw new Error("Invalid facility reference");
+    if(f.kind==="guest-marker" && (f.workers!==0 || f.job || f.repair || f.rest || f.maxHp!==20 || (!guestSeat && !Object.values(s.forestRoutes).some(q=>q.markers.includes(f.id))))) throw new Error("Invalid maintained forest marker");
     repairInvariant(s, f);
     restInvariant(s, f);
     if (f.job) {

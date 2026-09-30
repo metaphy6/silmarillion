@@ -1,3 +1,5 @@
+import {panel as forestPanel,actionBuilder as forestAction} from "./forest-controls";
+import { dreamPanel, dreamAction } from "./dream-controls";
 import { panel as nightPanel, actionBuilder as nightAction, describe as nightDescription } from "./night-relay-controls";
 import { panel as equipmentLogisticsPanel, actionBuilder as equipmentLogisticsAction, describe as equipmentLogisticsDescription } from "./equipment-logistics-controls";
 import {
@@ -310,7 +312,7 @@ function worldPanel(s: Match) {
             "",
           )}</select></label>${button("Review equip", "equip")}${entity.owner === "remnant" ? button("Call existing creature", "call") : ""}${entity.flying ? button(entity.landed ? "Take flight" : "Land for capture", "land") : ""}`
       : ""
-  }${entity && "workers" in entity ? `<p>Staff ${entity.workers} · ${entity.job ? `Queue ${esc(entity.job.recipe)}, ${entity.job.remaining} weeks remaining` : entity.repair ? `Repair ${esc(entity.repair.target)}, ${entity.repair.remaining} weeks remaining` : "Queue available"}</p>${button("Open production", "tab:economy")}` : ""}${world.scene.getRulesTerrain() ? `<p class="terrain-legend">${esc(RULES_TERRAIN_LEGEND)} The landscape painting is atmospheric; this overlay shows the simulation terrain.</p>` : ""}${conversationPanel(s)}${zonePanel(s)}${controlPowerPanel(s)}${tacticalPanel(s)}${chargePanel(s)}${fieldworkPanel(s)}${habitatPanel(s, seat)}${shorePanel(s, seat, selectedTile)}${formationPanel(s, seat, selectedTile)}${nightPanel(s, seat, selectedTile)}${equipmentLogisticsPanel(s, seat, selectedTile)}${scoutingPanel(s)}<details><summary>Construction — provisional prices</summary><label>Building<select id="building">${Object.entries(
+  }${entity && "workers" in entity ? `<p>Staff ${entity.workers} · ${entity.job ? `Queue ${esc(entity.job.recipe)}, ${entity.job.remaining} weeks remaining` : entity.repair ? `Repair ${esc(entity.repair.target)}, ${entity.repair.remaining} weeks remaining` : "Queue available"}</p>${button("Open production", "tab:economy")}` : ""}${world.scene.getRulesTerrain() ? `<p class="terrain-legend">${esc(RULES_TERRAIN_LEGEND)} The landscape painting is atmospheric; this overlay shows the simulation terrain.</p>` : ""}${conversationPanel(s)}${zonePanel(s)}${controlPowerPanel(s)}${tacticalPanel(s)}${chargePanel(s)}${fieldworkPanel(s)}${habitatPanel(s, seat)}${forestPanel(s,seat)}${shorePanel(s, seat, selectedTile)}${formationPanel(s, seat, selectedTile)}${nightPanel(s, seat, selectedTile)}${equipmentLogisticsPanel(s, seat, selectedTile)}${scoutingPanel(s)}<details><summary>Construction — provisional prices</summary><label>Building<select id="building">${Object.entries(
     buildings,
   )
     .map(
@@ -492,7 +494,7 @@ function economyPanel(s: Match) {
     fs = Object.values(s.facilities).filter(
       (f) => f.owner === seat && f.hp > 0,
     );
-  return `<p>Sources are access, not extra stocks: ${esc(p.sources.join(", "))}.</p><p>Established queues progress separately. Costs below are reserved now and paid at resolution.</p><label>Facility<select id="facility">${fs.map((f) => `<option value="${f.id}" ${f.id === selected ? "selected" : ""}>${esc(f.name)} · ${f.job ? `${f.job.recipe} (${f.job.remaining})` : f.repair ? `repair (${f.repair.remaining})` : f.rest ? `rest (${f.rest.remaining})` : "available"}</option>`).join("")}</select></label><div id="recipes">${recipeList(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}</div>${repairPanel(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}${equipmentServicePanel(s)}${civilianPanel(s, seat)}${restPanel(s)}${carePanel(s)}${cropPanel(s)}${worksitePanel(s)}${infrastructurePanel(s)}${fleetPanel(s)}${logisticsPanel(s)}${huntingPanel(s)}${crossingPanel(s)}${transportPanel(s)}<details><summary>Independent recovery economy</summary><p>Exchange 20P + 10M → 10K (provisional rate, one operation). Core ritual: 20M + 10K → 10E over 2 weeks. Missing-source component: 30M + 20K + 10E over 3 weeks.</p>${button("Review exchange", "exchange")}</details><h2>Work and identity</h2><p>${esc(economy(p.profile).production)}</p><p>${esc(economy(p.profile).magicEquipment)}</p>`;
+  return `<p>Sources are access, not extra stocks: ${esc(p.sources.join(", "))}.</p><p>Established queues progress separately. Costs below are reserved now and paid at resolution.</p><label>Facility<select id="facility">${fs.map((f) => `<option value="${f.id}" ${f.id === selected ? "selected" : ""}>${esc(f.name)} · ${f.job ? `${f.job.recipe} (${f.job.remaining})` : f.repair ? `repair (${f.repair.remaining})` : f.rest ? `rest (${f.rest.remaining})` : "available"}</option>`).join("")}</select></label><div id="recipes">${recipeList(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}</div>${repairPanel(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}${equipmentServicePanel(s)}${civilianPanel(s, seat)}${restPanel(s)}${dreamPanel(s, seat)}${carePanel(s)}${cropPanel(s)}${worksitePanel(s)}${infrastructurePanel(s)}${fleetPanel(s)}${logisticsPanel(s)}${huntingPanel(s)}${crossingPanel(s)}${transportPanel(s)}<details><summary>Independent recovery economy</summary><p>Exchange 20P + 10M → 10K (provisional rate, one operation). Core ritual: 20M + 10K → 10E over 2 weeks. Missing-source component: 30M + 20K + 10E over 3 weeks.</p>${button("Review exchange", "exchange")}</details><h2>Work and identity</h2><p>${esc(economy(p.profile).production)}</p><p>${esc(economy(p.profile).magicEquipment)}</p>`;
 }
 function recipeList(s: Match, facility: string) {
   if (!facility)
@@ -845,6 +847,10 @@ function patrolPanel(s: Match) {
 }
 function powerRouteHint(id: string, power: string): string {
   const routes: Record<string, string> = {
+    "irmo:support": "Economy → Rehearsal in Dream: prepare a company in paid rest; replace once with a fresh verified night report.",
+    "orome:support": "World → Keep the Wild Road: personally patrol an actual surveyed route.",
+    "melian:field": "World → Woodland roads and thresholds: veil an existing paid withdrawal with explicit allied consent.",
+    "melian:support": "World → Woodland roads and thresholds: ward an existing surveyed wooded supply route.",
     "elf_avari:field":
       "World → Formation orders: synchronize two actual light companies.",
     "elf_fingolfin:support":
@@ -983,6 +989,14 @@ function showReview(a: Action) {
   const p = state!.players[seat];
   let info =
     "One strategic operation unless this is the hero’s personal commitment.";
+  if(a.kind === "consent-veil") info="Grant or revoke permission for an allied Melian to veil this existing paid withdrawal. No additional operation or stock cost. Only this permission is shared, never your route. Revocation ends the current veil.";
+  if(a.kind === "forest-power") info=a.mode==="departing"?"2 readiness and one tactical hero action. An existing paid ordinary withdrawal in woodland is required. Conceals only the trail for two phases; attacking or open ground ends it. Allied owners must explicitly consent to this withdrawal; great creatures are excluded.":a.mode==="wild-road"?"3 readiness, one weekly hero commitment and 1P provisional travel supplies. Personally patrol the actual survey within ordinary movement. Nearby minor convoy harassment may be deterred; real attacks are unchanged.":"3 readiness, one weekly hero commitment, 10M, 5K and one maintained Anchor. Requires continuous woodland and two owned staffed endpoints. Normal carrier capacity, cost and travel time remain. Close inspection, lost cover, captured endpoints or destroyed markers counter concealment.";
+  if(a.kind === "release-forest") info="Release protection immediately without a refund or new operation. The maintained Anchor remains occupied until the week ends.";
+  if(a.kind === "forest-entrance") info="One normal operation assigns Melian to remember anonymous dated passage at this existing staffed entrance. No hidden identities or future route knowledge.";
+  if(a.kind === "harass-convoy") info="One ordinary operation attempts minor harassment of an identified adjacent hostile party. Convoy membership and travel outcome remain private. No extra attack, stolen stock or damage.";
+  if(a.kind === "inspect-forest") info="One normal operation inspects adjacent observed ground for anonymous dated tracks. No hidden identity, numbers or future route is disclosed.";
+  if(a.kind === "prepare-dream") info="3 readiness and one weekly hero commitment. Requires the existing paid 2P rest assignment and ordinary upkeep. Rest completion enables one matching coordination reduction within the following week; injury or interrupted rest cancels it. No extra action or HP protection.";
+  if(a.kind === "replace-dream") info="Replace this preparation once using fresh owned nonempty verified night-patrol evidence. No additional payment or rest. Original expiry and single-use limit remain.";
   if (a.kind === "produce") {
     const r = recipe(p.profile, a.recipe)!;
     info = `${r.name}: ${cost(r.cost)}, ${r.turns} weeks. Facility queue, no strategic operation. ${a.recipe === "sentinel" ? "Also one personal commitment and 3 readiness; one active/pending construct." : ""} ${r.provisional ? "Provisional runtime tuning." : ""}`;
@@ -1566,7 +1580,7 @@ async function handle(action: string) {
       });
       return;
     }
-    const domainOrder = nightAction(action, state, seat, value) ?? equipmentLogisticsAction(action, state, seat, value);
+    const domainOrder = forestAction(action,state,seat,value) ?? dreamAction(action, preview(state, seat), value) ?? nightAction(action, state, seat, value) ?? equipmentLogisticsAction(action, state, seat, value);
     if (domainOrder) { review(domainOrder); return; }
     const formationOrder = formationAction(action, state, seat, value);
     if (formationOrder) {

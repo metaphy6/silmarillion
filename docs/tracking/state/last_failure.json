@@ -1,12 +1,12 @@
 {
-  "run_id": "living-habitat-red--20260930T081213Z-1574312",
-  "tag": "living-habitat-red-",
-  "ts_utc": "2026-09-30T08:12:15Z",
+  "run_id": "forest-ui-complete--20260930T083924Z-1667289",
+  "tag": "forest-ui-complete-",
+  "ts_utc": "2026-09-30T08:39:31Z",
   "cwd": "/home/serhatakbak/code/projects/silmarillion",
-  "command": "npx vitest run tests/presentation.test.ts",
+  "command": "env SILMARILLION_DEV_TEST_URL=http://127.0.0.1:5175 npx playwright test tests/browser/forest-flows.spec.ts",
   "exit_code": 1,
-  "log_file": "/tmp/agent-runs/living-habitat-red--20260930T081213Z-1574312.log",
-  "cmd_file": "/tmp/agent-runs/living-habitat-red--20260930T081213Z-1574312.cmd",
+  "log_file": "/tmp/agent-runs/forest-ui-complete--20260930T083924Z-1667289.log",
+  "cmd_file": "/tmp/agent-runs/forest-ui-complete--20260930T083924Z-1667289.cmd",
   "resolved": true,
-  "resolution": "Expected habitat regression failed before implementation; final 27 affected tests plus typecheck lint and build passed. See living-final--20260930T081735Z-1587412.log."
+  "resolution": "Browser fixture now saves only at a committed weekly boundary; forest UI and final nine browser cases pass. See mechanics-browser-final--20260930T084318Z-1682186.log."
 }

@@ -1,3 +1,4 @@
+import { dreamMitigation } from "./dream-preparation";
 import type {Match,Pos,Unit} from './types';
 import {factionProduction} from '../content/production';
 import {effectiveRelation} from './diplomacy';
@@ -22,7 +23,7 @@ export function landingReason(s:ShoreState,seat:string,ship:string,unit:string,t
 export function prepareLanding(s:ShoreState,seat:string,ship:string,unit:string,tile:Pos,contested:(p:Pos)=>boolean){const reason=landingReason(s,seat,ship,unit,tile,contested);if(reason)throw new Error(reason);const id=`landing:${s.nextId++}`;s.players[seat].hero.readiness-=2;s.shorePreparations[id]={id,owner:seat,hero:s.players[seat].hero.id,ship,unit,tile:{...tile},kind:'landing',until:s.revision+1};}
 /** Call at actual disembark completion only; normal operation/time unchanged.
  * Provisional ordinary unloading cohesion loss1 uses existing morale cleanup. */
-export function completeLanding(s:ShoreState,ship:string,u:Unit,tile:Pos){const q=Object.values(s.shorePreparations).find(q=>q.kind==='landing'&&q.ship===ship&&q.unit===u.id&&d(q.tile,tile)===0&&q.committed&&s.units[q.hero]?.alive&&s.units[q.hero].active);if(q){delete s.shorePreparations[q.id];return;}if(u.kind!=='company')return;const e=activeEffects(s,u).find(e=>e.kind==='cohesion-loss');if(e)e.value++;else u.effects.push({kind:'cohesion-loss',value:1,until:1000000,source:`morale:${s.turn}`});}
+export function completeLanding(s:ShoreState,ship:string,u:Unit,tile:Pos){const q=Object.values(s.shorePreparations).find(q=>q.kind==='landing'&&q.ship===ship&&q.unit===u.id&&d(q.tile,tile)===0&&q.committed&&s.units[q.hero]?.alive&&s.units[q.hero].active);if(q){delete s.shorePreparations[q.id];return;}if(u.kind!=='company'||dreamMitigation(s,u,'landing',1)===0)return;const e=activeEffects(s,u).find(e=>e.kind==='cohesion-loss');if(e)e.value++;else u.effects.push({kind:'cohesion-loss',value:1,until:1000000,source:`morale:${s.turn}`});}
 
 /** Bind valid one-phase preparation to the actual accepted normal unloading job. */
 export function bindLanding(s:ShoreState,ship:string,unit:string,tile:Pos){const q=Object.values(s.shorePreparations).find(q=>q.kind==='landing'&&q.ship===ship&&q.unit===unit&&q.until>s.revision&&d(q.tile,tile)===0);if(q)q.committed=true;}

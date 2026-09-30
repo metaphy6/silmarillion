@@ -204,7 +204,9 @@ export function validateDreams(s: DreamState, guestSeat?: string): void {
       id !== q.id ||
       s.players[q.owner]?.profile !== "irmo" ||
       (guestSeat && q.owner !== guestSeat) ||
-      !s.units[q.unit] ||
+      !s.units[q.unit]?.alive || s.units[q.unit].owner!==q.owner || s.units[q.unit].kind!=="company" ||
+      (q.phase==="resting" && (s.facilities[q.facility]?.rest?.id!==q.rest || s.facilities[q.facility]?.rest?.unit!==q.unit || s.facilities[q.facility]?.owner!==q.owner)) ||
+      (q.createdTurn===s.turn && s.players[q.owner].commitment!==0) ||
       q.createdTurn < 1 ||
       q.createdTurn > s.turn ||
       q.createdRevision < 0 ||

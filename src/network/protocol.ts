@@ -34,6 +34,10 @@ export type Reply =
   | { type: "snapshot"; snapshot: Match };
 export function guestSnapshot(s: Match, seat: string): Match {
   const out = structuredClone(s);
+  for(const [id,q] of Object.entries(out.forestConsents))if(q.owner!==seat&&q.melian!==seat)delete out.forestConsents[id];
+  for(const q of Object.values(out.forestVeils))if(s.units[q.unit]?.owner!==seat)q.trail=[];
+  for(const records of [out.forestRoutes,out.forestVeils,out.forestReports,out.forestEntrances])for(const [id,q] of Object.entries(records))if(q.owner!==seat)delete records[id];
+  for(const [id,q] of Object.entries(out.dreamPlans)) if(q.owner!==seat) delete out.dreamPlans[id];
   for(const records of [out.toolJobs,out.mountLots,out.mountJobs,out.watchGear,out.watchJobs,out.borderReports,out.borderSurveys])for(const[id,q]of Object.entries(records))if(q.owner!==seat)delete records[id];
   for(const id of Object.keys(out.toolMetadata))if(s.items[id]?.owner!==seat)delete out.toolMetadata[id];
   for(const records of [out.darkShifts,out.dawnWatches,out.dawnReports,out.scoutCredentials,out.nightPatrols,out.nightReports,out.personalNightSurveys,out.relayMessages,out.secondSignals,out.relayDeliveries])for(const[id,q]of Object.entries(records))if(q.owner!==seat)delete records[id];

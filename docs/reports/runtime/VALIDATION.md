@@ -1,6 +1,17 @@
+## Dream and forest integration — 30 September 2026
+
+Current version is **r6-sim-11-1ba24d66-protocol-2-save-2**. Older version-10 checkpoints and peers are rejected; no migration is implemented. The project remains unfinished: the next mechanics batch is Nienna, Vairë and Avari support.
+
+- `npm run check`: **652 tests / 94 files**, typecheck, lint and production build passed, including all 56 long campaign cases. Evidence: `/tmp/agent-runs/mechanics-final-check--20260930T084200Z-1675010.log`.
+- Chromium: **nine passed** — three new dream/forest UI flows and six native local WebRTC cases (fault recovery and 2/3/4 seats). Evidence: `/tmp/agent-runs/mechanics-browser-final--20260930T084318Z-1682186.log`. These use the development server; the production bundle was built separately. Full roster UI campaigns, Firefox, Safari and physical-device checks were not repeated.
+- New integration regressions cover paid dream rest, injury/cancellation, real fear/withdrawal/landing consumption, fresh ordinary patrol evidence and single replacement; forest route movement, explicit allied permission/revocation, concealed convoy observations, marker loss and finite harassment. Guest snapshots exclude private plans/routes and allied withdrawal trails. No instant travel, generated cargo or free attacks.
+- Inspected desktop forest controls and compact dream controls; retained ordinary review, Escape/focus and scrolling behavior. This is bounded visual evidence, not full accessibility certification. Disk persistence remains restricted to committed weekly boundaries; strict filtered snapshots cover midweek state. Guest Road expires at the weekly boundary while the real convoy continues normally.
+- Retained failed runs exposed missing command/schema integration, marker validation, absent consent enforcement and forged dream ownership checks; regressions now pass. Browser fixture failures attempted an uncommitted disk save; fixtures now use legitimate boundaries without weakening checkpoint validation. The earlier full run's stale version assertion was updated for the intentional compatibility fence.
+- Application bundle: **1,166.76kB / 295.68kB gzip**; Phaser **1,208.05kB / 330.07kB gzip**. Existing large-chunk and upstream annotation warnings remain. Managed service authorization, independent networks and forced relay remain unverified.
+
 ## Living-world follow-up — 30 September 2026
 
-Current version is **r6-sim-10-1ba24d66-protocol-2-save-2**. The evidence below this section describes the preceding playtest build unless explicitly refreshed here. Older peers/checkpoints are rejected; no migration is implemented and existing exports are untouched.
+Version for this earlier follow-up is **r6-sim-10-1ba24d66-protocol-2-save-2**. The evidence below this section describes the preceding playtest build unless explicitly refreshed here. Older peers/checkpoints are rejected; no migration is implemented and existing exports are untouched.
 
 - Aggregate: **637 tests / 92 files**, typecheck, lint and build passed (`living-full-check--20260930T080959Z-1565080.log`). A subsequent habitat regression increases the suite inventory by one; final **27 affected tests**, typecheck, lint and production build passed (`living-final--20260930T081735Z-1587412.log`). The complete long soak was not repeated for that visual-only addition.
 - Chromium component/render/accessibility checks: **43 passed**. Final four animation plus six native local WebRTC cases also passed (49 distinct cases total), including 2/3/4-seat flows and three interruption cases. Log: `living-final-browser--20260930T081804Z-1589487.log`. The prior 55 full UI campaigns were not rerun on this version; the aggregate simulation campaign soak was.

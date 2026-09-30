@@ -1,3 +1,5 @@
+import { forestReason, consentVeilReason, consentVeil, prepareForest, resolveForestPatrols, forestAttack, harassmentReason, harassConvoy, releaseForest, forestWeekly, entranceReason, assignForestEntrance, inspectForestReason, inspectForestTrail, settleForest } from "./forest-routes";
+import { dreamReason, prepareDream, replacementReason, replaceDream, pruneDreams, interruptDream, type DreamChecks } from "./dream-preparation";
 import {queueToolReason,queueTool,refitToolReason,refitTool,fieldRepairReason,fieldRepair,progressTools,toolUnitBusy,toolFacilityBusy} from './tool-services';
 import {queueMountsReason,queueMounts,recoverMountsReason,recoverMounts,remountReason,startRemount,progressMounts,mountUnitBusy,mountFacilityBusy,initializeMounts,createCompanyMounts} from './remounts';
 import {watchGearReason,queueWatchGear,reweaveReason,startReweave,progressWatchGear,watchUnitBusy,watchFacilityBusy} from './watch-posts';
@@ -448,6 +450,7 @@ export function createMatch(
   if (!Number.isInteger(seed) || size < 24 || size > 128)
     throw new Error("Invalid scenario parameters");
   const s: Match = {
+    dreamPlans: {},forestConsents:{},forestRoutes:{},forestVeils:{},forestReports:{},forestEntrances:{},
     version: VERSION,
     id: matchId ?? `basin-${seed}-${ids.join("-")}`,
     scenario: "Cross-era sandbox",
@@ -763,6 +766,7 @@ export function movementPowerOperations(
   );
 }
 const tactical = (p: Player, a: Action) =>
+  (a.kind==="forest-power"&&a.mode==="departing") ||
   (a.kind === "logistics" && a.mode === "lift") ||
   (a.kind === "formation-power"&&a.mode==="rendezvous") ||
   a.kind === "scout-power" ||
@@ -839,6 +843,9 @@ function actionReason(s: Match, seat: string, a: Action): string {
   if (p.eliminated) return "Faction has lost its recovery footholds";
   if (p.ready && a.kind !== "ready") return "Seat already committed";
   if (a.kind === "ready") return "";
+  if(a.kind==="consent-veil")return consentVeilReason(s,seat,a.unit,a.melian,a.accept);
+  if(a.kind==="release-forest")return s.forestRoutes[a.id]?.owner===seat?"":"Own maintained route required";
+  if (a.kind === "replace-dream") return replacementReason(s, seat, a.plan, a.report, dreamChecks(s));
   const reservedNight=(id:string)=>nightBusy(s,id)||relayBusy(s,id);
   if(("unit"in a&&reservedNight(a.unit))||("worker"in a&&reservedNight(a.worker))||("carrier"in a&&a.carrier&&reservedNight(a.carrier))||("crew"in a&&reservedNight(a.crew))||("courier"in a&&reservedNight(a.courier))||(a.kind==="movement-power"&&a.members.some(m=>reservedNight(m.unit)))||(a.kind==="declare-tactical"&&reservedNight(a.order.unit)))return "Party is committed to night work or a physical message";
   if (("unit" in a&&civilianBusy(s,a.unit))||("worker" in a&&civilianBusy(s,a.worker))||("carrier" in a&&a.carrier&&civilianBusy(s,a.carrier))||("crew" in a&&civilianBusy(s,a.crew))||(a.kind==="movement-power"&&a.members.some(m=>civilianBusy(s,m.unit)))||(a.kind==="declare-tactical"&&civilianBusy(s,a.order.unit)))return "Carrier is committed to civilian transport";
@@ -882,6 +889,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       "scout-power",
       "habitat-power",
       "formation-power",
+      "forest-power", "prepare-dream",
       "surrender",
     ].includes(a.kind)
   )
@@ -928,7 +936,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       : "Own declared tactical order required";
   const busyTactical = (id: string) => tacticalPartyBusy(s, id);
   if (
-    a.kind !== "tactical-power" &&
+    a.kind !== "tactical-power" && !(a.kind==="forest-power"&&a.mode==="departing") &&
     (("unit" in a && busyTactical(a.unit)) ||
       ("carrier" in a && a.carrier && busyTactical(a.carrier)) ||
       ("crew" in a && busyTactical(a.crew)) ||
@@ -1101,6 +1109,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       "scout-power",
       "habitat-power",
       "formation-power",
+      "forest-power", "prepare-dream",
     ].includes(a.kind) ||
     ("unit" in a &&
       a.unit === p.hero.id &&
@@ -1151,6 +1160,11 @@ function actionReason(s: Match, seat: string, a: Action): string {
     p.operations < 1
   )
     return "No strategic operations remain";
+  if(a.kind==="prepare-dream")return dreamReason(s,seat,a.unit,a.facility,dreamChecks(s));
+  if(a.kind==="forest-power")return forestReason(s,seat,a,(x,y)=>Boolean(path(s,x,y,false,s.units[p.hero.id])));
+  if(a.kind==="forest-entrance")return entranceReason(s,seat,a.facility);
+  if(a.kind==="harass-convoy")return harassmentReason(s,seat,a.unit,a.target);
+  if(a.kind==="inspect-forest")return inspectForestReason(s,seat,a.unit,a.point);
   if(a.kind==='tool-service'||a.kind==='mounts'||a.kind==='watch-gear'){if(p.operations<equipmentOperations(a))return 'Normal physical transfer operation required';return equipmentReason(s,seat,a);}
   if(a.kind==="civilian"){if(p.operations<1)return "Civilian orders need one ordinary operation";return civilianReason(s,seat,a,civilianChecks(s));}
   if(a.kind==="night"){if(p.operations<nightOperations(a))return "Insufficient ordinary operations for night assignment";return nightOrderReason(s,seat,a);}
@@ -1754,6 +1768,7 @@ function spendBudget(s: Match, seat: string, a: Action) {
       "scout-power",
       "habitat-power",
       "formation-power",
+      "forest-power", "prepare-dream",
     ].includes(a.kind) ||
     ("unit" in a &&
       a.unit === p.hero.id &&
@@ -1813,6 +1828,7 @@ function damage(
   if (ability && (t.kind === "hero" || t.kind === "core") && t.hp === t.maxHp)
     hit = Math.min(hit, t.hp - 1);
   if (hit > 0 && "effects" in t) {
+    interruptDream(s,t.id);
     interruptShorePower(s,t.id);
     interruptChargesOnDamage(s,t.id,hit);
     interruptHunting(s,t.id,hit);
@@ -1918,6 +1934,7 @@ function performOrdinaryAttack(
   const p = s.players[seat],
     u = s.units[unit],
     a = { target };
+  forestAttack(s,u.id);
   recordObservedAttack(s, u);
   recordWitnessedAttack(s,u);
   const intended = s.units[a.target];
@@ -1981,6 +1998,15 @@ function performOrdinaryAttack(
   return intendedHit;
 }
 function apply(s: Match, seat: string, a: Action, preview = false) {
+  if(a.kind==="consent-veil"){consentVeil(s,seat,a.unit,a.melian,a.accept);return;}
+  if(a.kind==="forest-power"){prepareForest(s,seat,a,(x,y)=>Boolean(path(s,x,y,false,s.units[s.players[seat].hero.id])));spendBudget(s,seat,a);return;}
+  if(a.kind==="forest-entrance"){assignForestEntrance(s,seat,a.facility);spendBudget(s,seat,a);return;}
+  if(a.kind==="harass-convoy"){harassConvoy(s,seat,a.unit,a.target);spendBudget(s,seat,a);return;}
+  if(a.kind==="inspect-forest"){inspectForestTrail(s,seat,a.unit,a.point);spendBudget(s,seat,a);return;}
+  if(a.kind==="release-forest"){releaseForest(s,seat,a.id);return;}
+
+  if(a.kind === "prepare-dream") { prepareDream(s,seat,a.unit,a.facility,a.contingency,dreamChecks(s));s.players[seat].commitment--;return; }
+  if(a.kind === "replace-dream") { replaceDream(s,seat,a.plan,a.contingency,a.report,dreamChecks(s));return; }
   if(a.kind==="night"){applyNightOrder(s,seat,a);spendBudget(s,seat,a);return;}
   if(a.kind==="civilian"){applyCivilian(s,seat,a,civilianChecks(s));spendBudget(s,seat,a);return;}
   if(!preview){const unit="unit" in a?a.unit:a.kind==="declare-tactical"?a.order.unit:undefined;if(unit&&s.units[unit])verifiedOrderMorale(s,s.units[unit]);}
@@ -2702,6 +2728,7 @@ export function resolveWeek(state: Match): Match {
       seats.length;
   const phase = (a: Action) =>
     [
+      "consent-veil", "prepare-dream", "replace-dream", "forest-power", "forest-entrance", "release-forest", "inspect-forest", "harass-convoy",
       "tool-service", "mounts", "watch-gear",
       "produce",
       "care",
@@ -2814,6 +2841,7 @@ export function resolveWeek(state: Match): Match {
   }
   progressWorksiteSupports(s, worksiteChecks(s));
   resolveCharges(s,(state,x,y,u)=>path(state,x,y,u.flying,u),{attack:(attacker,target)=>performOrdinaryAttack(s,s.units[attacker].owner,attacker,target),moved:(u,route)=>{passiveActivity(s,u);recordPatrolMovement(s,u,route);if(u.kind==="hero"){s.warnings=s.warnings.filter(w=>w.seat!==u.owner);for(const[id,plan]of Object.entries(s.movementPlans))if(plan.owner===u.owner)delete s.movementPlans[id];}u.effects=u.effects.filter(e=>!e.source.startsWith("circle:")&&!e.source.startsWith("formation:"));cancelSeparatedTreatments(s);}});
+  resolveForestPatrols(s,(state,x,y,u)=>path(state,x,y,u.flying,u),(u,route)=>civilianChecks(s).moved?.(s,u,route));
   resolveFormations(s,(state,x,y,u)=>path(state,x,y,u.flying,u),(u,route)=>{passiveActivity(s,u);recordPatrolMovement(s,u,route);u.effects=u.effects.filter(e=>!e.source.startsWith("circle:")&&!e.source.startsWith("formation:"));cancelSeparatedTreatments(s);});
   resolveTacticalOrders(s, (state, x, y, u) => path(state, x, y, u.flying, u), {
     ranged:(attacker,target)=>performOrdinaryAttack(s,s.units[attacker].owner,attacker,target),
@@ -2827,6 +2855,7 @@ export function resolveWeek(state: Match): Match {
       ),
   });
   cancelSeparatedTreatments(s);
+  settleForest(s);pruneDreams(s);
   pruneRepairs(s);
   pruneRest(s);
   progressLogistics(
@@ -2839,7 +2868,7 @@ export function resolveWeek(state: Match): Match {
   settleNightParties(s);settleRelayLosses(s);
   advanceNightPatrols(s,civilianChecks(s).route,civilianChecks(s).cost,(u,route)=>civilianChecks(s).moved?.(s,u,route));
   if (
-    (Object.values(s.nightPatrols).some(q=>q.phase!=="interrupted") || executedCombat ||
+    (Object.values(s.forestRoutes).some(q=>q.kind==="wild-road"&&!q.patrolled&&!q.released) || Object.values(s.nightPatrols).some(q=>q.phase!=="interrupted") || executedCombat ||
       s.combatPhase > 0 ||
       Object.keys(s.movementPlans).length > 0 ||
       Object.keys(s.formationOrders).length > 0 ||
@@ -2856,6 +2885,7 @@ export function resolveWeek(state: Match): Match {
     endPassivePhase(s);
     s.combatPhase++;
     s.revision++;
+    settleForest(s);pruneDreams(s);
     pruneScouting(s);
     for (const [id, plan] of Object.entries(s.movementPlans))
       if (plan.until <= s.revision) delete s.movementPlans[id];
@@ -2921,6 +2951,7 @@ export function resolveWeek(state: Match): Match {
   progressEquipmentServices(s,(x,y)=>Boolean(path(s,x,y,false)));
   progressHabitat(s,(x,y,u)=>Boolean(path(s,x,y,false,u)));
   progressFieldworks(s,(x,y,u)=>Boolean(path(s,x,y,false,u)));
+  pruneDreams(s);
   progressRest(s);
   progressCrossings(s);
   progressInfrastructureWork(s, (state, x, y, u) =>
@@ -2980,6 +3011,8 @@ export function resolveWeek(state: Match): Match {
   s.combatPhase = 0;
   s.turn++;
   s.revision++;
+  pruneDreams(s);
+  forestWeekly(s);
   finishScoutTraining(s);publishNightReports(s);advanceNightRegions(s);
   pruneScouting(s);
   progressHabitat(s,(x,y,u)=>Boolean(path(s,x,y,false,u)));
@@ -3145,4 +3178,16 @@ function applyEquipmentOrder(s:Match,seat:string,a:Action){const connected=(x:Po
  if(a.kind==='tool-service'){if(a.mode==='make')queueTool(s,seat,a.facility,a.function);else if(a.mode==='refit')refitTool(s,seat,a.item,a.facility,a.function,connected);else fieldRepair(s,seat,a.unit,a.tool,a.target);}
  if(a.kind==='mounts'){if(a.mode==='breed')queueMounts(s,seat,a.facility);else if(a.mode==='recover')recoverMounts(s,seat,a.lot);else startRemount(s,seat,a.rider,a.lot,a.crew,a.route,c);}
  if(a.kind==='watch-gear'){if(a.mode==='make')queueWatchGear(s,seat,a.facility);else startReweave(s,seat,a.facility,a.worker,a.route,c);}
+}
+
+function dreamChecks(s: Match): DreamChecks {
+ return {
+  connected: (a,b,u) => Boolean(path(s,a,b,u.flying,u)),
+  verifiedReport: (seat,id,turn,revision) => {
+   const r=s.nightReports[id];
+   return !!r && r.owner===seat && r.verified && r.observations.length>0 &&
+    (r.createdTurn>turn || r.createdTurn===turn && r.createdRevision>revision) &&
+    r.observations.some(o=>o.turn>turn || o.turn===turn && o.revision>revision);
+  }
+ };
 }

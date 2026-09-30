@@ -1,3 +1,4 @@
+import {forestMovement,forestTrailHidden} from "./forest-routes";
 import {borderMemory} from './watch-posts';
 import {recordNightMovement} from "./night-patrol";
 import {recordDawnMovement} from "./night-work";
@@ -26,13 +27,14 @@ export function recordPatrolMovement(s:PatrolState,u:Unit,route:Pos[]):void {
   s.events.push({id:s.nextId++,turn:s.turn,audience:[u.owner],text:`${u.name} completed its recorded movement.`,motion:{unit:u.id,route:clone(route)}});
   if(s.events.length>400)s.events.splice(0,s.events.length-400);
  }
+ forestMovement(s,u,route);
  recordNightMovement(s,u,route);recordDawnMovement(s,u,route);
  if(u.flying&&!u.landed)return;
  recordFormationObservation(s,u,route);
  borderMemory(s,u,route);
  recordHabitatTravel(s,u,route);
  for(const[id,t]of Object.entries(s.movementTraces))if(t.turn<s.turn-1)delete s.movementTraces[id];
- const id=`trace:${s.nextId++}`;s.movementTraces[id]={id,owner:u.owner,route:clone(route),turn:s.turn,revision:s.revision,erased:false};cap(s.movementTraces,512);
+ const id=`trace:${s.nextId++}`;s.movementTraces[id]={id,owner:u.owner,route:clone(route),turn:s.turn,revision:s.revision,erased:forestTrailHidden(s,u,route)};cap(s.movementTraces,512);
  if(s.players[u.owner]){
   // Existing assignments remain valid checkpoints. Never evict a referenced
   // route to make room for unrelated travel history.

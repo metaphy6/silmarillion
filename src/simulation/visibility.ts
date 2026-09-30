@@ -1,3 +1,4 @@
+import {forestObservation} from "./forest-routes";
 import {watchActive,watchConcealed} from './watch-posts';
 import type { Match, Pos } from "./types";
 import type { Zone } from "./zones";
@@ -86,6 +87,7 @@ function obscuredRay(s: Match, a: Pos, b: Pos): "clear" | "thinned" | "opaque" {
 export function observation(s: Match, seat: string, pos: Pos): Observation {
   const unit = "id" in pos ? s.units[String(pos.id)] : undefined;
   if (unit?.owner === seat) return "identified";
+  if(unit&&forestObservation(s,seat,unit)==="hidden")return "hidden";
   const effects =
     unit?.effects.filter((e) => e.until > s.revision && e.value > 0) ?? [];
   if (effects.some((e) => ["tunnel", "roofed"].includes(e.kind)))

@@ -27,6 +27,7 @@ function fixture() {
   });
   p.hero.status = "living";
   p.hero.readiness = 6;
+  p.commitment = 0;
   s.units[p.hero.id] = {
     ...structuredClone(u),
     id: p.hero.id,

@@ -1,3 +1,4 @@
+import { completeDreamRest } from "./dream-preparation";
 import {travelMounts} from './remounts';
 import type { Match, Unit, Pos, Facility } from "./types";
 import { stocks } from "./types";
@@ -156,6 +157,7 @@ export function progressRest(s: Match): void {
       mark(s, h, "refuge-rest-used");
     }
     setFatigue(u, Math.max(0, fatigue(s, u) - recovery));
+    completeDreamRest(s,f.id,j.id);
     delete f.rest;
   }
 }

@@ -1,3 +1,5 @@
+import type {ForestConsent,ForestRoute,ForestVeil,ForestReport,ForestEntrance,ForestRequest} from "./forest-routes";
+import type { DreamPlan, DreamContingency } from "./dream-preparation";
 import type {ToolMetadata,ToolJob,ToolAction} from './tool-services';
 import type {MountLot,MountJob,MountAction} from './remounts';
 import type {WatchGear,WatchJob,BorderReport,BorderSurvey,WatchAction} from './watch-posts';
@@ -190,7 +192,12 @@ export interface GameEvent {
   text: string;
   audience: string[] | "public";
 }
-export type Action = ToolAction | MountAction | WatchAction
+export type Action = {kind:"consent-veil";unit:string;melian:string;accept:boolean}
+ | ({kind:"forest-power"}&ForestRequest)
+ | {kind:"harass-convoy";unit:string;target:string} | {kind:"forest-entrance";facility:string} | {kind:"release-forest";id:string} | {kind:"inspect-forest";unit:string;point:Pos}
+ | {kind:"prepare-dream";unit:string;facility:string;contingency:DreamContingency}
+ | {kind:"replace-dream";plan:string;report:string;contingency:DreamContingency}
+ | ToolAction | MountAction | WatchAction
  | NightAction
   | ({kind:"civilian"}&CivilianRequest)
  | {kind:"surge-passage";unit:string;tile:Pos}
@@ -307,6 +314,9 @@ export interface Receipt {
   fingerprint: string;
 }
 export interface Match {
+  dreamPlans: Record<string, DreamPlan>;
+  forestConsents:Record<string,ForestConsent>;
+  forestRoutes:Record<string,ForestRoute>;forestVeils:Record<string,ForestVeil>;forestReports:Record<string,ForestReport>;forestEntrances:Record<string,ForestEntrance>;
   version: string;
   id: string;
   scenario: string;
@@ -430,5 +440,5 @@ export interface Profile {
   compensates: string;
   retained_weakness: string;
 }
-export const VERSION = `r6-sim-10-${CONTENT_FINGERPRINT}-protocol-2-save-2`;
+export const VERSION = `r6-sim-11-${CONTENT_FINGERPRINT}-protocol-2-save-2`;
 export const stocks = (P = 0, M = 0, K = 0, E = 0): Stock => ({ P, M, K, E });
