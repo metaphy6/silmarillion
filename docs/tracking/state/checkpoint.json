@@ -1,38 +1,25 @@
 {
-  "run_id": "local-completion-20260930",
-  "step": "staged: local implementation and available workstation gates completed",
-  "scope": "All authorized local implementation; external remote certification remains blocked by owner direction.",
-  "last_command": "807 final noncampaign tests, full lint/typecheck/build,151 browser-case inventory,33 final render cases and10 stability measurements passed.",
+  "run_id": "rts-transformation-20260930",
+  "previous_run_id": "local-completion-20260930",
+  "step": "staged: representative real-time skirmish verified",
+  "scope": "The Two Fords: Gondor versus Saruman; retained weekly roster and networking",
+  "last_command": "Final lint/typecheck/build, 38 affected tests, 5 RTS browser flows and optimized 40/100/200-unit performance passed",
   "completed": [
-    "playable local alpha",
-    "all55 roster identities and recipes",
-    "indexedDB checkpoints and local nativeRTC2-4 flows",
-    "physical convoy/naval/care/crop/fieldwork/habitat/shore/civilian systems",
-    "original54identityportraits and16buildingstudies",
-    "55 normal UI campaigns / 660 weeks",
-    "165 seeded AI campaigns plus three64-week peaceful economies /3190 simulation weeks",
-    "equipment/night UI and tool research routes; privacy/save/focus regressions repaired",
-    "Rules terrain inspection overlay and bounded texture soak",
-    "Verified own-route movement, species-aware work, atmospheric nature and bounded action feedback; reduced-motion controls; seven-batch completion plan",
-    "Irmo dream preparation and report replacement; Orome patrol; Melian consenting withdrawal veil and Guest Road integrated into commands, UI, actual events and private snapshots",
-    "Nienna observed-injury council, exact versioned consent, finite physical restitution/drop/recovery, paid settlement and private dated survivor records integrated into engine/UI/save/guest state",
-    "Vaire preserved-plan archive-loss production and Avari portable workshop integration with private normal UI flows",
-    "Routine environment, local knowledge, finite logging, wardband rewards, recovery/naval/travel passives, heavy equipment, beacon signals and ordinary agent captivity",
-    "Companion/secondary paid production and utility regressions",
-    "All110 adopted power routes and55 passive event consumers reviewed",
-    "All55 additional named products and physical utilities integrated with paid queues/save/guest validation",
-    "22 original figure archetypes with88 independent directional views, articulated phases, semantic terrain masks and licensed Noto fonts",
-    "Review fixes: foreign mount privacy, actual hull contacts, finite product stats, paid mount rest, device threshold isolation, stranded workshop loads and carried equipment fitting",
-    "Keyboard focus restoration and software-GPU Canvas fallback; measured readback bottleneck fixed and ten consecutive frame-time gates passed."
+    "100ms deterministic paid economy and physical deliveries/construction/siege ammunition",
+    "direct mouse and keyboard command, minimap, hotkeys, placement, queues and versioned saves",
+    "local economic AI, paid victory and passive-player defeat",
+    "original siege/forest assets, directional actions, fog and contextual HUD",
+    "891 aggregate tests then 38 final affected tests; 21 distinct browser cases; 1829 static art checks",
+    "100/200-unit p95 frame16.7ms with original performance budgets retained",
+    "authoritative timing amendment, synchronized PDF, before/after and failed-stress evidence"
   ],
   "pending": [
-    "Remote certification blocked by owner; Safari, physical-device and assistive-technology certification unavailable."
+    "53 remaining RTS profiles and unported powers/economies",
+    "RTS authenticated multiplayer, reconnect and remote certification",
+    "capture/rescue initiation, equipment/perk progression, naval and diplomacy conversion",
+    "physical-device, Safari, assistive-technology and independent balance testing"
   ],
-  "external_dependencies": [
-    "managed production room authorization and short-lived scoped TURN credential mechanism unresolved; no owner backend",
-    "Safari unavailable; realcrossnetwork and forcedrelay service tests unexecuted"
-  ],
-  "policy": "No commit push deploy purchase. Parent finaltracking/staging after scope and gates; preserve unrelatedchanges.",
-  "last_verified": "863 unit-test inventory:860 aggregate then807 final noncampaign;151 unique browser cases; native Firefox;1800 static checks; ten frame p95 samples16.7\u201316.8ms.",
-  "next_action": "Human commit and push via make git after mandatory staging."
+  "evidence": "docs/reports/2026-09-30-rts-transformation.md",
+  "policy": "No commit or push. Human uses make git.",
+  "next_action": "Review staged representative slice and play ?mode=rts; remaining rollout stays explicitly unchecked."
 }

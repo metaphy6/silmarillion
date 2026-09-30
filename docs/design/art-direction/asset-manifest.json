@@ -1056,6 +1056,72 @@
         "Original seamless material composition follows authoritative terrain masks, roads and crossings.",
         "Numerical brush/contrast tuning remains possible; this asset does not claim completion of the broader 385-domain inventory."
       ]
+    },
+    {
+      "id": "sm-rts-siege-atlas-v2",
+      "path": "../../../public/assets/sm-rts-siege-atlas-v2.png",
+      "purpose": "Original Gondor and Saruman fortifications, siege vehicles, construction and destroyed-site art used by the real-time scenario.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "1536:1024",
+      "alpha": true,
+      "layers": "Flattened native RGBA sprite sheet; no separate layered master",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json",
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#rts-siege-atlas-exact-initial-generation-prompt",
+        "source_inputs": [
+          "Original siege sheet generated in this task, followed by the documented gutter correction; no third-party imagery."
+        ],
+        "sha256": "fc6b4c87ed51d0a6f97a3b3cac6acefd068732c84cebc4a4b283cd7a13f7f255",
+        "rights_note": "Original generated pixels; no third-party reference image inputs or commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "RGBA dimensions and transparent alpha measured; source image and actual composed 1440x900 browser scene visually inspected.",
+        "Measured sprite crops preserve intended silhouettes; finer siege action strips and all-faction rollout remain provisional."
+      ]
+    },
+    {
+      "id": "sm-rts-forest-atlas-v1",
+      "path": "../../../public/assets/sm-rts-forest-atlas-v1.png",
+      "purpose": "Original four-species painted forest silhouettes composed into authoritative RTS forest cells.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1254,
+      "height": 1254,
+      "aspect_ratio": "1254:1254",
+      "alpha": true,
+      "layers": "Flattened native RGBA sprite sheet; no separate layered master",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json",
+        "tokens.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#rts-forest-atlas-exact-generation-prompt",
+        "source_inputs": [],
+        "sha256": "4a30c4c04e7eb796615952f667dc77ca4861a381e149ca9b0bc152ac098efed5",
+        "rights_note": "Original generated pixels; no third-party reference image inputs or commercial rights clearance asserted."
+      },
+      "acceptance": [
+        "RGBA dimensions and transparent alpha measured; source image and actual composed 1440x900 browser scene visually inspected.",
+        "Measured sprite crops preserve intended silhouettes; finer siege action strips and all-faction rollout remain provisional."
+      ]
     }
   ],
   "production_requirements": [

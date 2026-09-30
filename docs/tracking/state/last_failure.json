@@ -1,12 +1,13 @@
 {
-  "run_id": "canvas-prior-auto-red--20260930T112226Z-2353328",
-  "tag": "canvas-prior-auto-red-",
-  "ts_utc": "2026-09-30T11:22:28Z",
+  "run_id": "rts-acquisition-after--20260930T121229Z-2515656",
+  "tag": "rts-acquisition-after-",
+  "ts_utc": "2026-09-30T12:12:31Z",
   "cwd": "/home/serhatakbak/code/projects/silmarillion",
-  "command": "node /tmp/agent-runs/canvas-prior-auto-regression.mjs",
+  "command": "npx vitest run tests/rts.test.ts",
   "exit_code": 1,
-  "log_file": "/tmp/agent-runs/canvas-prior-auto-red--20260930T112226Z-2353328.log",
-  "cmd_file": "/tmp/agent-runs/canvas-prior-auto-red--20260930T112226Z-2353328.cmd",
+  "log_file": "/tmp/agent-runs/rts-acquisition-after--20260930T121229Z-2515656.log",
+  "cmd_file": "/tmp/agent-runs/rts-acquisition-after--20260930T121229Z-2515656.cmd",
   "resolved": true,
-  "resolution": "The prior-AUTO browser mutation intentionally reproduced WebGL type2 instead of required Canvas type1 without shared-source edits. Actual final runtime passed33 render cases and ten consecutive16.7\u201316.8ms p95 measurements. Earlier keyboard and carried-equipment regressions are fixed; all failure logs retained."
+  "resolution": "Acquisition enemy scope fixed; 21 kernel tests and final 38 affected tests pass, full typecheck/lint/build pass, optimized browser performance passes every original budget.",
+  "verification_log": "/tmp/agent-runs/rts-final-quality--20260930T121335Z-2519823.log"
 }

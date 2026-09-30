@@ -3,6 +3,9 @@
 ## [Unreleased]
 
 ### Added
+- The Two Fords: a local real-time Gondor versus Saruman skirmish with delivered resources, worker construction, paid queues, raids, siege ammunition, hero commitments and stronghold victory.
+- Direct battlefield selection/orders, formations, control groups, placement and rally points, actionable minimap, configurable hotkeys, scalable contextual HUD and separate versioned RTS saves.
+- Original painted siege and forest atlases, directional workers and armies, construction stages, impacts and fog of war. The other 53 profiles and RTS multiplayer remain future work; the full weekly game is retained.
 - Authored basin geography shared by traversal and original terrain paint, plus 88 directional figure paintings with articulated walk/work/attack motion and reduced-motion support.
 - Locally bundled, licensed Noto typography with roster diacritics and large-text checks.
 - Vairë's preserved production plans and Avari's conserved portable workshops, with physical loss, recovery, consent and normal paid queues.

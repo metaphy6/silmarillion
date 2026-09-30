@@ -1,8 +1,8 @@
 # Silmarillion strategy game — playable browser alpha
 
-A runnable Phaser + TypeScript + Vite strategy alpha with an independent turn simulation, local AI, checkpoint saves and optional private WebRTC matches. The default scenario is **Cross-era sandbox**; the 55 starting profiles represent 54 factions, including one Melkor identity with two mutually exclusive doctrines.
+A runnable Phaser + TypeScript + Vite strategy game with a new continuous **real-time skirmish**, local AI and independent checkpoint saves. Choose **Play real-time skirmish** on the opening screen, or open `?mode=rts`, for Gondor versus Saruman's White Tower at The Two Fords. The retained weekly mode (`?mode=weekly`) provides the full roster and optional private WebRTC matches. The default scenario is **Cross-era sandbox**; the 55 starting profiles represent 54 factions, including one Melkor identity with two mutually exclusive doctrines.
 
-All 55 profiles are selectable and all 110 adopted powers have command routes (36 dispatcher handlers and 74 dedicated routes), with source-qualified passive consumers and 55 additional named ordinary products. Paid production, physical logistics, local observations, recovery and private saves share the same rules. Ordinary numbers remain provisional and the older offensive kits have not been redesigned or certified balanced. Local implementation and available workstation visual/browser gates are complete; managed remote certification remains blocked by external authorization and credential setup, as requested. See the [runtime guide](docs/guides/GAME_RUNTIME.md), [ability coverage](docs/design/runtime-ability-notes.md) and [validation report](docs/reports/runtime/VALIDATION.md).
+In the retained weekly mode, all 55 profiles are selectable and all 110 adopted powers have command routes (36 dispatcher handlers and 74 dedicated routes), with source-qualified passive consumers and 55 additional named ordinary products. Paid production, physical logistics, local observations, recovery and private saves share the same rules. Ordinary numbers remain provisional and the older offensive kits have not been redesigned or certified balanced. Local implementation and available workstation visual/browser gates are complete; managed remote certification remains blocked by external authorization and credential setup, as requested. See the [runtime guide](docs/guides/GAME_RUNTIME.md), [ability coverage](docs/design/runtime-ability-notes.md) and [validation report](docs/reports/runtime/VALIDATION.md).
 
 ## Run the game
 
@@ -32,7 +32,7 @@ Generated build deliverables (PDF, JSON roster) and the hero-kit/data inputs liv
 
 ## Current design
 
-- [Design report](docs/design/silmarillion-game-report.md) and [PDF edition](silmarillion-game-design-report.pdf): revision 6 is the current design.
+- [Design report](docs/design/silmarillion-game-report.md) and [PDF edition](silmarillion-game-design-report.pdf): revision 6 plus its scoped real-time amendment is the current design.
 - [Hero powers and counters](docs/design/hero-balance-roster.md) and [structured roster](hero-balance-roster.json): 55 starting profiles across 54 factions, including Melkor's two mutually exclusive doctrines.
 - Five named Istari (Gandalf, Saruman, Radagast, Alatar and Pallando) supplement the five generic orders; each faction has one hero. The two Blue Wizards are separate selections.
 - `hero-kits-valar-v5.json`, `hero-kits-peoples-v5.json`, `hero-kits-other-v5.json` and `hero-kits-named-istari-v6.json` are the hero-kit inputs. Melkor's two profiles are defined in `build_hero_roster.py`.

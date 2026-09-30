@@ -1,3 +1,13 @@
+# Current real-time skirmish evidence — 2026-09-30
+
+**The Two Fords is a playable local Gondor-versus-Saruman representative slice, not a full-roster conversion.** [Implementation, reproduction, screenshots, exact logs and remaining limits](../2026-09-30-rts-transformation.md) distinguish it from the historical weekly evidence below.
+
+891 aggregate tests passed, followed by 38 affected tests after the final acquisition optimization; full lint/typecheck/build passed. Twenty-one distinct Chromium cases cover RTS interaction/performance and retained weekly local/WebRTC flows. 1,829 static art checks passed. At 1440×1000 on Chromium 153 / Core Ultra 9 285H / 16 logical CPUs / 32.57 GB RAM, 100 and 200-unit synthetic battles both measured 16.7ms p95 across 240 frames; maximum simulation steps were 4.3/11.6ms and command acknowledgment 4.4/6.9ms. These are shared-workstation measurements, not remote/device certification. [Raw after data](rts-performance.json), [retained failed stress data](rts-performance-before-optimization.json), [before](rts-before.png), [after](rts-after.png), [battle](rts-battle.png).
+
+RTS multiplayer, the other 53 profile conversions, full powers/progression/capture and external accessibility/device/balance testing remain unchecked in the roadmap. Weekly saves, roster and multiplayer retain their separate contracts.
+
+---
+
 ## Local completion — 30 September 2026
 
 Current version: **r6-sim-13-1ba24d66-protocol-2-save-2**. Version12 and earlier saves/peers are rejected without migration. New required state includes conserved support production, physical environmental/passive events and explicit named production identities. Remote certification remains blocked at the owner's explicit direction; local implementation and available workstation validation are complete.

@@ -1,0 +1,252 @@
+{
+  "frames": {
+    "0": {
+      "frame": {
+        "x": 96,
+        "y": 42,
+        "w": 213,
+        "h": 320
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 213,
+        "h": 320
+      },
+      "sourceSize": {
+        "w": 213,
+        "h": 320
+      }
+    },
+    "1": {
+      "frame": {
+        "x": 426,
+        "y": 68,
+        "w": 316,
+        "h": 289
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 316,
+        "h": 289
+      },
+      "sourceSize": {
+        "w": 316,
+        "h": 289
+      }
+    },
+    "2": {
+      "frame": {
+        "x": 857,
+        "y": 42,
+        "w": 213,
+        "h": 323
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 213,
+        "h": 323
+      },
+      "sourceSize": {
+        "w": 213,
+        "h": 323
+      }
+    },
+    "3": {
+      "frame": {
+        "x": 1184,
+        "y": 60,
+        "w": 308,
+        "h": 320
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 308,
+        "h": 320
+      },
+      "sourceSize": {
+        "w": 308,
+        "h": 320
+      }
+    },
+    "4": {
+      "frame": {
+        "x": 60,
+        "y": 400,
+        "w": 294,
+        "h": 260
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 294,
+        "h": 260
+      },
+      "sourceSize": {
+        "w": 294,
+        "h": 260
+      }
+    },
+    "5": {
+      "frame": {
+        "x": 437,
+        "y": 400,
+        "w": 317,
+        "h": 255
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 317,
+        "h": 255
+      },
+      "sourceSize": {
+        "w": 317,
+        "h": 255
+      }
+    },
+    "6": {
+      "frame": {
+        "x": 792,
+        "y": 393,
+        "w": 326,
+        "h": 262
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 326,
+        "h": 262
+      },
+      "sourceSize": {
+        "w": 326,
+        "h": 262
+      }
+    },
+    "7": {
+      "frame": {
+        "x": 1187,
+        "y": 380,
+        "w": 314,
+        "h": 275
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 314,
+        "h": 275
+      },
+      "sourceSize": {
+        "w": 314,
+        "h": 275
+      }
+    },
+    "8": {
+      "frame": {
+        "x": 40,
+        "y": 683,
+        "w": 316,
+        "h": 292
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 316,
+        "h": 292
+      },
+      "sourceSize": {
+        "w": 316,
+        "h": 292
+      }
+    },
+    "9": {
+      "frame": {
+        "x": 418,
+        "y": 709,
+        "w": 322,
+        "h": 244
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 322,
+        "h": 244
+      },
+      "sourceSize": {
+        "w": 322,
+        "h": 244
+      }
+    },
+    "10": {
+      "frame": {
+        "x": 791,
+        "y": 688,
+        "w": 359,
+        "h": 282
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 359,
+        "h": 282
+      },
+      "sourceSize": {
+        "w": 359,
+        "h": 282
+      }
+    },
+    "11": {
+      "frame": {
+        "x": 1182,
+        "y": 687,
+        "w": 319,
+        "h": 292
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 319,
+        "h": 292
+      },
+      "sourceSize": {
+        "w": 319,
+        "h": 292
+      }
+    }
+  },
+  "meta": {
+    "image": "sm-rts-siege-atlas-v2.png",
+    "size": {
+      "w": 1536,
+      "h": 1024
+    },
+    "scale": "1"
+  }
+}

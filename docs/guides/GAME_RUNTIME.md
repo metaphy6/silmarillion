@@ -1,8 +1,27 @@
 # Browser runtime guide
 
-The repository contains a runnable Phaser + TypeScript + Vite local alpha. All adopted roster mechanics and named production routes are implemented; numerical balance and managed internet certification are separate gates. Its default scenario is **Cross-era sandbox**: chronology, artifact custody and invented geographic connections are deliberate scenario adaptations, not claims that all factions coexisted.
+The repository contains a runnable Phaser + TypeScript + Vite local alpha. The retained weekly mode implements the adopted roster mechanics and named production routes; numerical balance and managed internet certification are separate gates. Its default scenario is **Cross-era sandbox**: chronology, artifact custody and invented geographic connections are deliberate scenario adaptations, not claims that all factions coexisted.
 
 Software GPUs identified as SwiftShader, llvmpipe, softpipe or a software rasterizer use the same scene through Canvas, avoiding costly WebGL framebuffer readback. Hardware and unidentified GPUs retain automatic Phaser renderer selection.
+
+## Real-time skirmish: The Two Fords
+
+See the [transformation and measured playtest report](../reports/2026-09-30-rts-transformation.md) for before/after captures, hardware, regression evidence and remaining limitations.
+
+Choose **Play real-time skirmish → Gondor vs Saruman** at setup, or open `?mode=rts`. This is the first continuous two-profile scenario; the other 53 profiles remain in the weekly game. The battlefield runs while you issue commands, with a local AI that gathers, recruits, defends and raids. There are no weekly operation slots in this mode.
+
+- Click a unit/building, drag a selection box, or use **Named battlefield selection**. Shift adds/toggles selection; Shift-right-click queues orders. Right-click ground to move, enemies to attack, resources to gather, construction to build, or an owned siege engine to deliver a paid ammunition reload with workers.
+- **A** then click orders attack-move; **S** stops; **H** holds position. **W** selects workers; **E** selects the army; **Home** locates the stronghold. Ctrl+1–9 stores groups; 1–9 recalls them. Hotkeys can be changed in Settings without triggering commands while typing.
+- Arrows and middle-drag pan; the wheel zooms. Click the minimap to center, or right-click it to order. Coordinate fields and named command buttons offer a keyboard route to ground orders and placement; Enter places an armed building at the entered X/Y.
+- Select the Citadel Hall for workers, components and the sole Citadel Engineer; the Mustering hall recruits guards and rangers. Select workers to build a Siege workshop, farms, lore facilities, towers and walls. Displayed prices are paid immediately; physical construction and queued work take time. A worker's carried stocks are not usable until delivery.
+- Select a production building to inspect remaining time, add jobs, cancel the last job for half stocks, or set a rally point. Destroying a facility loses unfinished jobs. Siege engines need real material deliveries after their three rounds are spent.
+- Protect your workers and use either ford. Destroy every rival stronghold to win. The loss of your last stronghold ends the skirmish; hero death alone does not.
+
+Pause, Settings and leaving the tab stop local time. **Save skirmish** stores an independent local checkpoint; **Continue skirmish** restores paused. Settings also offers export/import, text at 100/150/200%, reduced motion and hotkeys. Quota/invalid-save errors are explicit. Keep exported files if long-term retention matters: browser storage can be cleared by the user or browser.
+
+The RTS checkpoint version is `silmarillion-rts-1`; it has no inferred weekly migration and never overwrites the old IndexedDB checkpoint. Imports validate structural and gameplay invariants. RTS multiplayer is not enabled; weekly private multiplayer remains a separately labeled mode. Local sequenced-command and private-observation tests are not network certification. Personal hero actions use explicit time, readiness and commitment cooldowns; see the [authoritative amendment](../design/silmarillion-game-report.md#14--adopted-real-time-skirmish-amendment--30-september-2026).
+
+Reproduce the baseline with `npx playwright test tests/browser/rts-baseline.spec.ts`; exercise controls with `npx playwright test tests/browser/rts-play.spec.ts`; run the labeled synthetic performance fixtures with `npx playwright test tests/browser/rts-performance.spec.ts`. Before/after screenshots and measured evidence are in `docs/reports/runtime/rts-*`. Ordinary numerical tuning remains provisional.
 
 ## Install and run
 
@@ -77,7 +96,7 @@ Publish **only `dist/`** to static HTTPS hosting. Vite includes imported modules
 
 The owner operates static files only. Managed signaling/STUN/TURN remain external services; WebRTC does not remove them. `.env.example` contains public configuration placeholders. Browser-exposed `VITE_*` values are public and cannot contain private provider keys or permanent TURN secrets. Deployments must preserve protocol/save/simulation/content compatibility; mismatches are rejected rather than silently migrated. No PWA offline-internet-multiplayer claim is made.
 
-Design reports and root roster builders remain separate from Vite. The revision-6 report and structured hero roster retain gameplay authority; historical drafts do not override them. Art-direction resources retain presentation authority. Consult the [roadmap](../planning/ROADMAP.md) before treating an alpha limitation as completed work.
+Design reports and root roster builders remain separate from Vite. The revision-6 report with its scoped RTS amendment and structured hero roster retain gameplay authority; historical drafts do not override them. Art-direction resources retain presentation authority. Consult the [roadmap](../planning/ROADMAP.md) before treating an alpha limitation as completed work.
 
 ## Extended playtests
 

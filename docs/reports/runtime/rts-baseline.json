@@ -1,0 +1,34 @@
+{
+  "capturedAt": "2026-09-30T11:54:08.025Z",
+  "browser": "153.0.8010.47",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) Ultra 9 285H",
+    "logicalCpus": 16,
+    "memoryBytes": 32574484480,
+    "os": "linux",
+    "kernel": "7.0.0-34-generic"
+  },
+  "acknowledgment": {
+    "synchronousMs": 7.5,
+    "nextFrameMs": 8.400000005960464,
+    "status": "Order reserved; resolves with the week"
+  },
+  "frameSamples": 180,
+  "frameP50Ms": 16.699999999999818,
+  "frameP95Ms": 16.799999999999955,
+  "userAgent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+  "hardwareConcurrency": 16,
+  "units": 9,
+  "turn": 2,
+  "stocks": {
+    "P": 240,
+    "M": 247,
+    "K": 181,
+    "E": 182
+  },
+  "scope": "Actual default weekly scene after paid signature-component production and one resolution; headless Chromium Canvas on this workstation. The click measurement is browser-side handler-to-next-animation-frame, not physical input latency. Not a real-time battle benchmark."
+}
