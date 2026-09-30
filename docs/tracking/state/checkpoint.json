@@ -1,0 +1,27 @@
+{
+  "run_id": "game-runtime-20260929",
+  "step": "Complete current physical-domain integration, then aggregate and browser gates before next roster domains",
+  "scope": "Phaser TypeScript Vite full playable game request; all54factions55profiles retained; implementation continues, not complete",
+  "last_command": "npm run check interrupted by concurrent TDD sources; await source freeze before rerunning",
+  "completed": [
+    "playable local alpha",
+    "all55 roster identities and recipes",
+    "indexedDB checkpoints and local nativeRTC2-4 flows",
+    "physical convoy/naval/care/crop/fieldwork/habitat/shore/civilian systems",
+    "original54identityportraits and16buildingstudies"
+  ],
+  "pending": [
+    "Orome actualpreparedranged interception timing correction",
+    "clean civilianbrowserrestore",
+    "fresh aggregate typecheck lint unit build",
+    "refresh immutable5174 and all browser/performance/Firefox gates",
+    "16 adoptedpowers plus remainingpassives and source-domain qualifications",
+    "landscape/terrainalignment and broader visual/narrativeproduction",
+    "real managed authorization/TURN setup and remote tests"
+  ],
+  "external_dependencies": [
+    "managed production room authorization and short-lived scoped TURN credential mechanism unresolved; no owner backend",
+    "Safari unavailable; realcrossnetwork and forcedrelay service tests unexecuted"
+  ],
+  "policy": "No commit push deploy purchase. Parent finaltracking/staging after scope and gates; preserve unrelatedchanges."
+}

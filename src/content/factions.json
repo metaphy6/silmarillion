@@ -1,0 +1,3762 @@
+{
+  "revision": 6,
+  "source": "docs/design/silmarillion-game-report.md; hero-balance-roster.json",
+  "status": "Faithful extraction of adopted prototype rules; balance remains unproven. Provisional interpretations labeled per entry.",
+  "profileCount": 55,
+  "factionCount": 54,
+  "profiles": [
+    {
+      "id": "manwe",
+      "faction": "Manwë's highlands",
+      "hero": "Manwë",
+      "identity": "manwe",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Windwatch",
+      "facilities": ["Windwatch", "Herald Court"],
+      "component": {
+        "name": "wind-carved crystal",
+        "access": "crystal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Spear herald / courier-eagle",
+      "magicEquipment": "Gale corridor / sapphire command sceptre",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Cannot replace roads, cargo capacity, food production or multiple relay networks.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Upright open mantle, narrow sceptre and windward stance; attentive portrait",
+          "settlement": "Open Windwatch above a stepped Herald Court; no imperial city",
+          "production": "Crystal cutting and message-handling benches exposed to air",
+          "army": "Spear heralds in spaced files; courier-eagles need landing ledges",
+          "artifact": "Sapphire command sceptre and wind-carved crystal with worked mounts",
+          "magic": "Wind bends cloth, grass and projectile paths along a bounded corridor",
+          "terrain": "Bare high ridge, cloud shadow and readable descent"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "varda",
+      "faction": "Varda's beacon settlements",
+      "hero": "Varda",
+      "identity": "varda",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Star Observatory",
+      "facilities": ["Star Observatory", "Beacon Terrace"],
+      "component": {
+        "name": "star lens",
+        "access": "glass",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Lantern guard / lumen construct",
+      "magicEquipment": "Reveal the hidden / star-glass lens",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Observation yields neither production capacity nor automatic knowledge of underground activity.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Tall dark silhouette with a small pale face plane and star-lens gesture",
+          "settlement": "Low observation roof and separated beacon terrace in deep night",
+          "production": "Lens alignment, lamp maintenance and survey marks",
+          "army": "Lantern guards carry shielded lamps; lumen constructs remain distinct ordinary units",
+          "artifact": "Star-glass lens, faceted rim and repair case",
+          "magic": "Restrained points and revealed silhouettes inside an explicit area",
+          "terrain": "Clear horizon, cold indigo rock, warm beacon maintenance niche"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "ulmo",
+      "faction": "Ulmo's waterside enclaves",
+      "hero": "Ulmo",
+      "identity": "ulmo",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Spring Sanctuary",
+      "facilities": ["Spring Sanctuary", "Tide Gate"],
+      "component": {
+        "name": "shell focus",
+        "access": "shore",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Ford keeper / current-spirit",
+      "magicEquipment": "Raise or divide waters / shell horn",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Dry divides, imported construction materials and limited transport crews still restrict expansion.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "river-sea",
+        "palette": ["#163D46", "#618C89", "#DECE9F"],
+        "materials": "Wet stone, worked timber, rope, shell, salt-worn metal",
+        "domains": {
+          "character": "Foam-edged dark mantle, shell horn, weight like a breaking wave",
+          "settlement": "Spring court linked to a working tide gate, never a generic naval palace",
+          "production": "Sluices, shell-work, crews and stored building timber",
+          "army": "Ford keepers and current-spirits follow accessible water",
+          "artifact": "White shell focus with salt wear and fitted carrying sling",
+          "magic": "Water level/flow changes bounded by marked banks and route limits",
+          "terrain": "Wet slate, teal depth, pale foam; dry divides stay legible"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "aule",
+      "faction": "Aulë's workshops",
+      "hero": "Aulë",
+      "identity": "aule",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Master Forge",
+      "facilities": ["Master Forge", "Stone Workshop"],
+      "component": {
+        "name": "forged core",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Smith-guard / articulated stone porter",
+      "magicEquipment": "Shape the earthworks / maker's hammer",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "One excellent commission cannot replace food imports, extraction or a broad factory network.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "worked-stone",
+        "palette": ["#242D37", "#745B4E", "#DBA85F"],
+        "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+        "domains": {
+          "character": "Broad apron mass, capable hands, compact maker hammer; absorbed portrait",
+          "settlement": "Open-sided forge beside a low stone workshop, few occupied plots",
+          "production": "Jigs, cooling work, labeled inputs and one paid job per queue",
+          "army": "Smith-guards and articulated stone porters with visible load joints",
+          "artifact": "Forged core and maker hammer show tool marks, not jewel rarity glow",
+          "magic": "Dust and brace deformation reveal a specific repair or break",
+          "terrain": "Quarry edge, mineral blue shadows, contained furnace gold"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "yavanna",
+      "faction": "Yavanna's living groves",
+      "hero": "Yavanna",
+      "identity": "yavanna",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Seed Vault",
+      "facilities": ["Seed Vault", "Living Grove"],
+      "component": {
+        "name": "living seed",
+        "access": "grove",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Grove tender / root guardian",
+      "magicEquipment": "Awaken the canopy / grafting staff",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Needs mature habitat and water; cannot instantly rebuild forests or support extensive metal industry.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "living-refuge",
+        "palette": ["#193D34", "#678C55", "#D4B47D"],
+        "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+        "domains": {
+          "character": "Green robe with branching contour; patient protective gaze",
+          "settlement": "Seed vault nested beneath living canopy; roots retain growing space",
+          "production": "Grafting benches, seed stores, water channels and tended understory",
+          "army": "Grove tenders carry tools; root guardians differ from the unique hero",
+          "artifact": "Living seed in a breathable crafted holder",
+          "magic": "Local roots flex through earth; growth never erases costs or maturity limits",
+          "terrain": "Deep viridian, luminous new green and occasional yellow fruit"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "namo",
+      "faction": "Mandos's sanctuary halls",
+      "hero": "Námo / Mandos",
+      "identity": "namo",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Hall of Waiting",
+      "facilities": ["Hall of Waiting", "Judgment Gate"],
+      "component": {
+        "name": "stone seal",
+        "access": "stone",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Threshold sentinel / oath-echo",
+      "magicEquipment": "Bind a passage / judgment seal",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Cannot replace standing guards, broad food production or permanent defenses; grants no resurrection.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "memory-threshold",
+        "palette": ["#302A40", "#847D97", "#D5C2A0"],
+        "materials": "Basalt, pale stone, woven records, soft weathered textiles",
+        "domains": {
+          "character": "Still vertical cloak, closed gesture, stone seal; grave rather than sadistic",
+          "settlement": "Quiet hall and precisely bounded gate, small sanctuary footprint",
+          "production": "Seal cutting, threshold upkeep and waiting spaces",
+          "army": "Sentinels hold edges; oath-echo units are labeled invented manifestations",
+          "artifact": "Stone judgment seal, worn at contact faces",
+          "magic": "One clear threshold line and a visible warning before restraint",
+          "terrain": "Basalt planes, cool plum recesses, pale doorway"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "irmo",
+      "faction": "Lórien's dream gardens",
+      "hero": "Irmo / Lórien",
+      "identity": "irmo",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Dream Garden",
+      "facilities": ["Dream Garden", "Vision Pavilion"],
+      "component": {
+        "name": "dreamglass",
+        "access": "glass",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Dream attendant / phantom hound",
+      "magicEquipment": "Sleep and misdirection / dream lantern",
+      "sourceSection": "04",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Cannot manufacture equipment, train extra companies or substitute dreams for supplied troops.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "living-refuge",
+        "palette": ["#193D34", "#678C55", "#D4B47D"],
+        "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+        "domains": {
+          "character": "Soft layered shawl, tilted listening head, dim lantern",
+          "settlement": "Sheltered garden paths lead to an open pavilion, not a maze hiding controls",
+          "production": "Water care, quiet resting places and rehearsal mats",
+          "army": "Attendants and phantom hounds have separate physical/illusory cues",
+          "artifact": "Dreamglass and shuttered lantern, clouded polished surface",
+          "magic": "Soft duplicate edges stay within the disclosed effect footprint",
+          "terrain": "Lake reflections, willow shade, violet-blue with warm sheltered light"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "nienna",
+      "faction": "Nienna's refuge cloisters",
+      "hero": "Nienna",
+      "identity": "nienna",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "House of Mourning",
+      "facilities": ["House of Mourning", "Refuge Cloister"],
+      "component": {
+        "name": "mourning veil",
+        "access": "textile",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Mercy attendant / memory lantern",
+      "magicEquipment": "Unbroken resolve / grey mantle",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Care and restitution consume real capacity; grief generates no resources or permanent morale immunity.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "memory-threshold",
+        "palette": ["#302A40", "#847D97", "#D5C2A0"],
+        "materials": "Basalt, pale stone, woven records, soft weathered textiles",
+        "domains": {
+          "character": "Grey mantle, unguarded hands and sustained attention; no compulsory tears",
+          "settlement": "Windows open outward; seats, shelter and uncluttered thresholds",
+          "production": "Mended cloth, named records, food carried to occupied places",
+          "army": "Mercy attendants carry practical supplies; memory lantern units remain finite",
+          "artifact": "Mourning veil with repeated repairs, no harvestable grief jewel",
+          "magic": "Warmth steadies a small group; effect includes readable duration",
+          "terrain": "Rain-silver stone, ash violet, a narrow amber interior"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "orome",
+      "faction": "Oromë's frontier lodges",
+      "hero": "Oromë",
+      "identity": "orome",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Hunt Lodge",
+      "facilities": ["Hunt Lodge", "Trail Kennel"],
+      "component": {
+        "name": "carved horn",
+        "access": "horn",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Mounted tracker / hunting-hound pack",
+      "magicEquipment": "Reveal the quarry / hunting horn",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "One hunter cannot guard every route, sustain a siege or replace local production.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "path-and-pursuit",
+        "palette": ["#273B38", "#A0804D", "#B7CFBC"],
+        "materials": "Weathered timber, leather, cord, local stone and travel cloth",
+        "domains": {
+          "character": "Forward rider silhouette, horn at shoulder, watchful anger",
+          "settlement": "Low lodge, tack court and airy kennels at a trailhead",
+          "production": "Tracks recorded, harness repaired, hounds fed; roads remain work",
+          "army": "Mounted trackers and hound packs with purposeful spacing",
+          "artifact": "Carved horn and repaired straps, distinct from random loot horns",
+          "magic": "A readable intercept route and quarry evidence, not a map-wide hunt pulse",
+          "terrain": "Pine green, exposed rust earth and a cool misted pass"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "tulkas",
+      "faction": "Tulkas's muster grounds",
+      "hero": "Tulkas",
+      "identity": "tulkas",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Wrestling Yard",
+      "facilities": ["Wrestling Yard", "Muster Ground"],
+      "component": {
+        "name": "forged grip bands",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Wrestler / pack aurochs",
+      "magicEquipment": "Break the siege / grip wraps",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Physical strength supplies neither materials nor advanced industry; dispersed threats still outnumber his interventions.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "mortal-works",
+        "palette": ["#333E42", "#92794D", "#D8C596"],
+        "materials": "Dressed masonry or timber, iron fittings, grain, wool",
+        "domains": {
+          "character": "Golden hair and beard, open hands, grounded athletic stance and ready laughter",
+          "settlement": "Unroofed yard and simple muster shelters; no colossal arena",
+          "production": "Grip-wrap preparation, maintained exercise space and supplied haul crews",
+          "army": "Wrestlers and pack aurochs occupy practical loading space",
+          "artifact": "Forged grip bands and worn wraps with pressure marks",
+          "magic": "Impact reads through posture, displaced dust and a bounded grapple",
+          "terrain": "Sun-warm earth, cold stone shade and ruddy cloth"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "nessa",
+      "faction": "Nessa's relay settlements",
+      "hero": "Nessa",
+      "identity": "nessa",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Dance Court",
+      "facilities": ["Dance Court", "Relay Stable"],
+      "component": {
+        "name": "woven relay cord",
+        "access": "textile",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Runner / courier stag",
+      "magicEquipment": "Fleet company / step-light anklets",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Speed cannot replace freight capacity, stocked refuges, fortified roads or manufacturing.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "path-and-pursuit",
+        "palette": ["#273B38", "#A0804D", "#B7CFBC"],
+        "materials": "Weathered timber, leather, cord, local stone and travel cloth",
+        "domains": {
+          "character": "Lithe diagonal posture, flowing relay cord, light footfall",
+          "settlement": "Open court links modest relay shelters; no cavalry fortress",
+          "production": "Water, rest and baton/cord exchange at staffed stops",
+          "army": "Runners and courier stags; cargo visibly small",
+          "artifact": "Woven relay cord and step-light anklets",
+          "magic": "Brief step trail ends at reachable ground; no teleport language",
+          "terrain": "Spring grass, stone steps, warm russet against pale air"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "vana",
+      "faction": "Vána's bloom nurseries",
+      "hero": "Vána",
+      "identity": "vana",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Bloom Nursery",
+      "facilities": ["Bloom Nursery", "Song Aviary"],
+      "component": {
+        "name": "flowering circlet",
+        "access": "grove",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Garden tender / songbird swarm",
+      "magicEquipment": "Sudden flowering / renewal wreath",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Needs real fields, water and workers; cannot multiply harvests or accelerate mature forests.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "living-refuge",
+        "palette": ["#193D34", "#678C55", "#D4B47D"],
+        "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+        "domains": {
+          "character": "Flowering circlet, lifted head and small bright sleeves",
+          "settlement": "Nursery beds and woven aviary roofs in a tended clearing",
+          "production": "Seedlings at different stages, irrigation and pruning tools",
+          "army": "Garden tenders and small songbird groups avoid battlefield swarm clutter",
+          "artifact": "Renewal wreath and living flowering circlet",
+          "magic": "Localized bloom moves through existing tended plants",
+          "terrain": "Leaf green, lilac shade, limited coral blossom accents"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "este",
+      "faction": "Estë's healing refuges",
+      "hero": "Estë",
+      "identity": "este",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Rest House",
+      "facilities": ["Rest House", "Healing Pool"],
+      "component": {
+        "name": "healing vessel",
+        "access": "clay",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Field healer / rescue hind",
+      "magicEquipment": "Deep restoration / healing veil",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "One party's recovery cannot absorb mass casualties; death and missing supply infrastructure remain consequential.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "living-refuge",
+        "palette": ["#193D34", "#678C55", "#D4B47D"],
+        "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+        "domains": {
+          "character": "Grey veil, compact seated or steady stance, hands at a vessel",
+          "settlement": "Low rest house beside shaded still water and accessible paths",
+          "production": "Clean cloth, prepared salves and replenished drinking vessels",
+          "army": "Healers and rescue hinds look laden and purposeful",
+          "artifact": "Healing vessel has washable glaze and visible wear",
+          "magic": "Quiet bounded glow marks recovery; no resurrection beam",
+          "terrain": "Cool water, soft grey-green, warm linen near shelter"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "vaire",
+      "faction": "Vairë's archive halls",
+      "hero": "Vairë",
+      "identity": "vaire",
+      "category": "Valar",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Chronicle Loom",
+      "facilities": ["Chronicle Loom", "Archive Hall"],
+      "component": {
+        "name": "woven memory",
+        "access": "textile",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Recorder-guard / threadward effigy",
+      "magicEquipment": "Reconstruct the past / memory shuttle",
+      "sourceSection": "05",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Records cannot replace extraction, labor, surviving machinery or the rebuilding of an industrial network.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "memory-threshold",
+        "palette": ["#302A40", "#847D97", "#D5C2A0"],
+        "materials": "Basalt, pale stone, woven records, soft weathered textiles",
+        "domains": {
+          "character": "Layered woven mantle, shuttle in hand, exact attentive eyes",
+          "settlement": "Long low archive bays with a small loom court",
+          "production": "Threads, labeled cases, repaired patterns and copied records",
+          "army": "Recorder-guards protect carriers; threadward effigies are clearly constructs",
+          "artifact": "Woven memory and shuttle show pattern continuity through repairs",
+          "magic": "Selected traces align into a readable past report, not current omniscience",
+          "terrain": "Muted indigo cloth, red-brown thread and pale stone"
+        },
+        "loreStatus": "Source-named being; institutions, starting kit, embodiment scale and paid return are gameplay adaptations."
+      }
+    },
+    {
+      "id": "elf_vanyar",
+      "faction": "Vanyar",
+      "hero": "Concord Singer",
+      "identity": "elf_vanyar",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Chorus Court",
+      "facilities": ["Chorus Court"],
+      "component": {
+        "name": "tuned songstone",
+        "access": "stone",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Banner Fellowships; ceremonial standards",
+      "magicEquipment": "Formation hymns, courage wards and resonant instruments",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Slow replacement, expensive equipment and limited army size remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "elven-house",
+        "palette": ["#263D47", "#6F927E", "#D8CEA3"],
+        "materials": "Fitted wood and stone, woven cloth, maintained metal",
+        "domains": {
+          "character": "Upright paired cloak lines, held instrument, composed breath",
+          "settlement": "Open chorus court with acoustic walls and simple ordered steps",
+          "production": "Instrument making, banner weaving and rehearsal places",
+          "army": "Small disciplined banner groups with pale standards",
+          "artifact": "Tuned songstone held in a finely fitted acoustic frame",
+          "magic": "Resonant bands mark a limited formation rather than damage fireworks",
+          "terrain": "Pale limestone, warm cream cloth and quiet gold"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_feanor",
+      "faction": "House of Fëanor",
+      "hero": "Jewelwright",
+      "identity": "elf_feanor",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Gem Atelier",
+      "facilities": ["Gem Atelier"],
+      "component": {
+        "name": "cut crystal",
+        "access": "crystal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Masterwork blades; bound-light jewels",
+      "magicEquipment": "Stored radiance, crafted traps and powerful personal equipment",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Rare materials, occupied queues and specialist training still limit throughput.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "worked-stone",
+        "palette": ["#242D37", "#745B4E", "#DBA85F"],
+        "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+        "domains": {
+          "character": "Angular sleeves, jewel-setting loupe/tool and intense focused portrait",
+          "settlement": "Compact atelier with controlled daylight and secure work trays",
+          "production": "Cutting tables, abrasive slurry, blade fittings and unfinished settings",
+          "army": "Few elite equipped specialists, each tool visibly maintained",
+          "artifact": "Cut crystal in precise geometric settings; not a duplicate Silmaril",
+          "magic": "Prismatic flare with narrow angular facets and clear affected area",
+          "terrain": "Dark cool stone, blue-violet shadow and concentrated garnet/copper"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_fingolfin",
+      "faction": "House of Fingolfin",
+      "hero": "Shield Marshal",
+      "identity": "elf_fingolfin",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Pass-watch Fortress",
+      "facilities": ["Pass-watch Fortress"],
+      "component": {
+        "name": "forged shield seal",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Mounted Wardens; reinforced gates",
+      "magicEquipment": "Protective banners, disciplined counterattacks and durable armor",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Few expensive formations cannot cover every pass or replace severe losses quickly.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "elven-house",
+        "palette": ["#263D47", "#6F927E", "#D8CEA3"],
+        "materials": "Fitted wood and stone, woven cloth, maintained metal",
+        "domains": {
+          "character": "Shield-forward upright figure, blue-silver cloth break, measured gaze",
+          "settlement": "Tiered gatehouse fitted to an actual pass, modest rear court",
+          "production": "Gate braces, remount shelter and armor repair racks",
+          "army": "Few costly wardens maintain gaps and rearguard lines",
+          "artifact": "Forged shield seal and durable fittings",
+          "magic": "Protective arcs follow formation edges; withdrawals have routes",
+          "terrain": "Cold scree, blue shadow, weathered pale stone"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_finarfin",
+      "faction": "House of Finarfin",
+      "hero": "Lore Envoy",
+      "identity": "elf_finarfin",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Hall of Welcome",
+      "facilities": ["Hall of Welcome"],
+      "component": {
+        "name": "inscribed pact",
+        "access": "textile",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Healing singers; guest workshops",
+      "magicEquipment": "Restorative songs, translation charms and diplomacy tools",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Recovery is finite, training remains slow, and allies may refuse.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "elven-house",
+        "palette": ["#263D47", "#6F927E", "#D8CEA3"],
+        "materials": "Fitted wood and stone, woven cloth, maintained metal",
+        "domains": {
+          "character": "Open cloak shape, inscribed pact case, listening expression",
+          "settlement": "Welcoming court with shared benches and separate work bays",
+          "production": "Translation tables, salves and guest makers using real inputs",
+          "army": "Healers and guarded envoys; small escort formations",
+          "artifact": "Inscribed pact with witnesses and repaired protective case",
+          "magic": "Restorative song reaches a bounded supplied group",
+          "terrain": "Warm sandstone, green-grey shadow, restrained pale gold"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_falmari",
+      "faction": "Falmari",
+      "hero": "Tide Captain",
+      "identity": "elf_falmari",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Harbor Hall",
+      "facilities": ["Harbor Hall"],
+      "component": {
+        "name": "carved shell compass",
+        "access": "shore",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Swan-ships; Harbor Beacons",
+      "magicEquipment": "Calm-passage charms, sea cloaks and maritime signals",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Harbor dependence, limited inland influence and expensive hull replacement remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "river-sea",
+        "palette": ["#163D46", "#618C89", "#DECE9F"],
+        "materials": "Wet stone, worked timber, rope, shell, salt-worn metal",
+        "domains": {
+          "character": "Curved sea cloak, shell compass, salt-weathered calm",
+          "settlement": "Low harbor hall follows quays; elegant hulls dominate workspaces",
+          "production": "Timber curing, sail weaving and rigging laid at physical scale",
+          "army": "Mariners disembark through safe lanes, not instant inland armies",
+          "artifact": "Shell compass and finely joined oar; each ship has a work history",
+          "magic": "Calm corridors marked on water with shore limits",
+          "terrain": "Pearl grey, sea blue, weathered white timber and coral rope"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_sindar",
+      "faction": "Sindar",
+      "hero": "March Warden",
+      "identity": "elf_sindar",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Hidden Court",
+      "facilities": ["Hidden Court"],
+      "component": {
+        "name": "woven veil",
+        "access": "textile",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Hidden Watch-houses; woodland companies",
+      "magicEquipment": "Concealment mantles, boundary wards and song-lures",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Fire, lost woodland and sustained open combat still defeat concealment advantages.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "elven-house",
+        "palette": ["#263D47", "#6F927E", "#D8CEA3"],
+        "materials": "Fitted wood and stone, woven cloth, maintained metal",
+        "domains": {
+          "character": "Grey-green mantle, long bow, quiet sideways attention",
+          "settlement": "Carved woodland court can include worked stone; small hidden watch-houses",
+          "production": "Weaving, bow repair and attended boundary paths",
+          "army": "Woodland companies merge into cover but remain selectable",
+          "artifact": "Woven veil and carved boundary tokens",
+          "magic": "Retreat veil with clear extent; observed silhouettes never disappear from owner UI",
+          "terrain": "Beech trunks, silver moss, deep green and warm lamp points"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_nandor",
+      "faction": "Nandor",
+      "hero": "Woodland Pathfinder",
+      "identity": "elf_nandor",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Forest Waystation",
+      "facilities": ["Forest Waystation"],
+      "component": {
+        "name": "living trailmark",
+        "access": "grove",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Canopy Scouts; trained woodland mounts",
+      "magicEquipment": "Root snares, hidden paths and practical bows",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Weak armor, poor open-field performance and dependence on living woodland remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "path-and-pursuit",
+        "palette": ["#273B38", "#A0804D", "#B7CFBC"],
+        "materials": "Weathered timber, leather, cord, local stone and travel cloth",
+        "domains": {
+          "character": "Low travel posture, practical bow, leaf-shaped trailmark",
+          "settlement": "Light waystations thread through canopy without huge clearings",
+          "production": "Mount care, rope bridges, bark-protected markers and bow work",
+          "army": "Scouts travel singly or in loose strings; little heavy armor",
+          "artifact": "Living trailmark and weathered short bow",
+          "magic": "Rootwise passage uses existing habitat and visible exits",
+          "terrain": "Luminous green breaks over dark fern beds and wet roots"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "elf_avari",
+      "faction": "Avari clan",
+      "hero": "Frontier Mediator",
+      "identity": "elf_avari",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "E",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 50,
+          "E": 25
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Clan Lodge",
+      "facilities": ["Clan Lodge"],
+      "component": {
+        "name": "local waystone",
+        "access": "stone",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Portable Workshops; decentralized Waymarks",
+      "magicEquipment": "Mobile camp wards, local lore and adaptable travel gear",
+      "sourceSection": "07",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Small workshops, limited armor and distance between settlements still constrain output.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "path-and-pursuit",
+        "palette": ["#273B38", "#A0804D", "#B7CFBC"],
+        "materials": "Weathered timber, leather, cord, local stone and travel cloth",
+        "domains": {
+          "character": "Layered travel cloth, carrying frame, local stone token",
+          "settlement": "Several modest lodges and mobile work shelters, no obligatory central palace",
+          "production": "Foldable benches, repaired carts, region-specific local materials",
+          "army": "Small adaptable escort groups carrying visible supplies",
+          "artifact": "Local waystone and portable tool roll",
+          "magic": "Rendezvous signals require known locations and communication",
+          "terrain": "Authored regional materials; muted clay with a chosen textile accent"
+        },
+        "loreStatus": "Source people/house; original hero and production institutions. Eight entries are not eight equal ancestral kindreds."
+      }
+    },
+    {
+      "id": "human_gondor",
+      "faction": "Gondor",
+      "hero": "Citadel Engineer",
+      "identity": "human_gondor",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "human_gondor",
+        "cost": {
+          "P": 60,
+          "M": 80,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Citadel Hall",
+      "facilities": ["Citadel Hall"],
+      "component": {
+        "name": "stone command seal",
+        "access": "stone",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Fortified Supply Depots, Shield Companies, siege engines, repair kits and defensive standards",
+      "magicEquipment": "Learned support, prepared wards and crafted equipment",
+      "sourceSection": "08",
+      "caps": {
+        "supply": 36,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "High material demand and weak coverage away from prepared positions remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "mortal-works",
+        "palette": ["#333E42", "#92794D", "#D8C596"],
+        "materials": "Dressed masonry or timber, iron fittings, grain, wool",
+        "domains": {
+          "character": "Square cloak/shield mass, survey tool, weathered practical portrait",
+          "settlement": "Joined masonry, store courts and maintained gates; expansion has service routes",
+          "production": "Stone cutting, braces, siege parts and visibly stocked depots",
+          "army": "Shield companies form readable blocks with exposed flanks",
+          "artifact": "Stone command seal and calibrated repair kit",
+          "magic": "Prepared standards/wards reinforce specific works; no inherent divine aura",
+          "terrain": "Pale dressed stone, charcoal shadow, muted blue cloth"
+        },
+        "loreStatus": "Source kingdom; invented fixed hero, recipes and repeated return."
+      }
+    },
+    {
+      "id": "human_rohan",
+      "faction": "Rohan",
+      "hero": "Rider Marshal",
+      "identity": "human_rohan",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "human_rohan",
+        "cost": {
+          "P": 100,
+          "M": 40,
+          "K": 20,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Muster Hall",
+      "facilities": ["Muster Hall"],
+      "component": {
+        "name": "forged horse crest",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Horse-breeding Steads, Rider Companies, mounted scouts, remounts, saddles and rally horns",
+      "magicEquipment": "Learned support, prepared wards and crafted equipment",
+      "sourceSection": "08",
+      "caps": {
+        "supply": 36,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Mount production, fodder demand and poor charge terrain remain hard constraints.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "mortal-works",
+        "palette": ["#333E42", "#92794D", "#D8C596"],
+        "materials": "Dressed masonry or timber, iron fittings, grain, wool",
+        "domains": {
+          "character": "Wide rider-and-horse silhouette, short cloak, alert sideward glance",
+          "settlement": "Timber muster hall, low fenced steads and extensive pasture",
+          "production": "Fodder stacks, watered troughs, tack repair and distinct growing/trained stock",
+          "army": "Rider groups leave room to turn; dismounted posture shown at gates",
+          "artifact": "Forged horse crest, worn saddle and rally horn",
+          "magic": "Rally follows a traversable route; dust/grass conveys movement",
+          "terrain": "Ochre grass, dark green lowlands, weathered timber, pale horse accent"
+        },
+        "loreStatus": "Source kingdom; invented fixed hero, recipes and repeated return."
+      }
+    },
+    {
+      "id": "human_numenor",
+      "faction": "Númenor",
+      "hero": "Ocean Warden",
+      "identity": "human_numenor",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "human_numenor",
+        "cost": {
+          "P": 70,
+          "M": 70,
+          "K": 60,
+          "E": 20
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Admiralty Hall",
+      "facilities": ["Admiralty Hall"],
+      "component": {
+        "name": "carved sea compass",
+        "access": "shore",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Deep-water Shipyards, Expedition Ships, marines, navigation tools, signal towers and sea wards",
+      "magicEquipment": "Learned support, prepared wards and crafted equipment",
+      "sourceSection": "08",
+      "caps": {
+        "supply": 36,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Complex ship recipes, harbor loss and deep inland commitments remain costly.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "river-sea",
+        "palette": ["#163D46", "#618C89", "#DECE9F"],
+        "materials": "Wet stone, worked timber, rope, shell, salt-worn metal",
+        "domains": {
+          "character": "Long sea cloak, compass case, composed but burdened gaze",
+          "settlement": "Quays, sail lofts and heavy hull cradles; distinguish from light Falmari harbor",
+          "production": "Multiple timber/metal/textile inputs, navigation work and signal towers",
+          "army": "Marines and convoy crews; landing lanes and supplies matter",
+          "artifact": "Sea compass, disciplined navigation tools and repaired sea charts",
+          "magic": "Prepared sea wards sit on routes with known limits",
+          "terrain": "Deep ultramarine water, pale sea-stone, warm brass and vermilion cloth"
+        },
+        "loreStatus": "Source kingdom; invented fixed hero, recipes and repeated return."
+      }
+    },
+    {
+      "id": "dwarf_khazad_dum",
+      "faction": "Khazad-dûm",
+      "hero": "Deep Surveyor",
+      "identity": "dwarf_khazad_dum",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "C",
+        "cost": {
+          "P": 60,
+          "M": 60,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Deepworks Hall",
+      "facilities": ["Deepworks Hall", "Tunnel Foundry"],
+      "component": {
+        "name": "survey core",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Tunnel Guards, mining engines, stone porters, survey lenses and passage wards",
+      "magicEquipment": "Food imports, ventilation and exposed entrances",
+      "sourceSection": "09",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Food imports, bottlenecks and the expense of genuinely new excavation remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "worked-stone",
+        "palette": ["#242D37", "#745B4E", "#DBA85F"],
+        "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+        "domains": {
+          "character": "Broad low silhouette, survey rod/lens, dust on practical clothing",
+          "settlement": "Entrances connect deep halls; shafts and airways define layout",
+          "production": "Lifting machinery, survey marks and clear ventilation apparatus",
+          "army": "Tunnel guards and stone porters move through narrow lanes",
+          "artifact": "Survey core with mechanical mount and pressure fittings",
+          "magic": "Fault/airway evidence appears at inspected rock or connected workings",
+          "terrain": "Layered blue-black stone, mineral green and sheltered amber"
+        },
+        "loreStatus": "Source realm; invented hero and specialized production contract."
+      }
+    },
+    {
+      "id": "dwarf_belegost",
+      "faction": "Belegost",
+      "hero": "Armor Master",
+      "identity": "dwarf_belegost",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "C",
+        "cost": {
+          "P": 60,
+          "M": 60,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Mail Hall",
+      "facilities": ["Mail Hall", "Mask Workshop"],
+      "component": {
+        "name": "tempered armor seal",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Masked Vanguards, protected haulers, hazard armor and resistance fittings",
+      "magicEquipment": "Slow metal-intensive output; protection must match the threat",
+      "sourceSection": "09",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Heavy equipment, slow queues and the need to choose the right protection remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "worked-stone",
+        "palette": ["#242D37", "#745B4E", "#DBA85F"],
+        "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+        "domains": {
+          "character": "Protective mask frame, broad shoulder line; unmasked portrait shows a person",
+          "settlement": "Low fortified mouth and vented metalwork court",
+          "production": "Mail links, mask plates, heat tests and chosen resistance fittings",
+          "army": "Masked vanguard in close formation with protected haulers",
+          "artifact": "Tempered armor seal and masks with replaceable fittings",
+          "magic": "Threat-specific treatment shown by marked panels, never universal immunity",
+          "terrain": "Iron blue, soot plum, dull copper and hot-work gold"
+        },
+        "loreStatus": "Source realm; invented hero and specialized production contract."
+      }
+    },
+    {
+      "id": "dwarf_nogrod",
+      "faction": "Nogrod",
+      "hero": "Master Artificer",
+      "identity": "dwarf_nogrod",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "C",
+        "cost": {
+          "P": 60,
+          "M": 60,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Precision Forge",
+      "facilities": ["Precision Forge", "Commission House"],
+      "component": {
+        "name": "master-tool core",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Engineers, breach tools, small mechanisms, crafted weapons and durable inscriptions",
+      "magicEquipment": "Specialist labor and rare inputs constrain throughput",
+      "sourceSection": "09",
+      "caps": {
+        "supply": 24,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Rare commissions still require their full inputs, specialist queues and development time.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "worked-stone",
+        "palette": ["#242D37", "#745B4E", "#DBA85F"],
+        "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+        "domains": {
+          "character": "Tool-dense belt, compact precise pose, evaluating gaze",
+          "settlement": "Workshop clusters and commission benches organized around measured work",
+          "production": "Small mechanisms, breach wedges, inscriptions and careful tooling",
+          "army": "Engineers and tool-bearing guards; fewer heavy protective ranks",
+          "artifact": "Master-tool core with calibrated joints and maker marks",
+          "magic": "Exact breach effect follows a known weak joint",
+          "terrain": "Dark stone, oxidized bronze, narrow white work light"
+        },
+        "loreStatus": "Source realm; invented hero and specialized production contract."
+      }
+    },
+    {
+      "id": "orc_fortress_clan",
+      "faction": "Orc fortress-clan",
+      "hero": "Warband Organizer",
+      "identity": "orc_fortress_clan",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "C",
+        "cost": {
+          "P": 60,
+          "M": 60,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Warband Hall",
+      "facilities": ["Warband Hall", "Salvage Foundry", "Tunnel Pens"],
+      "component": {
+        "name": "black iron badge",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Tunnel Raiders, wolf riders, siege brutes, crude artillery and scavenged arms",
+      "magicEquipment": "High food demand; coercive organization increases instability",
+      "sourceSection": "09",
+      "caps": {
+        "supply": 36,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Food demand, disputed leadership and finite salvage continue to constrain expansion.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "dominion-works",
+        "palette": ["#272633", "#615361", "#D29A53"],
+        "materials": "Black iron, basalt, salvaged metal, soot and worn banners",
+        "domains": {
+          "character": "Repaired layered armor, share badge, varied alert expressions",
+          "settlement": "Incremental defenses and reusable scrap structures with food stores",
+          "production": "Sorted salvage, mismatched replacement parts, trained mount pens",
+          "army": "Mixed raiders/wolf riders; organization readable through formation, not race caricature",
+          "artifact": "Black iron badge and reworked weapons with visible prior ownership",
+          "magic": "Rally and salvage cues depend on real crews and spoils",
+          "terrain": "Rust earth, slate debris, olive cloth and restrained ember"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "hobbit_shire",
+      "faction": "Hobbit Shire",
+      "hero": "Shirekeeper",
+      "identity": "hobbit_shire",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "C",
+        "cost": {
+          "P": 60,
+          "M": 60,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Common Hall",
+      "facilities": ["Common Hall", "Commons Farm", "Watch House"],
+      "component": {
+        "name": "hearth token",
+        "access": "timber",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Fieldhands, Bounders, pack ponies, superior food stores, travel kits and Hearthward Lanterns",
+      "magicEquipment": "Vulnerable to occupation and prolonged open battle",
+      "sourceSection": "09",
+      "caps": {
+        "supply": null,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Weak heavy forces, occupation risk and dependence on defensible refuge routes remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "commons",
+        "palette": ["#313C3A", "#866B50", "#DBB168"],
+        "materials": "Repaired cloth, plaster, timber, earthen stores, small lamps",
+        "domains": {
+          "character": "Short grounded figure, pack and lantern, observant open face",
+          "settlement": "Low earth-sheltered homes, useful gardens and a common hall",
+          "production": "Food drying, careful storage, packing and shared work tables",
+          "army": "Bounders and fieldhands avoid heavy-army silhouettes; pack ponies carry goods",
+          "artifact": "Hearth token, weatherproof food parcel and cared-for lantern",
+          "magic": "Hearthward/safe departure effects are subtle and bounded",
+          "terrain": "Leaf green, warm soil, cream plaster and small amber windows"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "troll_hold",
+      "faction": "Troll Hold",
+      "hero": "Stonebreaker",
+      "identity": "troll_hold",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "C",
+        "cost": {
+          "P": 60,
+          "M": 60,
+          "K": 30,
+          "E": 10
+        },
+        "turns": 2
+      },
+      "heroBuilding": "Chieftain's Hall",
+      "facilities": ["Chieftain's Hall"],
+      "component": {
+        "name": "iron-stone badge",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Drill Yard trains Shield Trolls; Breach Workshop equips Siege Crews",
+      "magicEquipment": "Purchased protection / Stonehide Plate",
+      "sourceSection": "10",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Food consumption, slow repositioning and exposure to coordinated ranged forces remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "embodied-wild",
+        "palette": ["#283836", "#777B66", "#B9A17A"],
+        "materials": "Local living/rock materials; no default humanoid furnishings",
+        "domains": {
+          "character": "Massive low shoulders, grounded hands and useful protective plate",
+          "settlement": "Heavy stone shelter and broad haulways scaled to bodies",
+          "production": "Large braces, stone blocks, food storage and maintained breach tools",
+          "army": "Shield Trolls and siege crews show slow deliberate repositioning",
+          "artifact": "Iron-stone badge and fitted Stonehide Plate",
+          "magic": "Stone dust and physical fracture map the exact impact area",
+          "terrain": "Cold boulders, grey-green moss and ochre work lamps"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "wolf_pack",
+      "faction": "Wolf Pack",
+      "hero": "Packwarden",
+      "identity": "wolf_pack",
+      "category": "Peoples and communities",
+      "recipe": {
+        "code": "B",
+        "cost": {
+          "P": 90,
+          "M": 40,
+          "K": 30,
+          "E": 40
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Gathering Den",
+      "facilities": ["Gathering Den"],
+      "component": {
+        "name": "scent token",
+        "access": "hunting",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Scent Den raises Trackers; Pack Ground organizes Runners and hunting groups",
+      "magicEquipment": "Moon-marked pursuit / Moonfang Token",
+      "sourceSection": "10",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Finite prey, light protection, defended chokepoints and the lack of heavy industry remain.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "embodied-wild",
+        "palette": ["#283836", "#777B66", "#B9A17A"],
+        "materials": "Local living/rock materials; no default humanoid furnishings",
+        "domains": {
+          "character": "Low elongated silhouette; portrait attention through ears, muzzle and eyes",
+          "settlement": "Dens, dry resting shelves and scent routes; no humanoid town",
+          "production": "Food caches, tracked prey access and protected pup/recruit spaces",
+          "army": "Trackers/runners maintain pursuit arcs; no army in human armor",
+          "artifact": "Scent token and territory-mark object appropriate to anatomy",
+          "magic": "Scent/track evidence becomes a labeled interface trail, not neon world paint",
+          "terrain": "Grey fur, muted blue rocks, tawny grass and warm den earth"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "istari_gandalf",
+      "faction": "Gandalf's Fellowship",
+      "hero": "Gandalf",
+      "identity": "istari_gandalf",
+      "category": "Named Istari",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Fellowship Refuge",
+      "facilities": ["Fellowship Refuge", "Council Hall"],
+      "component": {
+        "name": "emberwood focus",
+        "access": "timber",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Free-company wardens, resolve standards, wardstones",
+      "magicEquipment": "Fire and light, protection and courage / limited industry and endurance",
+      "sourceSection": "06a",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "His strongest burst consumes most of his six readiness and exposes a small army to pressure elsewhere. Refuge staff, provisions and ordinary troops remain necessary; protection has limited targets and duration.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "commons",
+        "palette": ["#313C3A", "#866B50", "#DBB168"],
+        "materials": "Repaired cloth, plaster, timber, earthen stores, small lamps",
+        "domains": {
+          "character": "Weathered grey mantle, small staff accent, warmth with impatience",
+          "settlement": "Refuge benches, simple hearth and a council room open to travelers",
+          "production": "Wardstones, supplied resolve standards and repaired travel gear",
+          "army": "Free-company wardens retain their own practical clothing and clear allegiance",
+          "artifact": "Emberwood focus and working staff; no automatically duplicated unique ring/sword",
+          "magic": "White fire has a defined warning/area and leaves readable silhouettes",
+          "terrain": "Rain-grey roads, deep blue-green shadows and fragile warm hearth"
+        },
+        "loreStatus": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here."
+      }
+    },
+    {
+      "id": "istari_saruman",
+      "faction": "Saruman's White Tower",
+      "hero": "Saruman",
+      "identity": "istari_saruman",
+      "category": "Named Istari",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Orthanc Workshop",
+      "facilities": ["Orthanc Workshop", "Muster Foundry"],
+      "component": {
+        "name": "resonant core",
+        "access": "metal",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Uruk companies, siege engines, wrought sentinels",
+      "magicEquipment": "Destructive force and paid construct creation / material demand and exposed workshops",
+      "sourceSection": "06a",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": 3,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "His three ordinary queues still share six support plots and supply 18. Industry, siege ammunition and his one bound Sentinel compete for materials and essence; his force lane needs positioning and offers no mass healing.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "dominion-works",
+        "palette": ["#272633", "#615361", "#D29A53"],
+        "materials": "Black iron, basalt, salvaged metal, soot and worn banners",
+        "domains": {
+          "character": "Pale severe vertical robe, resonant core, controlled exact gesture",
+          "settlement": "Dark vertical tower reference beside compact paid workshops, not a giant industrial continent",
+          "production": "Metal stores, siege assembly and one bound Sentinel's work area",
+          "army": "Uruk companies and constructs differentiated from the hero",
+          "artifact": "Resonant core with smooth rings and stressed fastenings",
+          "magic": "Force lane/construct commission visibly bounded and paid",
+          "terrain": "Black stone, cold white cloth, smoke plum and furnace orange"
+        },
+        "loreStatus": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here."
+      }
+    },
+    {
+      "id": "istari_radagast",
+      "faction": "Radagast's Woodland Circle",
+      "hero": "Radagast",
+      "identity": "istari_radagast",
+      "category": "Named Istari",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Woodland Sanctuary",
+      "facilities": ["Woodland Sanctuary", "Beast Refuge"],
+      "component": {
+        "name": "living seed",
+        "access": "grove",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Beast companions, woodland defenders, healing salves",
+      "magicEquipment": "Offensive living terrain and healing / fire, barren ground and weak siege industry",
+      "sourceSection": "06a",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Offense requires living vegetation and grounded targets. Healing consumes the same readiness needed for attack, and neither healing nor a bodyguard replaces lost habitats, destroyed units or a conventional siege force.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "living-refuge",
+        "palette": ["#193D34", "#678C55", "#D4B47D"],
+        "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+        "domains": {
+          "character": "Brown-green layered travel wear, seed focus, alert listening posture",
+          "settlement": "Sheltered animal recovery pens nested in living woodland",
+          "production": "Salve preparation, habitat repair and supplied beast care",
+          "army": "Woodland defenders and beast companions retain species-appropriate scale",
+          "artifact": "Living seed and stained medicine pouch",
+          "magic": "Root/thorn lines emerge from existing vegetation with clear affected area",
+          "terrain": "Loam umber, saturated fern green and warm russet"
+        },
+        "loreStatus": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here."
+      }
+    },
+    {
+      "id": "istari_alatar",
+      "faction": "Alatar's Eastern Hunt",
+      "hero": "Alatar (Blue Wizard)",
+      "identity": "istari_alatar",
+      "category": "Named Istari",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Eastern Hunt Lodge",
+      "facilities": ["Eastern Hunt Lodge", "Outrider Camp"],
+      "component": {
+        "name": "hunter seal",
+        "access": "stone",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Outriders, hunters, marked-shot equipment",
+      "magicEquipment": "Dangerous-target hunter and pursuit / weaker against crowds and fortified positions",
+      "sourceSection": "06a",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "High-value single-target attacks do not clear a massed army or hold several outposts. Aiming and marking expose his position; walls, dense cover, close pressure and multiple simultaneous threats remain effective.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "path-and-pursuit",
+        "palette": ["#273B38", "#A0804D", "#B7CFBC"],
+        "materials": "Weathered timber, leather, cord, local stone and travel cloth",
+        "domains": {
+          "character": "Deep blue narrow cloak, stone hunter seal and aiming stillness",
+          "settlement": "Low lodge with sightline terrace and practical outrider shelters",
+          "production": "Marked-shot tools, maintained saddles and survey records",
+          "army": "Hunters and outriders spread along approaches; limited crowd coverage",
+          "artifact": "Hunter seal with directional cuts and repaired carrying wrap",
+          "magic": "A narrow aimed spear/mark silhouette discloses exposure and target",
+          "terrain": "Authored eastern upland, storm blue cloth, ochre stone and silver grass"
+        },
+        "loreStatus": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here."
+      }
+    },
+    {
+      "id": "istari_pallando",
+      "faction": "Pallando's Eastern Resistance",
+      "hero": "Pallando (Blue Wizard)",
+      "identity": "istari_pallando",
+      "category": "Named Istari",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Resistance Hall",
+      "facilities": ["Resistance Hall", "Ward Workshop"],
+      "component": {
+        "name": "ward-knot",
+        "access": "crystal",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Resistance companies, ward-breaker tools, resistance charms",
+      "magicEquipment": "Damaging spell disruption and protective wards / lower pressure against mundane massed troops",
+      "sourceSection": "06a",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "His spell suppression is temporary and his protection covers only two units in a small fixed area. Ordinary armies, dispersed attacks and sustained physical pressure remain dangerous; essence and prepared lore supplies limit repeated casting.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "commons",
+        "palette": ["#313C3A", "#866B50", "#DBB168"],
+        "materials": "Repaired cloth, plaster, timber, earthen stores, small lamps",
+        "domains": {
+          "character": "Blue broad shoulder wrap, crystal ward-knot, attentive measured stance",
+          "settlement": "Shared hall and compact ward workshop with open assembly space",
+          "production": "Ward-breaker tools, braided charms and stocked lore worktables",
+          "army": "Small resistance companies; protected groups visibly bounded",
+          "artifact": "Ward-knot combines crystal and textile, unlike Alatar's stone seal",
+          "magic": "Broken hostile spell edge and fixed protective circle remain readable",
+          "terrain": "Authored eastern settlement, ink blue, dusty coral cloth and pale quartz"
+        },
+        "loreStatus": "Named identity; invented selectable faction and kit. Alatar/Pallando names rely on current project wider-source attribution, not independent verification here."
+      }
+    },
+    {
+      "id": "sauron",
+      "faction": "Sauron",
+      "hero": "Sauron",
+      "identity": "sauron",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Binding Forge",
+      "facilities": [
+        "Binding Forge",
+        "Command Tower",
+        "foundries",
+        "tribute depots"
+      ],
+      "component": {
+        "name": "forged binding core",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "armored overseers, werewolves, siege equipment and lesser binding rings",
+      "magicEquipment": "Borrowed disguise, terror and coordinated command; lesser binding rings are ordinary invented items",
+      "sourceSection": "06",
+      "caps": {
+        "supply": null,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "The army still needs provisions, depots and travel; exposed clients can secede.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "dominion-works",
+        "palette": ["#272633", "#615361", "#D29A53"],
+        "materials": "Black iron, basalt, salvaged metal, soot and worn banners",
+        "domains": {
+          "character": "Controlled symmetrical mantle with plausible crafted surfaces; no mandatory giant eye",
+          "settlement": "Organized foundries, depots and command tower with exposed links",
+          "production": "Repeated fittings, inspection stations, binding-ring work and material queues",
+          "army": "Armored overseers, werewolves and siege equipment follow supply roads",
+          "artifact": "Forged binding core and ordinary lesser rings distinct from unique One Ring",
+          "magic": "Command links reveal their range/dependency; terror does not become ally control",
+          "terrain": "Soot violet, black iron, cold polished metal and narrow red furnace light"
+        },
+        "loreStatus": "Source-named Maia; industrial controller faction and repeatable return are adaptations."
+      }
+    },
+    {
+      "id": "istari_ember",
+      "faction": "Ember Order",
+      "hero": "Kindler",
+      "identity": "istari_ember",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Hearth Sanctuary",
+      "facilities": ["Hearth Sanctuary", "Refuge Lodge"],
+      "component": {
+        "name": "ember focus",
+        "access": "metal",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Hearth Wardens; Ashlight spirits",
+      "magicEquipment": "Rally through terror; shelter ward / Oath Lantern",
+      "sourceSection": "06",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Shelters cannot replace a field army, and displaced workers stop production.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "commons",
+        "palette": ["#313C3A", "#866B50", "#DBB168"],
+        "materials": "Repaired cloth, plaster, timber, earthen stores, small lamps",
+        "domains": {
+          "character": "Rounded cloak, ember focus held low, worn practical hands",
+          "settlement": "Hearth court and low refuge lodge with stocked sleeping spaces",
+          "production": "Blanket repair, food preparation and paid shelter wards",
+          "army": "Hearth Wardens and finite Ashlight spirits",
+          "artifact": "Oath Lantern with repair seams and shuttered glow",
+          "magic": "A small warm shelter edge with explicit duration/occupancy",
+          "terrain": "Charcoal timber, blue dusk, dull brick and amber"
+        },
+        "loreStatus": "Entire order, fixed generated hero and institutional identity are original gameplay inventions."
+      }
+    },
+    {
+      "id": "istari_grove",
+      "faction": "Grove Order",
+      "hero": "Grovekeeper",
+      "identity": "istari_grove",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Seedwell",
+      "facilities": ["Seedwell", "Medicine Nursery"],
+      "component": {
+        "name": "growth focus",
+        "access": "grove",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Thornkeepers; Moth Clouds",
+      "magicEquipment": "Root snare; recovery bloom / Renewal Charm",
+      "sourceSection": "06",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Care depends on viable habitat, staff and supplies; overwhelming losses still exhaust the order.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "living-refuge",
+        "palette": ["#193D34", "#678C55", "#D4B47D"],
+        "materials": "Living bark, leaves, clay vessels, woven shade, worn linen",
+        "domains": {
+          "character": "Short layered green mantle, growth focus, close observation",
+          "settlement": "Small seedwell and medicinal beds, unlike Yavanna's forest sanctuary",
+          "production": "Sorted remedies, nursery recovery and clean water",
+          "army": "Thornkeepers and bounded Moth Clouds; no giant forest army",
+          "artifact": "Growth focus and Renewal Charm with handled organic surfaces",
+          "magic": "Healing/root effects follow prepared plants and defined areas",
+          "terrain": "Moss jade, blue shade, pale seed heads and copper vessels"
+        },
+        "loreStatus": "Entire order, fixed generated hero and institutional identity are original gameplay inventions."
+      }
+    },
+    {
+      "id": "istari_veil",
+      "faction": "Veil Order",
+      "hero": "Veilweaver",
+      "identity": "istari_veil",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Hidden Observatory",
+      "facilities": ["Hidden Observatory", "Safehouse"],
+      "component": {
+        "name": "mist focus",
+        "access": "glass",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Quiet Envoys; Mist Doubles",
+      "magicEquipment": "False signal; concealed passage / False-Signal Seal",
+      "sourceSection": "06",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "The order lacks durable troops, and deception cannot substitute for holding ground.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "veiled-path",
+        "palette": ["#293A49", "#77728B", "#C0B9A8"],
+        "materials": "Frosted glass, thin cloth screens, local masonry, wax",
+        "domains": {
+          "character": "Asymmetric layered grey cloak, glass focus, sideward glance",
+          "settlement": "Modest safehouse entries and a screened observatory, not invisible free buildings",
+          "production": "Glass work, message cases, staffed contacts and replaceable decoy props",
+          "army": "Quiet Envoys and clearly signaled friendly Mist Doubles",
+          "artifact": "Mist focus and False-Signal Seal, worn glass and wax",
+          "magic": "Double edges/false signals label what the owner knows is decoy",
+          "terrain": "Fog blue, muted mauve, dusty linen and small copper glints"
+        },
+        "loreStatus": "Entire order, fixed generated hero and institutional identity are original gameplay inventions."
+      }
+    },
+    {
+      "id": "istari_forge",
+      "faction": "Forge Order",
+      "hero": "Artificer",
+      "identity": "istari_forge",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Arcane Foundry",
+      "facilities": ["Arcane Foundry", "Service Depot"],
+      "component": {
+        "name": "binding focus",
+        "access": "metal",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Wrought Sentinels; Bound Sparks",
+      "magicEquipment": "Repair supplied equipment; reinforce cover / Repair Matrix",
+      "sourceSection": "06",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Constructs remain material-intensive, and repair cannot compensate for destroyed production facilities.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "worked-stone",
+        "palette": ["#242D37", "#745B4E", "#DBA85F"],
+        "materials": "Cut stone, iron, copper, crystal, soot, timber bracing",
+        "domains": {
+          "character": "Apron over travel robe, binding focus, measured working posture",
+          "settlement": "Compact foundry linked to a depot with visible service lanes",
+          "production": "Replacement parts, repair matrices, input bins and staffed benches",
+          "army": "Wrought Sentinels and Bound Sparks; clear construct joints",
+          "artifact": "Binding focus and Repair Matrix in a portable frame",
+          "magic": "Braces light only at repaired joints; supplies remain visibly consumed",
+          "terrain": "Gunmetal, clay red, dark blue and limited molten gold"
+        },
+        "loreStatus": "Entire order, fixed generated hero and institutional identity are original gameplay inventions."
+      }
+    },
+    {
+      "id": "istari_star",
+      "faction": "Star Order",
+      "hero": "Wayseer",
+      "identity": "istari_star",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Astral Hall",
+      "facilities": ["Astral Hall", "Beacon Station"],
+      "component": {
+        "name": "star focus",
+        "access": "crystal",
+        "accessStatus": "adopted",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Beacon Riders; Star Motes",
+      "magicEquipment": "Route warning; prepared interception / Wayglass",
+      "sourceSection": "06",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Knowledge does not create troops or transport; unconnected regions remain difficult to protect.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Hooded upward profile, crystal wayglass, survey stance",
+          "settlement": "Astral hall with low observation apertures and connected beacon stations",
+          "production": "Lens cleaning, chart preparation and timed signal records",
+          "army": "Beacon Riders and bounded Star Motes",
+          "artifact": "Star focus and Wayglass with readable calibrated rim",
+          "magic": "Signals travel between known stations; gaps remain gaps",
+          "terrain": "Ink blue, silver stone, muted brass and pinpoint pale light"
+        },
+        "loreStatus": "Entire order, fixed generated hero and institutional identity are original gameplay inventions."
+      }
+    },
+    {
+      "id": "melian",
+      "faction": "Melian",
+      "hero": "Melian",
+      "identity": "melian",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Sanctuary Court",
+      "facilities": ["Sanctuary Court", "Veil Garden"],
+      "component": {
+        "name": "woven sanctuary seal",
+        "access": "textile",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Border attendants, refuge keepers and veil wisps",
+      "magicEquipment": "Bounded Girdle, concealment / sanctuary mantle",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Protection remains stationary and cannot solve internal disputes or sustain distant armies.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "memory-threshold",
+        "palette": ["#302A40", "#847D97", "#D5C2A0"],
+        "materials": "Basalt, pale stone, woven records, soft weathered textiles",
+        "domains": {
+          "character": "Layered mantle, listening head and songlike calm with firm boundary",
+          "settlement": "Sanctuary court combining carved boughs, lamps and garden thresholds",
+          "production": "Veil weaving, refuge care and maintained boundary sites",
+          "army": "Border attendants and finite veil wisps, not another royal hero",
+          "artifact": "Woven sanctuary seal with layered threads and visible care",
+          "magic": "Girdle boundary is spatially explicit; anchor dependencies remain readable",
+          "terrain": "Deep beech green, marble shadow, warm gold lamps"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "osse",
+      "faction": "Ossë",
+      "hero": "Ossë",
+      "identity": "osse",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Storm Haven",
+      "facilities": ["Storm Haven", "Surf Works"],
+      "component": {
+        "name": "storm-shell core",
+        "access": "shore",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Shore guards, storm skiffs and surf constructs",
+      "magicEquipment": "Hazardous seas, landing disruption / tidebreaker charm",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Inland threats remain difficult to answer, and storm magic endangers friendly shipping.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "river-sea",
+        "palette": ["#163D46", "#618C89", "#DECE9F"],
+        "materials": "Wet stone, worked timber, rope, shell, salt-worn metal",
+        "domains": {
+          "character": "Sharp windward cloak contour, storm-shell core, exhilarated intensity",
+          "settlement": "Breakwater haven with practical surf-work platforms",
+          "production": "Skiff repair, weighted lines and weather-beaten tools",
+          "army": "Shore guards and surf constructs brace against waves",
+          "artifact": "Storm-shell core with chipped outer ridges",
+          "magic": "Wave fronts show approach and landing danger, including friendly risk",
+          "terrain": "Cold aquamarine, violet-black rocks and salt-white edges"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "uinen",
+      "faction": "Uinen",
+      "hero": "Uinen",
+      "identity": "uinen",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Haven Pool",
+      "facilities": ["Haven Pool", "Rescue Yard"],
+      "component": {
+        "name": "pearl current-knot",
+        "access": "shore",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Rescue crews, protected fishing craft and current guides",
+      "magicEquipment": "Calm water, convoy protection / safe-passage token",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "She cannot replace destroyed fleets or secure inland supply lines through calming water alone.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "river-sea",
+        "palette": ["#163D46", "#618C89", "#DECE9F"],
+        "materials": "Wet stone, worked timber, rope, shell, salt-worn metal",
+        "domains": {
+          "character": "Flowing horizontal mantle/hair rhythm, current-knot, attentive calm",
+          "settlement": "Protected basin and low rescue yard beside clear embarkation edges",
+          "production": "Lifelines, hull repair, fishing gear and crew rest",
+          "army": "Rescue crews and protected fishing craft carry actual loads",
+          "artifact": "Pearl current-knot and practical safe-passage token",
+          "magic": "Calm pockets retain visible boundaries and moving water beyond",
+          "terrain": "Sea green, pearl grey, deep blue and warm rope ochre"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "arien",
+      "faction": "Arien",
+      "hero": "Arien",
+      "identity": "arien",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Solar Court",
+      "facilities": ["Solar Court", "Dawn Terrace"],
+      "component": {
+        "name": "fire crystal",
+        "access": "crystal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Dawn sentries, light mirrors and sun-motes",
+      "magicEquipment": "Expose movement, contest shadow / daylight lens",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Illumination cannot hold territory, enter sealed interiors or replace conventional defense.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Compact flame-edged figure with readable silhouette, no face-searing glare",
+          "settlement": "Open solar court and angled mirror terrace",
+          "production": "Light mirrors, timed worksite preparation and supplied sentries",
+          "army": "Dawn sentries and finite sun-motes stand apart from the hero",
+          "artifact": "Fire crystal and daylight lens with dark shielding",
+          "magic": "Directional light exposes a bounded area after warning",
+          "terrain": "Dawn coral, indigo shadow, bright cream and restrained hot gold"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "tilion",
+      "faction": "Tilion",
+      "hero": "Tilion",
+      "identity": "tilion",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Lunar Lodge",
+      "facilities": ["Lunar Lodge", "Nightwatch Platform"],
+      "component": {
+        "name": "silver moon-mark",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Night scouts, patrol riders and moon-motes",
+      "magicEquipment": "Interception, night-route warning / silver sight",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "A single patrol cannot protect multiple fronts, and dependable reports still require exposure.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Silver-bow contour, lunar mark, mobile watchful posture",
+          "settlement": "Low lodge and exposed watch platform on a traversable ridge",
+          "production": "Patrol equipment, silver fittings and night-route reports",
+          "army": "Night scouts, patrol riders and finite moon-motes",
+          "artifact": "Silver moon-mark and sight instrument",
+          "magic": "Silver interception trail respects one route and actual patrol reach",
+          "terrain": "Deep cobalt, cool silver and warm shelter windows"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "eonwe",
+      "faction": "Eönwë",
+      "hero": "Eönwë",
+      "identity": "eonwe",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Herald Hall",
+      "facilities": ["Herald Hall", "Expedition Camp"],
+      "component": {
+        "name": "heraldic seal",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Supplied herald companies, banner guards and siege crews",
+      "magicEquipment": "Coordinated advance, rally / commission banner",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Concentrating the host exposes other routes, and his martial strength cannot replace provisions.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Long standard line, heraldic seal, open commanding posture",
+          "settlement": "Campaign hall with organized tents and stores, no endless imperial capital",
+          "production": "Maintained banners, siege crew tools and written commissions",
+          "army": "Supplied herald companies and banner guards with clear terms",
+          "artifact": "Commission banner with maker/custody record",
+          "magic": "Advance/rally cues align a bounded group and connected front",
+          "terrain": "Wind-scoured stone, ivory cloth, blue shade and quiet gold"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "ilmare",
+      "faction": "Ilmarë",
+      "hero": "Ilmarë",
+      "identity": "ilmare",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "A",
+        "cost": {
+          "P": 0,
+          "M": 80,
+          "K": 80,
+          "E": 70
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Signal Court",
+      "facilities": ["Signal Court", "Star Relay"],
+      "component": {
+        "name": "signal crystal",
+        "access": "crystal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Couriers, beacon keepers and signal motes",
+      "magicEquipment": "Warning relays, illumination / witness glass",
+      "sourceSection": "11",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": 1,
+        "supportPlots": 6,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Reliable communications still need staffed sites and cannot substitute for a defending army.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "high-air",
+        "palette": ["#182B47", "#6A8297", "#DED8AF"],
+        "materials": "Pale stone, wind-worn cloth, lens glass, calibrated metal",
+        "domains": {
+          "character": "Narrow mantle and hand-held signal glass, exact listening gaze",
+          "settlement": "Small court with separated low relays and open sightlines",
+          "production": "Lamp upkeep, witness records and couriers at stations",
+          "army": "Beacon keepers, couriers and signal motes",
+          "artifact": "Signal crystal and witness glass in protective fittings",
+          "magic": "A second signal confirms a message, never global clairvoyance",
+          "terrain": "Cold indigo, silver flecks and tiny warm staffed windows"
+        },
+        "loreStatus": "Source-named being; modest enclave and ordinary production are invented, especially for briefly described figures."
+      }
+    },
+    {
+      "id": "ent_grove",
+      "faction": "Ent Grove",
+      "hero": "Grove Elder",
+      "identity": "ent_grove",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "B",
+        "cost": {
+          "P": 90,
+          "M": 40,
+          "K": 30,
+          "E": 40
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Moot Grove",
+      "facilities": ["Moot Grove"],
+      "component": {
+        "name": "living heartwood",
+        "access": "grove",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Living Nursery grows Sapling Guardians; Rootworks grows shelters and defensive roots",
+      "magicEquipment": "Rootward protection / Rootward Totem",
+      "sourceSection": "10",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "The faction remains slow, habitat-dependent and vulnerable to sustained fire.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "embodied-wild",
+        "palette": ["#283836", "#777B66", "#B9A17A"],
+        "materials": "Local living/rock materials; no default humanoid furnishings",
+        "domains": {
+          "character": "Branching asymmetric body, eyes held in bark folds, rooted weight",
+          "settlement": "An inhabited grove with open moot space, no tree-shaped human castle",
+          "production": "Nursery stages, water access and living root shelters",
+          "army": "Sapling Guardians distinct in species/age, no duplicated Grove Elder",
+          "artifact": "Living heartwood and Rootward Totem integrated with anatomy",
+          "magic": "Roots form a specific screen or passage; growth remains bounded",
+          "terrain": "Dark earth, saturated moss, pale bark and sunlit new leaves"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "eagle_eyrie",
+      "faction": "Eagle Eyrie",
+      "hero": "Skywarden",
+      "identity": "eagle_eyrie",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "B",
+        "cost": {
+          "P": 90,
+          "M": 40,
+          "K": 30,
+          "E": 40
+        },
+        "turns": 3
+      },
+      "heroBuilding": "High Nest",
+      "facilities": ["High Nest"],
+      "component": {
+        "name": "feather sky-knot",
+        "access": "eyrie",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Training Ledge recruits Scout Flights; Harness Perch prepares Rescue Flights",
+      "magicEquipment": "Wind guidance / carried Wind Knot",
+      "sourceSection": "10",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Loads stay small, eyries remain exposed, and air superiority does not establish ground control.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "embodied-wild",
+        "palette": ["#283836", "#777B66", "#B9A17A"],
+        "materials": "Local living/rock materials; no default humanoid furnishings",
+        "domains": {
+          "character": "Wide wing silhouette, compact perched portrait with intent eyes",
+          "settlement": "High nest, safe landing ledges and a scale-credible harness perch",
+          "production": "Harness work, cared-for landing area and provision caches",
+          "army": "Scout/Rescue Flights differ by load and flight pattern",
+          "artifact": "Feather sky-knot and appropriate rescue harness",
+          "magic": "Wind guidance highlights a route and landing, not control of all air",
+          "terrain": "Slate peaks, cold blue distance, warm russet feathers"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "spider_brood",
+      "faction": "Spider Brood",
+      "hero": "Brood Matriarch",
+      "identity": "spider_brood",
+      "category": "Istari, Maiar and guardians",
+      "recipe": {
+        "code": "B",
+        "cost": {
+          "P": 90,
+          "M": 40,
+          "K": 30,
+          "E": 40
+        },
+        "turns": 3
+      },
+      "heroBuilding": "Royal Hollow",
+      "facilities": ["Royal Hollow"],
+      "component": {
+        "name": "venom-silk spindle",
+        "access": "silk",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Silk Nursery creates Weblayers; Brood Chamber raises Venom Stalkers",
+      "magicEquipment": "Concealed webs / Nightweb Snare",
+      "sourceSection": "10",
+      "caps": {
+        "supply": 18,
+        "ordinaryQueues": null,
+        "cities": null,
+        "supportPlots": null,
+        "binding": 2,
+        "greatCreatures": 0,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "The brood still depends on prey and prepared terrain; fire and cleared routes remain effective counters.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "embodied-wild",
+        "palette": ["#283836", "#777B66", "#B9A17A"],
+        "materials": "Local living/rock materials; no default humanoid furnishings",
+        "domains": {
+          "character": "Low broad radial silhouette, eye cluster and poised forelimbs",
+          "settlement": "Hollows, suspended nursery pockets and accessible maintenance strands",
+          "production": "Silk stages, prey stores and layered web supports",
+          "army": "Weblayers/Stalkers use different limb posture and occupied lanes",
+          "artifact": "Venom-silk spindle and Nightweb Snare appropriate to body plan",
+          "magic": "Visible selected web boundaries plus tremor evidence; no hidden UI traps",
+          "terrain": "Indigo hollow, moss black, pearl silk and sparse amber eyes"
+        },
+        "loreStatus": "Source-inspired people/creature; original playable society, hero and production. Specific taxonomy/costume lore beyond cited evidence needs new verification."
+      }
+    },
+    {
+      "id": "melkor_worldbreaker",
+      "faction": "Melkor",
+      "hero": "Melkor - Worldbreaker",
+      "identity": "melkor",
+      "category": "Melkor doctrines",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Dark Sanctuary",
+      "facilities": ["Dark Sanctuary", "War Pens"],
+      "component": {
+        "name": "black iron component",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Siege brute; existing living Lesser Drake, Ground Dragon, Winged Dragon, Balrog; no new Dragons or Balrogs",
+      "magicEquipment": "One Melkor identity, persistent doctrine and unconditional exclusive creature allegiance",
+      "sourceSection": "05a–05c",
+      "caps": {
+        "supply": 12,
+        "ordinaryQueues": 2,
+        "cities": 1,
+        "supportPlots": 4,
+        "binding": 2,
+        "greatCreatures": 2,
+        "anchors": 3
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Small economy, limited simultaneous coverage and a finite, nonrenewable pool of living Balrogs and Dragons.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "dominion-works",
+        "palette": ["#272633", "#615361", "#D29A53"],
+        "materials": "Black iron, basalt, salvaged metal, soot and worn banners",
+        "domains": {
+          "character": "One black iron identity, broad fractured mantle, force held in a still stance",
+          "settlement": "Small sanctuary against enormous scarred land; never city sprawl",
+          "production": "Few occupied worksites; existing-creature mustering has a real arrival route",
+          "army": "Small supporting force; called Dragon/Balrog retains individual map ID",
+          "artifact": "Black iron component, no unearned Silmarils in the crown",
+          "magic": "Visible Worldbreak wind-up; call trail starts at a living discovered creature",
+          "terrain": "Cold basalt, bruised violet, exposed iron and restrained ember cracks"
+        },
+        "loreStatus": "Source-named Power; doctrine, capacities, exclusive game command and production rules are adaptations."
+      }
+    },
+    {
+      "id": "melkor_dark_architect",
+      "faction": "Melkor",
+      "hero": "Melkor - Dark Architect",
+      "identity": "melkor",
+      "category": "Melkor doctrines",
+      "recipe": {
+        "code": "D",
+        "cost": {
+          "P": 0,
+          "M": 120,
+          "K": 100,
+          "E": 120
+        },
+        "turns": 4
+      },
+      "heroBuilding": "Black Citadel",
+      "facilities": [
+        "Black Citadel",
+        "Fortress Hold",
+        "War Pens",
+        "War Furnace",
+        "Dragon Brood Vault",
+        "Sky Brood Vault",
+        "Black Crucible",
+        "Command Spire"
+      ],
+      "component": {
+        "name": "black iron component",
+        "access": "metal",
+        "accessStatus": "provisional material interpretation",
+        "cost": {
+          "P": 0,
+          "M": 10,
+          "K": 5,
+          "E": 0
+        },
+        "turns": 1
+      },
+      "production": "Siege brute; existing living Lesser Drake, Ground Dragon, Winged Dragon, Balrog; paid new Dragons and Balrogs",
+      "magicEquipment": "One Melkor identity, persistent doctrine and unconditional exclusive creature allegiance",
+      "sourceSection": "05a–05c",
+      "caps": {
+        "supply": 36,
+        "ordinaryQueues": 6,
+        "cities": 3,
+        "supportPlots": 8,
+        "binding": 2,
+        "greatCreatures": 4,
+        "anchors": 3,
+        "maximumSupply": 60,
+        "maximumGreatCreatures": 8,
+        "holdSupportPlots": 6,
+        "supplyPerHold": 12,
+        "greatCreaturesPerHold": 2
+      },
+      "capsStatus": "r6 proposed values; null means unspecified, not unlimited",
+      "weakness": "Lower personal combat capacity, slower economic setup and expensive, exposed production. Existing-creature calls remain available at the same cost; new Dragons and Balrogs require this doctrine.",
+      "provisional": [
+        "Detailed ordinary unit/building/equipment prices, time, upkeep and combat statistics are not specified by r6.",
+        "Component source tag is a disclosed material/habitat interpretation; r6 supplies the component name but no enumerated access tag."
+      ],
+      "presentation": {
+        "family": "dominion-works",
+        "palette": ["#272633", "#615361", "#D29A53"],
+        "materials": "Black iron, basalt, salvaged metal, soot and worn banners",
+        "domains": {
+          "character": "Same Melkor identity, disciplined iron mantle planes, command gesture",
+          "settlement": "Citadel/holds show controlled sprawl within actual limits, linked by supply roads",
+          "production": "Brood vault/crucible queues, paid inputs, staff and capacity reservations",
+          "army": "Individually counted great creatures with exclusive command marks",
+          "artifact": "Black iron component shares identity with Worldbreaker, not a second hero",
+          "magic": "Coordinated order paths and a bounded Forge Will job cue",
+          "terrain": "Ash-purple industry, cold iron, sulfur ochre and furnace amber"
+        },
+        "loreStatus": "Source-named Power; doctrine, capacities, exclusive game command and production rules are adaptations."
+      }
+    }
+  ],
+  "sharedRules": {
+    "strategicOperationsPerWeek": 3,
+    "heroCommitmentsPerWeek": 1,
+    "activeOrPendingHeroSlots": 1,
+    "componentSynthesis": {
+      "cost": {
+        "P": 0,
+        "M": 30,
+        "K": 20,
+        "E": 10
+      },
+      "turns": 3,
+      "grantsSourceAccess": false
+    },
+    "coreEssenceRitual": {
+      "cost": {
+        "P": 0,
+        "M": 20,
+        "K": 10,
+        "E": 0
+      },
+      "turns": 2,
+      "output": {
+        "P": 0,
+        "M": 0,
+        "K": 0,
+        "E": 10
+      }
+    },
+    "cancellationRefundFraction": 0.5,
+    "sourceAccessRequiredWhenStarting": true,
+    "heroRecreation": "Full component and recipe cost and duration. Preserve level/perks, never duplicate dropped gear. Captive hero occupies slot.",
+    "ordinarySupply": {
+      "infantry": 1,
+      "elite": 2,
+      "largeCreature": 3
+    },
+    "ordinarySupplyStatus": "r6 initial tuning values",
+    "facilityQueueLimit": 1,
+    "victory": {
+      "startingTurn": 8,
+      "sitesRequired": 2,
+      "consecutiveResolutions": 3,
+      "siteCount": 3,
+      "mustBeUncontested": true,
+      "airMustLand": true
+    }
+  },
+  "melkorCreatures": [
+    {
+      "name": "Siege brute",
+      "facility": "War Pens",
+      "tier": 1,
+      "cost": {
+        "P": 40,
+        "M": 50,
+        "K": 10,
+        "E": 5
+      },
+      "turns": 3,
+      "supply": 3,
+      "greatCreaturePoints": 0,
+      "upkeep": null,
+      "upkeepStatus": "unspecified",
+      "newProductionDoctrine": "either",
+      "exclusiveMelkor": false,
+      "bindingSlots": 0
+    },
+    {
+      "name": "Lesser Drake",
+      "facility": "Dragon Brood Vault",
+      "tier": 1,
+      "cost": {
+        "P": 40,
+        "M": 35,
+        "K": 10,
+        "E": 20
+      },
+      "turns": 3,
+      "supply": 3,
+      "greatCreaturePoints": 1,
+      "upkeep": {
+        "P": 1,
+        "M": 0,
+        "K": 0,
+        "E": 1
+      },
+      "upkeepStatus": "r6 prototype value",
+      "newProductionDoctrine": "melkor_dark_architect",
+      "exclusiveMelkor": true,
+      "bindingSlots": 0
+    },
+    {
+      "name": "Ground Dragon",
+      "facility": "Dragon Brood Vault",
+      "tier": 2,
+      "cost": {
+        "P": 120,
+        "M": 100,
+        "K": 40,
+        "E": 80
+      },
+      "turns": 6,
+      "supply": 6,
+      "greatCreaturePoints": 1,
+      "upkeep": {
+        "P": 3,
+        "M": 0,
+        "K": 0,
+        "E": 1
+      },
+      "upkeepStatus": "r6 prototype value",
+      "newProductionDoctrine": "melkor_dark_architect",
+      "exclusiveMelkor": true,
+      "bindingSlots": 0
+    },
+    {
+      "name": "Winged Dragon",
+      "facility": "Sky Brood Vault",
+      "tier": 3,
+      "cost": {
+        "P": 160,
+        "M": 140,
+        "K": 60,
+        "E": 120
+      },
+      "turns": 8,
+      "supply": 8,
+      "greatCreaturePoints": 2,
+      "upkeep": {
+        "P": 5,
+        "M": 0,
+        "K": 0,
+        "E": 2
+      },
+      "upkeepStatus": "r6 prototype value",
+      "newProductionDoctrine": "melkor_dark_architect",
+      "exclusiveMelkor": true,
+      "bindingSlots": 0
+    },
+    {
+      "name": "Balrog",
+      "facility": "Black Crucible",
+      "tier": 2,
+      "cost": {
+        "P": 0,
+        "M": 100,
+        "K": 60,
+        "E": 100
+      },
+      "turns": 6,
+      "supply": 6,
+      "greatCreaturePoints": 1,
+      "upkeep": {
+        "P": 0,
+        "M": 0,
+        "K": 0,
+        "E": 3
+      },
+      "upkeepStatus": "r6 prototype value",
+      "newProductionDoctrine": "melkor_dark_architect",
+      "exclusiveMelkor": true,
+      "bindingSlots": 0
+    }
+  ],
+  "callOfTheDark": {
+    "readiness": 3,
+    "heroCommitment": 1,
+    "cost": {
+      "P": 20,
+      "M": 20,
+      "K": 0,
+      "E": 10
+    },
+    "requires": [
+      "Living embodied Melkor",
+      "Discovered living existing permanent entity ID",
+      "Unreserved full supply and great-creature capacity",
+      "Actual route followed with ordinary movement operations"
+    ],
+    "preservesOwnershipAfterHeroDeath": true,
+    "uncalledAfterHeroDeath": "Remain at lair under fixed orders; unavailable to activate",
+    "canRevive": false,
+    "canTeleport": false
+  },
+  "broodDiscipline": {
+    "facility": "Command Spire",
+    "cost": {
+      "P": 0,
+      "M": 60,
+      "K": 40,
+      "E": 30
+    },
+    "turns": 3,
+    "futureDragonBalrogDurationMultiplier": 0.75,
+    "round": "ceil",
+    "changesCost": false
+  },
+  "resonantSentinel": {
+    "profile": "istari_saruman",
+    "facility": "Orthanc Workshop",
+    "cost": {
+      "P": 0,
+      "M": 40,
+      "K": 15,
+      "E": 20
+    },
+    "readiness": 3,
+    "heroCommitment": 1,
+    "turns": 2,
+    "supply": 2,
+    "bindingSlots": 1,
+    "upkeep": {
+      "P": 0,
+      "M": 2,
+      "K": 0,
+      "E": 1
+    },
+    "attackOnCompletion": false,
+    "intercepts": "One attack against an adjacent ordinary ally per encounter; takes normal attack damage itself",
+    "source": "hero-balance-roster.json profile istari_saruman support_power",
+    "activeOrPendingLimit": 1,
+    "dismantleRefund": 0,
+    "shortages": "Disable special interception and block another commission; ownership unchanged"
+  }
+}

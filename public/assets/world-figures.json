@@ -1,0 +1,179 @@
+{
+  "frames": {
+    "porter": {
+      "frame": {
+        "x": 110,
+        "y": 19,
+        "w": 194,
+        "h": 275
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "infantry": {
+      "frame": {
+        "x": 328,
+        "y": 57,
+        "w": 251,
+        "h": 239
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "rider": {
+      "frame": {
+        "x": 642,
+        "y": 45,
+        "w": 262,
+        "h": 267
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "elven-archer": {
+      "frame": {
+        "x": 974,
+        "y": 57,
+        "w": 236,
+        "h": 251
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "dwarf-engineer": {
+      "frame": {
+        "x": 0,
+        "y": 335,
+        "w": 313,
+        "h": 292
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "orc-guard": {
+      "frame": {
+        "x": 313,
+        "y": 328,
+        "w": 308,
+        "h": 283
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "wizard": {
+      "frame": {
+        "x": 680,
+        "y": 341,
+        "w": 220,
+        "h": 274
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "herald": {
+      "frame": {
+        "x": 943,
+        "y": 320,
+        "w": 289,
+        "h": 307
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "troll": {
+      "frame": {
+        "x": 43,
+        "y": 628,
+        "w": 270,
+        "h": 312
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "wolf": {
+      "frame": {
+        "x": 313,
+        "y": 636,
+        "w": 312,
+        "h": 304
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "eagle": {
+      "frame": {
+        "x": 655,
+        "y": 630,
+        "w": 270,
+        "h": 310
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "spider": {
+      "frame": {
+        "x": 949,
+        "y": 627,
+        "w": 279,
+        "h": 313
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "ent": {
+      "frame": {
+        "x": 31,
+        "y": 940,
+        "w": 282,
+        "h": 314
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "winged-dragon": {
+      "frame": {
+        "x": 313,
+        "y": 940,
+        "w": 314,
+        "h": 276
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "ember-creature": {
+      "frame": {
+        "x": 627,
+        "y": 940,
+        "w": 313,
+        "h": 272
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "construct": {
+      "frame": {
+        "x": 940,
+        "y": 940,
+        "w": 274,
+        "h": 294
+      },
+      "rotated": false,
+      "trimmed": false
+    }
+  },
+  "meta": {
+    "image": "sm-world-figures-v1.webp",
+    "size": {
+      "w": 1254,
+      "h": 1254
+    },
+    "scale": "1",
+    "format": "RGBA8888"
+  },
+  "provenance": {
+    "source_sha256": "07a90de3bfc4eea746003edbe34fe9803d0faddf0c853f0fe47a487b774909f3",
+    "sha256": "7d33e328ee8ff371e4e3a2f9581d1f24062a550423a8739d7187280f643fd3c9",
+    "bytes": 1101426,
+    "status": "reviewed original flattened world archetypes; no skeletal animation masters"
+  }
+}

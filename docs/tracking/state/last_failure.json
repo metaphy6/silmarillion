@@ -1,0 +1,11 @@
+{
+  "run_id": "equipment-shared-types--20260930T001629Z-1308843",
+  "tag": "equipment-shared-types-",
+  "ts_utc": "2026-09-30T00:16:30Z",
+  "cwd": "/home/serhatakbak/code/projects/silmarillion",
+  "command": "npx tsc --noEmit",
+  "exit_code": 2,
+  "log_file": "/tmp/agent-runs/equipment-shared-types--20260930T001629Z-1308843.log",
+  "cmd_file": "/tmp/agent-runs/equipment-shared-types--20260930T001629Z-1308843.cmd",
+  "resolved": false
+}

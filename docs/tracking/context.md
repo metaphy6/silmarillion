@@ -9,10 +9,10 @@
 
 ## Project identity
 
-- **Name**: Silmarillion strategy game design
+- **Name**: Silmarillion strategy game browser alpha
 - **One-liner**: Isometric faction strategy game design — distinctive production economies and one fixed recreatable hero per faction, shown through expansive painted landscapes and intimate portraits.
 - **Chronology**: Revision 6 spans eras; the roster is a cross-era sandbox, not one canonical historical moment. Scenario geography may include Beleriand and other declared regions.
-- **Primary language**: None (design/content repo). Python 3 stdlib + Pillow/ReportLab for two build scripts only.
+- **Primary language**: TypeScript (Phaser + Vite browser runtime). Python 3 stdlib + Pillow/ReportLab retain design-document build tooling.
 - **Repo URL**: https://github.com/metaphy6/silmarillion
 
 ## Key paths
@@ -29,6 +29,8 @@
 | Shared design entry skill | `.agents/skills/silmarillion-art-direction/SKILL.md` |
 | Visual/narrative/UI resource package | `docs/design/art-direction/README.md` |
 | Conceptual visual examples | `docs/design/art-direction/gallery/index.html` |
+| Browser runtime | `src/simulation/`, `src/render/`, `src/ui/`, `src/network/`, `src/persistence/` |
+| Runtime guide / evidence | `docs/guides/GAME_RUNTIME.md` / `docs/reports/runtime/VALIDATION.md` |
 | Build scripts | `build_hero_roster.py`, `build_report.py` |
 
 ## Active context (update as the project evolves)
@@ -36,7 +38,9 @@
 <!-- What is the team / agent working on right now?
      One short paragraph is enough. Agents read this to orient fast. -->
 
-Revision 6 of the design report and the 55-profile hero roster are current. The older fifty hero profiles (everything except the five named Istari) still need an offensive-capability redesign — see `docs/design/silmarillion-game-report.md`. No playtesting has happened yet.
+Revision 6 of the design report and the 55-profile hero roster are current. The older fifty hero profiles (everything except the five named Istari) still need an offensive-capability redesign — see `docs/design/silmarillion-game-report.md`. Runtime and browser checks now exist; current evidence is in `docs/reports/runtime/VALIDATION.md`. These checks do not establish competitive balance.
+
+The browser alpha runs with `npm ci` then `npm run dev`. All 55 profiles are selectable. Physical combat, queues, transport, care, habitats, civilian conservation and many dedicated powers now have runtime coverage; the exact source-qualified ledger is `docs/design/runtime-ability-notes.md`. The full request remains unfinished: adopted powers and passives still need completion, ordinary tuning is provisional, world figures remain procedural and landscape alignment needs correction. Original54identity portraits and16building studies are integrated, plus three situated consequential dialogue scenes. See `docs/guides/GAME_RUNTIME.md` and current validation evidence.
 
 For planning, art, narrative, maps, assets, UI/UX implementation, review and
 verification, load
@@ -44,8 +48,8 @@ verification, load
 and its applicable resources. That package owns shared visual/interaction
 rules; its [source hierarchy](../design/art-direction/source-authority.md)
 distinguishes current gameplay, lore, interpretation, history and new design
-decisions. Static gallery studies do not establish a runtime platform or prove
-playability, balance or full accessibility.
+decisions. Phaser + TypeScript + Vite is the selected runtime. Static gallery studies
+do not prove playability, balance or full accessibility.
 
 ## Project-specific conventions
 
@@ -72,7 +76,7 @@ playability, balance or full accessibility.
 <!-- List services this project calls, with the env var that holds each key.
      Do NOT include actual keys here — only the var names. -->
 
-_None. This repo has no hosted services, APIs or secrets — it is design documentation plus two local, offline build scripts._
+Optional multiplayer uses Metered managed signaling and TURN auto-injection through `VITE_METERED_PUBLISHABLE_KEY`; this is public browser configuration. Local play needs no key. Never embed private API credentials or permanent TURN secrets. Provider-enforced scoped short-lived authorization remains unresolved; read `docs/guides/MULTIPLAYER.md`. Host simulation stays in a player browser; deployment serves only `dist/`.
 
 ## Agent quick-reference
 

@@ -58,7 +58,7 @@
     {
       "id": "sm-faction-portraits-v1",
       "path": "gallery/art/faction-portraits-v1.png",
-      "purpose": "Rohan, Aulë and Dark Architect comparison; full bodies are enlarged studies.",
+      "purpose": "Rohan, Aul\u00eb and Dark Architect comparison; full bodies are enlarged studies.",
       "status": "concept-reviewed",
       "source_type": "original-generated",
       "format": "png",
@@ -543,12 +543,297 @@
         "File exists; dimensions and SHA256 measured; concept-only status explicit.",
         "Visually inspected in composed gallery; see verification.md for limits."
       ]
+    },
+    {
+      "id": "sm-environment-cross-era-basin-v1",
+      "path": "../../../public/assets/sm-environment-cross-era-basin-v1.png",
+      "purpose": "Original landscape plate integrated behind the authoritative tile overlay. Invented geography; not collision-matched final terrain.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1672,
+      "height": 941,
+      "aspect_ratio": "1672:941",
+      "alpha": false,
+      "layers": "flattened original painting",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen",
+        "date": "2026-09-29",
+        "prompt_ref": "../runtime-assets.md",
+        "source_inputs": [],
+        "sha256": "151457d2ee2ab9dd5ed3f0efbdd12adf4782a66bb2bff2dfc2899622cb5863f0",
+        "rights_note": "Original generated pixels with no imported reference artwork. No commercial Tolkien adaptation rights clearance asserted."
+      },
+      "acceptance": [
+        "Generated image visually inspected; integrated into Phaser/DOM.",
+        "Provisional runtime asset, not full faction production inventory."
+      ]
+    },
+    {
+      "id": "sm-community-portrait-atlas-v1",
+      "path": "../concept-art/sm-community-portrait-atlas-v1.png",
+      "purpose": "Earlier shared-family portrait concept, superseded by runtime identity atlases; excluded from public build.",
+      "status": "superseded-concept",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1122,
+      "height": 1402,
+      "aspect_ratio": "1122:1402",
+      "alpha": false,
+      "layers": "flattened original painting",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen",
+        "date": "2026-09-29",
+        "prompt_ref": "../runtime-assets.md",
+        "source_inputs": [],
+        "sha256": "54bfc05c1c4558f82876d64cc2268a97a706f04c1fbfa907c7d5b09e51b9129b",
+        "rights_note": "Original generated pixels with no imported reference artwork. No commercial Tolkien adaptation rights clearance asserted."
+      },
+      "acceptance": [
+        "Original concept retained for provenance; no longer used or distributed by runtime."
+      ]
+    },
+    {
+      "id": "sm-portrait-atlas-1-v1",
+      "path": "../../../public/assets/sm-portrait-atlas-1-v1.webp",
+      "purpose": "Original identity portraits; exact profile crop mapping in public/assets/portrait-map.json. Both Melkor doctrines share one identity.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 971,
+      "height": 1619,
+      "aspect_ratio": "971:1619",
+      "alpha": false,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#profile-portrait-atlases",
+        "source_inputs": [],
+        "sha256": "14467786d538f7c0f089c27cbb311231c9eddf7464922872d0bbf59004138ce8",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "All five sheets visually inspected; 55 exact profile keys and 54 distinct bounded identity crops verified.",
+        "Seven Chromium portrait flows passed with only the selected atlas loaded; compact crop inspected.",
+        "Flattened runtime edition, not a claim of layered high-resolution production masters or world animation completion."
+      ]
+    },
+    {
+      "id": "sm-portrait-atlas-2-v1",
+      "path": "../../../public/assets/sm-portrait-atlas-2-v1.webp",
+      "purpose": "Original identity portraits; exact profile crop mapping in public/assets/portrait-map.json. Both Melkor doctrines share one identity.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 971,
+      "height": 1619,
+      "aspect_ratio": "971:1619",
+      "alpha": false,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#profile-portrait-atlases",
+        "source_inputs": [],
+        "sha256": "9214dbc564091ab7dcd34e6b17d40cdc41b92808eb357b96a47fc5fb85170c92",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "All five sheets visually inspected; 55 exact profile keys and 54 distinct bounded identity crops verified.",
+        "Seven Chromium portrait flows passed with only the selected atlas loaded; compact crop inspected.",
+        "Flattened runtime edition, not a claim of layered high-resolution production masters or world animation completion."
+      ]
+    },
+    {
+      "id": "sm-portrait-atlas-3-v1",
+      "path": "../../../public/assets/sm-portrait-atlas-3-v1.webp",
+      "purpose": "Original identity portraits; exact profile crop mapping in public/assets/portrait-map.json. Both Melkor doctrines share one identity.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 971,
+      "height": 1619,
+      "aspect_ratio": "971:1619",
+      "alpha": false,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#profile-portrait-atlases",
+        "source_inputs": [],
+        "sha256": "3e03ca1712588a8a27d208b8eadae24ed8face83cd986fc785bbb3e8c6dcff3d",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "All five sheets visually inspected; 55 exact profile keys and 54 distinct bounded identity crops verified.",
+        "Seven Chromium portrait flows passed with only the selected atlas loaded; compact crop inspected.",
+        "Flattened runtime edition, not a claim of layered high-resolution production masters or world animation completion."
+      ]
+    },
+    {
+      "id": "sm-portrait-atlas-4-v1",
+      "path": "../../../public/assets/sm-portrait-atlas-4-v1.webp",
+      "purpose": "Original identity portraits; exact profile crop mapping in public/assets/portrait-map.json. Both Melkor doctrines share one identity.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 971,
+      "height": 1619,
+      "aspect_ratio": "971:1619",
+      "alpha": false,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#profile-portrait-atlases",
+        "source_inputs": [],
+        "sha256": "3da604a681ac2615083e0f319cec86b41cc09b592092d75b9bd987cd59b251ee",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "All five sheets visually inspected; 55 exact profile keys and 54 distinct bounded identity crops verified.",
+        "Seven Chromium portrait flows passed with only the selected atlas loaded; compact crop inspected.",
+        "Flattened runtime edition, not a claim of layered high-resolution production masters or world animation completion."
+      ]
+    },
+    {
+      "id": "sm-portrait-atlas-5-v1",
+      "path": "../../../public/assets/sm-portrait-atlas-5-v1.webp",
+      "purpose": "Original identity portraits; exact profile crop mapping in public/assets/portrait-map.json. Both Melkor doctrines share one identity.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 1374,
+      "height": 1145,
+      "aspect_ratio": "1374:1145",
+      "alpha": false,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#profile-portrait-atlases",
+        "source_inputs": [],
+        "sha256": "41fcd864e5d7d547317d08ded48e70cf3a30267aec2a0ba7fa40ee9485ffb670",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "All five sheets visually inspected; 55 exact profile keys and 54 distinct bounded identity crops verified.",
+        "Seven Chromium portrait flows passed with only the selected atlas loaded; compact crop inspected.",
+        "Flattened runtime edition, not a claim of layered high-resolution production masters or world animation completion."
+      ]
+    },
+    {
+      "id": "sm-building-atlas-v1",
+      "path": "../../../public/assets/sm-building-atlas-v1.webp",
+      "purpose": "Original sixteen small-world building and habitat studies; measured frames in public/assets/building-atlas.json.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 1254,
+      "height": 1254,
+      "aspect_ratio": "1:1",
+      "alpha": true,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; lossless WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#original-settlement-and-habitat-atlas",
+        "source_inputs": [],
+        "sha256": "110eb222a28cc326c508dc4dc3c80989238ee00ccbd4b79b361b76bb8e333850",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "Initial and final atlas visually inspected; transparent frame bounds individually measured.",
+        "All55 profile mappings refer to valid frames; both Melkor doctrines retain one architectural identity.",
+        "Reusable material studies, not separate final artwork for every facility or layered masters."
+      ]
+    },
+    {
+      "id": "sm-world-figures-v1",
+      "path": "../../../public/assets/sm-world-figures-v1.webp",
+      "purpose": "Sixteen original small-world figure archetypes; identity detail remains in54portraits.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "webp",
+      "width": 1254,
+      "height": 1254,
+      "aspect_ratio": "1:1",
+      "alpha": true,
+      "layers": "flattened original painting; layered production masters remain unavailable",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; lossless WebP encoding",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#original-world-figure-atlas",
+        "source_inputs": [],
+        "sha256": "7d33e328ee8ff371e4e3a2f9581d1f24062a550423a8739d7187280f643fd3c9",
+        "rights_note": "Original generated pixels; no imported reference artwork or actor likeness."
+      },
+      "acceptance": [
+        "Initial packed atlas rejected; original edit isolated complete16silhouettes with transparentgutters.",
+        "Reviewedpainted archetypes with croppedalphametadata; no sprite-skeletalanimationmasters claimed.",
+        "Groundeddragonforms retain proceduralfallback rather than wrongly displayingwingeddragonart."
+      ]
     }
   ],
   "production_requirements": [
     {
       "profile_id": "manwe",
-      "faction": "Manwë's highlands",
+      "faction": "Manw\u00eb's highlands",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#manwe",
@@ -722,7 +1007,7 @@
     },
     {
       "profile_id": "aule",
-      "faction": "Aulë's workshops",
+      "faction": "Aul\u00eb's workshops",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#aule",
@@ -896,7 +1181,7 @@
     },
     {
       "profile_id": "irmo",
-      "faction": "Lórien's dream gardens",
+      "faction": "L\u00f3rien's dream gardens",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#irmo",
@@ -1012,7 +1297,7 @@
     },
     {
       "profile_id": "orome",
-      "faction": "Oromë's frontier lodges",
+      "faction": "Orom\u00eb's frontier lodges",
       "family": "path-and-pursuit",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#orome",
@@ -1186,7 +1471,7 @@
     },
     {
       "profile_id": "vana",
-      "faction": "Vána's bloom nurseries",
+      "faction": "V\u00e1na's bloom nurseries",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#vana",
@@ -1244,7 +1529,7 @@
     },
     {
       "profile_id": "este",
-      "faction": "Estë's healing refuges",
+      "faction": "Est\u00eb's healing refuges",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#este",
@@ -1302,7 +1587,7 @@
     },
     {
       "profile_id": "vaire",
-      "faction": "Vairë's archive halls",
+      "faction": "Vair\u00eb's archive halls",
       "family": "memory-threshold",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#vaire",
@@ -1418,7 +1703,7 @@
     },
     {
       "profile_id": "elf_feanor",
-      "faction": "House of Fëanor",
+      "faction": "House of F\u00ebanor",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#elf_feanor",
@@ -1940,7 +2225,7 @@
     },
     {
       "profile_id": "human_numenor",
-      "faction": "Númenor",
+      "faction": "N\u00famenor",
       "family": "river-sea",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#human_numenor",
@@ -1998,7 +2283,7 @@
     },
     {
       "profile_id": "dwarf_khazad_dum",
-      "faction": "Khazad-dûm",
+      "faction": "Khazad-d\u00fbm",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#dwarf_khazad_dum",
@@ -3100,7 +3385,7 @@
     },
     {
       "profile_id": "osse",
-      "faction": "Ossë",
+      "faction": "Oss\u00eb",
       "family": "river-sea",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#osse",
@@ -3332,7 +3617,7 @@
     },
     {
       "profile_id": "eonwe",
-      "faction": "Eönwë",
+      "faction": "E\u00f6nw\u00eb",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#eonwe",
@@ -3390,7 +3675,7 @@
     },
     {
       "profile_id": "ilmare",
-      "faction": "Ilmarë",
+      "faction": "Ilmar\u00eb",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#ilmare",

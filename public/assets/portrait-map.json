@@ -1,0 +1,1018 @@
+{
+  "schemaVersion": 1,
+  "status": "runtime-reviewed-flat-portraits",
+  "sourceType": "original-generated",
+  "createdAt": "2026-09-30",
+  "sourceAuthority": "docs/design/art-direction/faction-matrix.json",
+  "provenance": "docs/design/runtime-assets.md#profile-portrait-atlases",
+  "loading": "Load only the selected profile atlas. Do not preload all five.",
+  "atlases": {
+    "sm-portrait-atlas-1-v1": {
+      "url": "assets/sm-portrait-atlas-1-v1.webp",
+      "width": 971,
+      "height": 1619,
+      "columns": 3,
+      "rows": 4,
+      "bytes": 467060,
+      "sha256": "14467786d538f7c0f089c27cbb311231c9eddf7464922872d0bbf59004138ce8",
+      "sourcePngSha256": "4e676e00d72e7165c476603c477f180b05f1e34b61a406a22671ae5835451bb3",
+      "alpha": false,
+      "layers": "flattened",
+      "encoding": "WebP quality 88, no resizing or painted edits",
+      "status": "runtime-reviewed"
+    },
+    "sm-portrait-atlas-2-v1": {
+      "url": "assets/sm-portrait-atlas-2-v1.webp",
+      "width": 971,
+      "height": 1619,
+      "columns": 3,
+      "rows": 4,
+      "bytes": 681860,
+      "sha256": "9214dbc564091ab7dcd34e6b17d40cdc41b92808eb357b96a47fc5fb85170c92",
+      "sourcePngSha256": "c42351c527c54a576718e63258982b1e8f0bfadfeb23bc16eee16f9ab1362cce",
+      "alpha": false,
+      "layers": "flattened",
+      "encoding": "WebP quality 88, no resizing or painted edits",
+      "status": "runtime-reviewed"
+    },
+    "sm-portrait-atlas-3-v1": {
+      "url": "assets/sm-portrait-atlas-3-v1.webp",
+      "width": 971,
+      "height": 1619,
+      "columns": 3,
+      "rows": 4,
+      "bytes": 718542,
+      "sha256": "3e03ca1712588a8a27d208b8eadae24ed8face83cd986fc785bbb3e8c6dcff3d",
+      "sourcePngSha256": "db9397ff65cc6ac012b86097ceb0b6483c2943e4c8dbc4a66d53fbfb363e8968",
+      "alpha": false,
+      "layers": "flattened",
+      "encoding": "WebP quality 88, no resizing or painted edits",
+      "status": "runtime-reviewed"
+    },
+    "sm-portrait-atlas-4-v1": {
+      "url": "assets/sm-portrait-atlas-4-v1.webp",
+      "width": 971,
+      "height": 1619,
+      "columns": 3,
+      "rows": 4,
+      "bytes": 670408,
+      "sha256": "3da604a681ac2615083e0f319cec86b41cc09b592092d75b9bd987cd59b251ee",
+      "sourcePngSha256": "b74378c599369d66415587d35fe542d0ef74daf273af8580d3a95822584d4aed",
+      "alpha": false,
+      "layers": "flattened",
+      "encoding": "WebP quality 88, no resizing or painted edits",
+      "status": "runtime-reviewed"
+    },
+    "sm-portrait-atlas-5-v1": {
+      "url": "assets/sm-portrait-atlas-5-v1.webp",
+      "width": 1374,
+      "height": 1145,
+      "columns": 3,
+      "rows": 2,
+      "bytes": 451230,
+      "sha256": "41fcd864e5d7d547317d08ded48e70cf3a30267aec2a0ba7fa40ee9485ffb670",
+      "sourcePngSha256": "4885d535b4370b3b493dfd99a5af62a941af61886e8cd3adf0d22bd105c96b5a",
+      "alpha": false,
+      "layers": "flattened",
+      "encoding": "WebP quality 88, no resizing or painted edits",
+      "status": "runtime-reviewed"
+    }
+  },
+  "profiles": {
+    "manwe": {
+      "identity": "manwe",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        3,
+        3,
+        318,
+        353
+      ],
+      "row": 0,
+      "column": 0,
+      "backgroundSize": "305.345912% 458.640227%",
+      "backgroundPosition": "0.459418% 0.236967%",
+      "aspectRatio": 0.9008498583569405,
+      "alt": "Original painted portrait of Manwë. Upright open mantle, narrow sceptre and windward stance; attentive portrait.",
+      "status": "runtime-reviewed"
+    },
+    "varda": {
+      "identity": "varda",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        327,
+        3,
+        318,
+        353
+      ],
+      "row": 0,
+      "column": 1,
+      "backgroundSize": "305.345912% 458.640227%",
+      "backgroundPosition": "50.076570% 0.236967%",
+      "aspectRatio": 0.9008498583569405,
+      "alt": "Original painted portrait of Varda. Tall dark silhouette with a small pale face plane and star-lens gesture.",
+      "status": "runtime-reviewed"
+    },
+    "ulmo": {
+      "identity": "ulmo",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        651,
+        3,
+        317,
+        353
+      ],
+      "row": 0,
+      "column": 2,
+      "backgroundSize": "306.309148% 458.640227%",
+      "backgroundPosition": "99.541284% 0.236967%",
+      "aspectRatio": 0.8980169971671388,
+      "alt": "Original painted portrait of Ulmo. Foam-edged dark mantle, shell horn, weight like a breaking wave.",
+      "status": "runtime-reviewed"
+    },
+    "aule": {
+      "identity": "aule",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        3,
+        362,
+        318,
+        406
+      ],
+      "row": 1,
+      "column": 0,
+      "backgroundSize": "305.345912% 398.768473%",
+      "backgroundPosition": "0.459418% 29.843364%",
+      "aspectRatio": 0.7832512315270936,
+      "alt": "Original painted portrait of Aulë. Broad apron mass, capable hands, compact maker hammer; absorbed portrait.",
+      "status": "runtime-reviewed"
+    },
+    "yavanna": {
+      "identity": "yavanna",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        327,
+        362,
+        318,
+        406
+      ],
+      "row": 1,
+      "column": 1,
+      "backgroundSize": "305.345912% 398.768473%",
+      "backgroundPosition": "50.076570% 29.843364%",
+      "aspectRatio": 0.7832512315270936,
+      "alt": "Original painted portrait of Yavanna. Green robe with branching contour; patient protective gaze.",
+      "status": "runtime-reviewed"
+    },
+    "namo": {
+      "identity": "namo",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        651,
+        362,
+        317,
+        406
+      ],
+      "row": 1,
+      "column": 2,
+      "backgroundSize": "306.309148% 398.768473%",
+      "backgroundPosition": "99.541284% 29.843364%",
+      "aspectRatio": 0.7807881773399015,
+      "alt": "Original painted portrait of Námo / Mandos. Still vertical cloak, closed gesture, stone seal; grave rather than sadistic.",
+      "status": "runtime-reviewed"
+    },
+    "irmo": {
+      "identity": "irmo",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        3,
+        774,
+        318,
+        388
+      ],
+      "row": 2,
+      "column": 0,
+      "backgroundSize": "305.345912% 417.268041%",
+      "backgroundPosition": "0.459418% 62.875711%",
+      "aspectRatio": 0.8195876288659794,
+      "alt": "Original painted portrait of Irmo / Lórien. Soft layered shawl, tilted listening head, dim lantern.",
+      "status": "runtime-reviewed"
+    },
+    "nienna": {
+      "identity": "nienna",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        327,
+        774,
+        318,
+        388
+      ],
+      "row": 2,
+      "column": 1,
+      "backgroundSize": "305.345912% 417.268041%",
+      "backgroundPosition": "50.076570% 62.875711%",
+      "aspectRatio": 0.8195876288659794,
+      "alt": "Original painted portrait of Nienna. Grey mantle, unguarded hands and sustained attention; no compulsory tears.",
+      "status": "runtime-reviewed"
+    },
+    "orome": {
+      "identity": "orome",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        651,
+        774,
+        317,
+        388
+      ],
+      "row": 2,
+      "column": 2,
+      "backgroundSize": "306.309148% 417.268041%",
+      "backgroundPosition": "99.541284% 62.875711%",
+      "aspectRatio": 0.8170103092783505,
+      "alt": "Original painted portrait of Oromë. Forward rider silhouette, horn at shoulder, watchful anger.",
+      "status": "runtime-reviewed"
+    },
+    "tulkas": {
+      "identity": "tulkas",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        3,
+        1168,
+        318,
+        448
+      ],
+      "row": 3,
+      "column": 0,
+      "backgroundSize": "305.345912% 361.383929%",
+      "backgroundPosition": "0.459418% 99.743809%",
+      "aspectRatio": 0.7098214285714286,
+      "alt": "Original painted portrait of Tulkas. Golden hair and beard, open hands, grounded athletic stance and ready laughter.",
+      "status": "runtime-reviewed"
+    },
+    "nessa": {
+      "identity": "nessa",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        327,
+        1168,
+        318,
+        448
+      ],
+      "row": 3,
+      "column": 1,
+      "backgroundSize": "305.345912% 361.383929%",
+      "backgroundPosition": "50.076570% 99.743809%",
+      "aspectRatio": 0.7098214285714286,
+      "alt": "Original painted portrait of Nessa. Lithe diagonal posture, flowing relay cord, light footfall.",
+      "status": "runtime-reviewed"
+    },
+    "vana": {
+      "identity": "vana",
+      "atlas": "sm-portrait-atlas-1-v1",
+      "rect": [
+        651,
+        1168,
+        317,
+        448
+      ],
+      "row": 3,
+      "column": 2,
+      "backgroundSize": "306.309148% 361.383929%",
+      "backgroundPosition": "99.541284% 99.743809%",
+      "aspectRatio": 0.7075892857142857,
+      "alt": "Original painted portrait of Vána. Flowering circlet, lifted head and small bright sleeves.",
+      "status": "runtime-reviewed"
+    },
+    "este": {
+      "identity": "este",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        3,
+        3,
+        319,
+        387
+      ],
+      "row": 0,
+      "column": 0,
+      "backgroundSize": "304.388715% 418.346253%",
+      "backgroundPosition": "0.460123% 0.243506%",
+      "aspectRatio": 0.8242894056847545,
+      "alt": "Original painted portrait of Estë. Grey veil, compact seated or steady stance, hands at a vessel.",
+      "status": "runtime-reviewed"
+    },
+    "vaire": {
+      "identity": "vaire",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        328,
+        3,
+        316,
+        387
+      ],
+      "row": 0,
+      "column": 1,
+      "backgroundSize": "307.278481% 418.346253%",
+      "backgroundPosition": "50.076336% 0.243506%",
+      "aspectRatio": 0.8165374677002584,
+      "alt": "Original painted portrait of Vairë. Layered woven mantle, shuttle in hand, exact attentive eyes.",
+      "status": "runtime-reviewed"
+    },
+    "elf_vanyar": {
+      "identity": "elf_vanyar",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        650,
+        3,
+        318,
+        387
+      ],
+      "row": 0,
+      "column": 2,
+      "backgroundSize": "305.345912% 418.346253%",
+      "backgroundPosition": "99.540582% 0.243506%",
+      "aspectRatio": 0.8217054263565892,
+      "alt": "Original painted portrait of Concord Singer. Upright paired cloak lines, held instrument, composed breath.",
+      "status": "runtime-reviewed"
+    },
+    "elf_feanor": {
+      "identity": "elf_feanor",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        3,
+        396,
+        319,
+        389
+      ],
+      "row": 1,
+      "column": 0,
+      "backgroundSize": "304.388715% 416.195373%",
+      "backgroundPosition": "0.460123% 32.195122%",
+      "aspectRatio": 0.8200514138817481,
+      "alt": "Original painted portrait of Jewelwright. Angular sleeves, jewel-setting loupe/tool and intense focused portrait.",
+      "status": "runtime-reviewed"
+    },
+    "elf_fingolfin": {
+      "identity": "elf_fingolfin",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        328,
+        396,
+        316,
+        389
+      ],
+      "row": 1,
+      "column": 1,
+      "backgroundSize": "307.278481% 416.195373%",
+      "backgroundPosition": "50.076336% 32.195122%",
+      "aspectRatio": 0.8123393316195373,
+      "alt": "Original painted portrait of Shield Marshal. Shield-forward upright figure, blue-silver cloth break, measured gaze.",
+      "status": "runtime-reviewed"
+    },
+    "elf_finarfin": {
+      "identity": "elf_finarfin",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        650,
+        396,
+        318,
+        389
+      ],
+      "row": 1,
+      "column": 2,
+      "backgroundSize": "305.345912% 416.195373%",
+      "backgroundPosition": "99.540582% 32.195122%",
+      "aspectRatio": 0.8174807197943444,
+      "alt": "Original painted portrait of Lore Envoy. Open cloak shape, inscribed pact case, listening expression.",
+      "status": "runtime-reviewed"
+    },
+    "elf_falmari": {
+      "identity": "elf_falmari",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        3,
+        791,
+        319,
+        376
+      ],
+      "row": 2,
+      "column": 0,
+      "backgroundSize": "304.388715% 430.585106%",
+      "backgroundPosition": "0.460123% 63.636364%",
+      "aspectRatio": 0.848404255319149,
+      "alt": "Original painted portrait of Tide Captain. Curved sea cloak, shell compass, salt-weathered calm.",
+      "status": "runtime-reviewed"
+    },
+    "elf_sindar": {
+      "identity": "elf_sindar",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        328,
+        791,
+        316,
+        376
+      ],
+      "row": 2,
+      "column": 1,
+      "backgroundSize": "307.278481% 430.585106%",
+      "backgroundPosition": "50.076336% 63.636364%",
+      "aspectRatio": 0.8404255319148937,
+      "alt": "Original painted portrait of March Warden. Grey-green mantle, long bow, quiet sideways attention.",
+      "status": "runtime-reviewed"
+    },
+    "elf_nandor": {
+      "identity": "elf_nandor",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        650,
+        791,
+        318,
+        376
+      ],
+      "row": 2,
+      "column": 2,
+      "backgroundSize": "305.345912% 430.585106%",
+      "backgroundPosition": "99.540582% 63.636364%",
+      "aspectRatio": 0.8457446808510638,
+      "alt": "Original painted portrait of Woodland Pathfinder. Low travel posture, practical bow, leaf-shaped trailmark.",
+      "status": "runtime-reviewed"
+    },
+    "elf_avari": {
+      "identity": "elf_avari",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        3,
+        1173,
+        319,
+        443
+      ],
+      "row": 3,
+      "column": 0,
+      "backgroundSize": "304.388715% 365.462754%",
+      "backgroundPosition": "0.460123% 99.744898%",
+      "aspectRatio": 0.7200902934537246,
+      "alt": "Original painted portrait of Frontier Mediator. Layered travel cloth, carrying frame, local stone token.",
+      "status": "runtime-reviewed"
+    },
+    "human_gondor": {
+      "identity": "human_gondor",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        328,
+        1173,
+        316,
+        443
+      ],
+      "row": 3,
+      "column": 1,
+      "backgroundSize": "307.278481% 365.462754%",
+      "backgroundPosition": "50.076336% 99.744898%",
+      "aspectRatio": 0.7133182844243793,
+      "alt": "Original painted portrait of Citadel Engineer. Square cloak/shield mass, survey tool, weathered practical portrait.",
+      "status": "runtime-reviewed"
+    },
+    "human_rohan": {
+      "identity": "human_rohan",
+      "atlas": "sm-portrait-atlas-2-v1",
+      "rect": [
+        650,
+        1173,
+        318,
+        443
+      ],
+      "row": 3,
+      "column": 2,
+      "backgroundSize": "305.345912% 365.462754%",
+      "backgroundPosition": "99.540582% 99.744898%",
+      "aspectRatio": 0.7178329571106095,
+      "alt": "Original painted portrait of Rider Marshal. Wide rider-and-horse silhouette, short cloak, alert sideward glance.",
+      "status": "runtime-reviewed"
+    },
+    "human_numenor": {
+      "identity": "human_numenor",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        3,
+        3,
+        324,
+        387
+      ],
+      "row": 0,
+      "column": 0,
+      "backgroundSize": "299.691358% 418.346253%",
+      "backgroundPosition": "0.463679% 0.243506%",
+      "aspectRatio": 0.8372093023255814,
+      "alt": "Original painted portrait of Ocean Warden. Long sea cloak, compass case, composed but burdened gaze.",
+      "status": "runtime-reviewed"
+    },
+    "dwarf_khazad_dum": {
+      "identity": "dwarf_khazad_dum",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        333,
+        3,
+        304,
+        387
+      ],
+      "row": 0,
+      "column": 1,
+      "backgroundSize": "319.407895% 418.346253%",
+      "backgroundPosition": "49.925037% 0.243506%",
+      "aspectRatio": 0.7855297157622739,
+      "alt": "Original painted portrait of Deep Surveyor. Broad low silhouette, survey rod/lens, dust on practical clothing.",
+      "status": "runtime-reviewed"
+    },
+    "dwarf_belegost": {
+      "identity": "dwarf_belegost",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        643,
+        3,
+        325,
+        387
+      ],
+      "row": 0,
+      "column": 2,
+      "backgroundSize": "298.769231% 418.346253%",
+      "backgroundPosition": "99.535604% 0.243506%",
+      "aspectRatio": 0.8397932816537468,
+      "alt": "Original painted portrait of Armor Master. Protective mask frame, broad shoulder line; unmasked portrait shows a person.",
+      "status": "runtime-reviewed"
+    },
+    "dwarf_nogrod": {
+      "identity": "dwarf_nogrod",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        3,
+        396,
+        324,
+        385
+      ],
+      "row": 1,
+      "column": 0,
+      "backgroundSize": "299.691358% 420.519481%",
+      "backgroundPosition": "0.463679% 32.090762%",
+      "aspectRatio": 0.8415584415584415,
+      "alt": "Original painted portrait of Master Artificer. Tool-dense belt, compact precise pose, evaluating gaze.",
+      "status": "runtime-reviewed"
+    },
+    "orc_fortress_clan": {
+      "identity": "orc_fortress_clan",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        333,
+        396,
+        304,
+        385
+      ],
+      "row": 1,
+      "column": 1,
+      "backgroundSize": "319.407895% 420.519481%",
+      "backgroundPosition": "49.925037% 32.090762%",
+      "aspectRatio": 0.7896103896103897,
+      "alt": "Original painted portrait of Warband Organizer. Repaired layered armor, share badge, varied alert expressions.",
+      "status": "runtime-reviewed"
+    },
+    "hobbit_shire": {
+      "identity": "hobbit_shire",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        643,
+        396,
+        325,
+        385
+      ],
+      "row": 1,
+      "column": 2,
+      "backgroundSize": "298.769231% 420.519481%",
+      "backgroundPosition": "99.535604% 32.090762%",
+      "aspectRatio": 0.8441558441558441,
+      "alt": "Original painted portrait of Shirekeeper. Short grounded figure, pack and lantern, observant open face.",
+      "status": "runtime-reviewed"
+    },
+    "troll_hold": {
+      "identity": "troll_hold",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        3,
+        787,
+        324,
+        370
+      ],
+      "row": 2,
+      "column": 0,
+      "backgroundSize": "299.691358% 437.567568%",
+      "backgroundPosition": "0.463679% 63.010408%",
+      "aspectRatio": 0.8756756756756757,
+      "alt": "Original painted portrait of Stonebreaker. Massive low shoulders, grounded hands and useful protective plate.",
+      "status": "runtime-reviewed"
+    },
+    "wolf_pack": {
+      "identity": "wolf_pack",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        333,
+        787,
+        304,
+        370
+      ],
+      "row": 2,
+      "column": 1,
+      "backgroundSize": "319.407895% 437.567568%",
+      "backgroundPosition": "49.925037% 63.010408%",
+      "aspectRatio": 0.8216216216216217,
+      "alt": "Original painted portrait of Packwarden. Low elongated silhouette; portrait attention through ears, muzzle and eyes.",
+      "status": "runtime-reviewed"
+    },
+    "istari_gandalf": {
+      "identity": "istari_gandalf",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        643,
+        787,
+        325,
+        370
+      ],
+      "row": 2,
+      "column": 2,
+      "backgroundSize": "298.769231% 437.567568%",
+      "backgroundPosition": "99.535604% 63.010408%",
+      "aspectRatio": 0.8783783783783784,
+      "alt": "Original painted portrait of Gandalf. Weathered grey mantle, small staff accent, warmth with impatience.",
+      "status": "runtime-reviewed"
+    },
+    "istari_saruman": {
+      "identity": "istari_saruman",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        3,
+        1163,
+        324,
+        453
+      ],
+      "row": 3,
+      "column": 0,
+      "backgroundSize": "299.691358% 357.395143%",
+      "backgroundPosition": "0.463679% 99.742710%",
+      "aspectRatio": 0.7152317880794702,
+      "alt": "Original painted portrait of Saruman. Pale severe vertical robe, resonant core, controlled exact gesture.",
+      "status": "runtime-reviewed"
+    },
+    "istari_radagast": {
+      "identity": "istari_radagast",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        333,
+        1163,
+        304,
+        453
+      ],
+      "row": 3,
+      "column": 1,
+      "backgroundSize": "319.407895% 357.395143%",
+      "backgroundPosition": "49.925037% 99.742710%",
+      "aspectRatio": 0.6710816777041942,
+      "alt": "Original painted portrait of Radagast. Brown-green layered travel wear, seed focus, alert listening posture.",
+      "status": "runtime-reviewed"
+    },
+    "istari_alatar": {
+      "identity": "istari_alatar",
+      "atlas": "sm-portrait-atlas-3-v1",
+      "rect": [
+        643,
+        1163,
+        325,
+        453
+      ],
+      "row": 3,
+      "column": 2,
+      "backgroundSize": "298.769231% 357.395143%",
+      "backgroundPosition": "99.535604% 99.742710%",
+      "aspectRatio": 0.717439293598234,
+      "alt": "Original painted portrait of Alatar (Blue Wizard). Deep blue narrow cloak, stone hunter seal and aiming stillness.",
+      "status": "runtime-reviewed"
+    },
+    "istari_pallando": {
+      "identity": "istari_pallando",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        3,
+        3,
+        323,
+        401
+      ],
+      "row": 0,
+      "column": 0,
+      "backgroundSize": "300.619195% 403.740648%",
+      "backgroundPosition": "0.462963% 0.246305%",
+      "aspectRatio": 0.8054862842892768,
+      "alt": "Original painted portrait of Pallando (Blue Wizard). Blue broad shoulder wrap, crystal ward-knot, attentive measured stance.",
+      "status": "runtime-reviewed"
+    },
+    "sauron": {
+      "identity": "sauron",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        332,
+        3,
+        312,
+        401
+      ],
+      "row": 0,
+      "column": 1,
+      "backgroundSize": "311.217949% 403.740648%",
+      "backgroundPosition": "50.379363% 0.246305%",
+      "aspectRatio": 0.7780548628428927,
+      "alt": "Original painted portrait of Sauron. Controlled symmetrical mantle with plausible crafted surfaces; no mandatory giant eye.",
+      "status": "runtime-reviewed"
+    },
+    "istari_ember": {
+      "identity": "istari_ember",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        650,
+        3,
+        318,
+        401
+      ],
+      "row": 0,
+      "column": 2,
+      "backgroundSize": "305.345912% 403.740648%",
+      "backgroundPosition": "99.540582% 0.246305%",
+      "aspectRatio": 0.7930174563591023,
+      "alt": "Original painted portrait of Kindler. Rounded cloak, ember focus held low, worn practical hands.",
+      "status": "runtime-reviewed"
+    },
+    "istari_grove": {
+      "identity": "istari_grove",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        3,
+        410,
+        323,
+        397
+      ],
+      "row": 1,
+      "column": 0,
+      "backgroundSize": "300.619195% 407.808564%",
+      "backgroundPosition": "0.462963% 33.551555%",
+      "aspectRatio": 0.8136020151133502,
+      "alt": "Original painted portrait of Grovekeeper. Short layered green mantle, growth focus, close observation.",
+      "status": "runtime-reviewed"
+    },
+    "istari_veil": {
+      "identity": "istari_veil",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        332,
+        410,
+        312,
+        397
+      ],
+      "row": 1,
+      "column": 1,
+      "backgroundSize": "311.217949% 407.808564%",
+      "backgroundPosition": "50.379363% 33.551555%",
+      "aspectRatio": 0.7858942065491183,
+      "alt": "Original painted portrait of Veilweaver. Asymmetric layered grey cloak, glass focus, sideward glance.",
+      "status": "runtime-reviewed"
+    },
+    "istari_forge": {
+      "identity": "istari_forge",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        650,
+        410,
+        318,
+        397
+      ],
+      "row": 1,
+      "column": 2,
+      "backgroundSize": "305.345912% 407.808564%",
+      "backgroundPosition": "99.540582% 33.551555%",
+      "aspectRatio": 0.801007556675063,
+      "alt": "Original painted portrait of Artificer. Apron over travel robe, binding focus, measured working posture.",
+      "status": "runtime-reviewed"
+    },
+    "istari_star": {
+      "identity": "istari_star",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        3,
+        813,
+        323,
+        363
+      ],
+      "row": 2,
+      "column": 0,
+      "backgroundSize": "300.619195% 446.005510%",
+      "backgroundPosition": "0.462963% 64.729299%",
+      "aspectRatio": 0.8898071625344353,
+      "alt": "Original painted portrait of Wayseer. Hooded upward profile, crystal wayglass, survey stance.",
+      "status": "runtime-reviewed"
+    },
+    "melian": {
+      "identity": "melian",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        332,
+        813,
+        312,
+        363
+      ],
+      "row": 2,
+      "column": 1,
+      "backgroundSize": "311.217949% 446.005510%",
+      "backgroundPosition": "50.379363% 64.729299%",
+      "aspectRatio": 0.859504132231405,
+      "alt": "Original painted portrait of Melian. Layered mantle, listening head and songlike calm with firm boundary.",
+      "status": "runtime-reviewed"
+    },
+    "osse": {
+      "identity": "osse",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        650,
+        813,
+        318,
+        363
+      ],
+      "row": 2,
+      "column": 2,
+      "backgroundSize": "305.345912% 446.005510%",
+      "backgroundPosition": "99.540582% 64.729299%",
+      "aspectRatio": 0.8760330578512396,
+      "alt": "Original painted portrait of Ossë. Sharp windward cloak contour, storm-shell core, exhilarated intensity.",
+      "status": "runtime-reviewed"
+    },
+    "uinen": {
+      "identity": "uinen",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        3,
+        1182,
+        323,
+        434
+      ],
+      "row": 3,
+      "column": 0,
+      "backgroundSize": "300.619195% 373.041475%",
+      "backgroundPosition": "0.462963% 99.746835%",
+      "aspectRatio": 0.7442396313364056,
+      "alt": "Original painted portrait of Uinen. Flowing horizontal mantle/hair rhythm, current-knot, attentive calm.",
+      "status": "runtime-reviewed"
+    },
+    "arien": {
+      "identity": "arien",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        332,
+        1182,
+        312,
+        434
+      ],
+      "row": 3,
+      "column": 1,
+      "backgroundSize": "311.217949% 373.041475%",
+      "backgroundPosition": "50.379363% 99.746835%",
+      "aspectRatio": 0.7188940092165899,
+      "alt": "Original painted portrait of Arien. Compact flame-edged figure with readable silhouette, no face-searing glare.",
+      "status": "runtime-reviewed"
+    },
+    "tilion": {
+      "identity": "tilion",
+      "atlas": "sm-portrait-atlas-4-v1",
+      "rect": [
+        650,
+        1182,
+        318,
+        434
+      ],
+      "row": 3,
+      "column": 2,
+      "backgroundSize": "305.345912% 373.041475%",
+      "backgroundPosition": "99.540582% 99.746835%",
+      "aspectRatio": 0.7327188940092166,
+      "alt": "Original painted portrait of Tilion. Silver-bow contour, lunar mark, mobile watchful posture.",
+      "status": "runtime-reviewed"
+    },
+    "eonwe": {
+      "identity": "eonwe",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        3,
+        3,
+        452,
+        566
+      ],
+      "row": 0,
+      "column": 0,
+      "backgroundSize": "303.982301% 202.296820%",
+      "backgroundPosition": "0.325380% 0.518135%",
+      "aspectRatio": 0.7985865724381626,
+      "alt": "Original painted portrait of Eönwë. Long standard line, heraldic seal, open commanding posture.",
+      "status": "runtime-reviewed"
+    },
+    "ilmare": {
+      "identity": "ilmare",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        461,
+        3,
+        452,
+        566
+      ],
+      "row": 0,
+      "column": 1,
+      "backgroundSize": "303.982301% 202.296820%",
+      "backgroundPosition": "50.000000% 0.518135%",
+      "aspectRatio": 0.7985865724381626,
+      "alt": "Original painted portrait of Ilmarë. Narrow mantle and hand-held signal glass, exact listening gaze.",
+      "status": "runtime-reviewed"
+    },
+    "ent_grove": {
+      "identity": "ent_grove",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        919,
+        3,
+        452,
+        566
+      ],
+      "row": 0,
+      "column": 2,
+      "backgroundSize": "303.982301% 202.296820%",
+      "backgroundPosition": "99.674620% 0.518135%",
+      "aspectRatio": 0.7985865724381626,
+      "alt": "Original painted portrait of Grove Elder. Branching asymmetric body, eyes held in bark folds, rooted weight.",
+      "status": "runtime-reviewed"
+    },
+    "eagle_eyrie": {
+      "identity": "eagle_eyrie",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        3,
+        575,
+        452,
+        567
+      ],
+      "row": 1,
+      "column": 0,
+      "backgroundSize": "303.982301% 201.940035%",
+      "backgroundPosition": "0.325380% 99.480969%",
+      "aspectRatio": 0.7971781305114638,
+      "alt": "Original painted portrait of Skywarden. Wide wing silhouette, compact perched portrait with intent eyes.",
+      "status": "runtime-reviewed"
+    },
+    "spider_brood": {
+      "identity": "spider_brood",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        461,
+        575,
+        452,
+        567
+      ],
+      "row": 1,
+      "column": 1,
+      "backgroundSize": "303.982301% 201.940035%",
+      "backgroundPosition": "50.000000% 99.480969%",
+      "aspectRatio": 0.7971781305114638,
+      "alt": "Original painted portrait of Brood Matriarch. Low broad radial silhouette, eye cluster and poised forelimbs.",
+      "status": "runtime-reviewed"
+    },
+    "melkor_worldbreaker": {
+      "identity": "melkor",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        919,
+        575,
+        452,
+        567
+      ],
+      "row": 1,
+      "column": 2,
+      "backgroundSize": "303.982301% 201.940035%",
+      "backgroundPosition": "99.674620% 99.480969%",
+      "aspectRatio": 0.7971781305114638,
+      "alt": "Original painted portrait of Melkor - Worldbreaker. One black iron identity, broad fractured mantle, force held in a still stance.",
+      "status": "runtime-reviewed"
+    },
+    "melkor_dark_architect": {
+      "identity": "melkor",
+      "atlas": "sm-portrait-atlas-5-v1",
+      "rect": [
+        919,
+        575,
+        452,
+        567
+      ],
+      "row": 1,
+      "column": 2,
+      "backgroundSize": "303.982301% 201.940035%",
+      "backgroundPosition": "99.674620% 99.480969%",
+      "aspectRatio": 0.7971781305114638,
+      "alt": "Original painted portrait of Melkor, shared with Worldbreaker to preserve one hero identity. Dark Architect doctrine is conveyed by interface text, not a second face.",
+      "status": "runtime-reviewed"
+    }
+  }
+}

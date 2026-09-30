@@ -1,0 +1,476 @@
+:root {
+  font-family: Arial, sans-serif;
+  color: #f2e8d5;
+  background: #101c22;
+  font-size: 16px;
+  line-height: 1.5;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+#world {
+  position: fixed;
+  inset: 0;
+}
+#world canvas {
+  display: block;
+}
+#app {
+  position: relative;
+  min-height: 100dvh;
+  pointer-events: none;
+  font-size: calc(1rem * var(--text-scale, 1));
+}
+button,
+input,
+select,
+summary {
+  font: inherit;
+  min-height: 44px;
+  min-width: 44px;
+}
+button,
+select,
+input {
+  color: #f2e8d5;
+  background: #192a30;
+  border: 1px solid #7e9699;
+  border-radius: 2px;
+  padding: 8px 12px;
+}
+button {
+  cursor: pointer;
+}
+button:hover,
+button[aria-pressed="true"] {
+  background: #233940;
+  border-color: #edbe73;
+}
+button:disabled {
+  cursor: not-allowed;
+  color: #b8c8c9;
+  background: #192a30;
+}
+button.primary {
+  background: #edbe73;
+  color: #14242a;
+  font-weight: 700;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid #a1dce6;
+  outline-offset: 3px;
+}
+button,
+select {
+  max-width: 100%;
+}
+label {
+  display: block;
+  margin: 10px 0;
+}
+label select,
+label input:not([type="checkbox"]) {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+}
+input[type="checkbox"] {
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
+  min-width: 24px;
+}
+h1,
+h2,
+h3 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  line-height: 1.18;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.3em 0;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.1em;
+}
+p {
+  margin: 0.65em 0;
+}
+small,
+.fine {
+  color: #b8c8c9;
+  font-size: max(14px, 0.875em);
+}
+small {
+  display: block;
+}
+.eyebrow {
+  font-size: 0.875em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #b8c8c9;
+}
+.setup {
+  pointer-events: auto;
+  margin: 5vh 5vw;
+  padding: 32px;
+  max-width: 630px;
+  background: #192a30;
+  border: 1px solid #7e9699;
+  box-shadow: 0 20px 80px #101c22a0;
+}
+.setup h1 {
+  font-size: 3em;
+}
+.lede {
+  font:
+    italic 1.4em Georgia,
+    serif;
+  color: #edbe73;
+}
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+.form-row > * {
+  flex: 1;
+  min-width: 0;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.topbar,
+.toolbar,
+.objectives,
+.sidepanel,
+.turnbar,
+.tutorial,
+.victory {
+  pointer-events: auto;
+  background: #192a30;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #7e9699;
+}
+.topbar strong {
+  display: block;
+}
+.stocks {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  justify-content: center;
+}
+.stocks b {
+  color: #edbe73;
+}
+.toolbar {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #101c22;
+  flex-wrap: wrap;
+}
+.toolbar .spacer {
+  flex: 1;
+}
+.objectives {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px;
+  width: fit-content;
+  max-width: 100%;
+  flex-wrap: wrap;
+  background: #101c22;
+}
+.objectives button {
+  font-size: 0.875em;
+}
+.sidepanel {
+  position: relative;
+  margin: 18px;
+  max-width: 430px;
+  width: calc(100% - 36px);
+  padding: 18px;
+  max-height: calc(100dvh - 285px);
+  overflow: auto;
+  border: 1px solid #7e9699;
+  box-shadow: 0 8px 30px #101c2255;
+}
+.sidepanel.compact {
+  max-width: 350px;
+}
+.panel-title {
+  border-bottom: 1px solid #7e9699;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+}
+.panel-title h1 {
+  font-size: 1.5em;
+}
+.panel-title span {
+  color: #b8c8c9;
+  font-size: 0.875em;
+}
+.recipe {
+  border-top: 1px solid #7e9699;
+  padding: 10px 0;
+}
+.reason {
+  font-size: 0.875em;
+  color: #b8c8c9;
+}
+.turnbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #7e9699;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.turnbar [role="status"] {
+  flex: 1;
+  max-width: 65ch;
+  font-size: 0.875em;
+}
+.tutorial {
+  position: fixed;
+  right: 20px;
+  bottom: 110px;
+  padding: 18px;
+  max-width: 330px;
+  border: 1px solid #7e9699;
+}
+.tutorial p {
+  font-size: 0.875em;
+}
+.tutorial button {
+  margin: 4px;
+}
+.portrait {
+  width: 168px;
+  height: auto;
+  max-width: 100%;
+  border: 1px solid #7e9699;
+}
+dialog {
+  font-size: calc(1rem * var(--text-scale, 1));
+}
+.victory {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  padding: 40px;
+  max-width: 600px;
+  border: 2px solid #edbe73;
+}
+.skip {
+  position: fixed;
+  z-index: 20;
+  left: 10px;
+  top: -100px;
+  background: #192a30;
+  color: #f2e8d5;
+  padding: 12px;
+}
+.skip:focus {
+  top: 10px;
+}
+dialog {
+  max-width: min(580px, 95vw);
+  color: #f2e8d5;
+  background: #192a30;
+  border: 2px solid #7e9699;
+  padding: 24px;
+  font-size: calc(1rem * var(--text-scale, 1));
+}
+dialog::backdrop {
+  background: #101c22aa;
+}
+details {
+  margin: 16px 0;
+}
+summary {
+  cursor: pointer;
+  padding: 8px 0;
+}
+#status {
+  overflow-wrap: anywhere;
+}
+@media (max-width: 850px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .stocks {
+    order: 3;
+    width: 100%;
+    gap: 12px;
+    justify-content: space-between;
+  }
+  .toolbar {
+    gap: 4px;
+  }
+  .toolbar button {
+    font-size: 0.875em;
+  }
+  .sidepanel {
+    max-height: 45vh;
+    margin: 12px;
+    max-width: calc(100% - 24px);
+  }
+  .tutorial {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin: 12px;
+    max-width: calc(100% - 24px);
+  }
+  .turnbar {
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .setup {
+    margin: 16px;
+    padding: 20px;
+  }
+  .objectives {
+    font-size: 0.875em;
+  }
+  .topbar strong {
+    font-size: 1em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+textarea {
+  width: 100%;
+  font: inherit;
+  color: #f2e8d5;
+  background: #101c22;
+  border: 1px solid #7e9699;
+  padding: 10px;
+  overflow-wrap: anywhere;
+  resize: vertical;
+}
+/* Stock labels must reflow with text scaling rather than widen a narrow screen. */
+.stocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5em), 1fr));
+}
+.stocks > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 850px) {
+  .stocks {
+    flex: 1 0 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.landscape-view .topbar,
+.landscape-view .objectives {
+  display: none;
+}
+.landscape-view .toolbar button[data-action^="tab:"] {
+  display: none;
+}
+/* Keep an unobstructed landscape band between the public status and the
+   inspectable bottom sheet. Both bars scroll independently at large text. */
+@media (max-width: 600px) {
+  .topbar {
+    padding: 6px 12px;
+    gap: 4px 12px;
+    font-size: 0.875em;
+    max-height: 24dvh;
+    overflow: auto;
+  }
+  .topbar .eyebrow {
+    display: none;
+  }
+  .stocks {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .toolbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 4px 8px;
+  }
+  .toolbar button {
+    flex: 0 0 auto;
+  }
+  .objectives {
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 2px 8px;
+  }
+  .objectives > * {
+    flex: 0 0 auto;
+  }
+  .sidepanel,
+  .sidepanel.compact {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 132px;
+    margin: 0 8px;
+    padding: 12px;
+    width: calc(100% - 16px);
+    max-width: none;
+    height: 30dvh;
+    max-height: 30dvh;
+  }
+  .turnbar {
+    position: fixed;
+    height: 132px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: auto;
+    gap: 4px 8px;
+    padding: 6px 8px;
+    font-size: 0.875em;
+  }
+  .turnbar [role="status"],
+  .turnbar > span:nth-child(2) {
+    grid-column: 1 / -1;
+  }
+  .tutorial {
+    position: fixed;
+    top: 28dvh;
+    bottom: auto;
+    max-height: 28dvh;
+    overflow: auto;
+    z-index: 2;
+  }
+}

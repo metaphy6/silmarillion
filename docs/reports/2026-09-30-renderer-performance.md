@@ -1,0 +1,9 @@
+# Large-map renderer performance correction
+
+Evidence scope: headless Chromium, 1440×1000, actual Phaser 96×96 map with 400 company markers, 120 frame samples. This is workstation evidence, not mobile/Firefox/Safari certification.
+
+The initial browser run failed the unchanged `<50ms` p95 gate at 50ms (load 422ms, heap 34.6MB). Terrain used visible Graphics commands replayed on each rendered frame. Adding a lazy 16-chunk texture cache alone still measured 50ms p95 (load490ms, heap61.5MB); it did not solve the failing budget.
+
+Layer-isolation diagnostic samples (90 frames each) measured: scene update disabled 50ms p95; additionally backdrop disabled49.9ms; additionally terrain disabled33.4ms; additionally entity markers disabled33.4ms. This isolates rendered terrain cost rather than simulation/update or company count. Disabling framebuffer WebGL multisampling, while retaining linear texture filtering and Canvas-baked smooth sprite edges, reduced the final measured p95 to33.4ms and p50 to33.3ms. The unchanged browser gate passes and the provisional34ms target is met. Final load574ms, heap61.1MB. See `runtime/large-render.json` and `runtime/large-map.png`.
+
+Terrain caching uses chunk-local coordinates, lazily bakes only visible chunks, evicts offscreen textures when at capacity, and falls back to Graphics if allocation fails or more than16 chunks are simultaneously visible. Full-resolution maximum texture allocation is16×1148×634×4 =46,581,248bytes (~44.4MiB), excluding canvas/GPU driver duplication and other assets. The measured view cached11 chunks (32,024,608RGBA bytes). Textures are released on map replacement and shutdown. It never bakes a full-world texture. At extremely wide zoom the bounded Graphics fallback can cost more; physical-device budgets and wide-zoom profiling remain open.

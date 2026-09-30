@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <base href="/" />
+    <style>
+      body {
+        margin: 0;
+      }
+      #world {
+        position: fixed;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="world"></div>
+    <script type="module">
+      import { bootWorld } from "/src/render/world.ts";
+      import { createMatch } from "/src/simulation/engine.ts";
+      const state = createMatch(
+        [
+          "human_rohan",
+          "human_gondor",
+          "istari_gandalf",
+          "melkor_dark_architect",
+        ],
+        123,
+        96,
+      );
+      const base = state.units["p1:company:0"];
+      for (let i = 0; i < 400; i++)
+        state.units[`stress:${i}`] = {
+          ...structuredClone(base),
+          id: `stress:${i}`,
+          x: i % 40,
+          y: Math.floor(i / 40),
+          owner: "p1",
+        };
+      const world = bootWorld(
+        () => {},
+        () => {},
+      );
+      window.renderWorld = world;
+      world.scene.setState(state, "p1", "p1:core");
+      function ready() {
+        if (world.scene.sys.isActive()) {
+          world.scene.locate("p1:core");
+          document.body.dataset.ready = "true";
+        } else requestAnimationFrame(ready);
+      }
+      requestAnimationFrame(ready);
+    </script>
+  </body>
+</html>

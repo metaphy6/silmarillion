@@ -1,0 +1,9 @@
+{
+  "browser": "firefox",
+  "version": "156.0.1",
+  "localHeroCreation": "passed",
+  "indexedDBReload": "passed",
+  "input": "DOM-dispatched controls through actual app handlers; not pointer/keyboard compatibility evidence",
+  "multiplayer": "not tested in Firefox",
+  "protocol": "native WebDriver BiDi"
+}

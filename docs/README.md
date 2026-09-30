@@ -28,3 +28,9 @@ For Silmarillion art, narrative, maps, assets or UI/UX work, begin with the
 [shared entry skill](../.agents/skills/silmarillion-art-direction/SKILL.md).
 The package [discovery matrix](design/art-direction/discovery-matrix.md) records
 the explicit client and role routes.
+
+## Playable runtime
+
+Start with [Game runtime](guides/GAME_RUNTIME.md) for development commands, the local loop, architecture and static deployment. [Multiplayer](guides/MULTIPLAYER.md) documents managed connectivity, setup and unresolved provider authorization. The [validation report](reports/runtime/VALIDATION.md) owns current results and coverage gaps; incomplete work remains on the [roadmap](planning/ROADMAP.md).
+
+The [content extraction and provisional tuning](design/runtime-content-notes.md), [ability coverage](design/runtime-ability-notes.md), and [runtime asset provenance](design/runtime-assets.md) separate the playable alpha from the complete revision-6 ambition. Source reports, historical notes and gallery studies remain in their existing locations.

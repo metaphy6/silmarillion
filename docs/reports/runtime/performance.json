@@ -1,0 +1,29 @@
+{
+  "simulation": {
+    "map": "96x96",
+    "companies": 400,
+    "weeks": 10,
+    "totalMs": 22.799999997019768,
+    "msPerWeek": 2.279999999701977
+  },
+  "pathfinding": {
+    "requests": 100,
+    "totalMs": 14.299999997019768
+  },
+  "render": {
+    "scene": "default32x32",
+    "samples": 120,
+    "p50Ms": 16.700000000000728,
+    "p95Ms": 33.40000000000009
+  },
+  "heap": 66005380,
+  "userAgent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+  "loadToMeasurementMs": 4527,
+  "budgets": {
+    "loadMs": 8000,
+    "heapBytes": 268435456,
+    "frameP95Ms": 33.4,
+    "simulationWeekMs": 100
+  },
+  "scope": "Headless Chromium on this workstation; simulation stress is separate from default scene frame capture. Not physical-device or remote-service evidence."
+}

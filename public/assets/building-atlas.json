@@ -1,0 +1,182 @@
+{
+  "frames": {
+    "wind-sanctuary": {
+      "frame": {
+        "x": 55,
+        "y": 55,
+        "w": 219,
+        "h": 250
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "boat-yard": {
+      "frame": {
+        "x": 348,
+        "y": 87,
+        "w": 258,
+        "h": 222
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "grove-refuge": {
+      "frame": {
+        "x": 664,
+        "y": 106,
+        "w": 239,
+        "h": 195
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "archive-house": {
+      "frame": {
+        "x": 974,
+        "y": 76,
+        "w": 231,
+        "h": 234
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "elven-workshop": {
+      "frame": {
+        "x": 48,
+        "y": 356,
+        "w": 240,
+        "h": 237
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "muster-house": {
+      "frame": {
+        "x": 346,
+        "y": 347,
+        "w": 250,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "horse-hall": {
+      "frame": {
+        "x": 655,
+        "y": 369,
+        "w": 255,
+        "h": 226
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "sea-storehouse": {
+      "frame": {
+        "x": 956,
+        "y": 370,
+        "w": 250,
+        "h": 218
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "dwarf-foundry": {
+      "frame": {
+        "x": 44,
+        "y": 644,
+        "w": 240,
+        "h": 238
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "orc-workhall": {
+      "frame": {
+        "x": 343,
+        "y": 654,
+        "w": 267,
+        "h": 233
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "provision-cellar": {
+      "frame": {
+        "x": 645,
+        "y": 666,
+        "w": 273,
+        "h": 219
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "wizard-workshop": {
+      "frame": {
+        "x": 965,
+        "y": 645,
+        "w": 241,
+        "h": 246
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "binding-workshop": {
+      "frame": {
+        "x": 53,
+        "y": 922,
+        "w": 234,
+        "h": 265
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "wolf-den": {
+      "frame": {
+        "x": 344,
+        "y": 955,
+        "w": 266,
+        "h": 220
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "eagle-ledge": {
+      "frame": {
+        "x": 659,
+        "y": 921,
+        "w": 250,
+        "h": 264
+      },
+      "rotated": false,
+      "trimmed": false
+    },
+    "spider-lair": {
+      "frame": {
+        "x": 969,
+        "y": 927,
+        "w": 241,
+        "h": 252
+      },
+      "rotated": false,
+      "trimmed": false
+    }
+  },
+  "meta": {
+    "image": "sm-building-atlas-v1.webp",
+    "size": {
+      "w": 1254,
+      "h": 1254
+    },
+    "scale": "1",
+    "format": "RGBA8888"
+  },
+  "provenance": {
+    "creator": "OpenAI image generation",
+    "date": "2026-09-30",
+    "status": "reviewed flattened runtime atlas; not layered production masters",
+    "source_sha256": "e6c426c25ea99aa40afef9857b58f9a237e321d6852d002132f8149ef0ad5659",
+    "sha256": "110eb222a28cc326c508dc4dc3c80989238ee00ccbd4b79b361b76bb8e333850",
+    "bytes": 1360136,
+    "crop_method": "Inspected transparent bounds; authored row windows0,320,620,905,1254 supersede imperfect equal-grid packing."
+  }
+}

@@ -1,0 +1,206 @@
+# Runtime ability source contracts
+
+`src/content/abilities.json` extracts all 110 adopted powers and 55 passives from revision 6 without changing their source text. Profile keys exactly match `hero-balance-roster.json`. Each power has an explicit semantic operation, category, target, numeric upfront cost, commitment kind, timing and selected adopted numeric parameters. Categories are manually classified from effects, not guessed from power names.
+
+These contracts are PROJECT gameplay adaptations, not Tolkien lore claims or demonstrated balance. The older fifty kits still await the separately authorized offensive review. The five named Wizard attack-equivalent numbers are adopted provisional tuning, not a complete combat-stat system.
+
+## Consumption rules
+
+- `source` is preserved verbatim. `restrictions` and `cost.additionalRequirements` remain binding, including staffing, ordinary actions, input recipes, queues, capacity, source access, consent, known routes, real movement and upkeep. Explicit stock amounts are additive, not a replacement for variable recipe costs. A zero numeric stock entry does not waive those requirements.
+- `commitment` comes from the actual cost. Gandalf, Radagast, Alatar and Pallando support is tactical; Saruman support and Dark Architect field consume the weekly hero commitment. Tactical actions belong inside one battle commitment.
+- `operation` distinguishes mechanics that share a category. A generic damage/heal/production switch is insufficient. Source-only constraints must be implemented and tested before claiming that an operation is supported.
+- `target.maxCount` is the selected primary entity count; route endpoints, required companions, participants, workers and attackers remain explicit in source text. Area patches can affect physically present formations as described.
+- `timing.phases` is null when a tactical phase duration is not directly stated; it does not convert weekly effects, beats, actions or persistent structures to a guessed duration. A visible wind-up with no specified duration needs an explicit provisional implementation choice.
+- Damage, healing and wards based on ordinary hits must use the acting hero's ordinary hit value and normal defense. Healthy-hero/capital one-shot safeguards, two-phase hard-disable grace and strongest-only stacking apply globally.
+- Source names and IDs must remain intact. Melkor's profiles represent one persistent doctrine-bound identity. Worldbreaker activation creates no entity; every Dragon/Balrog stays exclusive to Melkor.
+
+## Provisional implementation choices still required
+
+Revision 6 intentionally leaves many older-kit distances, terrain cell conversion, basic hit values, fear/cohesion scales, routine wear probabilities, interruption timing, workshop throughput and initiative values unquantified. Null/unlisted parameters are meaningful omissions. Record the chosen runtime values separately and test them; do not fill them by silently treating every power as damage, healing, or production acceleration. Neither this extraction nor static roster coverage proves that runtime handlers implement all powers or passives.
+
+## Explicit handler coverage
+
+Coverage snapshot: 2026-09-30, checked against `supportedAbilities` and explicit engine command branches. The dispatcher registers **36 distinct powers**; **53 additional distinct powers have integrated dedicated routes with bounded test evidence**, giving **89 routed powers / 21 without a validated integrated route** at the habitat/equipment handoff. Three shore routes are being integrated concurrently (`ulmo:field`, `ulmo:support`, `human_numenor:field`): their branches exist, but this audit has not received their integration gate, so they remain **pending**, not completed. Civilian modules for `nessa:support` and `hobbit_shire:support` are also pending shared integration. Those five additions would produce **94 routed / 16 unrouted** only after their gates pass.
+
+These are route counts, not completion counts. Tilion and Gandalf now consume actual declared ranged/pursuit preparations, with seven engine regressions passing; restricted target classes, inactive passive hooks, pending browser coverage and source-specific counters remain qualified below. All 55 profiles retain their source definitions; extraction and isolated tests do not establish full mechanics or balance.
+
+The 53 validated dedicated routes are grouped below so counts can be reproduced without counting ordinary actions or passives as extra powers:
+
+| Runtime domain | Distinct profile/power pairs | Count |
+|---|---|---:|
+| Production and finite calling | `istari_saruman:support`, `melkor_worldbreaker:support` | 2 |
+| Repair | `aule:support`, `elf_feanor:support`, `human_gondor:support`, `istari_forge:support` | 4 |
+| Ground/flight supply | `manwe:support`, `sauron:support`, `eagle_eyrie:support` | 3 |
+| Physical crossings | `ent_grove:support`, `spider_brood:support` | 2 |
+| Prepared movement | `nessa:field`, `elf_nandor:field`, `eonwe:field`, `melkor_dark_architect:field` | 4 |
+| Naval effects/repair | `elf_falmari:field`, `elf_falmari:support`, `osse:field`, `uinen:field`, `uinen:support` | 5 |
+| Existing infrastructure work | `dwarf_khazad_dum:support`, `troll_hold:support`, `orc_fortress_clan:support`, `osse:support` | 4 |
+| Existing-identity logistics | `human_numenor:support`, `eagle_eyrie:field` | 2 |
+| Prepared tactical orders | `elf_fingolfin:field`, `istari_star:field`, `tulkas:field`, `irmo:field` | 4 |
+| Physical charges | `orome:field`, `human_rohan:field`, `wolf_pack:field` | 3 |
+| Dated traces and route watches | `vaire:field`, `varda:support` | 2 |
+| Physical fieldworks | `human_gondor:field`, `dwarf_khazad_dum:field` | 2 |
+| Recovery queues | `este:support`, `elf_finarfin:support`, `istari_grove:support` | 3 |
+| Existing crop cycle | `vana:support` | 1 |
+| Prepared worksite evacuation | `namo:support`, `istari_ember:support` | 2 |
+| Finite intelligence networks | `istari_veil:support`, `istari_star:support` | 2 |
+| Physical scouting and finite hunting | `istari_veil:field`, `ilmare:field`, `wolf_pack:support` | 3 |
+| Finite protection kits and armor fitting | `dwarf_belegost:field`, `dwarf_belegost:support` | 2 |
+| Existing vegetation, construction roles and trails | `yavanna:support`, `tulkas:support`, `elf_nandor:support` | 3 |
+
+Executable route evidence lives in [engine.ts](../../src/simulation/engine.ts) and the corresponding simulation modules. Aggregate results and browser evidence belong in [runtime validation](../reports/runtime/VALIDATION.md); this ledger is not a replacement for those gates.
+
+Registered handlers: `varda:field`, `arien:field`, `vana:field`, `spider_brood:field`, `namo:field`, `ent_grove:field`, `elf_feanor:field`, `aule:field`, `este:field`, `dwarf_nogrod:field`, `elf_finarfin:field`, `elf_sindar:field`, `elf_vanyar:field`, `elf_vanyar:support`, `hobbit_shire:field`, `istari_alatar:field`, `istari_alatar:support`, `istari_ember:field`, `istari_forge:field`, `istari_gandalf:field`, `istari_gandalf:support`, `istari_grove:field`, `istari_pallando:field`, `istari_pallando:support`, `istari_radagast:field`, `istari_radagast:support`, `istari_saruman:field`, `manwe:field`, `melkor_dark_architect:support`, `melkor_worldbreaker:field`, `nienna:field`, `orc_fortress_clan:field`, `sauron:field`, `tilion:field`, `troll_hold:field`, `yavanna:field`.
+
+Aulë requires an actual cover/barricade/siege-brace entity; paid fieldwork construction now supplies these physical targets, with typed material, worker, source access and construction time. Pallando suppression currently accepts exactly one distinct identified active cast source: multiple enchantments need a selection interface and are rejected. Saruman’s Sentinel is routed through `produce` with recipe `sentinel` at `orthanc`, not a duplicate cast handler. Its exact paid queue, reservations, upkeep and ordinary-attack interception are implemented in the engine; spell interception still needs separate evidence. Worldbreaker’s Call similarly uses the dedicated `call` action. These routes do not imply all power counters are complete.
+
+### Engine integration contracts and provisional values
+
+- Payment, readiness and battle/weekly commitments belong to the engine. The dispatcher rechecks target/dependency legality before resolution and never substitutes an unrelated effect.
+- Duration uses simulation `revision` as the tactical clock. The engine must consume `move-limit`, strongest-only percentage wards, one-hit `hit-ward`, `disable-grace` and temporary `suppressed` markers. Original suppressed effects retain their original expiry and upkeep; inherent traits and ownership are never suppressed.
+- `quarry-mark` source names its caster seat. Its observation stops outside 24 metres or behind solid cover, and one ordinary cleansing action removes it. Circle effects have source `circle:x:y`; they end when a recipient leaves the 5-metre circle. `magic-duration-reduction` shortens the next magical fear/silence by one phase, minimum one phase, once per recipient. Integration tests must verify these consumers independently of handler tests.
+- A weekly battle is one encounter. Radagast healing records its per-patient use against that turn; the mark survives all three tactical response rounds.
+- Provisional discretization: 3 metres per tile; a stated 5-metre area is treated as diameter; direct-contact treatment permits an adjacent tile; unspecified local range is 8 tiles. Area selection prioritizes the chosen target, then distance and stable ID; lane selection prioritizes distance from the caster. These deterministic choices must be shown before commitment.
+- Gandalf’s burst and Radagast’s rooted patch retain their original warning coordinates. If the selected victim leaves or dies, eligible enemies remaining inside that original area still resolve normally. A target outside the area is neither damaged nor rooted; Gandalf’s selected-victim interruption is not transferred to a substitute victim. This anchor correction does not claim that every lane or other warning shape has a separate geometry model.
+- Melkor exclusivity is validated by each explicit operation’s ownership/target rules. Physical push, rooted obstruction and observation marks do not transfer allegiance and remain valid counterplay against enemy Dragons/Balrogs; source-text keywords do not grant those creatures immunity.
+- Imported pending jobs must match their versioned recipe’s four-stock paid cost and supply/great-creature/binding reservations, belong to a surviving facility, and have a valid start and bounded remaining duration. Acceleration can shorten remaining time and a paused job may outlive its nominal duration; elapsed wall time is never used as production progress.
+- Provisional older-kit tuning: Manwë pushes one tile along the dominant away-axis; Yavanna reduces movement allowance by one tile with minimum one; Aulë and Worldbreaker heavy strikes use two ordinary hits. Alatar uses a stored-RNG 85% exposed-target hit probability after solid-cover validation. These values are not claimed to come from revision 6 or to demonstrate balance.
+- Queue acceleration requires an older paid, staffed, source-supplied job reachable through the connected region. It advances remaining work by one, never creates output itself, and does not shorten prescribed hero creation/recreation. Same-week duplication is blocked with the job ID.
+
+### Additional field-effect integration contracts
+
+- Vanyar emits `formation-damage-reduction-percent=25`, one phase, with `formation:seat:x:y`. Consume only while the recipient holds its position and remains in its conscious hero’s audible range; movement, displacement or interrupted formation ends it.
+- Finarfin emits `fear-suppression=1` for two phases without deleting underlying fear. Nienna removes one current fear step immediately. Ember removes one current fear step from up to two own ordinary groups, recording each group’s once-per-encounter use. These effects neither heal nor erase later pressure.
+- Sauron requires actual `cohesion-loss` and a traversable `declared-fallback` source `fallback:x:y`. It recovers one step and records `fallback-authorized` for two phases; it does not move the company, add movement, or issue a replacement order. Reapplication while active is rejected.
+- Grove requires a recorded nonfatal ordinary wound and links `stabilized-wound` to that wound’s source until encounter end. New injury cancels stabilization. Forge requires an actual movement impairment on an owned construct and links `movement-repair` to the existing impairment until encounter end or a new disabling hit. Original wounds, impairments, lost parts and HP remain unchanged. Ordinary severe nonfatal injury now generates actual wound/joint records through the provisional physical-condition module; the handlers remain disabled on undamaged targets.
+- Troll and Nogrod emit `breach-bonus-percent=25` for the next qualifying ordinary obstacle attack, never a free attack. Troll names the selected gate/barricade in `breach:targetId`; Nogrod requires its actual carried faction breach-tool item. The engine must consume the bonus on that one normal attack, preserve exposure/counterattack and account for ordinary tool wear. Equipment durability and paid repair now exist; source-faithful breach-tool wear still requires its own attack integration evidence.
+- Sindar/Hobbit emit `ranged-accuracy-reduction-percent=25` for one covered movement/withdrawal phase with `covered:x:y`; this reduces ranged targeting chance, not incoming damage. Both require existing linked woodland cover. The consumer must check actual covered movement and end protection outside cover.
+- Tilion requires an exposed enemy with a real current `tacticalOrders` pursuit or ranged-attack preparation targeting a nearby ordinary ally. It makes one normal-hit-equivalent physical attack and interrupts that preparation. It does not discover undeclared enemy orders or automatically select an arbitrary enemy.
+- Belegost now has a dedicated finite protection-kit and declared-hazard fitting domain in `equipment-service.ts`: ordinary arrows/impact are represented; no other hazard is silently treated as either. Paid permanent fitting preserves its 20% resistance and movement burden, and replaces the previous fitting. This restricted hazard vocabulary remains a source-coverage qualification.
+
+### Powers outside the explicit cast dispatcher
+
+| Profile | Other command route or unavailable domain |
+|---|---|
+| `manwe` | support: Heralds on the Wind — dedicated convoy reroute action; requires an actual eligible convoy and traversable alternative |
+| `varda` | support: Starwatch Circuit — existing physically surveyed open route; dated anonymous exposed-passage reports, not identities or live tracking |
+| `ulmo` | field: Surging Passage and support: Current-Borne Crossing — shore module and command integration in progress; validation handoff pending at this audit |
+| `aule` | support: Master's Repair — dedicated paid repair route; restricted supported item/structure targets, not complete specialist-workshop substitution across every scene |
+| `yavanna` | support: Living Buttress — mature existing woodland becomes a destructible temporary barrier; altered vegetation is not regenerated or salvaged |
+| `namo` | support: Ward of Waiting — prepared staffed worksite evacuation along a real safe route on observed hostile approach |
+| `irmo` | field: Drowsing Veil — prepared interruptible tactical warning/active order; support: Rehearsal in Dream — unavailable |
+| `nienna` | support: Council of Repair (`fulfill-restitution`) — unavailable |
+| `orome` | field: Hunter’s Interception — declared physical charge with ordinary route/action cost and counters; support: Keep the Wild Road — unavailable |
+| `tulkas` | field: Unyielding Grapple — interruptible maintained contact, no free displacement; support: Shoulder the Burden — replaces the separate lifting role in an already fully paid tagged stone gate/siege-brace phase; main worker, supplies and normal progress remain |
+| `nessa` | field: Impossible Step — dedicated paid declared movement with one response phase, ordinary movement costs and route/interceptor revalidation; support: Gather the Stragglers — finite civilian module tested independently; engine/schema/private projection integration pending |
+| `vana` | support: Season Brought Forward — advances one existing irrigated, staffed growing crop cycle once; no new crop or harvest duplication |
+| `este` | support: Rest Without Walls — real supplied sheltered recovery assignment; preserves patient identity and finite care time |
+| `vaire` | field: Read the Broken Pattern — stationary inspection of recent surviving physical traces; dated uncertain report; support: The Remembered Workshop — unavailable |
+| `elf_feanor` | support: Rework the Setting — dedicated paid crafted-equipment repair route |
+| `elf_fingolfin` | field: Shielded Withdrawal — declared physical fallback and pursuit reduction; support: Watch Rotation — unavailable |
+| `elf_finarfin` | support: Restorative Assembly — advances eligible existing noncritical care assignment, not resurrection or missing parts |
+| `elf_falmari` | field: Sheltered Disembarkation — protection during actual unloading; support: Beacon Passage — existing coastal voyage ignores one fog delay with staffed beacon |
+| `elf_sindar` | support: Reweave the Watch (`move-watch-equipment`) — unavailable |
+| `elf_nandor` | field: Rootwise Escape — dedicated movement plan removes exactly one real woodland-entry penalty; support: Open the Old Trail — actual hero traversal proves survey; paid supplied worker restores only an authored obstructed woodland trail; repeated obstruction and destroyed waystations remain counters |
+| `elf_avari` | field: Rendezvous Signal (`synchronize-movement`) — unavailable; support: Traveling Compact (`move-portable-workshop`) — unavailable |
+| `human_gondor` | field: Brace the Breach — adjacent engineer consumes its carried compatible 5M repair kit and ordinary action to restore an existing damaged gate/barricade by 15%; support: Supply Refit (`depot-refit`) — dedicated paid depot repair route: 3 readiness, weekly commitment, 10M, matching materials and staffed supplied depot; restores up to 25% over one week on supported existing fortifications only. Siege machines are not represented; partial coverage. |
+| `human_rohan` | field: Relief Charge — prepared physical mounted charge against exposed ordinary infantry; support: Remount Circuit — unavailable |
+| `human_numenor` | field: Coastal Landing — shore module and command integration in progress; validation handoff pending; support: Convoy Command — conserves existing loads and escorts across two or three own ships at one harbor; skips provisional organization delay, not physical handling/travel |
+| `dwarf_khazad_dum` | field: Read the Fault — observed damaged stone obstacle and carried breach tools; support: Restore the Airway — funded existing obstructed shaft work; never excavates a new tunnel |
+| `dwarf_belegost` | field: Fit the Guard — actual carried 5M kit for a selected arrows/impact hazard; support: Temper for the Threat — existing worn armor fitted through a staffed paid workshop queue, 20% resistance and real movement burden |
+| `dwarf_nogrod` | support: Modular Refit (`convert-compatible-tool`) — unavailable |
+| `orc_fortress_clan` | support: Count the Spoils — advances older funded finite salvage once; physical hauling to foundry precedes stock credit |
+| `hobbit_shire` | support: Neighbors' Stores — finite household provision transfer module tested independently; engine/schema/private projection integration pending |
+| `troll_hold` | support: Clear the Haulway — clears existing authored stone/timber obstruction with real labor; no free salvage |
+| `wolf_pack` | field: Split the Pursuit — two existing formations and declared physical routes; support: Read the Hunting Ground — finite prey survey route integrated with bounded tests |
+| `istari_saruman` | support: Commission the Iron Servant — dedicated `produce sentinel` route; see qualifications above |
+| `sauron` | support: Redundant Supply — paid surveyed alternate route for one existing depot convoy; changes to its physical route once if the primary road closes that week |
+| `istari_ember` | support: Refuge Shift — funded prepared physical staff evacuation to an existing refuge |
+| `istari_grove` | support: Nursery Recovery — accelerates eligible existing nursery care queue, retaining patient identity |
+| `istari_veil` | field: Borrowed Shadow — scouting route integrated with bounded tests; support: Quiet Exchange — actual existing report cross-check through finite staffed network |
+| `istari_forge` | support: Service Overhaul — dedicated funded construct-repair acceleration |
+| `istari_star` | field: Signal Flash — revises a declared fallback; support: Beacon Concord — prepared finite staffed warning network |
+| `melian` | field: Veil the Departing (`conceal-covered-withdrawal`) — unavailable; support: Guest Road (`ward-wooded-supply-route`) — unavailable |
+| `osse` | field: Break the Landing — physical coastal surf affects friendly vessels too; support: Workable Tide — advances existing funded silt/debris channel work |
+| `uinen` | field: Stillwater Pocket — real wave-hazard reduction for damaged hull; support: Sheltered Refit — advances older funded repair at staffed rescue yard |
+| `arien` | support: Dawn Worksite (`enable-normal-darkness-shift`) — unavailable |
+| `tilion` | support: Watch of the Moon (`personally-survey-night-route`) — unavailable |
+| `eonwe` | field: Heralds Advance — dedicated shared-pace plan; all ordinary operations across up to two phases reserved within the weekly budget; support: Muster by Terms (`prepare-timed-rally`) — unavailable |
+| `ilmare` | field: Witness Flare — actual witnessed-attack position route integrated with bounded tests; support: Second Signal — unavailable |
+| `ent_grove` | support: Living Causeway — paid worker construction between existing surveyed bank anchors, requires existing vegetation; ordinary traversal and destructible structure |
+| `eagle_eyrie` | field: Lift the Stranded — existing consenting light worker/company carried along physical flight, interruptible and identity-preserving; support: Eyrie Relay — up to 20 existing P/K between own staffed ledges; consenting foreign ledges remain unsupported |
+| `spider_brood` | support: Brood Bridge — paid worker construction across a real gap; restricted to existing own ordinary brood bodies |
+| `melkor_worldbreaker` | support: Call of the Dark — dedicated `call` route |
+| `melkor_dark_architect` | field: Iron Edict — dedicated one-operation plan for up to three owned supplied great creatures; no extra attacks or movement allowance |
+
+
+### Additional bounded field contract: Orc rally
+
+`orc_fortress_clan:field` removes one actual active temporary `rout` condition from an owned ordinary infantry company. It preserves position, HP, casualties and all other conditions; renewed pressure is not immunized. The existing default local command radius (8 tiles) is provisional because the source gives no numerical radius. The integrated morale substrate now generates actual rout from ordinary pressure and constrains attacks; the power remains unavailable without a real rout condition. Ordinary fear/cohesion thresholds are provisional tuning, not adopted balance.
+
+Irmo now uses an interruptible tactical warning and delayed-reaction order; this is bounded runtime coverage, not a general action-speed system. The subsequent movement, visibility, terrain-zone and continuous-treatment sections record the implemented Nessa, Varda, Spider and Estë substrates; they do not imply completion of every power.
+
+
+### Estë treatment and physical wounds
+
+`este:field` now stabilizes one actual adjacent living wound on an owned or mutually allied patient, including heroes but excluding constructs. It preserves HP and wound attack/movement impairment. The patient carries an injury-source `stabilized-wound` plus healer-ID `treatment-link`. The active-effect consumer requires a living active healer within one tile without active stunned/incapacitated/silenced/rout conditions; a positive ordinary injury to healer or patient removes the treatment. Weekly encounter cleanup removes the link. Continuous separation/condition checks prevent protection while interrupted; movement and forced displacement now cancel separated treatment links permanently, including leave-and-return attempts. One-tile contact discretization is provisional. Global injury thresholds and nonfatal deterioration are explicitly provisional in `conditions.ts`, not adopted roster balancing.
+
+
+### Bounded approach zones
+
+Spider, Námo, Ent and Fëanor field powers now create persisted approach zones consumed by movement/ranged validation. Original selected coordinates stay fixed after the selected entity moves or dies; the interface accepts an observed unit/facility position or an explicitly selected observed terrain tile. Spider uses the adopted6m approach and3phases, Ent requires existing woodland and3phases, Námo triggers only on the first hostile formation, and Fëanor applies adopted25% ranged accuracy loss through the cone including allies for1phase. Web records are dated physical coordinates visible only to the caster's seat, with no hidden identity or continued tracking. Ground movement uses a provisional strongest-only1tile penalty. Provisional geometry: perpendicular approach orientation,0.35tile half-width, Ent radius1tile, Námo1tile line, Fëanor3tile cone length/30degree half-angle. Physical web/roots clearing uses an adjacent owned active armed company and the parent simulation's paid strategic operation. Zones do not change allegiance, permanently root units or grant extra actions. The subsequent bounded visibility module now supplies Bloomscreen and Varda semantics; see below.
+
+Námo additionally requires an actual narrow threshold with opposite blocked flanks (water, cliffs, live structures or map edge); open-field declarations are rejected. This discrete flank test is provisional geometry.
+
+
+### Optical zones and identity-safe observations
+
+Varda, Arien and Vána fields use a separate visibility model returning `hidden`, `silhouette` or `identified`. A silhouette conveys position only through transient contacts; guest projections must omit the original unit rather than copying its identity, stats, inventory or orders. Solid-wall line of sight always applies. Varda's lit patch reveals concealed silhouettes for3phases but cannot penetrate smoke, roofs or tunnels. Arien's adopted6m area at15m range thins actual ordinary smoke/mist for2phases: exact ray/circle intervals check fresh smoke outside the illuminated area. The patch does not invent smoke or create identities. Vána requires existing woodland vegetation and obscures one patch for3phases; adjacent or elevated observers and paid cutting counter it. One-tile radii for unspecified Varda/Vána patches and8tile local range are provisional; woodland stands in for existing shrubs. Generic `concealed`, `roofed` and `tunnel` condition records are recognized, but this does not claim a full tunneling or camouflage production system.
+
+Smoke/mist are serialized environmental zone kinds with no new smoke-production recipe; the default scenario presently has no ordinary smoke emitter, so Arien remains correctly target-disabled unless actual smoke/mist exists. Visible-terrain targeting and silhouette rendering/filtering passed the domain browser and projection tests recorded in the runtime validation report. Light does not reveal intentions or inventory, and no ordinary hostile attack can target a coordinate-only contact through an invented entity identity.
+
+
+### Physical movement, supply and observation integration
+
+Prepared movement resolves after response-phase ordinary attacks and prepared spell effects, so injury, displacement, blocked routes and destroyed crossings can counter it before any formation advances. Preparation reserves every planned ordinary operation: a two-company, two-phase Eönwë route needing four operations is rejected under the three-operation weekly limit. Nessa's two-tile rapid path, near-hero default range, one extra movement point per woodland entry, shared-step discretization and mutual-alliance-as-consent are provisional interpretations. These choices do not add ordinary attacks or expand movement allowances.
+
+Varda/Arien/Vána use a tri-state visibility model: identified, anonymous silhouette, or hidden. Guest silhouette DTOs contain coordinates only; hidden unit IDs are removed from warning targets too. Solid cover and unresolved smoke remain counters. Arien requires an actual smoke/mist zone; the default scenario does not yet generate such weather or attacks.
+
+Sauron's alternative route is explicit, fully currently observed and valid for the prepared week only. Cargo and carrier identities persist, route switching consumes no free distance, and an invalid fallback pauses. Eyrie Relay uses the same actual flight allowance and finite existing P/K escrow, with contested ledges stopping delivery. Physical crossings require paid construction, crew and surviving anchors; destruction removes path access immediately. Causeway use follows bilateral alliance; silk is restricted to the owner's ordinary brood. All ordinary geometry, durability and construction timing values are provisional.
+
+
+## Passive execution and remaining domains
+
+Confirmed explicit consumers include Alatar’s stationary ambush preparation (`passives.ts`), Radagast’s first eligible existing-beast interception (`interception.ts`), Fëanor/Nogrod/Belegost durability conditions (`equipment.ts`), Rohan travel fatigue plus Finarfin/Ember staffed-rest hooks (`fatigue.ts`), and Manwë/Tulkas/Vanyar/Námo/Gandalf morale hooks (`morale.ts`). Morale has eight domain tests and two engine tests at this audit checkpoint; those are evidence for these bounded hooks only. Saruman’s demolition passive has a guarded implementation but no trusted ordinary siege-production identity yet, so it is not naturally usable. Weekly encounters, unspecified local ranges, ordinary wear, fatigue and pressure thresholds remain disclosed provisional tuning.
+
+This is a consumer inventory, not a claim that the remaining 55 passive contracts execute. Other passive text retained in content is not counted as implementation without a corresponding hook and source-specific evidence. Complete passive auditing and additional populations, mounts, preserved records, portable workshops, nursery branches, terrain/weather and broader hazard types remain open. In particular, full faction production trees and advanced target categories are not supplied by the existence of a generic repair or transport action.
+
+### Production-authority gap affecting power prerequisites
+
+Revision 6 section 10 explicitly says a lair, eyrie or grove provides appropriate production/storage rather than copying a human city. It assigns Ent Living Nursery/Rootworks, Eagle Training Ledge/Harness Perch, Wolf Scent Den/Pack Ground and Spider Silk Nursery/Brood Chamber. The audit found that generic harbor, foundry and engineer-facility availability exceeded the documented representative creature trees. Explicit four-profile habitat facility/recipe capability lists now reject that copied industrial production; source-faithful second production branches still need implementation. This is a confirmed source-authority gap, not evidence that every shared store, route anchor or shelter is forbidden. Appropriate storage and habitat infrastructure are explicitly legitimate; humanoid hull/siege/industrial production needs an adopted faction recipe or an explicitly provisional scenario adaptation rather than a renamed building alone. Recommended correction: explicit per-profile facility and recipe capability lists tied to section 10, preserve physical storage/route access, and expose unavailable production with its reason. Do not infer further prohibitions merely from Tolkien lore.
+
+### Next bounded economy substrate
+
+Nessa’s civilian transfer and Hobbit stores now have a finite household/provision module with independent tests; shared integration is pending at this handoff. Conservation across origin, carrier and destination, consent, capacity, interruption and ordinary travel must still pass the engine/save/guest gates before either is counted as integrated. Avari portable workshops and Vairë remembered archives instead require identity-bearing portable equipment and preserved plans/lost-facility history, plus paid re-establishment. These are separate domain additions, not currently implemented powers.
+
+
+### Habitat, scouting and equipment handoff evidence
+
+`scouting.ts` and `hunting.ts` have explicit engine, checkpoint and private-guest consumers. Borrowed Shadow produces only anonymous stationary contact coordinates, never a Unit. Physical examination spends an ordinary operation whether the contact is genuine or illusory; it does not expose other hidden entities. Witness Flare records an actual observed ordinary attack or offensive cast, marks its dated position for two response phases and does not track its former occupant. Wolf survey physically traverses one connected habitat, pays exact 3 readiness/2P, and creates only dated private prey/danger observations. Hunting remains a separate normal operation, supports stationary harvesting at a reached site, charges normal upkeep, and debits finite scenario inventory before stock credit. Sandbox inventory of 12 animals per region, 4P per animal and maximum 2 per hunt is explicitly provisional, nonrenewing and checkpoint-persistent.
+
+`habitat-works.ts` is integrated with 43 scoped tests including fieldworks, transport and save invariants; typecheck and scoped lint passed at handoff. Living Buttress consumes/reconfigures an existing mature vegetation record, creates a provisional 60HP barricade frontage adjacent to a staffed worksite, obeys support-plot capacity and expires at the weekly boundary without salvage. Selected existing woodland is designated mature in the sandbox; no forest is generated by a power. Shoulder the Burden acts only on tagged stone gate/siege-brace construction: the ordinary recipe is paid once, a separate normal lifting worker or Tulkas fills its real lifting role, and the main worker and delivery remain required. Damage or departure interrupts the substitution. Old Trail requires proof of actual hero traversal, a living supplied worker, an existing waystation, 5M tools and provisional 5P normal supplies; it uses one worker operation plus the weekly hero commitment. An authored two-tile woodland trail is restored rather than terraformed. Provisional light-convoy capacity is 20 cargo; ordinary obstruction and waystation destruction stop the route. These tags, frontage/HP, authoring choices and ordinary numerical costs are implementation tuning, not source-mandated balance.
+
+### Phase-boundary source-fidelity findings
+
+1. **Interception producer gap corrected and regression-tested.** `tilion:field` requires `prepared-attack`/`prepared-ranged` effects with an `attack:<victim>` source (`abilities.ts`, `preparedAttack`). The reviewed version had no producer for those markers. The correction introduces a paid normal ranged preparation with an actual response phase and ordinary attack callback; Tilion now interrupts a genuine declared pursuit/ranged order, and Gandalf interrupts only the selected actual ranged order. Fake effect markers no longer establish preparation. Seven engine/private-projection regressions now pass in `tests/prepared-attacks.test.ts`; the combined ability/tactical/charge/habitat regression gate passes 94 tests, full typecheck and scoped lint. Oromë recognizes both genuine preparation kinds and resolves the response interception after ordinary counter-orders but before the prepared shot; other charge windups remain unchanged. Source: `abilities.json`, Tilion field and Gandalf field; runtime: `abilities.ts:201`, `abilities.ts:530`, `abilities.ts:924`.
+2. **Passive coverage is materially below the 55 retained contracts.** Saruman’s demolition hook explicitly defaults `isOrdinarySiege` to false because no trusted siege-production identity exists (`passives.ts:71–94`). Existing ordinary company attacks therefore cannot naturally trigger it. Other source-only passives need individual event consumers and tests; do not infer implementation from hero/faction stat differences. The inventory above is bounded evidence, not a passive completion total.
+3. **Unrouted domains still remain after the queued additions.** Even if shore/civilian integration passes, sixteen powers remain without routes: `irmo:support`, `nienna:support`, `orome:support`, `vaire:support`, `elf_fingolfin:support`, `elf_sindar:support`, `elf_avari:field`, `elf_avari:support`, `human_rohan:support`, `dwarf_nogrod:support`, `melian:field`, `melian:support`, `arien:support`, `tilion:support`, `eonwe:support`, `ilmare:support`. Required domains include real night shifts/crossings, primary-link failure and physical alternate couriers, finite mounts, preserved plans/lost workshops, portable facilities, restitution/consent, patrol harassment and timed rally orders. Existing generic transport, production or report objects are not substitutes for those semantics.
+4. **Target/domain qualifications survive routing.** Belegost’s hazard interface currently covers arrows/impact; Gondor support lacks siege-machine targets; Aulë support does not implement every specialist-workshop substitution; Eagle relay lacks consenting foreign ledges. Preserve these restrictions visibly and in completion reports rather than counting a single accepted route as full source coverage.
+
+### Formation orders — integrated follow-up
+
+`formation-orders.ts` now routes Avari Rendezvous Signal, Fingolfin Watch Rotation and Eönwë Muster by Terms through real declared routes and the normal three-operation allowance. Avari reserves two ordinary movements plus its tactical hero action and 2 readiness; only its paired retreat avoids mutual coordination penalties, while ordinary pursuit damage and uninvolved neighbors remain affected. The four-tile signal radius is provisional. Watch Rotation reserves two movements plus the weekly commitment and 3 readiness, requires existing staffed posts and actual surveyed patrol routes, and swaps their real assignments after travel. Anonymous dated crossing reports require actual guard observation; no enemy identities or future routes are exported.
+
+Muster pays 15P/10M, 3 readiness, the weekly commitment and all three ordinary movement operations. Its current declared operation is **hold an existing objective near a supplied relay**, not an additional free attack or all possible operation variants. Explicit simultaneous route checks reject collisions and blocked endpoints. Clear Commission preserves only one previously written company fallback when the hero is injured/displaced or its real relay/path fails; it substitutes for that reserved movement and never accepts a new remote order. Ordinary geometry, local observation range and hold-site adjacency remain provisional.
+
+Validation: 4 module tests, 6 engine/save/privacy integration tests, 2 controls tests and 10 existing morale tests passed; scoped lint passed. The engine suite includes real movement, real survey creation, paid post assignments and subsequent rotation. Chromium UI execution passed (5.5s), including order review, the intermediate 1/3 operation budget, real destinations, committed turn-boundary persistence and reload. Full concurrent typecheck was blocked only by the separate pending `MovementTrace.unit` watch-post integration at this handoff; no aggregate completion claim is made. The earlier list of sixteen unrouted powers is a dated audit: remove these three only from that list; other agents’ pending integrations require their own gates.

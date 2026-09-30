@@ -1,6 +1,30 @@
-# Silmarillion strategy game design
+# Silmarillion strategy game — playable browser alpha
 
-An isometric strategy game design with painterly surroundings, small figures against expansive landscapes, distinct faction economies and one recreatable hero per faction.
+A runnable Phaser + TypeScript + Vite strategy alpha with an independent turn simulation, local AI, checkpoint saves and optional private WebRTC matches. The default scenario is **Cross-era sandbox**; the 55 starting profiles represent 54 factions, including one Melkor identity with two mutually exclusive doctrines.
+
+**The full game request is not complete.** All profiles are selectable, but the runtime has 27 of 110 power dispatcher handlers plus two dedicated action routes, incomplete passives, representative provisional production rather than full economic trees, shared portrait studies and procedural figures, and no finished narrative system. See the [runtime guide](docs/guides/GAME_RUNTIME.md), [ability coverage](docs/design/runtime-ability-notes.md) and [validation report](docs/reports/runtime/VALIDATION.md).
+
+## Run the game
+
+Use Node.js 22.12 or newer and npm.
+
+```bash
+npm ci
+npm run dev
+```
+
+Open the local address printed by Vite. No multiplayer credentials are needed for local play. Choose a profile, begin the sandbox and follow the tutorial. The [runtime guide](docs/guides/GAME_RUNTIME.md) covers controls, verification, architecture and static deployment.
+
+```bash
+npm run typecheck
+npm run lint
+npm test
+npm run build
+# With the local Vite server running and a configured browser executable:
+npm run test:browser
+```
+
+Publish only the generated `dist/` directory to static HTTPS hosting; never publish the repository root. Managed signaling/TURN setup and the unresolved scoped-credential dependency are described in [Multiplayer](docs/guides/MULTIPLAYER.md). No deployment or purchase is performed by these commands.
 
 > Working in this repo with an AI coding agent? Read [`AGENTS.md`](AGENTS.md) first.
 
@@ -28,10 +52,10 @@ for conceptual screen examples and the
 results and remaining checks.
 
 The roster combines identities from different eras; scenarios must label their
-chronology and sandbox geography. No game runtime manifest was present at initial inspection. A concurrently
-added [saved implementation handoff](docs/project/INITIATE.md) names Phaser,
-TypeScript and Vite; this resource task does not execute that handoff. Gallery
-formats and target sizes remain portable design-study contracts.
+chronology and sandbox geography. Phaser, TypeScript and Vite now implement the browser alpha requested by the
+[saved implementation handoff](docs/project/INITIATE.md). The gallery remains a
+design study; runtime assets and their limitations are recorded in the
+[asset provenance](docs/design/runtime-assets.md).
 
 ## Source material and artwork
 
@@ -45,7 +69,7 @@ The reading notes retain historical references to temporary inspection files tha
 
 [`docs/design/iterations/`](docs/design/iterations/) holds `silmarillion-game-report-v1.md` through `silmarillion-game-report-v5.md` and their matching `silmarillion-game-design-report-v*.pdf` files, preserving earlier revisions. Their rules may be superseded by revision 6. Historical PDFs retain their original wording; archived Markdown links have been adjusted to match the current layout. [`docs/design/`](docs/design/) also holds `design-notes-*.md`, supporting drafts rather than current rules. The older fifty hero profiles remain unchanged while their offensive redesign is pending; the five named Wizard kits are new proposals.
 
-## Rebuild
+## Rebuild design deliverables
 
 Use Python 3 with Pillow and ReportLab installed. The hero roster builder uses only the Python standard library.
 

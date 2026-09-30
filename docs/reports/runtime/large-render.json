@@ -1,0 +1,22 @@
+{
+  "cache": {
+    "count": 11,
+    "bytes": 32024608
+  },
+  "map": "96x96",
+  "companies": 400,
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "loadMs": 553,
+  "p50": 33.299999999999955,
+  "p95": 33.40000000000009,
+  "heap": 67653851,
+  "budgets": {
+    "loadMs": 8000,
+    "heapBytes": 268435456,
+    "frameP95Ms": 34
+  },
+  "scope": "Actual Phaser large map on headless Chromium workstation. No physical-device or Safari/Firefox performance inference."
+}
