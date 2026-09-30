@@ -1,5 +1,33 @@
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/assets/fonts/NotoSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url("/assets/fonts/NotoSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Serif";
+  src: url("/assets/fonts/NotoSerif-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Noto Serif";
+  src: url("/assets/fonts/NotoSerif-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 :root {
-  font-family: Arial, sans-serif;
+  font-family: "Noto Sans", Arial, sans-serif;
   color: #f2e8d5;
   background: #101c22;
   font-size: 16px;
@@ -91,7 +119,7 @@ input[type="checkbox"] {
 h1,
 h2,
 h3 {
-  font-family: Georgia, serif;
+  font-family: "Noto Serif", Georgia, serif;
   font-weight: 400;
   line-height: 1.18;
 }
@@ -132,11 +160,11 @@ small {
   box-shadow: 0 20px 80px #101c22a0;
 }
 .setup h1 {
-  font-size: 3em;
+  font-size: 2em;
 }
 .lede {
   font:
-    italic 1.4em Georgia,
+    italic 1.4em "Noto Serif", Georgia,
     serif;
   color: #edbe73;
 }

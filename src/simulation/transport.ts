@@ -1,3 +1,5 @@
+import {extendedCapabilities} from "../content/extended-production";
+import {heavyCargoCapacity} from "./heavy-equipment";
 import {consumeCurrentAtBank} from "./shore-powers";
 import {trailConvoyReason} from "./habitat-works";
 import {recordPatrolMovement} from "./patrols";
@@ -43,7 +45,7 @@ export type RouteFinder = (
 ) => Pos[] | null;
 const keys = ["P", "M", "K", "E"] as const;
 const distance = (a: Pos, b: Pos) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
-const ordinary = (u: Unit) => ["worker", "company", "beast"].includes(u.kind);
+const ordinary = (s:Match,u: Unit) => ["worker", "company", "beast"].includes(u.kind)||extendedCapabilities(s,u)?.convoyCapacity===20;
 function validRoute(
   s: Match,
   path: Pos[] | null,
@@ -89,7 +91,7 @@ export function validateConvoy(
     u.hp <= 0 ||
     !u.active ||
     !u.supplied ||
-    !ordinary(u)
+    !ordinary(s,u)
   )
     return "Owned active supplied ordinary carrier required; no hero, construct, Dragon or Balrog";
   if (
@@ -118,7 +120,7 @@ export function validateConvoy(
   )
     return "Cargo must contain only nonnegative integer P/M/K/E";
   const total = keys.reduce((n, k) => n + a.cargo[k], 0);
-  if (total < 1 || total > 20)
+  if (total < 1 || total > heavyCargoCapacity(s,u,20))
     return "Cargo capacity is 1–20 total stock units";
   if (keys.some((k) => p.stock[k] < a.cargo[k] + (k === "P" ? 1 : 0)))
     return "Existing cargo stocks plus 1P loading provisions required";
@@ -146,7 +148,7 @@ export function startConvoy(
     origin: a.origin,
     destination: a.destination,
     cargo: { ...a.cargo },
-    capacity: 20,
+    capacity: heavyCargoCapacity(s,s.units[a.carrier],20),
     route: path.map((p) => ({ ...p })),
     index: 0,
     phase: "loading",
@@ -193,13 +195,13 @@ export function progressConvoys(s: Match, route: RouteFinder): void {
     }
     if (
       !dest ||
-      dest.owner !== c.owner ||
+      (c.kind === "eagle-relay" ? !ledgeAccess(s,c.owner,c.destination) : dest.owner !== c.owner) ||
       dest.hp <= 0 ||
       (!c.recovery &&
         !c.rerouted &&
-        (!origin || origin.owner !== c.owner || origin.hp <= 0))
+        (!origin || (c.kind === "eagle-relay" ? !ledgeAccess(s,c.owner,c.origin) : origin.owner !== c.owner) || origin.hp <= 0))
     ) {
-      c.pauseReason = "Route endpoint destroyed or no longer owned";
+      c.pauseReason = "Route endpoint destroyed, no longer owned or landing consent revoked";
       continue;
     }
     if (!u.active || !u.supplied) {
@@ -373,7 +375,7 @@ export function validateConvoyState(
           carrier.id === s.players[c.owner]?.hero.id &&
           s.players[c.owner]?.profile === "eagle_eyrie" &&
           carrier.flying
-        : ordinary(carrier))) ||
+        : ordinary(s,carrier))) ||
     (!projection && (!origin || !dest)) ||
     c.origin === c.destination
   )
@@ -497,7 +499,7 @@ export function recoverCargoReason(
     u.hp <= 0 ||
     !u.active ||
     !u.supplied ||
-    !ordinary(u) ||
+    !ordinary(s,u) ||
     isConvoyCarrier(s, u.id)
   )
     return "Free owned active supplied ordinary carrier required";
@@ -564,7 +566,7 @@ export function rerouteConvoyReason(
     !u.alive ||
     !u.active ||
     !u.supplied ||
-    !ordinary(u) ||
+    !ordinary(s,u) ||
     distance(u, c) !== 0
   )
     return "Own existing active ordinary convoy required";
@@ -675,7 +677,7 @@ export function prepareSupplyReason(
     !u.active ||
     !u.supplied ||
     u.owner !== seat ||
-    !ordinary(u) ||
+    !ordinary(s,u) ||
     distance(c, u) !== 0
   )
     return "Sauron's own funded active ordinary convoy required";
@@ -784,10 +786,10 @@ export function eyrieRelayReason(
     a.origin === a.destination ||
     ![origin, dest].every(
       (f) =>
-        f?.kind === "ledge" && f.owner === seat && f.hp > 0 && f.workers > 0,
+        f?.kind === "ledge" && ledgeAccess(s,seat,f.id) && f.hp > 0 && f.workers > 0,
     )
   )
-    return "Two distinct owned staffed prepared ledges required";
+    return "Two distinct owned or explicitly consenting staffed prepared ledges required";
   if (distance(h, origin) !== 0)
     return "Skywarden must reach the loading ledge first";
   if (threatenedLedge(s, seat, origin) || threatenedLedge(s, seat, dest))
@@ -824,7 +826,7 @@ export function eyrieRelayReason(
   return "";
 }
 /** Skywarden carries one ordinary flight; loading/delivery share weekly resolution.
- * Foreign consent is deliberately unavailable until explicit landing consent exists. */
+ * Explicit foreign landing consent is rechecked before every progress step. */
 export function startEyrieRelay(
   s: Match,
   seat: string,
@@ -860,4 +862,57 @@ export function startEyrieRelay(
   p.hero.readiness -= 3;
   s.convoys[c.id] = c;
   return c;
+}
+
+export interface LedgeConsent { ledge:string; owner:string; visitor:string; grantedTurn:number }
+export interface LandingSurvey { owner:string; destination:Pos; turn:number; revision:number; terrain:string; spaceAvailable:boolean }
+export type EyrieState = Match & {ledgeConsents?:Record<string,LedgeConsent>;landingSurveys?:Record<string,LandingSurvey>};
+const consentKey = (ledge:string,visitor:string) => `ledge-consent:${ledge}:${visitor}`;
+/** Permission grants use of a landing site, never its owner's stocks or ownership. */
+export function ledgeConsentReason(s:EyrieState,owner:string,ledge:string,visitor:string,allow:boolean):string {
+  const f=s.facilities[ledge],p=s.players[owner];
+  if(!p||p.eliminated||!f||f.owner!==owner||f.kind!=="ledge"||f.hp<=0)return "Live owned prepared ledge required";
+  if(owner===visitor||s.players[visitor]?.profile!=="eagle_eyrie"||s.players[visitor].eliminated)return "Active foreign Eagle visitor required";
+  if(allow&&f.workers<1)return "Staffed ledge required before granting consent";
+  return "";
+}
+export function setLedgeConsent(s:EyrieState,owner:string,ledge:string,visitor:string,allow:boolean):void {
+  const reason=ledgeConsentReason(s,owner,ledge,visitor,allow);if(reason)throw new Error(reason);
+  const key=consentKey(ledge,visitor);s.ledgeConsents??={};
+  if(!allow){delete s.ledgeConsents[key];return;}
+  s.ledgeConsents[key]={ledge,owner,visitor,grantedTurn:s.turn};
+}
+function ledgeAccess(s:EyrieState,seat:string,id:string):boolean {
+  const f=s.facilities[id];
+  if(!f||f.kind!=="ledge"||f.hp<=0)return false;
+  if(f.owner===seat)return true;
+  const q=s.ledgeConsents?.[consentKey(id,seat)];
+  return !!q&&q.owner===f.owner&&q.visitor===seat&&q.ledge===id&&!s.players[q.owner]?.eliminated;
+}
+/** Caller supplies actual current line of sight and observation-filtered space.
+ * Never consult hidden occupants in the space callback. No remote information,
+ * unit IDs, improved movement or future weather is inferred from this record. */
+export function landingSurveyReason(s:EyrieState,seat:string,destination:Pos,visible:(p:Pos)=>boolean):string {
+  const p=s.players[seat],h=p&&s.units[p.hero.id];
+  if(!p||p.profile!=="eagle_eyrie"||p.hero.status!=="living"||!h?.alive||!h.active||!h.supplied||activeEffects(s,h).some(e=>["stunned","incapacitated"].includes(e.kind)))return "Living conscious Skywarden required";
+  if(!Number.isSafeInteger(destination.x)||!Number.isSafeInteger(destination.y)||destination.x<0||destination.y<0||destination.x>=s.map.width||destination.y>=s.map.height||!visible(destination))return "Current line of sight to inspected destination required";
+  if(isConvoyCarrier(s,h.id))return "Inspect before starting rescue or delivery";
+  if(s.landingSurveys?.[seat]?.turn===s.turn)return "One landing survey per week";
+  return "";
+}
+export function inspectLanding(s:EyrieState,seat:string,destination:Pos,visible:(p:Pos)=>boolean,spaceAvailable:(p:Pos)=>boolean):LandingSurvey {
+  const reason=landingSurveyReason(s,seat,destination,visible);if(reason)throw new Error(reason);
+  const q:LandingSurvey={owner:seat,destination:{x:destination.x,y:destination.y},turn:s.turn,revision:s.revision,terrain:s.map.terrain[destination.y*s.map.width+destination.x],spaceAvailable:spaceAvailable(destination)};
+  s.landingSurveys??={};s.landingSurveys[seat]=q;return q;
+}
+export function pruneEyrieState(s:EyrieState):void {
+  for(const [id,q] of Object.entries(s.ledgeConsents??{})){const f=s.facilities[q.ledge];if(!f||f.hp<=0||f.owner!==q.owner||f.kind!=="ledge"||s.players[q.owner]?.eliminated||s.players[q.visitor]?.eliminated)delete s.ledgeConsents![id];}
+  for(const [id,q] of Object.entries(s.landingSurveys??{}))if(q.turn<s.turn)delete s.landingSurveys![id];
+}
+export function validateEyrieState(s:EyrieState,guestSeat?:string):void {
+  for(const [id,q] of Object.entries(s.ledgeConsents??{})){
+    const f=s.facilities[q.ledge];
+    if(id!==consentKey(q.ledge,q.visitor)||!s.players[q.owner]||q.owner===q.visitor||s.players[q.visitor]?.profile!=="eagle_eyrie"||!Number.isSafeInteger(q.grantedTurn)||q.grantedTurn<1||q.grantedTurn>s.turn||(guestSeat&&q.owner!==guestSeat&&q.visitor!==guestSeat)||(!guestSeat&&(!f||f.owner!==q.owner||f.kind!=="ledge")))throw new Error("Invalid ledge consent");
+  }
+  for(const [id,q] of Object.entries(s.landingSurveys??{}))if(id!==q.owner||s.players[q.owner]?.profile!=="eagle_eyrie"||(guestSeat&&q.owner!==guestSeat)||!Number.isSafeInteger(q.turn)||q.turn<1||q.turn>s.turn||!Number.isSafeInteger(q.revision)||q.revision<0||q.revision>s.revision||!Number.isSafeInteger(q.destination.x)||!Number.isSafeInteger(q.destination.y)||q.destination.x<0||q.destination.y<0||q.destination.x>=s.map.width||q.destination.y>=s.map.height||typeof q.terrain!=="string"||typeof q.spaceAvailable!=="boolean")throw new Error("Invalid landing survey");
 }

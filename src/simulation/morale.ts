@@ -1,3 +1,4 @@
+import {rememberSurvivors} from "./council";
 import { dreamMitigation } from "./dream-preparation";
 import type { Match, Unit, Pos } from "./types";
 import { activeEffects, sightline } from "./effects";
@@ -167,6 +168,15 @@ export function verifiedOrderMorale(s: Match, u: Unit): void {
  * companies lose one coordination step; no additional fear is invented. */
 export function retreatMorale(s: Match, departing: Unit, route: Pos[]): void {
   if (departing.kind !== "company" || route.length < 2) return;
+  rememberSurvivors(s,departing,route);
+  // Provisional ordinary facing recovery takes the next tactical phase after
+  // physical withdrawal. Measured Rearguard removes only that delay, once in
+  // this encounter; rout, casualties, movement and action budgets are unchanged.
+  const patron=patrons(s,departing,"elf_fingolfin").find(h=>h.owner===departing.owner&&!used(s,h,"measured-rearguard-used"));
+  const orderly=!activeEffects(s,departing).some(e=>["rout","stunned","incapacitated"].includes(e.kind));
+  departing.effects=departing.effects.filter(e=>e.kind!=="facing-unready");
+  if(patron&&orderly)mark(s,patron,"measured-rearguard-used");
+  else departing.effects.push({kind:"facing-unready",value:1,until:s.revision+2,source:`facing:${s.turn}`});
   const origin = route[0];
   for (const u of Object.values(s.units).sort((a, b) =>
     a.id.localeCompare(b.id),
@@ -201,6 +211,9 @@ export function retreatMorale(s: Match, departing: Unit, route: Pos[]): void {
     .filter(
       (z) =>
         z.kind === "threshold" &&
+        // Paid physical devices reuse hesitation geometry, not Námo's declared
+        // threshold. Their reserved producer ID survives trading and ownership.
+        !z.id.startsWith("device:") &&
         z.until > s.revision &&
         effectiveRelation(s, z.owner, departing.owner) === "alliance" &&
         route.some((p) => zoneContains(z, p)),

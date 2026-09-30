@@ -1,3 +1,22 @@
+import {finalKeys,finalProduction,finalCapabilities} from "../content/final-production";
+import {navalProductionKeys} from "../content/naval-production";
+import {extendedKeys,extendedProduction,extendedCapabilities} from "../content/extended-production";
+import {militaryKeys,militaryProduction,militaryCapabilities} from "../content/military-production";
+import {companionKeys,companionRole,companionProduction} from "../content/companion-production";
+import {secondaryKeys,secondaryCapabilities,secondaryProduction} from "../content/secondary-production";
+import {validateHeavyEquipment} from "./heavy-equipment";
+import {validateAgentCaptivities} from "./agent-captivity";
+import {validateOrdinaryEnvironment} from "./ordinary-environment";
+import {validateBeaconSignals} from "./relay-messages";
+import {validateWarbandRewards} from "./warband-rewards";
+import {validateLocalKnowledge} from "./local-knowledge";
+import {validateRoutineEnvironment} from "./routine-environment";
+import {validateRations} from "./reserved-rations";
+import {validateSiege} from "./siege";
+import {validateEyrieState} from "./transport";
+import {validatePortableState} from "./portable-workshop";
+import {validatePlans} from "./preserved-plan";
+import {validateCouncils} from "./council";
 import {validateForest} from "./forest-routes";
 import {validateDreams} from "./dream-preparation";
 import {validateTools} from './tool-services';
@@ -64,14 +83,46 @@ const huntingBase={id,owner:id,unit:id,turn:n,revision:n,origin:z.object(point).
 const formationMembers=z.array(z.object({unit:id,route:huntRoute}).strict()).min(2).max(3);
 const formationBase={id,owner:id,hero:id,origin:z.object(point).strict(),turn:n,revision:n,until:n,communicationsCut:z.boolean(),members:formationMembers};
 const action = z.discriminatedUnion("kind", [
+ z.object({kind:z.literal("lay-false-trail"),unit:id}).strict(),
+ z.object({kind:z.literal("carry-heavy"),item:id,carrier:id}).strict(),
+ z.object({kind:z.literal("drop-heavy"),item:id}).strict(),
+ z.object({kind:z.literal("capture-agent"),unit:id,target:id}).strict(),
+ z.object({kind:z.literal("free-agent"),unit:id,capture:id}).strict(),
+ z.object({kind:z.literal("logging"),worker:id,vegetation:id,facility:id}).strict(),
+ z.object({kind:z.literal("survey-beacon-link"),origin:id,destination:id,trace:id}).strict(),
+ z.object({kind:z.literal("signal-beacon"),origin:id,destination:id,report:id}).strict(),
+ z.object({kind:z.literal("agree-reward"),unit:id,reward:stock,due:n.min(1)}).strict(),
+ z.object({kind:z.literal("pay-reward"),unit:id,facility:id}).strict(),
+ z.object({kind:z.literal("inspect-local"),point:z.object(point).strict()}).strict(),
+ z.object({kind:z.literal("inspect-worksite"),facility:id}).strict(),
+ z.object({kind:z.literal("evacuate-care"),care:id,destination:id,route:huntRoute}).strict(),
+ z.object({kind:z.literal("prepare-rescue-rig"),ship:id}).strict(),
+ z.object({kind:z.literal("pack-rations"),unit:id,facility:id,amount:n.min(1).max(5)}).strict(),
+ z.object({kind:z.literal("reload-siege"),unit:id,facility:id}).strict(),
+ z.object({kind:z.literal('consent-ledge'),ledge:id,visitor:id,allow:z.boolean()}).strict(),
+ z.object({kind:z.literal('survey-landing'),destination:z.object(point).strict()}).strict(),
+ z.discriminatedUnion('mode',[
+ z.object({kind:z.literal('portable'),mode:z.literal('consent'),settlement:id,willing:z.boolean()}).strict(),
+ z.object({kind:z.literal('portable'),mode:z.literal('relocate'),workshop:id,origin:id,destination:id,carrier:id,route:huntRoute}).strict(),
+ z.object({kind:z.literal('portable'),mode:z.literal('recover'),job:id,destination:id,carrier:id,route:huntRoute}).strict()]),
+ z.object({kind:z.literal('preserve-plan'),archive:id,recipe:id}).strict(),
+ z.object({kind:z.literal('remember-workshop'),plan:id,facility:id}).strict(),
+ z.object({kind:z.literal('recover-plan'),plan:id,unit:id}).strict(),
+ z.object({kind:z.literal('destroy-plan'),plan:id,unit:id}).strict(),
+ z.object({kind:z.literal('council-terms'),grievance:id,payment:stock,mediator:id}).strict(),
+ z.object({kind:z.literal('council-consent'),grievance:id,accept:z.boolean(),termsVersion:n}).strict(),
+ z.object({kind:z.literal('council-drop'),restitution:id}).strict(),
+ z.object({kind:z.literal('council-settle'),grievance:id}).strict(),
+ z.object({kind:z.literal('council-deliver'),grievance:id,carrier:id,origin:id,destination:id,route:z.array(z.object(point).strict()).min(1).max(256)}).strict(),
+ z.object({kind:z.literal('council-recover'),restitution:id,carrier:id,route:z.array(z.object(point).strict()).min(1).max(256)}).strict(),
  z.object({kind:z.literal("consent-veil"),unit:id,melian:id,accept:z.boolean()}).strict(),
  z.discriminatedUnion("mode",[z.object({kind:z.literal("forest-power"),mode:z.literal("departing"),unit:id}).strict(),z.object({kind:z.literal("forest-power"),mode:z.literal("wild-road"),survey:id}).strict(),z.object({kind:z.literal("forest-power"),mode:z.literal("guest-road"),survey:id,origin:id,destination:id}).strict()]),
  z.object({kind:z.literal("forest-entrance"),facility:id}).strict(),z.object({kind:z.literal("release-forest"),id}).strict(),z.object({kind:z.literal("harass-convoy"),unit:id,target:id}).strict(),z.object({kind:z.literal("inspect-forest"),unit:id,point:z.object(point).strict()}).strict(),
  z.object({kind:z.literal("prepare-dream"),unit:id,facility:id,contingency:z.enum(["fear","withdrawal","landing"])}).strict(),
  z.object({kind:z.literal("replace-dream"),plan:id,report:id,contingency:z.enum(["fear","withdrawal","landing"])}).strict(),
  z.discriminatedUnion('mode',[
- z.object({kind:z.literal('tool-service'),mode:z.literal('make'),facility:id,function:z.enum(['breach','repair'])}).strict(),
- z.object({kind:z.literal('tool-service'),mode:z.literal('refit'),facility:id,item:id,function:z.enum(['breach','repair'])}).strict(),
+ z.object({kind:z.literal('tool-service'),mode:z.literal('make'),facility:id,function:z.enum(['breach','repair','repair-kit'])}).strict(),
+ z.object({kind:z.literal('tool-service'),mode:z.literal('refit'),facility:id,item:id,function:z.enum(['breach','repair','repair-kit'])}).strict(),
  z.object({kind:z.literal('tool-service'),mode:z.literal('repair'),unit:id,tool:id,target:id}).strict()]),
  z.discriminatedUnion('mode',[
  z.object({kind:z.literal('mounts'),mode:z.literal('breed'),facility:id}).strict(),
@@ -109,6 +160,7 @@ const action = z.discriminatedUnion("kind", [
  z.object({kind:z.literal("brace-breach"),unit:id,target:id}).strict(),z.object({kind:z.literal("read-fault"),target:id}).strict(),
  z.object({kind:z.literal("charge-power"),mode:chargeMode,target:id,members:chargeMembers}).strict(),
   z.discriminatedUnion("mode", [
+    z.object({kind:z.literal("logistics"),mode:z.literal("rescue-flight"),carrier:id,unit:id,to:z.object(point).strict()}).strict(),
     z
       .object({
         kind: z.literal("logistics"),
@@ -330,6 +382,7 @@ const action = z.discriminatedUnion("kind", [
   z
     .object({
       kind: z.literal("repair"),
+      kit:id.optional(),
       facility: id,
       target: id,
       method: z.enum(["ordinary", "power"]),
@@ -368,6 +421,8 @@ const action = z.discriminatedUnion("kind", [
       amount: n.min(1),
     })
     .strict(),
+  z.object({kind:z.literal("deploy-device"),unit:id,item:id,at:z.object(point).strict()}).strict(),
+  z.object({kind:z.literal("assign-mining-engine"),unit:id,facility:id.nullable()}).strict(),
   z.object({ kind: z.literal("equip"), ...unit, item: id }).strict(),
   z.object({ kind: z.literal("annex"), ...unit, facility: id }).strict(),
   z
@@ -449,6 +504,9 @@ const unitSchema = z
     upkeep: stock,
     flying: z.boolean(),
     landed: z.boolean(),
+    reserveProvisions:n.min(1).max(5).optional(),
+    secondary:z.enum(secondaryKeys).optional(),companion:z.enum(companionKeys).optional(),extended:z.enum(extendedKeys).optional(),military:z.enum(militaryKeys).optional(),finalProduct:z.enum(finalKeys).optional(),mineWork:id.optional(),
+    siege:z.object({ammunition:n.max(3),capacity:z.literal(3)}).strict().optional(),
     engineer:z.enum(["trained","nogrod"]).optional(),
     loadClass: z.enum(["light", "standard", "large"]),
     active: z.boolean(),
@@ -497,7 +555,7 @@ const facility = z
       .object({
         id,
         target: id,
-        kind: z.enum(["item", "structure", "construct"]),
+        kind: z.enum(["item", "structure", "construct", "siege"]),
         remaining: n.min(1).max(2),
         started: n.min(1),
         cost: stock,
@@ -524,8 +582,43 @@ export const matchSchema = z
     forestConsents:z.record(id,z.object({unit:id,owner:id,melian:id,fallback:id,until:n}).strict()),
     forestRoutes:z.record(id,z.object({id,owner:id,hero:id,kind:z.enum(["wild-road","guest-road"]),survey:id,route:huntRoute,turn:n,revision:n,markers:z.array(id).max(2),origin:id.optional(),destination:id.optional(),released:z.boolean(),patrolled:z.boolean()}).strict()),
     forestVeils:z.record(id,z.object({unit:id,owner:id,hero:id,until:n,fallback:id,trail:z.array(z.object(point).strict()).max(128)}).strict()),
-    forestReports:z.record(id,z.object({id,owner:id,kind:z.enum(["passage","entrance"]),point:z.object(point).strict(),turn:n,revision:n,expires:n,uncertainty:z.string().max(400)}).strict()),
+    forestReports:z.record(id,z.object({id,owner:id,kind:z.enum(["passage","entrance"]),point:z.object(point).strict(),turn:n,revision:n,expires:n,uncertainty:z.string().max(400),crossing:z.enum(["arrival","departure"]).optional(),direction:z.enum(["north","east","south","west"]).optional(),trailState:z.enum(["fresh","weathered","contested"]).optional()}).strict()),
     forestEntrances:z.record(id,z.object({owner:id,facility:id}).strict()),
+    grievances:z.record(id,z.object({id,offender:id,claimant:id,offenderSeat:id,claimantSeat:id,...point,turn:n.min(1),revision:n,injury:n.min(1),payment:stock.nullable(),termsVersion:n,consents:z.array(id).max(2),delivered:z.boolean(),resolved:z.boolean(),mediator:id.nullable()}).strict()),
+    restitutions:z.record(id,z.object({id,grievance:id,owner:id,carrier:id,origin:id,destination:id,...point,route:z.array(z.object(point).strict()).min(1).max(256),index:n,cargo:stock,phase:z.enum(['travel','arrived','lost'])}).strict()),
+    survivorMemories:z.record(id,z.object({id,owner:id,party:id,knownOwner:id,...point,turn:n.min(1),revision:n}).strict()),
+    falseTrails:z.record(id,z.object({id,owner:id,unit:id,point:z.object(point).strict(),turn:n.min(1),revision:n,until:n}).strict()),
+    agentCaptivities:z.record(id,z.object({id,unit:id,owner:id,captor:id,guard:id,turn:n.min(1),revision:n,...point}).strict()),
+    agentDisclosures:z.record(id,z.object({id,owner:id,victim:id,unit:id,turn:n.min(1),revision:n,scope:z.enum(["compartmented","known-contacts"]),assignment:z.object({id,kind:z.enum(["quiet-exchange","beacon-concord","relay"]),contacts:z.array(id).max(16),reportIds:z.array(id).max(16)}).strict(),contacts:z.array(id).max(16)}).strict()),
+    waterChannels:z.record(z.string().regex(/^\d{1,3},\d{1,3}$/),z.object({...point,flow:z.enum(["north","east","south","west","still"]),depth:z.union([z.literal(1),z.literal(2)])}).strict()),
+    loggingJobs:z.record(id,z.object({id,owner:id,worker:id,vegetation:id,facility:id,started:n.min(1),lastProgress:n,remaining:z.literal(1),status:z.enum(["working","lost"]),yieldM:z.literal(10)}).strict()),
+    loggedVegetation:z.record(id,z.literal(true)),
+    beaconSurveyCandidates:z.record(id,z.object({owner:id,origin:id,destination:id,hero:id,route:huntRoute,turn:n.min(1),revision:n,trace:id}).strict()),
+    beaconLinks:z.record(id,z.object({owner:id,origin:id,destination:id,hero:id,route:huntRoute,turn:n.min(1),revision:n}).strict()),
+    beaconSignals:z.record(id,z.object({id,owner:id,origin:id,destination:id,report:id,started:n.min(1),lastProgress:z.number().int().min(-1),phase:z.enum(["pending","delivered"]),deliveredTurn:n.min(1).optional(),deliveredRevision:n.optional(),reportTurn:n.min(1),reportRevision:n,lightFogUsed:z.boolean()}).strict()),
+    beaconFogUses:z.record(id,n.min(1)),
+    warbandAgreements:z.record(id,z.object({id,owner:id,unit:id,reward:stock,created:n.min(1),due:n.min(1),participated:z.boolean(),status:z.enum(["agreed","paid","defaulted"]),paidTurn:n.min(1).optional()}).strict()),
+    localKnowledgeReports:z.record(id,z.object({owner:id,point:z.object(point).strict(),turn:n.min(1),revision:n,detail:z.discriminatedUnion("kind",[
+      z.object({kind:z.literal("water"),flow:z.enum(["north","east","south","west","still","unknown"]),shallow:z.boolean(),draft:z.enum(["shallow","deep","unknown"]),safeDraft:z.union([z.literal(1),z.literal(2)]).nullable(),wave:n.max(3).nullable(),fog:z.boolean().nullable(),handling:n.max(3).nullable(),blocked:z.boolean()}).strict(),
+      z.object({kind:z.literal("plant"),viable:z.boolean(),recoverable:z.boolean()}).strict(),
+      z.object({kind:z.literal("scent"),ownPack:z.boolean()}).strict(),
+      z.object({kind:z.literal("grove"),disturbance:z.enum(["heavy-passage","logging","none"]),direction:z.enum(["north","east","south","west"]).nullable()}).strict(),
+      z.object({kind:z.literal("tremor"),direction:z.enum(["north","east","south","west"]),eventTurn:n.min(1),eventRevision:n}).strict()
+    ])}).strict()),
+    localGroundTraces:z.record(z.string().regex(/^\d{1,3},\d{1,3}$/),z.object({point:z.object(point).strict(),turn:n.min(1),revision:n,expiresRevision:n,packOwner:id.optional()}).strict()),
+    groveDisturbances:z.record(id,z.object({vegetation:id,turn:n.min(1),revision:n,kind:z.enum(["heavy-passage","logging"]),direction:z.enum(["north","east","south","west"])}).strict()),
+    routineInspections:z.record(id,z.object({owner:id,facility:id,turn:n.min(1),revision:n,used:z.boolean()}).strict()),
+    routineWearUses:z.record(id,z.object({owner:id,facility:id,turn:n.min(1)}).strict()),
+    routineWorksiteWear:z.record(id,n.min(1)),
+    habitatWear:z.record(id,z.object({vegetation:id,damage:n.max(4),lastTurn:n.min(1)}).strict()),
+    tunnelAir:z.record(id,z.object({site:id,pressure:n.min(1).max(3),lastProgress:n.min(1),penaltyTurn:n.min(2)}).strict()),
+    airflowWarnings:z.record(id,z.object({owner:id,site:id,turn:n.min(1),revision:n,penaltyTurn:n.min(2)}).strict()),
+    routineTravelEvents:z.record(id,z.object({unit:id,turn:n.min(1),revision:n}).strict()),
+    ledgeConsents:z.record(id,z.object({ledge:id,owner:id,visitor:id,grantedTurn:n.min(1)}).strict()),
+    landingSurveys:z.record(id,z.object({owner:id,destination:z.object(point).strict(),turn:n.min(1),revision:n,terrain:z.string().max(40),spaceAvailable:z.boolean()}).strict()),
+    portableConsents:z.record(id,z.object({id,owner:id,settlement:id,willing:z.boolean()}).strict()),
+    portableWorkshops:z.record(id,z.object({id,owner:id,origin:id,destination:id,carrier:id,route:huntRoute,phase:z.enum(['travel','lost','arrived']),started:n.min(1),lastProgress:z.number().int().min(-1),workshop:facility.optional(),workshopId:id,wearTurn:n.min(1).optional(),roughTurn:n.min(1).optional(),...point}).strict()),
+    productionPlans:z.record(id,z.object({id,owner:id,recipe:z.literal('equipment'),archive:id,carrier:id.nullable(),created:n.min(1),workshop:id.optional(),committedTurn:n.min(1).optional(),...point}).strict()),
     dreamPlans:z.record(id,z.object({id,owner:id,unit:id,facility:id,rest:id,contingency:z.enum(["fear","withdrawal","landing"]),phase:z.enum(["resting","ready","spent"]),createdTurn:n.min(1),createdRevision:n,expiresTurn:n.min(1),replaced:z.boolean()}).strict()),
     version: z.literal(VERSION),
     id,
@@ -551,6 +644,8 @@ export const matchSchema = z
           durability: n,
           maxDurability: n.min(1),
           crafted: z.boolean(),
+          companion:z.enum(companionKeys).optional(),extended:z.enum(extendedKeys).optional(),military:z.enum(militaryKeys).optional(),finalProduct:z.enum(finalKeys).optional(),
+          heavy:z.literal(true).optional(),carried:z.literal(true).optional(),
           materials: z.array(id).min(1).max(8),
           ...point,
         })
@@ -570,6 +665,7 @@ export const matchSchema = z
       .length(3),
     map: z
       .object({
+        scenarioId:z.literal("cross-era-basin-v1").optional(),
         width: n.min(24).max(128),
         height: n.min(24).max(128),
         terrain: z
@@ -618,9 +714,10 @@ export const matchSchema = z
           owner: id,
           name: z.string().max(200),
           ...point,
-          hp: n.max(80),
-          maxHp: z.literal(80),
-          move: z.literal(3),
+          hp: n.max(120),
+          maxHp: z.number().int().positive().max(120),
+          move: z.number().int().min(2).max(4),
+          hullClass:z.enum(navalProductionKeys).optional(),
           crew: id,
           crewRescued: z.boolean().optional(),
           passenger: id.nullable(),
@@ -630,7 +727,8 @@ export const matchSchema = z
           route: z.array(z.object(point).strict()).min(1).max(256),
           index: n,
           lastProgress: n,
-          handlingRemaining: n.max(4),
+          handlingRemaining: n.max(5),
+          rescueRigged:z.boolean().optional(),
           fogSpent: z.boolean(),
           handling: z
             .object({
@@ -646,6 +744,7 @@ export const matchSchema = z
               remaining: n.min(1).max(2),
               started: n.min(1),
               accelerated: z.boolean(),
+          treatedBy:id.optional(),evacuationUsed:z.boolean().optional(),
               cost: stock,
             })
             .strict()
@@ -802,6 +901,7 @@ export const matchSchema = z
             .strict()
             .optional(),
           accelerated: z.boolean(),
+          treatedBy:id.optional(),evacuationUsed:z.boolean().optional(),
           phase: z.enum(["work", "haul", "lost"]),
           route: z.array(z.object(point).strict()).min(1).max(16384),
           index: n,
@@ -859,6 +959,7 @@ export const matchSchema = z
             id,
             owner: id,
             kind: z.literal("eagle-lift"),
+            method:z.literal("ordinary").optional(),
             hero: id,
             passenger: id,
             route: z.array(z.object(point).strict()).min(2).max(7),
@@ -898,6 +999,7 @@ export const matchSchema = z
           turn: n.min(1),
           revision: n,
           erased: z.boolean(),
+          unit:id.optional(),expiresRevision:n.optional(),
         })
         .strict(),
     ),
@@ -948,9 +1050,9 @@ export const matchSchema = z
     currentCrossings:z.record(id,z.object({id,owner:id,hero:id,convoy:id,carrier:id,tiles:z.array(z.object(point).strict()).min(3).max(6),turn:n,consumed:z.boolean().optional()}).strict()),
     protectionKits:z.record(id,z.object({unit:id,owner:id,hazard:z.enum(["arrows","impact"]),materials:z.literal(5)}).strict()),
     armorFittings:z.record(id,z.object({unit:id,owner:id,item:id,hazard:z.enum(["arrows","impact"]),percent:z.union([z.literal(20),z.literal(25)]),until:n.nullable(),burden:n.max(1)}).strict()),
-    toolMetadata:z.record(id,z.object({id,function:z.enum(['breach','repair']),standard:z.boolean(),material:z.literal('metal'),salvageM:n.max(15),salvageK:n.max(5)}).strict()),
-    toolJobs:z.record(id,z.object({id,owner:id,mode:z.enum(['make','refit','repair']),facility:id.optional(),unit:id.optional(),tool:id.optional(),target:id.optional(),function:z.enum(['breach','repair']),remaining:n.min(1).max(2),started:n,lastProgress:z.number().int().min(-1),phase:z.enum(['working','lost']),cost:stock,input:z.object({id,name:z.string().max(200),owner:id.nullable(),bearer:id.nullable(),bonus:n,attackBonus:n.optional(),durability:n,maxDurability:n.min(1),crafted:z.boolean(),materials:z.array(id).min(1).max(8),...point}).strict().optional(),ceiling:z.object({id,function:z.enum(['breach','repair']),standard:z.boolean(),material:z.literal('metal'),salvageM:n.max(15),salvageK:n.max(5)}).strict().optional()}).strict()),
-    mountLots:z.record(id,z.object({id,owner:id,count:z.literal(12),fatigue:n.max(6),stable:id.nullable(),unit:id.nullable()}).strict()),
+    toolMetadata:z.record(id,z.object({id,function:z.enum(['breach','repair','repair-kit']),standard:z.boolean(),maker:id.optional(),material:z.literal('metal'),salvageM:n.max(15),salvageK:n.max(5)}).strict()),
+    toolJobs:z.record(id,z.object({id,owner:id,mode:z.enum(['make','refit','repair']),facility:id.optional(),unit:id.optional(),tool:id.optional(),target:id.optional(),function:z.enum(['breach','repair','repair-kit']),remaining:n.min(1).max(2),started:n,lastProgress:z.number().int().min(-1),phase:z.enum(['working','lost']),cost:stock,input:z.object({id,name:z.string().max(200),owner:id.nullable(),bearer:id.nullable(),bonus:n,attackBonus:n.optional(),durability:n,maxDurability:n.min(1),crafted:z.boolean(),materials:z.array(id).min(1).max(8),...point}).strict().optional(),ceiling:z.object({id,function:z.enum(['breach','repair','repair-kit']),standard:z.boolean(),maker:id.optional(),material:z.literal('metal'),salvageM:n.max(15),salvageK:n.max(5)}).strict().optional()}).strict()),
+    mountLots:z.record(id,z.object({id,owner:id,species:z.enum(['wolf','horse']).optional(),count:z.literal(12),fatigue:n.max(6),stable:id.nullable(),unit:id.nullable()}).strict()),
     mountJobs:z.record(id,z.object({id,owner:id,kind:z.enum(['breed','recover','exchange']),facility:id,phase:z.enum(['working','outbound','returning','lost']),remaining:n.min(0).max(3),started:n,lastProgress:z.number().int().min(-1),cost:stock,lot:id.optional(),crew:id.optional(),rider:id.optional(),tired:id.optional(),route:z.array(z.object(point).strict()).max(32),index:n.max(31)}).strict()),
     watchGear:z.record(id,z.object({id,owner:id,facility:id,active:z.boolean()}).strict()),
     watchJobs:z.record(id,z.object({id,owner:id,facility:id,kind:z.enum(['make','move']),phase:z.enum(['working','lost']),remaining:z.literal(1),started:n,lastProgress:z.number().int().min(-1),cost:stock,worker:id.optional(),gear:id.optional(),staff:n,route:z.array(z.object(point).strict()).max(7),index:n.max(6)}).strict()),
@@ -1014,6 +1116,7 @@ export const matchSchema = z
           cost: stock,
           method: z.enum(["ordinary", "este"]),
           accelerated: z.boolean(),
+          treatedBy:id.optional(),evacuationUsed:z.boolean().optional(),
         })
         .strict(),
     ),
@@ -1091,8 +1194,8 @@ export const matchSchema = z
             id,
             name: z.string().max(200),
             owner: id,
-            hp: n.max(80),
-            maxHp: z.literal(80),
+            hp: n.max(120),
+            maxHp: z.number().int().positive().max(120),
             phase: z.enum(["idle", "loading", "sailing", "unloading", "wreck"]),
           })
           .strict(),
@@ -1205,6 +1308,32 @@ export function parseMatch(value: unknown, guestSeat?: string): Match {
   if(s.observedAttackers?.some(id=>!s.units[id])||s.chargeWarnings?.some(w=>!s.units[w.target]||w.origin.x>=s.map.width||w.origin.y>=s.map.height||w.until<=s.revision))throw new Error("Invalid charge observations");
   if(s.tacticalSignals&&(new Set(s.tacticalSignals.map(q=>q.id)).size!==s.tacticalSignals.length||s.tacticalSignals.some(q=>!s.units[q.target]||q.origin.x>=s.map.width||q.origin.y>=s.map.height||q.until<=s.revision)))throw new Error("Invalid tactical observations");
   validateShoreState(s,guestSeat);
+  validateCouncils(s,guestSeat);
+  validateRations(s);
+  for(const u of Object.values(s.units))if(u.companion&&(!companionRole(s,u)||u.secondary))throw new Error("Invalid companion producer identity");
+  for(const i of Object.values(s.items))if(i.companion){const q=companionProduction('nienna',i.companion);if(!q?.item||!i.crafted||i.maxDurability!==q.item.maxDurability||i.bonus!==q.item.bonus||(i.attackBonus??0)!==(q.item.attackBonus??0)||JSON.stringify(i.materials)!==JSON.stringify(q.item.materials))throw new Error("Invalid crafted keepsake identity");}
+  for(const u of Object.values(s.units)){
+    if([u.companion,u.secondary,u.extended,u.military,u.finalProduct].filter(Boolean).length>1)throw new Error('Conflicting production identities');
+    const ex=u.extended&&extendedProduction(s.players[u.owner]?.profile,u.extended),mi=u.military&&militaryProduction(s.players[u.owner]?.profile,u.military),fp=u.finalProduct&&finalProduction(s.players[u.owner]?.profile,u.finalProduct),cp=u.companion&&companionProduction(s.players[u.owner]?.profile,u.companion),sp=u.secondary&&secondaryProduction(s.players[u.owner]?.profile,u.secondary),q=cp?.stats??sp?.stats??ex?.stats??(mi&&mi.kind==='unit'?mi.stats:undefined)??(fp&&fp.kind==='unit'?fp.stats:undefined);
+    if((u.extended&&!extendedCapabilities(s,u))||(u.military&&!militaryCapabilities(s,u))||(u.finalProduct&&!finalCapabilities(s,u)))throw new Error('Invalid extended military producer identity');
+    if(u.military){const caps=militaryCapabilities(s,u);if(caps?.magazine&&!u.siege)throw new Error('Missing paid military magazine');const lots=Object.values(s.mountLots).filter(l=>l.unit===u.id);if(caps?.trainedMounts&&(!guestSeat||u.owner===guestSeat)&&(lots.length!==1||lots[0].species!==caps.trainedMounts.species||lots[0].owner!==u.owner||lots[0].count!==12))throw new Error('Invalid paid military mounts');}
+    if((u.companion||u.secondary||u.extended||u.military||u.finalProduct)&&(!q||u.supply!==q.supply||u.binding!==q.binding||u.great!==q.great||u.maxHp!==q.maxHp||u.loadClass!==q.loadClass||JSON.stringify(u.upkeep)!==JSON.stringify(q.upkeep)))throw new Error('Invalid finite production stats');
+  }
+  const mines=new Set<string>();for(const u of Object.values(s.units))if(u.mineWork){const f=s.facilities[u.mineWork];if(!u.alive||!extendedCapabilities(s,u)?.miningWork||mines.has(u.mineWork)||(!guestSeat&&(!f||f.kind!=='mine'))||(f&&Math.abs(u.x-f.x)+Math.abs(u.y-f.y)>1))throw new Error('Invalid physical mining assignment');mines.add(u.mineWork);}
+  for(const i of Object.values(s.items))if(i.extended||i.military||i.finalProduct){
+    if([i.extended,i.military,i.companion,i.finalProduct].filter(Boolean).length>1)throw new Error('Conflicting crafted identity');
+    const ex=i.extended&&Object.keys(s.players).map(seat=>extendedProduction(s.players[seat].profile,i.extended!)).find(q=>q?.item),mi=i.military&&Object.keys(s.players).map(seat=>militaryProduction(s.players[seat].profile,i.military!)).find(q=>q?.kind==='item'),fp=i.finalProduct&&Object.keys(s.players).map(seat=>finalProduction(s.players[seat].profile,i.finalProduct!)).find(q=>q?.kind==='item'),q=ex?.item??(mi&&mi.kind==='item'?mi.item:undefined)??(fp&&fp.kind==='item'?fp.item:undefined);
+    if(!q||!i.crafted||i.maxDurability!==(fp&&fp.kind==='item'?fp.item.maxDurability:100)||i.bonus!==q.bonus||(i.attackBonus??0)!==(q.attackBonus??0)||JSON.stringify(i.materials)!==JSON.stringify(q.materials))throw new Error('Invalid crafted production materials or stats');
+  }
+  for(const u of Object.values(s.units))if(u.secondary&&!secondaryCapabilities(s,u))throw new Error("Invalid secondary production identity");
+  validateRoutineEnvironment(s,guestSeat);
+  validateLocalKnowledge(s,guestSeat);
+  validateWarbandRewards(s,guestSeat);
+  validateOrdinaryEnvironment(s,guestSeat);validateBeaconSignals(s,guestSeat);validateAgentCaptivities(s,guestSeat);validateHeavyEquipment(s,guestSeat);
+  validateSiege(s);
+  validateEyrieState(s,guestSeat);
+  validatePortableState(s,guestSeat);
+  validatePlans(s,guestSeat);
   validateDreams(s,guestSeat);validateForest(s,guestSeat);
   validateTools(s,guestSeat);validateMounts(s,guestSeat);validateWatches(s,guestSeat);
   validateEquipmentServices(s,guestSeat);
@@ -1231,7 +1360,7 @@ export function parseMatch(value: unknown, guestSeat?: string): Match {
     throw new Error("Guest vessel identity leak");
   const reservedHullCrew = new Set<string>();
   for (const f of Object.values(s.facilities))
-    if (f.job?.recipe === "hull") {
+    if (f.job && recipe(s.players[f.owner].profile,f.job.recipe)?.kind === "vessel") {
       const u = f.job.crew ? s.units[f.job.crew] : undefined;
       if (
         !u ||
@@ -1339,7 +1468,7 @@ export function parseMatch(value: unknown, guestSeat?: string): Match {
     restInvariant(s, f);
     if (f.job) {
       const r = recipe(s.players[f.owner].profile, f.job.recipe);
-      if (!r || r.facility !== f.kind)
+      if (!r || (r.facility !== f.kind && !(s.players[f.owner].profile==="elf_avari"&&f.kind==="portable-workshop"&&r.id==="equipment")))
         throw new Error("Invalid facility recipe");
       const j = f.job;
       if (f.hp <= 0)

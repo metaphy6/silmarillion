@@ -1,12 +1,12 @@
 {
-  "run_id": "forest-ui-complete--20260930T083924Z-1667289",
-  "tag": "forest-ui-complete-",
-  "ts_utc": "2026-09-30T08:39:31Z",
+  "run_id": "canvas-prior-auto-red--20260930T112226Z-2353328",
+  "tag": "canvas-prior-auto-red-",
+  "ts_utc": "2026-09-30T11:22:28Z",
   "cwd": "/home/serhatakbak/code/projects/silmarillion",
-  "command": "env SILMARILLION_DEV_TEST_URL=http://127.0.0.1:5175 npx playwright test tests/browser/forest-flows.spec.ts",
+  "command": "node /tmp/agent-runs/canvas-prior-auto-regression.mjs",
   "exit_code": 1,
-  "log_file": "/tmp/agent-runs/forest-ui-complete--20260930T083924Z-1667289.log",
-  "cmd_file": "/tmp/agent-runs/forest-ui-complete--20260930T083924Z-1667289.cmd",
+  "log_file": "/tmp/agent-runs/canvas-prior-auto-red--20260930T112226Z-2353328.log",
+  "cmd_file": "/tmp/agent-runs/canvas-prior-auto-red--20260930T112226Z-2353328.cmd",
   "resolved": true,
-  "resolution": "Browser fixture now saves only at a committed weekly boundary; forest UI and final nine browser cases pass. See mechanics-browser-final--20260930T084318Z-1682186.log."
+  "resolution": "The prior-AUTO browser mutation intentionally reproduced WebGL type2 instead of required Canvas type1 without shared-source edits. Actual final runtime passed33 render cases and ten consecutive16.7\u201316.8ms p95 measurements. Earlier keyboard and carried-equipment regressions are fixed; all failure logs retained."
 }

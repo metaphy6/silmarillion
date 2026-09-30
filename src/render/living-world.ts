@@ -1,5 +1,19 @@
 import Phaser from "phaser";
 import type { Match, Pos } from "../simulation/types";
+import { art } from "../content/catalog";
+import {
+  directionFor,
+  motionFamily,
+  motionAppearance,
+  COMPANION_FRAMES,
+  directionalMaster,
+  type PaintedFigure,
+  motionFrame,
+  paintMotionAtlas,
+  MOTION_ATLAS,
+  type FigureAction,
+  type FigureDirection,
+} from "./figure-motion";
 import {
   captureView,
   transitionCues,
@@ -22,6 +36,8 @@ export class LivingWorld {
   private clock = 0;
   private paintAt = -1;
   private enabled = true;
+  private motionSprites = new Map<string, Phaser.GameObjects.Image>();
+  private motionTextures = new Set<string>();
   constructor(
     private scene: Phaser.Scene,
     private project: (x: number, y: number) => Pos,
@@ -36,6 +52,8 @@ export class LivingWorld {
       this.clearEffects();
       this.ambient.clear();
       this.action.clear();
+      for (const sprite of this.motionSprites.values())
+        sprite.setVisible(false);
     }
   }
   getEnabled() {
@@ -124,7 +142,133 @@ export class LivingWorld {
       effects: this.effects.length,
       ambientActors: this.enabled ? 8 : 0,
       clock: this.clock,
+      motionSprites: this.motionSprites.size,
+      motionAtlases: this.motionTextures.size,
     };
+  }
+  private animateFigure(
+    id: string,
+    profile: string,
+    kind: string,
+    at: Pos,
+    action: FigureAction,
+    direction: FigureDirection,
+    frame: number,
+    active: Set<string>,
+  ) {
+    if (active.size >= MAX_CUES * 3) return;
+    const family = motionFamily(
+      profile,
+      kind,
+      profile ? art(profile).family : "embodied-wild",
+    );
+    const entity = this.frame?.entities[id];
+    const appearance = motionAppearance(
+      profile,
+      kind,
+      entity?.companion,
+      entity?.secondary,
+    );
+    const idleMaster = directionalMaster(appearance.frame, "east");
+    const paintedSource =
+      idleMaster && this.scene.textures.exists(idleMaster.texture)
+        ? this.scene.textures.getFrame(idleMaster.texture, idleMaster.frame)
+        : this.scene.textures.getFrame(
+            COMPANION_FRAMES[appearance.frame]
+              ? "companion-figures"
+              : "world-figures",
+            appearance.frame,
+          );
+    const targetHeight =
+      action === "work"
+        ? 20
+        : kind === "company"
+          ? 24
+          : kind === "hero"
+            ? 34
+            : 32;
+    const pixelScale = paintedSource
+      ? Math.min(
+          40 / paintedSource.cutWidth,
+          targetHeight / paintedSource.cutHeight,
+        ) / Math.min(52 / paintedSource.cutWidth, 50 / paintedSource.cutHeight)
+      : 0.64;
+    const key = `figure-motion:${family === "dragon" ? "dragon" : appearance.frame}`;
+    if (!this.scene.textures.exists(key)) {
+      const atlas = this.scene.textures.createCanvas(
+        key,
+        MOTION_ATLAS.width,
+        MOTION_ATLAS.height,
+      )!;
+      const source = paintedSource;
+      const masters: PaintedFigure["directions"] = {};
+      for (const direction of ["north", "east", "south", "west"] as const) {
+        const entry = directionalMaster(appearance.frame, direction);
+        const frame =
+          entry && this.scene.textures.exists(entry.texture)
+            ? this.scene.textures.getFrame(entry.texture, entry.frame)
+            : undefined;
+        if (frame)
+          masters[direction] = {
+            image: frame.source.image as CanvasImageSource,
+            x: frame.cutX,
+            y: frame.cutY,
+            width: frame.cutWidth,
+            height: frame.cutHeight,
+            archetype: appearance.frame,
+          };
+      }
+
+      paintMotionAtlas(
+        atlas.context,
+        family,
+        source
+          ? {
+              image: source.source.image as CanvasImageSource,
+              x: source.cutX,
+              y: source.cutY,
+              width: source.cutWidth,
+              height: source.cutHeight,
+              archetype: appearance.frame,
+              directions: masters,
+            }
+          : undefined,
+      );
+      for (let i = 0; i < MOTION_ATLAS.framesPerFamily; i++)
+        atlas.add(i, 0, (i % 8) * 64, Math.floor(i / 8) * 64, 64, 64);
+      atlas.refresh();
+      this.motionTextures.add(key);
+    }
+    const view = this.scene.cameras.main.worldView;
+    const offsets =
+      kind === "company" && action !== "work" ? [0, -10, 10] : [0];
+    for (const offset of offsets) {
+      const actor = offset === 0 ? id : `${id}:rank:${offset}`;
+      let sprite = this.motionSprites.get(actor);
+      if (!sprite) {
+        sprite = this.scene.add.image(at.x, at.y, key).setOrigin(0.5, 54 / 64);
+        this.motionSprites.set(actor, sprite);
+      }
+      sprite
+        .setPosition(at.x + offset, at.y + Math.abs(offset) / 5)
+        .setTexture(
+          key,
+          motionFrame(
+            action,
+            direction,
+            frame + (offset === 0 ? 0 : offset < 0 ? 1 : 2),
+          ),
+        )
+        .setScale(pixelScale)
+        .setDepth(at.y + Math.abs(offset) / 5 + 1)
+        .setVisible(
+          at.x >= view.x - 64 &&
+            at.x <= view.right + 64 &&
+            at.y >= view.y - 64 &&
+            at.y <= view.bottom + 64,
+        );
+      active.add(actor);
+    }
   }
   update(
     delta: number,
@@ -133,36 +277,84 @@ export class LivingWorld {
   ) {
     const dt = Math.min(50, Math.max(0, delta));
     if (this.enabled) this.clock += dt;
+    const animated = new Set<string>();
     for (const [id, c] of marks) {
       const sprite = c.list[0] as Phaser.GameObjects.Image;
       const walk = this.walks.get(id);
+      const entity = this.frame?.entities[id];
+      const attack = this.effects.find(
+        (e) => e.cue.entity === id && e.cue.kind === "attack" && e.age < 640,
+      );
+      sprite.setVisible(true).setY(-4).setRotation(0);
       if (walk && this.enabled) {
         walk.age += dt;
         const at = walkPosition(walk.route, walk.age / walk.duration),
           p = this.project(at.x, at.y);
         c.setPosition(p.x, p.y);
-        sprite
-          .setY(-4 - Math.abs(Math.sin(walk.age / 85)) * 2.4)
-          .setRotation(Math.sin(walk.age / 110) * 0.035);
+        const segment = Math.min(
+          walk.route.length - 2,
+          Math.floor((walk.age / walk.duration) * (walk.route.length - 1)),
+        );
+        if (entity && walk.age < walk.duration)
+          this.animateFigure(
+            id,
+            entity.profile,
+            entity.kind,
+            p,
+            "walk",
+            directionFor(walk.route[segment], walk.route[segment + 1]),
+            Math.floor(walk.age / 110),
+            animated,
+          );
+        sprite.setVisible(false);
         if (walk.age >= walk.duration) {
           this.walks.delete(id);
-          sprite.setY(-4).setRotation(0);
+          sprite.setVisible(true);
         }
       } else {
-        // One small posture change per long cycle, only on the selected living figure.
-        const phase = (this.clock + (visualSeed(id) % 17000)) % 17000;
-        const gesture =
-          this.enabled &&
-          id === selected &&
-          !c.getData("building") &&
-          phase < 1600
-            ? Math.sin((phase / 1600) * Math.PI) * 0.025
-            : 0;
-        sprite.setY(-4).setRotation(gesture);
         c.setPosition(c.getData("targetX"), c.getData("targetY"));
+        if (this.enabled && attack && entity && !entity.building) {
+          const direction = attack.cue.target
+            ? directionFor(entity, attack.cue.target)
+            : "east";
+          this.animateFigure(
+            id,
+            entity.profile,
+            entity.kind,
+            { x: c.x, y: c.y },
+            "attack",
+            direction,
+            Math.floor(attack.age / 160),
+            animated,
+          );
+          sprite.setVisible(false);
+        }
       }
       c.setDepth(id === selected ? 10000 : c.y);
     }
+    if (this.enabled && this.frame) {
+      let works = 0;
+      for (const e of Object.values(this.frame.entities)) {
+        if (e.building && e.alive && e.working && works++ < 16) {
+          const p = this.project(e.x, e.y);
+          this.animateFigure(
+            `work:${e.id}`,
+            e.profile,
+            "worker",
+            { x: p.x + 22, y: p.y + 8 },
+            "work",
+            "east",
+            Math.floor(this.clock / 180),
+            animated,
+          );
+        }
+      }
+    }
+    for (const [id, image] of this.motionSprites)
+      if (!animated.has(id)) {
+        image.destroy();
+        this.motionSprites.delete(id);
+      }
     if (!this.enabled || !this.frame) return;
     for (const e of this.effects) e.age += dt;
     this.effects = this.effects.filter((e) => {
@@ -217,38 +409,6 @@ export class LivingWorld {
       const seed = visualSeed(e.id),
         cycle = (t + (seed % 31)) % 4;
       // Existing queue effort: a small moving tool/worker at its actual footprint.
-      const hand = p.x + 21 + Math.sin(t * 2.3 + seed) * 3;
-      g.fillStyle(0x101c22, 0.35);
-      g.fillEllipse(hand, p.y + 7, 10, 4);
-      g.lineStyle(1.5, 0xc6ab72, 0.9);
-      g.fillStyle(0xc6ab72, 0.9);
-      if (e.workShape === "tree") {
-        g.lineBetween(hand, p.y + 5, hand, p.y - 10);
-        g.lineBetween(hand, p.y - 3, hand - 5, p.y - 9);
-        g.lineBetween(hand, p.y - 4, hand + 6 + Math.sin(t) * 2, p.y - 12);
-      } else if (e.workShape === "bird") {
-        g.strokePoints(
-          [
-            { x: hand - 7, y: p.y - 3 - Math.sin(t * 3) * 3 },
-            { x: hand, y: p.y },
-            { x: hand + 7, y: p.y - 3 - Math.sin(t * 3) * 3 },
-          ],
-          false,
-        );
-      } else if (e.workShape === "wolf" || e.workShape === "spider") {
-        g.fillEllipse(hand, p.y, 10, 4);
-        g.fillCircle(hand + 5, p.y - 2, 2);
-        for (const x of [-3, 3]) {
-          g.lineBetween(hand + x, p.y, hand + x + Math.sin(t * 3), p.y + 4);
-          if (e.workShape === "spider")
-            g.lineBetween(hand + x, p.y, hand + x * 2, p.y - 5);
-        }
-      } else {
-        g.fillTriangle(hand - 3, p.y + 5, hand, p.y - 4, hand + 3, p.y + 5);
-        g.fillStyle(0xf2e8d5, 0.9);
-        g.fillCircle(hand, p.y - 6, 2);
-        g.lineBetween(hand, p.y - 2, hand + 7, p.y - 4 - Math.sin(t * 4) * 4);
-      }
       // Craft activity stays local; no universal smoke over living habitats.
       if (
         e.hearth &&
@@ -268,6 +428,19 @@ export class LivingWorld {
     }
     const a = this.action;
     a.clear();
+    // Ownership remains a separate, stable glyph while the painted idle marker
+    // is replaced by articulated frames; hit areas stay on the original marker.
+    a.lineStyle(2, 0xf2e8d5, 0.95);
+    for (const [id, sprite] of this.motionSprites)
+      if (!id.startsWith("work:") && !id.includes(":rank:") && sprite.visible)
+        a.strokeTriangle(
+          sprite.x - 17,
+          sprite.y + 7,
+          sprite.x - 13,
+          sprite.y + 1,
+          sprite.x - 9,
+          sprite.y + 7,
+        );
     for (const e of this.effects) {
       const p = this.project(e.cue.x, e.cue.y),
         phase = e.age / 1800,
@@ -294,6 +467,8 @@ export class LivingWorld {
             p.y - 10 + Math.sin(angle) * (r + 9) * 0.55,
           );
         }
+      } else if (e.cue.kind === "attack") {
+        // Actual actor articulation already carries the attack; no invented bolt.
       } else if (e.cue.kind === "loss") {
         a.lineBetween(p.x - 12, p.y - 24, p.x + 12, p.y);
         a.lineBetween(p.x + 12, p.y - 24, p.x - 12, p.y);
@@ -325,5 +500,9 @@ export class LivingWorld {
     this.walks.clear();
     this.ambient.destroy();
     this.action.destroy();
+    for (const sprite of this.motionSprites.values()) sprite.destroy();
+    this.motionSprites.clear();
+    for (const key of this.motionTextures) this.scene.textures.remove(key);
+    this.motionTextures.clear();
   }
 }

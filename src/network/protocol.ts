@@ -1,3 +1,4 @@
+import {councilVisible} from "../simulation/council";
 import {surgeFootingPenalty} from "../simulation/shore-powers";
 import {observation} from "../simulation/visibility";
 import { localTraceSites } from "../simulation/patrols";
@@ -34,9 +35,32 @@ export type Reply =
   | { type: "snapshot"; snapshot: Match };
 export function guestSnapshot(s: Match, seat: string): Match {
   const out = structuredClone(s);
+  for(const[id,q]of Object.entries(out.falseTrails))if(q.owner!==seat)delete out.falseTrails[id];
+  for(const[id,q]of Object.entries(out.agentCaptivities))if(q.owner!==seat&&q.captor!==seat)delete out.agentCaptivities[id];
+  for(const[id,q]of Object.entries(out.agentDisclosures))if(q.owner!==seat)delete out.agentDisclosures[id];
+  for(const records of [out.beaconSurveyCandidates,out.beaconLinks,out.beaconSignals,out.loggingJobs])for(const[id,q]of Object.entries(records))if(q.owner!==seat)delete records[id];
+  for(const id of Object.keys(out.beaconFogUses))if(id!==seat)delete out.beaconFogUses[id];
+  for(const[id,q]of Object.entries(out.waterChannels))if(!terrainObserved(s,seat,q))delete out.waterChannels[id];
+  for(const id of Object.keys(out.loggedVegetation))if(!s.vegetation[id]||!terrainObserved(s,seat,s.vegetation[id]))delete out.loggedVegetation[id];
+  for(const[id,q]of Object.entries(out.warbandAgreements))if(q.owner!==seat)delete out.warbandAgreements[id];
+  out.localGroundTraces={};out.groveDisturbances={};
+  for(const[id,q]of Object.entries(out.localKnowledgeReports))if(q.owner!==seat)delete out.localKnowledgeReports[id];
+  for(const records of [out.routineInspections,out.routineWearUses,out.airflowWarnings])for(const[id,q]of Object.entries(records))if(q.owner!==seat)delete records[id];
+  for(const id of Object.keys(out.routineWorksiteWear))if(s.facilities[id]?.owner!==seat)delete out.routineWorksiteWear[id];
+  for(const id of Object.keys(out.tunnelAir))if(s.infrastructureSites[id]?.owner!==seat)delete out.tunnelAir[id];
+  for(const id of Object.keys(out.routineTravelEvents))if(s.units[id]?.owner!==seat)delete out.routineTravelEvents[id];
+  for(const[id,q]of Object.entries(out.habitatWear))if(!s.vegetation[q.vegetation]||!terrainObserved(s,seat,s.vegetation[q.vegetation]))delete out.habitatWear[id];
+  for(const u of Object.values(out.units))if(u.owner!==seat)delete u.reserveProvisions;
+  for(const[id,q]of Object.entries(out.ledgeConsents))if(q.owner!==seat&&q.visitor!==seat)delete out.ledgeConsents[id];
+  for(const[id,q]of Object.entries(out.landingSurveys))if(q.owner!==seat)delete out.landingSurveys[id];
+  for(const[id,q]of Object.entries(out.grievances))if(!councilVisible(q,seat))delete out.grievances[id];
+  for(const[id,q]of Object.entries(out.restitutions))if(q.owner!==seat)delete out.restitutions[id];
+  for(const[id,q]of Object.entries(out.survivorMemories))if(q.owner!==seat)delete out.survivorMemories[id];
   for(const [id,q] of Object.entries(out.forestConsents))if(q.owner!==seat&&q.melian!==seat)delete out.forestConsents[id];
   for(const q of Object.values(out.forestVeils))if(s.units[q.unit]?.owner!==seat)q.trail=[];
   for(const records of [out.forestRoutes,out.forestVeils,out.forestReports,out.forestEntrances])for(const [id,q] of Object.entries(records))if(q.owner!==seat)delete records[id];
+  for(const records of [out.portableWorkshops,out.portableConsents])for(const[id,q]of Object.entries(records))if(q.owner!==seat)delete records[id];
+  for(const [id,q] of Object.entries(out.productionPlans))if(q.owner!==seat){if(q.carrier!==null||!terrainObserved(s,seat,q))delete out.productionPlans[id];else{q.archive='undisclosed';delete q.workshop;delete q.committedTurn;}}
   for(const [id,q] of Object.entries(out.dreamPlans)) if(q.owner!==seat) delete out.dreamPlans[id];
   for(const records of [out.toolJobs,out.mountLots,out.mountJobs,out.watchGear,out.watchJobs,out.borderReports,out.borderSurveys])for(const[id,q]of Object.entries(records))if(q.owner!==seat)delete records[id];
   for(const id of Object.keys(out.toolMetadata))if(s.items[id]?.owner!==seat)delete out.toolMetadata[id];
@@ -110,7 +134,7 @@ export function guestSnapshot(s: Match, seat: string): Match {
       x: v.x,
       y: v.y,
       hp: v.hp,
-      maxHp: 80 as const,
+      maxHp: v.maxHp,
       phase: v.phase,
     }));
   for (const [id, v] of Object.entries(out.vessels))
@@ -169,7 +193,7 @@ export function guestSnapshot(s: Match, seat: string): Match {
     out.nextSeq[id] = 1;
   }
   for (const [id, u] of Object.entries(out.units)) {
-    if (!visible(s, seat, u)) {
+    if (!visible(s, seat, u)&&!Object.values(out.agentCaptivities).some(q=>q.unit===id&&q.captor===seat)) {
       delete out.units[id];
       continue;
     }

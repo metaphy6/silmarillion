@@ -3,7 +3,7 @@ import {createMatch} from '../src/simulation/engine';
 import {intelligenceReason,startIntelligence,recordObservedAttack,progressIntelligence,isIntelligenceCourier} from '../src/simulation/intelligence';
 import type {Unit} from '../src/simulation/types';
 function fixture(profile='istari_veil'){
- const s=createMatch([profile,'human_gondor'],93);s.intelligenceReports={};s.intelligenceTasks={};s.map.terrain.fill('meadow');s.seaHazards={};s.shallowWater={};s.infrastructureSites={};
+ const s=createMatch([profile,'human_gondor'],93);s.intelligenceReports={};s.intelligenceTasks={};s.map.terrain.fill('meadow');s.waterChannels={};s.seaHazards={};s.shallowWater={};s.infrastructureSites={};
  const p=s.players.p1;p.hero.status='living';p.hero.readiness=6;p.stock.K=50;p.stock.M=50;
  const h:Unit={...structuredClone(s.units['p1:company:0']),id:p.hero.id,kind:'hero',x:9,y:10,effects:[]};s.units[h.id]=h;
  const courier=s.units['p1:worker:0']??Object.values(s.units).find(u=>u.owner==='p1'&&u.kind==='worker')!;Object.assign(courier,{x:10,y:10,move:5});

@@ -1,3 +1,4 @@
+import {heavyMovementLimit} from "./heavy-equipment";
 import {mountPenalty} from './remounts';
 import {surgeFootingPenalty} from "./shore-powers";
 import {fittingMovementPenalty} from "./equipment-service";
@@ -53,7 +54,7 @@ export function attackPenalty(s: Match, unit: Unit): number {
 
 /** Includes construct impairment; do not subtract that effect again in engine. */
 export function movementPenalty(s: Match, unit: Unit): number {
-  return mountPenalty(s,unit)+surgeFootingPenalty(s,unit)+fittingMovementPenalty(s,unit.id)+Math.max(
+  return Math.max(0,unit.move-heavyMovementLimit(s,unit))+mountPenalty(s,unit)+surgeFootingPenalty(s,unit)+fittingMovementPenalty(s,unit.id)+Math.max(
     0,
     ...activeEffects(s, unit)
       .filter((e) =>

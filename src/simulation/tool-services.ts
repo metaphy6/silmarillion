@@ -1,32 +1,485 @@
-import {recipe} from '../content/catalog';
-import type {Match,Item,Pos,Stock} from './types';
-import {stocks} from './types';
-import {isFieldEngineer} from './fieldworks';
-import {restoreItemDurability} from './equipment';
-import {activeEffects} from './effects';
-export type ToolFunction='breach'|'repair';
-export interface ToolMetadata{id:string;function:ToolFunction;standard:boolean;material:'metal';salvageM:number;salvageK:number}
-export interface ToolJob{id:string;owner:string;mode:'make'|'refit'|'repair';facility?:string;unit?:string;tool?:string;target?:string;function:ToolFunction;remaining:number;started:number;lastProgress:number;phase:'working'|'lost';cost:Stock;input?:Item;ceiling?:ToolMetadata}
-export type ToolState=Match&{toolMetadata:Record<string,ToolMetadata>;toolJobs:Record<string,ToolJob>};
-type Connected=(a:Pos,b:Pos)=>boolean;const d=(a:Pos,b:Pos)=>Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
-const able=(s:Match,u:Match['units'][string]|undefined)=>!!u?.alive&&u.active&&u.supplied&&!activeEffects(s,u).some(e=>['stunned','incapacitated','rout'].includes(e.kind));
-export const toolUnitBusy=(s:ToolState,id:string)=>Object.values(s.toolJobs).some(q=>q.phase==='working'&&q.unit===id);
-export const toolFacilityBusy=(s:ToolState,id:string)=>Object.values(s.toolJobs).some(q=>q.phase==='working'&&q.facility===id);
-function workshop(s:ToolState,seat:string,id:string){const f=s.facilities[id];return f?.owner===seat&&f.hp>0&&f.kind==='workshop'&&f.workers>0&&!f.job&&!f.repair&&!f.rest&&!toolFacilityBusy(s,id)?f:undefined;}
-function inputReady(s:ToolState,seat:string,kind:ToolFunction){const p=s.players[seat];return p&&Boolean(recipe(p.profile,'field-tools'))&&['breach','repair'].includes(kind)&&p.sources.includes('metal')&&p.research.includes(`tool-${kind}`);}
-function pay(s:ToolState,seat:string,cost:Stock){const p=s.players[seat];for(const k of ['P','M','K','E']as const)p.stock[k]-=cost[k];}
-export function queueToolReason(s:ToolState,seat:string,facility:string,kind:ToolFunction){if(!inputReady(s,seat,kind))return 'Researched compatible metal tool function and metal access required';if(!workshop(s,seat,facility))return 'Free staffed workshop queue required';const p=s.players[seat];return p.stock.M<15||p.stock.K<5?'Fifteen Materials and five Lore supplies required':'';}
+import { recipe } from "../content/catalog";
+import type { Match, Item, Pos, Stock } from "./types";
+import { stocks } from "./types";
+import { isFieldEngineer } from "./fieldworks";
+import { restoreItemDurability } from "./equipment";
+import { activeEffects } from "./effects";
+export type ToolFunction = "breach" | "repair" | "repair-kit";
+export interface ToolMetadata {
+  id: string;
+  maker?: string;
+  function: ToolFunction;
+  standard: boolean;
+  material: "metal";
+  salvageM: number;
+  salvageK: number;
+}
+export interface ToolJob {
+  id: string;
+  owner: string;
+  mode: "make" | "refit" | "repair";
+  facility?: string;
+  unit?: string;
+  tool?: string;
+  target?: string;
+  function: ToolFunction;
+  remaining: number;
+  started: number;
+  lastProgress: number;
+  phase: "working" | "lost";
+  cost: Stock;
+  input?: Item;
+  ceiling?: ToolMetadata;
+}
+export type ToolState = Match & {
+  toolMetadata: Record<string, ToolMetadata>;
+  toolJobs: Record<string, ToolJob>;
+};
+type Connected = (a: Pos, b: Pos) => boolean;
+const d = (a: Pos, b: Pos) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+const able = (s: Match, u: Match["units"][string] | undefined) =>
+  !!u?.alive &&
+  u.active &&
+  u.supplied &&
+  !activeEffects(s, u).some((e) =>
+    ["stunned", "incapacitated", "rout"].includes(e.kind),
+  );
+export const toolUnitBusy = (s: ToolState, id: string) =>
+  Object.values(s.toolJobs).some((q) => q.phase === "working" && q.unit === id);
+export const toolFacilityBusy = (s: ToolState, id: string) =>
+  Object.values(s.toolJobs).some(
+    (q) => q.phase === "working" && q.facility === id,
+  );
+function workshop(s: ToolState, seat: string, id: string) {
+  const f = s.facilities[id];
+  return f?.owner === seat &&
+    f.hp > 0 &&
+    f.kind === "workshop" &&
+    f.workers > 0 &&
+    !f.job &&
+    !f.repair &&
+    !f.rest &&
+    !toolFacilityBusy(s, id)
+    ? f
+    : undefined;
+}
+function inputReady(s: ToolState, seat: string, kind: ToolFunction) {
+  const p = s.players[seat];
+  return (
+    p &&
+    Boolean(recipe(p.profile, "field-tools")) &&
+    ["breach", "repair", "repair-kit"].includes(kind) &&
+    (kind !== "repair-kit" || p.profile === "istari_forge") &&
+    p.sources.includes("metal") &&
+    p.research.includes(`tool-${kind === "repair-kit" ? "repair" : kind}`)
+  );
+}
+function pay(s: ToolState, seat: string, cost: Stock) {
+  const p = s.players[seat];
+  for (const k of ["P", "M", "K", "E"] as const) p.stock[k] -= cost[k];
+}
+export function queueToolReason(
+  s: ToolState,
+  seat: string,
+  facility: string,
+  kind: ToolFunction,
+) {
+  if (!inputReady(s, seat, kind))
+    return "Researched compatible metal tool function and metal access required";
+  if (!workshop(s, seat, facility))
+    return "Free staffed workshop queue required";
+  const p = s.players[seat];
+  return p.stock.M < 15 || p.stock.K < 5
+    ? "Fifteen Materials and five Lore supplies required"
+    : "";
+}
 /** Provisional standard tools:15M5K, one staffed week, maxdurability100,
  * salvage ceilings15M5K. No salvage action mints those resources here. */
-export function queueTool(s:ToolState,seat:string,facility:string,kind:ToolFunction){const reason=queueToolReason(s,seat,facility,kind);if(reason)throw new Error(reason);const id=`tool-job:${s.nextId++}`,cost=stocks(0,15,5);pay(s,seat,cost);s.toolJobs[id]={id,owner:seat,mode:'make',facility,function:kind,remaining:1,started:s.turn,lastProgress:s.turn-1,phase:'working',cost};return id;}
-export function refitToolReason(s:ToolState,seat:string,item:string,facility:string,kind:ToolFunction,connected:Connected){const p=s.players[seat],h=p&&s.units[p.hero.id],i=s.items[item],meta=s.toolMetadata[item],f=workshop(s,seat,facility);if(!p||p.profile!=='dwarf_nogrod'||p.hero.status!=='living'||!able(s,h)||p.hero.readiness<3)return 'Living Nogrod Master Artificer and three readiness required';if(!inputReady(s,seat,kind))return 'Already researched compatible destination function required';if(!i||i.owner!==seat||!meta?.standard||meta.material!=='metal'||meta.function===kind||!i.crafted||i.bonus!==0||(i.attackBonus??0)!==0)return 'Existing standard compatible tool set required; rare and unique items excluded';const pos=i.bearer?s.units[i.bearer]:i;if(!f||!pos||d(pos,f)>1||d(h,f)>6||!connected(h,f)||!connected(pos,f))return 'Item, hero and staffed forge must physically share connected worksite region';return p.stock.M<10||p.stock.K<5?'Ten Materials and five Lore supplies required':'';}
+export function queueTool(
+  s: ToolState,
+  seat: string,
+  facility: string,
+  kind: ToolFunction,
+) {
+  const reason = queueToolReason(s, seat, facility, kind);
+  if (reason) throw new Error(reason);
+  const id = `tool-job:${s.nextId++}`,
+    cost = stocks(0, 15, 5);
+  pay(s, seat, cost);
+  s.toolJobs[id] = {
+    id,
+    owner: seat,
+    mode: "make",
+    facility,
+    function: kind,
+    remaining: 1,
+    started: s.turn,
+    lastProgress: s.turn - 1,
+    phase: "working",
+    cost,
+  };
+  return id;
+}
+export function refitToolReason(
+  s: ToolState,
+  seat: string,
+  item: string,
+  facility: string,
+  kind: ToolFunction,
+  connected: Connected,
+) {
+  const p = s.players[seat],
+    h = p && s.units[p.hero.id],
+    i = s.items[item],
+    meta = s.toolMetadata[item],
+    f = workshop(s, seat, facility);
+  if (
+    !p ||
+    p.profile !== "dwarf_nogrod" ||
+    p.hero.status !== "living" ||
+    !able(s, h) ||
+    p.hero.readiness < 3
+  )
+    return "Living Nogrod Master Artificer and three readiness required";
+  if (kind === "repair-kit" || meta?.function === "repair-kit")
+    return "Consumable repair kits cannot be refitted";
+  if (!inputReady(s, seat, kind))
+    return "Already researched compatible destination function required";
+  if (
+    !i ||
+    i.owner !== seat ||
+    !meta?.standard ||
+    meta.material !== "metal" ||
+    meta.function === kind ||
+    !i.crafted ||
+    i.bonus !== 0 ||
+    (i.attackBonus ?? 0) !== 0
+  )
+    return "Existing standard compatible tool set required; rare and unique items excluded";
+  const pos = i.bearer ? s.units[i.bearer] : i;
+  if (
+    !f ||
+    !pos ||
+    d(pos, f) > 1 ||
+    d(h, f) > 6 ||
+    !connected(h, f) ||
+    !connected(pos, f)
+  )
+    return "Item, hero and staffed forge must physically share connected worksite region";
+  return p.stock.M < 10 || p.stock.K < 5
+    ? "Ten Materials and five Lore supplies required"
+    : "";
+}
 /** Input removed into unique escrow immediately, then consumed on completion.
  * New identity retains exact wear and never raises either salvage ceiling. */
-export function refitTool(s:ToolState,seat:string,item:string,facility:string,kind:ToolFunction,connected:Connected){const reason=refitToolReason(s,seat,item,facility,kind,connected);if(reason)throw new Error(reason);const i=s.items[item],meta=s.toolMetadata[item],id=`refit:${s.nextId++}`,cost=stocks(0,10,5);pay(s,seat,cost);s.players[seat].hero.readiness-=3;if(i.bearer)s.units[i.bearer].inventory=s.units[i.bearer].inventory.filter(x=>x!==item);s.toolJobs[id]={id,owner:seat,mode:'refit',facility,function:kind,remaining:1,started:s.turn,lastProgress:s.turn-1,phase:'working',cost,input:structuredClone(i),ceiling:structuredClone(meta)};s.players[seat].hero.equipment=s.players[seat].hero.equipment.filter(x=>x!==item);delete s.items[item];delete s.toolMetadata[item];return id;}
-export function fieldRepairReason(s:ToolState,seat:string,unit:string,tool:string,target:string){const u=s.units[unit],t=s.items[tool],i=s.items[target],p=s.players[seat];if(!p||!able(s,u)||u.owner!==seat||!isFieldEngineer(u)||toolUnitBusy(s,unit))return 'Free supplied engineer company required';if(!t||t.owner!==seat||t.bearer!==unit||t.durability<4||s.toolMetadata[tool]?.function!=='repair')return 'Carried functional field-repair tool with normal wear remaining required';if(!i||i.id===tool||i.owner!==seat||!i.crafted||i.durability>=i.maxDurability||!i.materials.every(m=>p.sources.includes(m)))return 'Existing damaged compatible crafted item required';const at=i.bearer?s.units[i.bearer]:i;if(!at||d(u,at)>1||Object.values(s.toolJobs).some(q=>q.phase==='working'&&q.target===target)||Object.values(s.facilities).some(f=>f.repair?.target===target))return 'Local target not already committed to another repair required';return p.stock.M<20||p.stock.K<5?'Full ordinary repair recipe twenty Materials and five Lore supplies required':'';}
+export function refitTool(
+  s: ToolState,
+  seat: string,
+  item: string,
+  facility: string,
+  kind: ToolFunction,
+  connected: Connected,
+) {
+  const reason = refitToolReason(s, seat, item, facility, kind, connected);
+  if (reason) throw new Error(reason);
+  const i = s.items[item],
+    meta = s.toolMetadata[item],
+    id = `refit:${s.nextId++}`,
+    cost = stocks(0, 10, 5);
+  pay(s, seat, cost);
+  s.players[seat].hero.readiness -= 3;
+  if (i.bearer)
+    s.units[i.bearer].inventory = s.units[i.bearer].inventory.filter(
+      (x) => x !== item,
+    );
+  s.toolJobs[id] = {
+    id,
+    owner: seat,
+    mode: "refit",
+    facility,
+    function: kind,
+    remaining: 1,
+    started: s.turn,
+    lastProgress: s.turn - 1,
+    phase: "working",
+    cost,
+    input: structuredClone(i),
+    ceiling: structuredClone(meta),
+  };
+  s.players[seat].hero.equipment = s.players[seat].hero.equipment.filter(
+    (x) => x !== item,
+  );
+  delete s.items[item];
+  delete s.toolMetadata[item];
+  return id;
+}
+export function fieldRepairReason(
+  s: ToolState,
+  seat: string,
+  unit: string,
+  tool: string,
+  target: string,
+) {
+  const u = s.units[unit],
+    t = s.items[tool],
+    i = s.items[target],
+    p = s.players[seat];
+  if (
+    !p ||
+    !able(s, u) ||
+    u.owner !== seat ||
+    !isFieldEngineer(u) ||
+    toolUnitBusy(s, unit)
+  )
+    return "Free supplied engineer company required";
+  if (
+    !t ||
+    t.owner !== seat ||
+    t.bearer !== unit ||
+    t.durability < 4 ||
+    s.toolMetadata[tool]?.function !== "repair"
+  )
+    return "Carried functional field-repair tool with normal wear remaining required";
+  if (
+    !i ||
+    i.id === tool ||
+    i.owner !== seat ||
+    !i.crafted ||
+    i.durability >= i.maxDurability ||
+    !i.materials.every((m) => p.sources.includes(m))
+  )
+    return "Existing damaged compatible crafted item required";
+  const at = i.bearer ? s.units[i.bearer] : i;
+  if (
+    !at ||
+    d(u, at) > 1 ||
+    Object.values(s.toolJobs).some(
+      (q) => q.phase === "working" && q.target === target,
+    ) ||
+    Object.values(s.facilities).some((f) => f.repair?.target === target)
+  )
+    return "Local target not already committed to another repair required";
+  return p.stock.M < 20 || p.stock.K < 5
+    ? "Full ordinary repair recipe twenty Materials and five Lore supplies required"
+    : "";
+}
 /** Provisional ordinary field job:existing20M5K repair cost, two weeks,
  * +20 existing durability capped at max, four tool wear; never unit HP. */
-export function fieldRepair(s:ToolState,seat:string,unit:string,tool:string,target:string){const reason=fieldRepairReason(s,seat,unit,tool,target);if(reason)throw new Error(reason);const id=`field-repair:${s.nextId++}`,cost=stocks(0,20,5);pay(s,seat,cost);s.toolJobs[id]={id,owner:seat,mode:'repair',unit,tool,target,function:'repair',remaining:2,started:s.turn,lastProgress:s.turn-1,phase:'working',cost};return id;}
-export function progressTools(s:ToolState,connected:Connected){for(const q of Object.values(s.toolJobs)){if(q.phase!=='working'||q.lastProgress>=s.turn)continue;if(q.mode==='repair'){const u=s.units[q.unit!],i=s.items[q.target!],tool=s.items[q.tool!];if(!u?.alive||u.owner!==q.owner||!i||i.owner!==q.owner||!tool||tool.owner!==q.owner){q.phase='lost';continue;}const pos=i.bearer?s.units[i.bearer]:i;if(!able(s,u)||!pos||d(u,pos)>1||tool.bearer!==u.id||tool.durability<4||!i.materials.every(m=>s.players[q.owner].sources.includes(m)))continue;q.lastProgress=s.turn;if(--q.remaining>0)continue;restoreItemDurability(s,i.id,20);tool.durability-=4;delete s.toolJobs[q.id];continue;}const f=s.facilities[q.facility!],p=s.players[q.owner],h=s.units[p.hero.id];if(!f||f.owner!==q.owner||f.hp<=0){q.phase='lost';continue;}if(f.workers<1||!p.sources.includes('metal')||(q.mode==='refit'&&(!able(s,h)||d(h,f)>6||!connected(h,f))))continue;q.lastProgress=s.turn;if(--q.remaining>0)continue;const id=`tool:${s.nextId++}`;s.items[id]={id,name:q.function==='breach'?'Field breach tools':'Field repair tools',owner:q.owner,bearer:null,x:f.x,y:f.y,bonus:0,attackBonus:0,durability:q.input?.durability??100,maxDurability:q.input?.maxDurability??100,crafted:true,materials:['metal']};s.toolMetadata[id]={id,function:q.function,standard:true,material:'metal',salvageM:Math.min(15,q.ceiling?.salvageM??15),salvageK:Math.min(5,q.ceiling?.salvageK??5)};delete s.toolJobs[q.id];}}
-export function validateTools(s:ToolState,guestSeat?:string){for(const[id,m]of Object.entries(s.toolMetadata)){const i=s.items[id];if(id!==m.id||!i||!['breach','repair'].includes(m.function)||m.salvageM<0||m.salvageM>15||m.salvageK<0||m.salvageK>5||(guestSeat&&i.owner!==guestSeat))throw new Error('Invalid finite standard tool metadata');}const sites=new Set<string>(),workers=new Set<string>(),targets=new Set<string>(),inputs=new Set<string>();for(const[id,q]of Object.entries(s.toolJobs)){const cost=q.mode==='make'?stocks(0,15,5):q.mode==='refit'?stocks(0,10,5):stocks(0,20,5);if(id!==q.id||!s.players[q.owner]||(guestSeat&&q.owner!==guestSeat)||q.started>s.turn||q.lastProgress>s.turn||q.remaining<1||q.remaining>(q.mode==='repair'?2:1)||(['P','M','K','E']as const).some(k=>q.cost[k]!==cost[k]))throw new Error('Invalid funded tool service');if(q.mode==='refit'){if(s.players[q.owner].profile!=='dwarf_nogrod'||!q.input||!q.ceiling?.standard||q.input.id!==q.ceiling.id||s.items[q.input.id]||inputs.has(q.input.id)||q.input.owner!==q.owner||q.ceiling.function===q.function)throw new Error('Duplicated or incompatible tool escrow');inputs.add(q.input.id);}if(q.phase!=='working')continue;if(q.facility){if((!guestSeat&&!s.facilities[q.facility])||sites.has(q.facility))throw new Error('Duplicate tool workshop queue');sites.add(q.facility);}if(q.mode==='repair'){if(!q.unit||!q.target||!q.tool||q.target===q.tool||(!guestSeat&&(!s.units[q.unit]||!s.items[q.target]||!s.items[q.tool]))||workers.has(q.unit)||targets.has(q.target))throw new Error('Duplicate field repair assignment');workers.add(q.unit);targets.add(q.target);}}}
-export type ToolAction={kind:'tool-service';mode:'make';facility:string;function:ToolFunction}|{kind:'tool-service';mode:'refit';facility:string;item:string;function:ToolFunction}|{kind:'tool-service';mode:'repair';unit:string;tool:string;target:string};
+export function fieldRepair(
+  s: ToolState,
+  seat: string,
+  unit: string,
+  tool: string,
+  target: string,
+) {
+  const reason = fieldRepairReason(s, seat, unit, tool, target);
+  if (reason) throw new Error(reason);
+  const id = `field-repair:${s.nextId++}`,
+    cost = stocks(0, 20, 5);
+  pay(s, seat, cost);
+  s.toolJobs[id] = {
+    id,
+    owner: seat,
+    mode: "repair",
+    unit,
+    tool,
+    target,
+    function: "repair",
+    remaining: 2,
+    started: s.turn,
+    lastProgress: s.turn - 1,
+    phase: "working",
+    cost,
+  };
+  return id;
+}
+export function progressTools(s: ToolState, connected: Connected) {
+  for (const q of Object.values(s.toolJobs)) {
+    if (q.phase !== "working" || q.lastProgress >= s.turn) continue;
+    if (q.mode === "repair") {
+      const u = s.units[q.unit!],
+        i = s.items[q.target!],
+        tool = s.items[q.tool!];
+      if (
+        !u?.alive ||
+        u.owner !== q.owner ||
+        !i ||
+        i.owner !== q.owner ||
+        !tool ||
+        tool.owner !== q.owner
+      ) {
+        q.phase = "lost";
+        continue;
+      }
+      const pos = i.bearer ? s.units[i.bearer] : i;
+      if (
+        !able(s, u) ||
+        !pos ||
+        d(u, pos) > 1 ||
+        tool.bearer !== u.id ||
+        tool.durability < 4 ||
+        !i.materials.every((m) => s.players[q.owner].sources.includes(m))
+      )
+        continue;
+      q.lastProgress = s.turn;
+      if (--q.remaining > 0) continue;
+      restoreItemDurability(s, i.id, 20);
+      tool.durability -= 4;
+      delete s.toolJobs[q.id];
+      continue;
+    }
+    const f = s.facilities[q.facility!],
+      p = s.players[q.owner],
+      h = s.units[p.hero.id];
+    if (!f || f.owner !== q.owner || f.hp <= 0) {
+      q.phase = "lost";
+      continue;
+    }
+    if (
+      f.workers < 1 ||
+      !p.sources.includes("metal") ||
+      (q.mode === "refit" && (!able(s, h) || d(h, f) > 6 || !connected(h, f)))
+    )
+      continue;
+    q.lastProgress = s.turn;
+    if (--q.remaining > 0) continue;
+    const id = `tool:${s.nextId++}`;
+    s.items[id] = {
+      id,
+      name:
+        q.function === "repair-kit"
+          ? "Standard construct repair kit"
+          : q.function === "breach"
+            ? "Field breach tools"
+            : "Field repair tools",
+      owner: q.owner,
+      bearer: null,
+      x: f.x,
+      y: f.y,
+      bonus: 0,
+      attackBonus: 0,
+      durability:
+        q.function === "repair-kit" ? 1 : (q.input?.durability ?? 100),
+      maxDurability:
+        q.function === "repair-kit" ? 1 : (q.input?.maxDurability ?? 100),
+      crafted: true,
+      materials: ["metal"],
+    };
+    s.toolMetadata[id] = {
+      id,
+      ...(q.function === "repair-kit" ? { maker: q.owner } : {}),
+      function: q.function,
+      standard: true,
+      material: "metal",
+      salvageM: Math.min(15, q.ceiling?.salvageM ?? 15),
+      salvageK: Math.min(5, q.ceiling?.salvageK ?? 5),
+    };
+    delete s.toolJobs[q.id];
+  }
+}
+export function validateTools(s: ToolState, guestSeat?: string) {
+  for (const [id, m] of Object.entries(s.toolMetadata)) {
+    const i = s.items[id];
+    if (
+      id !== m.id ||
+      !i ||
+      !["breach", "repair", "repair-kit"].includes(m.function) ||
+      (m.function === "repair-kit" &&
+        (s.players[m.maker ?? ""]?.profile !== "istari_forge" ||
+          i.durability !== 1 ||
+          i.maxDurability !== 1 ||
+          !i.crafted ||
+          i.bonus !== 0 ||
+          (i.attackBonus ?? 0) !== 0)) ||
+      (m.function !== "repair-kit" && m.maker !== undefined) ||
+      m.salvageM < 0 ||
+      m.salvageM > 15 ||
+      m.salvageK < 0 ||
+      m.salvageK > 5 ||
+      (guestSeat && i.owner !== guestSeat)
+    )
+      throw new Error("Invalid finite standard tool metadata");
+  }
+  const sites = new Set<string>(),
+    workers = new Set<string>(),
+    targets = new Set<string>(),
+    inputs = new Set<string>();
+  for (const [id, q] of Object.entries(s.toolJobs)) {
+    const cost =
+      q.mode === "make"
+        ? stocks(0, 15, 5)
+        : q.mode === "refit"
+          ? stocks(0, 10, 5)
+          : stocks(0, 20, 5);
+    if (
+      (q.function === "repair-kit" &&
+        (q.mode !== "make" ||
+          s.players[q.owner]?.profile !== "istari_forge")) ||
+      id !== q.id ||
+      !s.players[q.owner] ||
+      (guestSeat && q.owner !== guestSeat) ||
+      q.started > s.turn ||
+      q.lastProgress > s.turn ||
+      q.remaining < 1 ||
+      q.remaining > (q.mode === "repair" ? 2 : 1) ||
+      (["P", "M", "K", "E"] as const).some((k) => q.cost[k] !== cost[k])
+    )
+      throw new Error("Invalid funded tool service");
+    if (q.mode === "refit") {
+      if (
+        s.players[q.owner].profile !== "dwarf_nogrod" ||
+        !q.input ||
+        !q.ceiling?.standard ||
+        q.input.id !== q.ceiling.id ||
+        s.items[q.input.id] ||
+        inputs.has(q.input.id) ||
+        q.input.owner !== q.owner ||
+        q.ceiling.function === q.function
+      )
+        throw new Error("Duplicated or incompatible tool escrow");
+      inputs.add(q.input.id);
+    }
+    if (q.phase !== "working") continue;
+    if (q.facility) {
+      if ((!guestSeat && !s.facilities[q.facility]) || sites.has(q.facility))
+        throw new Error("Duplicate tool workshop queue");
+      sites.add(q.facility);
+    }
+    if (q.mode === "repair") {
+      if (
+        !q.unit ||
+        !q.target ||
+        !q.tool ||
+        q.target === q.tool ||
+        (!guestSeat &&
+          (!s.units[q.unit] || !s.items[q.target] || !s.items[q.tool])) ||
+        workers.has(q.unit) ||
+        targets.has(q.target)
+      )
+        throw new Error("Duplicate field repair assignment");
+      workers.add(q.unit);
+      targets.add(q.target);
+    }
+  }
+}
+export type ToolAction =
+  | {
+      kind: "tool-service";
+      mode: "make";
+      facility: string;
+      function: ToolFunction;
+    }
+  | {
+      kind: "tool-service";
+      mode: "refit";
+      facility: string;
+      item: string;
+      function: ToolFunction;
+    }
+  | {
+      kind: "tool-service";
+      mode: "repair";
+      unit: string;
+      tool: string;
+      target: string;
+    };

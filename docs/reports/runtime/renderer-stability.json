@@ -1,0 +1,43 @@
+{
+  "samples": 10,
+  "allPassed": true,
+  "p95Ms": [
+    16.799999999999727,
+    16.800000000000182,
+    16.799999999999727,
+    16.799999999999955,
+    16.800000000000182,
+    16.799999999999955,
+    16.700000000000273,
+    16.700000000000273,
+    16.799999999999955,
+    16.799999999999955
+  ],
+  "loadMs": [
+    987,
+    1032,
+    936,
+    1010,
+    927,
+    980,
+    944,
+    977,
+    947,
+    959
+  ],
+  "cacheBytes": [
+    32024608,
+    32024608,
+    32024608,
+    32024608,
+    32024608,
+    32024608,
+    32024608,
+    32024608,
+    32024608,
+    32024608
+  ],
+  "scope": "Ten consecutive fresh headless Chromium processes after software-GPU Canvas fallback; unchanged <50ms p95 gate. Workstation evidence only.",
+  "rawEvidence": "/tmp/agent-runs/canvas-stability-ten",
+  "cpuSamples": 50
+}

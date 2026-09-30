@@ -248,9 +248,9 @@ export function abilityAvailability(
   if (key === "istari_saruman:support")
     return "Commission the Iron Servant uses Produce → Resonant Sentinel at a staffed Orthanc Workshop; its paid two-turn queue is the ability route";
   if (key === "dwarf_belegost:field")
-    return "Fit the Guard unavailable: typed consumable protection kits and explicit hazard selection are not implemented";
+    return "Fit the Guard uses Economy → Carried protection and armor fitting: select an existing compatible kit and one declared ordinary hazard";
   if (!supportedAbilities.has(key))
-    return `${a.source.name} unavailable: ${a.operation} requires its dedicated ${a.target.kind} rules; not implemented in this runtime.`;
+    return `${a.source.name}: use its dedicated ${a.operation} action and ${a.target.kind} target controls; generic casting cannot supply the required selections.`;
   const h = s.units[p.hero.id];
   if (p.hero.status !== "living" || !h?.alive || !h.active || h.hp <= 0)
     return "Living active hero required";

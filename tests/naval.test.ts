@@ -156,6 +156,7 @@ it("rescues an existing wreck passenger into an adjacent real vessel without cop
   };
   s.units[extra.id] = extra;
   const rescue = spawnVessel(s, "p1", harbor.id, extra.id, { x: 4, y: 5 });
+  startNavalOrder(s, "p1", { kind: "prepare-rescue-rig", ship: rescue.id });
   startNavalOrder(s, "p1", {
     kind: "rescue-passenger",
     ship: rescue.id,
@@ -207,6 +208,7 @@ it("rescues finite stranded wreck crew into the ordinary slot and releases histo
     x: 4,
     y: 5,
   });
+  startNavalOrder(s, "p1", { kind: "prepare-rescue-rig", ship: rescue.id });
   startNavalOrder(s, "p1", {
     kind: "rescue-passenger",
     ship: rescue.id,
@@ -216,6 +218,8 @@ it("rescues finite stranded wreck crew into the ordinary slot and releases histo
   expect(rescue.passenger).toBe(worker.id);
   expect(() => validateVesselState(s, ship)).not.toThrow();
   expect(() => validateVesselState(s, rescue)).not.toThrow();
+  progressVessels(s);
+  s.turn++;
   progressVessels(s);
   s.turn++;
   startNavalOrder(s, "p1", {

@@ -1,4 +1,15 @@
 import { test, expect } from "@playwright/test";
+test('keyboard view changes and landscape toggle retain their replacement control focus',async({page})=>{
+ await page.goto('/');await page.locator('#tutorial').uncheck();await page.getByRole('button',{name:'Begin Cross-era sandbox'}).click();
+ const economy=page.getByRole('button',{name:'Economy',exact:true});await economy.focus();await page.keyboard.press('Enter');await expect(economy).toBeFocused();
+ const toggle=page.locator('[data-action="toggle-panel"]');await toggle.focus();await page.keyboard.press('Enter');await expect(toggle).toBeFocused();await expect(toggle).toHaveAttribute('aria-expanded','false');
+ await page.keyboard.press('Enter');await expect(toggle).toBeFocused();await expect(toggle).toHaveAttribute('aria-expanded','true');
+});
+test('keyboard order confirmation restores a live control when the original production button becomes disabled',async({page})=>{
+ await page.goto('/');await page.locator('#tutorial').uncheck();await page.getByRole('button',{name:'Begin Cross-era sandbox'}).click();await page.getByRole('button',{name:'Economy',exact:true}).click();
+ const component=page.locator('article').filter({has:page.getByRole('heading',{name:'Signature component',exact:true})});await component.getByRole('button').focus();await page.keyboard.press('Enter');await expect(page.getByRole('dialog')).toBeVisible();
+ await page.getByRole('button',{name:'Confirm order',exact:true}).focus();await page.keyboard.press('Enter');await expect(page.getByRole('dialog')).toHaveCount(0);await expect(page.getByRole('button',{name:'Economy',exact:true})).toBeFocused();
+});
 test("Rohan playable creation, AI resolution, save restore and text reflow", async ({
   page,
 }) => {

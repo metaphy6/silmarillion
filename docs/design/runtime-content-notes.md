@@ -1,5 +1,27 @@
 # Runtime content extraction — revision 6
 
+## Named production completion — 2026-09-30
+
+The earlier representative-output audit is superseded by explicit additional production descriptors: `companion-production.ts` (nine), `secondary-production.ts` (four), `extended-production.ts` (thirteen), `military-production.ts` (twelve), `naval-production.ts` (four), and `final-production.ts` (thirteen). These 55 named additions retain the original profile outputs and ordinary worker/facility actions. Every queue retains explicit source access, full paid stocks, staffing, elapsed work, faction capacity and strict output identity. Newly chosen ordinary prices/statistics/utilities remain provisional, including field-device interpretation; they are not adopted hero powers or a balance claim.
+
+Companions include courier eagles/stags, hounds, aurochs, root guardians, songbirds, rescue hinds, moth clouds and a crafted memory lantern. Courier species carry actual existing reports through physical relay stations; rescue hinds use ordinary finite household handling; pack animals use ordinary capacity. No companion grants a new hero. Eagle Rescue Flights carry one existing willing eligible passenger through an exposed ordinary flight, and carrier loss strands that same passenger. Spider Venom Stalkers apply bounded ordinary curable poison on a real qualifying hit; Troll Siege Crews have a structural hit bonus without an invented siege magazine.
+
+Elven defenders/archers, woodland and clan pack animals, crafted blades/standards, mounted scouts/saddles, mining engines, stone porters, protected haulers, ponies and travel kits now have named paid identities. A mining engine substitutes one ordinary mine staffing role only while assigned and physically present, remains vulnerable and keeps upkeep; it does not create an abstract worker. Assignment and release cost an operation. Mounted recruits create their existing paid finite mount lots only on queue completion; mounts are not granted on command use.
+
+Werewolves, Sauron siege equipment, woodland defenders, hunters, ward tools, wolf riders, crude artillery, patrol riders, banner guards, siege crews and current guides have explicit access and output contracts. Artillery uses finite magazines and ordinary reload costs. Guides matter only aboard an actual vessel. Ward-breaker tools enhance ordinary physical anchor attacks; they do not delete arbitrary spells or change allegiance.
+
+Swan-ships, Expedition Ships, Storm Skiffs and Protected Fishing Craft are distinct paid hulls with finite capacities, crew, upkeep and draft requirements. Class handling and storm protection consume actual naval events. Sea wards and calm-passage charms must be worn by an actual occupant and lose durability when used. Diplomacy tools reduce one positive ordinary courier upkeep cost while carrying a real relay message; they cannot waive a nonexistent dispatch fee, manufacture P or alter consent.
+
+Nogrod mechanisms, weapons and inscriptions are finite crafted equipment. Refuge keepers and Ilmarë couriers are ordinary supplied companies, not additional abstract workers. Passage wards, song-lures, boundary wards, mobile camp wards and root snares consume a previously produced fitted item into a short-lived local device through a normal operation. Root snares need real woodland. Existing movement/visibility zone consumers enforce their physical consequences and expiry; no hero readiness or commands are copied.
+
+Named infrastructure also has existing functional equivalents: Hobbit fieldhands use workers assigned to farms; Wolf hunting groups use actual beast hunting assignments; Ent shelters and defensive roots use habitat refuge/barrier works; Arien light mirrors use staffed mirror stations; harbor beacons, hidden watchhouses and waymarks use the corresponding physical intelligence/route facilities. These are documented ordinary roles, not duplicate buildings created for alternate labels.
+
+Additional support production includes ordinary Gondor/Saruman siege engines, researched Forge repair kits and Vairë's preserved equipment-plan research. Foreign Eagle landing ledges now require explicit current consent. Household Provisions and people are finite local ledgers; other settlement production still uses the documented faction stock model.
+
+## Earlier extraction and implementation evidence
+
+The initial representative-product and partial-passive statements below record earlier builds. The named-production completion ledger above supersedes those coverage limits, while preserving source rules, costs and provisional tuning qualifications.
+
 `src/content/factions.json` is a derived runtime input, not a replacement gameplay authority. The owning sources are `docs/design/silmarillion-game-report.md` revision 6 and `hero-balance-roster.json`; presentation comes from `docs/design/art-direction/faction-matrix.json`. Existing roster power prose and identifiers must remain intact. Four hero input files contain 53 entries; the current roster adds the two mutually exclusive Melkor doctrines for 55 profiles and 54 factions.
 
 ## Contract

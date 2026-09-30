@@ -1,3 +1,6 @@
+import {companionRole} from "../content/companion-production";
+import {heavyCargoCapacity} from "./heavy-equipment";
+import {applyCivilianRain} from './civilian-rain';
 import {civilianProfiles} from "../content/production";
 export {civilianProfiles} from "../content/production";
 import type { Match, Pos, Unit } from "./types";
@@ -101,7 +104,7 @@ const carrier = (s: Match, u: Unit | undefined, seat: string) =>
   active(s, u) &&
   u.owner === seat &&
   u.supplied &&
-  ["worker", "company"].includes(u.kind);
+  (["worker", "company"].includes(u.kind) || companionRole(s,u)==="rescue");
 export const civilianBusy = (s: CivilianState, id: string) =>
   Object.values(s.civilianJobs).some(
     (j) => j.carrier === id && j.phase === "travel",
@@ -246,7 +249,7 @@ export function civilianReason(
       return "Withdraw stored provisions before moving this whole civilian group";
     if (
       h.population < 1 ||
-      h.population > 12 ||
+      h.population > heavyCargoCapacity(s,u,12) ||
       Object.values(s.civilianJobs).some(
         (j) =>
           j.household === h.id && j.mode === "people" && j.phase !== "arrived",
@@ -270,7 +273,7 @@ export function civilianReason(
   } else if (
     !integer(a.amount) ||
     a.amount < 1 ||
-    a.amount > (power ? 10 : 20) ||
+    a.amount > heavyCargoCapacity(s,u,power ? 10 : 20) ||
     h.provisions < a.amount
   )
     return "Existing stores within capacity (power10, ordinary20) required";
@@ -372,6 +375,7 @@ export function progressCivilians(s: CivilianState, c: CivilianChecks): void {
     j.x = u.x = j.route[j.index].x;
     j.y = u.y = j.route[j.index].y;
     c.moved?.(s, u, moved);
+    applyCivilianRain(s,j,moved);
     if (j.index !== j.route.length - 1) continue;
     if (j.mode === "people") {
       const h = s.households[j.household];

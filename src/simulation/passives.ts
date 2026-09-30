@@ -71,7 +71,7 @@ export function endPassivePhase(s: Match): void {
 /** Called once AFTER hit/miss validation on an actual ordinary hit, before armor.
  * Adds one ordinary pre-armor hit equivalent; caller applies normal defenses once.
  * isOrdinarySiege is a trusted content classification, never a client assertion.
- * No current Saruman siege recipe exists: default false keeps it unavailable. */
+ * Only the authorized ordinary siege producer supplies this classification. */
 export function passiveOrdinaryHit(
   s: Match,
   attacker: Unit,
@@ -88,7 +88,7 @@ export function passiveOrdinaryHit(
     isOrdinarySiege &&
     attacker.kind === "company" &&
     !("alive" in target) &&
-    ["core", "hold", "cover", "barricade", "siege-brace"].includes(
+    ["core", "hold", "cover", "barricade", "gate", "siege-brace"].includes(
       target.kind,
     ) &&
     Math.hypot(attacker.x - h.x, attacker.y - h.y) <= 12 / 3 &&

@@ -2,7 +2,7 @@
 
 A runnable Phaser + TypeScript + Vite strategy alpha with an independent turn simulation, local AI, checkpoint saves and optional private WebRTC matches. The default scenario is **Cross-era sandbox**; the 55 starting profiles represent 54 factions, including one Melkor identity with two mutually exclusive doctrines.
 
-**The full game request is not complete.** All profiles are selectable, but 107 of 110 powers have command routes (36 dispatcher handlers and 71 dedicated routes), with incomplete target scope and passives, representative provisional production rather than full economic trees, shared portrait studies and procedural figures, and no finished narrative system. See the [runtime guide](docs/guides/GAME_RUNTIME.md), [ability coverage](docs/design/runtime-ability-notes.md) and [validation report](docs/reports/runtime/VALIDATION.md).
+All 55 profiles are selectable and all 110 adopted powers have command routes (36 dispatcher handlers and 74 dedicated routes), with source-qualified passive consumers and 55 additional named ordinary products. Paid production, physical logistics, local observations, recovery and private saves share the same rules. Ordinary numbers remain provisional and the older offensive kits have not been redesigned or certified balanced. Local implementation and available workstation visual/browser gates are complete; managed remote certification remains blocked by external authorization and credential setup, as requested. See the [runtime guide](docs/guides/GAME_RUNTIME.md), [ability coverage](docs/design/runtime-ability-notes.md) and [validation report](docs/reports/runtime/VALIDATION.md).
 
 ## Run the game
 

@@ -58,7 +58,7 @@
     {
       "id": "sm-faction-portraits-v1",
       "path": "gallery/art/faction-portraits-v1.png",
-      "purpose": "Rohan, Aulë and Dark Architect comparison; full bodies are enlarged studies.",
+      "purpose": "Rohan, Aul\u00eb and Dark Architect comparison; full bodies are enlarged studies.",
       "status": "concept-reviewed",
       "source_type": "original-generated",
       "format": "png",
@@ -826,14 +826,242 @@
       "acceptance": [
         "Initial packed atlas rejected; original edit isolated complete16silhouettes with transparentgutters.",
         "Reviewedpainted archetypes with croppedalphametadata; no sprite-skeletalanimationmasters claimed.",
-        "Groundeddragonforms retain proceduralfallback rather than wrongly displayingwingeddragonart."
+        "Grounded dragons now use a separately generated original wingless companion atlas; active figures retain original painted pixels through bounded articulated frames."
+      ]
+    },
+    {
+      "id": "sm-companion-figures-color-v1",
+      "path": "../../../public/assets/sm-companion-figures-color-v1.png",
+      "purpose": "Six supplemental animal studies.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "3:2",
+      "alpha": true,
+      "layers": "flattened original painting with native alpha",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; runtime Canvas matte composition",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#supplemental-companion-figure-atlas",
+        "source_inputs": [],
+        "sha256": "d30a599dbb9d96a0a9081273b11faeb21b10259a576b4b8433fc459cd336d773",
+        "rights_note": "Original generated pixels; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Color source has native RGBA alpha; historical fallback also composes the registered matte. Current directional masters retain their own native alpha.",
+        "Companion species and wingless drake preserve painted identity during motion; provisional anatomy and directional derivatives remain subject to art review."
+      ]
+    },
+    {
+      "id": "sm-companion-figures-matte-v1",
+      "path": "../../../public/assets/sm-companion-figures-matte-v1.png",
+      "purpose": "Registered binary alpha segmentation for original companion studies.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "3:2",
+      "alpha": false,
+      "layers": "flattened opaque binary segmentation matte",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; runtime Canvas matte composition",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#supplemental-companion-figure-atlas",
+        "source_inputs": [
+          "../../../public/assets/sm-companion-figures-color-v1.png"
+        ],
+        "sha256": "14acea69ca7daf43b1d9df071bbb4fa8cedf6ce0d84618c2f1877792cdd633ae",
+        "rights_note": "Original generated pixels; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Color source has native RGBA alpha; historical fallback also composes the registered matte. Current directional masters retain their own native alpha.",
+        "Companion species and wingless drake preserve painted identity during motion; provisional anatomy and directional derivatives remain subject to art review."
+      ]
+    },
+    {
+      "id": "sm-direction-a-v1",
+      "path": "../../../public/assets/sm-direction-a-v1.png",
+      "purpose": "Original painted directional masters with genuine front and reverse anatomy.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1024,
+      "height": 1536,
+      "aspect_ratio": "1024:1536",
+      "alpha": true,
+      "layers": "flattened original painted directional masters",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#painted-directional-masters",
+        "source_inputs": [
+          "../../../public/assets/sm-world-figures-v1.webp"
+        ],
+        "sha256": "beb190a1c947b3e910f3ebe3fb9a82e4005be6c9c8878a0595a8c3a5962c428c",
+        "rights_note": "New original generated pixels based only on own original source paintings; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Actual native alpha and separately painted four directional views; runtime gutter measurement preserves complete anatomy.",
+        "Numerical brush/contrast tuning remains possible; this asset does not claim completion of the broader 385-domain inventory."
+      ]
+    },
+    {
+      "id": "sm-direction-b-v1",
+      "path": "../../../public/assets/sm-direction-b-v1.png",
+      "purpose": "Original painted directional masters with genuine front and reverse anatomy.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1024,
+      "height": 1536,
+      "aspect_ratio": "1024:1536",
+      "alpha": true,
+      "layers": "flattened original painted directional masters",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#painted-directional-masters",
+        "source_inputs": [
+          "../../../public/assets/sm-world-figures-v1.webp"
+        ],
+        "sha256": "b4f35d27d84fca24f1ed37478a08ed3012b49c1c215b6406c210127e245343ba",
+        "rights_note": "New original generated pixels based only on own original source paintings; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Actual native alpha and separately painted four directional views; runtime gutter measurement preserves complete anatomy.",
+        "Numerical brush/contrast tuning remains possible; this asset does not claim completion of the broader 385-domain inventory."
+      ]
+    },
+    {
+      "id": "sm-direction-c-v1",
+      "path": "../../../public/assets/sm-direction-c-v1.png",
+      "purpose": "Original painted directional masters with genuine front and reverse anatomy.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1122,
+      "height": 1402,
+      "aspect_ratio": "1122:1402",
+      "alpha": true,
+      "layers": "flattened original painted directional masters",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#painted-directional-masters",
+        "source_inputs": [
+          "../../../public/assets/sm-world-figures-v1.webp",
+          "../../../public/assets/sm-companion-figures-color-v1.png"
+        ],
+        "sha256": "fdb9950d829960c687007cc975b32df4ff16e8fa31824c00f85f96d726b2f025",
+        "rights_note": "New original generated pixels based only on own original source paintings; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Actual native alpha and separately painted four directional views; runtime gutter measurement preserves complete anatomy.",
+        "Numerical brush/contrast tuning remains possible; this asset does not claim completion of the broader 385-domain inventory."
+      ]
+    },
+    {
+      "id": "sm-direction-d-v1",
+      "path": "../../../public/assets/sm-direction-d-v1.png",
+      "purpose": "Original painted directional masters with genuine front and reverse anatomy.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1122,
+      "height": 1402,
+      "aspect_ratio": "1122:1402",
+      "alpha": true,
+      "layers": "flattened original painted directional masters",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#painted-directional-masters",
+        "source_inputs": [
+          "../../../public/assets/sm-companion-figures-color-v1.png"
+        ],
+        "sha256": "1a492136fcde5baebda48acf328798997c9c554de106c7701bd76d0e311b543a",
+        "rights_note": "New original generated pixels based only on own original source paintings; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Actual native alpha and separately painted four directional views; runtime gutter measurement preserves complete anatomy.",
+        "Numerical brush/contrast tuning remains possible; this asset does not claim completion of the broader 385-domain inventory."
+      ]
+    },
+    {
+      "id": "sm-terrain-materials-v1",
+      "path": "../../../public/assets/sm-terrain-materials-v1.png",
+      "purpose": "Dedicated original overhead terrain material studies.",
+      "status": "runtime-integrated-provisional",
+      "source_type": "original-generated",
+      "format": "png",
+      "width": 1536,
+      "height": 1024,
+      "aspect_ratio": "1536:1024",
+      "alpha": false,
+      "layers": "flattened original material sheet",
+      "palette_refs": [
+        "art-bible.md",
+        "faction-matrix.json"
+      ],
+      "variants": [],
+      "provenance": {
+        "creator": "Codex original authored generation",
+        "tool": "built-in image_gen; native PNG alpha retained",
+        "date": "2026-09-30",
+        "prompt_ref": "../runtime-assets.md#dedicated-terrain-material-sheet",
+        "source_inputs": [],
+        "sha256": "401a3f837edf2042ec7b1d91cfe7b3e7e768bb24d9c0ac8a819139c494d25e79",
+        "rights_note": "New original generated pixels based only on own original source paintings; no imported third-party artwork."
+      },
+      "acceptance": [
+        "Original seamless material composition follows authoritative terrain masks, roads and crossings.",
+        "Numerical brush/contrast tuning remains possible; this asset does not claim completion of the broader 385-domain inventory."
       ]
     }
   ],
   "production_requirements": [
     {
       "profile_id": "manwe",
-      "faction": "Manwë's highlands",
+      "faction": "Manw\u00eb's highlands",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#manwe",
@@ -1007,7 +1235,7 @@
     },
     {
       "profile_id": "aule",
-      "faction": "Aulë's workshops",
+      "faction": "Aul\u00eb's workshops",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#aule",
@@ -1181,7 +1409,7 @@
     },
     {
       "profile_id": "irmo",
-      "faction": "Lórien's dream gardens",
+      "faction": "L\u00f3rien's dream gardens",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#irmo",
@@ -1297,7 +1525,7 @@
     },
     {
       "profile_id": "orome",
-      "faction": "Oromë's frontier lodges",
+      "faction": "Orom\u00eb's frontier lodges",
       "family": "path-and-pursuit",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#orome",
@@ -1471,7 +1699,7 @@
     },
     {
       "profile_id": "vana",
-      "faction": "Vána's bloom nurseries",
+      "faction": "V\u00e1na's bloom nurseries",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#vana",
@@ -1529,7 +1757,7 @@
     },
     {
       "profile_id": "este",
-      "faction": "Estë's healing refuges",
+      "faction": "Est\u00eb's healing refuges",
       "family": "living-refuge",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#este",
@@ -1587,7 +1815,7 @@
     },
     {
       "profile_id": "vaire",
-      "faction": "Vairë's archive halls",
+      "faction": "Vair\u00eb's archive halls",
       "family": "memory-threshold",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#vaire",
@@ -1703,7 +1931,7 @@
     },
     {
       "profile_id": "elf_feanor",
-      "faction": "House of Fëanor",
+      "faction": "House of F\u00ebanor",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#elf_feanor",
@@ -2225,7 +2453,7 @@
     },
     {
       "profile_id": "human_numenor",
-      "faction": "Númenor",
+      "faction": "N\u00famenor",
       "family": "river-sea",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#human_numenor",
@@ -2283,7 +2511,7 @@
     },
     {
       "profile_id": "dwarf_khazad_dum",
-      "faction": "Khazad-dûm",
+      "faction": "Khazad-d\u00fbm",
       "family": "worked-stone",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#dwarf_khazad_dum",
@@ -3385,7 +3613,7 @@
     },
     {
       "profile_id": "osse",
-      "faction": "Ossë",
+      "faction": "Oss\u00eb",
       "family": "river-sea",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#osse",
@@ -3617,7 +3845,7 @@
     },
     {
       "profile_id": "eonwe",
-      "faction": "Eönwë",
+      "faction": "E\u00f6nw\u00eb",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#eonwe",
@@ -3675,7 +3903,7 @@
     },
     {
       "profile_id": "ilmare",
-      "faction": "Ilmarë",
+      "faction": "Ilmar\u00eb",
       "family": "high-air",
       "status": "specified-not-produced",
       "treatments_ref": "faction-matrix.json#ilmare",

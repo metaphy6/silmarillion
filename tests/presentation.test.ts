@@ -14,6 +14,49 @@ it("initial, repeated and backwards snapshots do not replay action", () => {
   s.revision--;
   expect(transitionCues(v, captureView(s, "p1"), s)).toEqual([]);
 });
+it("requires a new own identified attack record rather than inferring attacks from damage", () => {
+  const s = createMatch(["human_gondor", "human_rohan"], 81),
+    u = s.units["p1:company:0"];
+  const before = captureView(s, "p1");
+  s.revision++;
+  u.hp--;
+  expect(
+    transitionCues(before, captureView(s, "p1"), s).some(
+      (c) => c.kind === "attack",
+    ),
+  ).toBe(false);
+  s.witnessedAttacks.actual = {
+    id: "actual",
+    owner: "p1",
+    attacker: u.id,
+    x: u.x,
+    y: u.y,
+    turn: s.turn,
+    revision: s.revision,
+  };
+  expect(
+    transitionCues(before, captureView(s, "p1"), s).filter(
+      (c) => c.kind === "attack",
+    ),
+  ).toHaveLength(1);
+  const after = captureView(s, "p1");
+  s.revision++;
+  expect(
+    transitionCues(after, captureView(s, "p1"), s).some(
+      (c) => c.kind === "attack",
+    ),
+  ).toBe(false);
+  s.witnessedAttacks.foreign = {
+    ...s.witnessedAttacks.actual,
+    id: "foreign",
+    owner: "p2",
+  };
+  expect(
+    transitionCues(after, captureView(s, "p1"), s).some(
+      (c) => c.kind === "attack",
+    ),
+  ).toBe(false);
+});
 it("retains immutable visible values and animates only an actual identity-bearing own event", () => {
   const s = createMatch(["human_rohan", "human_gondor"], 8),
     u = s.units["p1:company:0"];

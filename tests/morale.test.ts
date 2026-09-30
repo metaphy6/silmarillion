@@ -1,5 +1,7 @@
 import { expect, it } from "vitest";
 import { createMatch } from "../src/simulation/engine";
+import {deployFinalDevice,finalProduction} from '../src/content/final-production';
+import {movementZonePenalty,crossZones} from '../src/simulation/zones';
 import {
   damageMorale,
   retreatMorale,
@@ -147,6 +149,15 @@ it("Namo removes only the first actual threshold-withdrawal cohesion step and do
   expect(u.x).toBe(8);
   expect(s.zones.threshold.triggered).toBe(false);
 });
+it.each([['dwarf_khazad_dum','passage-ward'],['elf_sindar','song-lure']]as const)('traded %s device preserves ordinary hesitation without becoming Namo declared threshold', (profile,key)=>{
+ const{s,p,u}=fixture('namo'),q=finalProduction(profile,key)!;if(q.kind!=='item')throw Error('Item recipe required');
+ const id=`traded:${key}`;s.items[id]={id,name:q.recipe.name,owner:'p1',bearer:u.id,crafted:true,...q.item,finalProduct:key,x:u.x,y:u.y};u.inventory.push(id);
+ deployFinalDevice(s,'p1',u.id,id,{x:u.x,y:u.y});
+ const route=[{x:8,y:8},{x:7,y:8}];retreatMorale(s,u,route);
+ expect(moraleAttackPenalty(s,u)).toBe(1);expect(s.units[p.hero.id].effects.some(e=>e.kind==='shelter-threshold-used')).toBe(false);
+ const enemy=s.units['p2:company:0'];s.players.p2.relations.p1='war';s.players.p1.relations.p2='war';
+ const crossing=[{x:7,y:8},{x:8,y:8}];expect(movementZonePenalty(s,enemy,crossing)).toBe(1);crossZones(s,enemy,crossing);expect(s.zones[`device:${id}`].triggered).toBe(true);expect(movementZonePenalty(s,enemy,crossing)).toBe(0);
+});
 it("Gandalf orderly protection ends when he cannot remain conscious and nearby", () => {
   const { s, p, u } = fixture("istari_gandalf");
   u.effects.push({
@@ -191,4 +202,10 @@ it("verified signal reduces an actual strongest coordination effect without repl
   });
   finishMoraleEncounter(s);
   expect(moraleAttackPenalty(s, u)).toBe(1);
+});
+it('measured rearguard restores facing after one orderly retreat, never grants actions or removes rout',()=>{
+ const {s,p,u}=fixture('elf_fingolfin');const ops=p.operations,origin={x:u.x,y:u.y};u.x++;
+ retreatMorale(s,u,[origin,{x:u.x,y:u.y}]);expect(u.effects.some(e=>e.kind==='facing-unready')).toBe(false);expect(p.operations).toBe(ops);expect(s.units[p.hero.id].effects.some(e=>e.kind==='measured-rearguard-used')).toBe(true);
+ retreatMorale(s,u,[origin,{x:u.x,y:u.y}]);expect(u.effects.some(e=>e.kind==='facing-unready')).toBe(true);
+ const next=fixture('elf_fingolfin');next.u.effects.push({kind:'rout',value:1,until:999,source:'test'});next.u.x++;retreatMorale(next.s,next.u,[{x:8,y:8},{x:9,y:8}]);expect(next.u.effects.some(e=>e.kind==='facing-unready')).toBe(true);expect(next.u.effects.some(e=>e.kind==='rout')).toBe(true);
 });

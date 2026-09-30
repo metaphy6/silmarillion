@@ -67,7 +67,7 @@ export function startIntelligence(s:Match,seat:string,a:IntelligenceRequest,path
 function addReport(s:Match,owner:string,kind:IntelligenceReport['kind'],observations:IntelligenceObservation[],sourceReportIds:string[],status:IntelligenceReport['status'],uncertainty:string[]):void {
  const id=`report:${s.nextId++}`;
  s.intelligenceReports[id]={id,owner,createdTurn:s.turn,createdRevision:s.revision,kind,observations:structuredClone(observations.slice(0,64)),sourceReportIds:[...sourceReportIds],status,uncertainty};
- const pinned=new Set([...Object.values(s.intelligenceTasks).flatMap(t=>t.reportIds),...Object.values(s.relayMessages).map(q=>q.report)]);
+ const pinned=new Set([...Object.values(s.intelligenceTasks).flatMap(t=>t.reportIds),...Object.values(s.relayMessages).map(q=>q.report),...Object.values(s.beaconSignals).map(q=>q.report)]);
  const owned=Object.values(s.intelligenceReports).filter(r=>r.owner===owner);
  while(owned.length>64){const index=owned.findIndex(r=>!pinned.has(r.id));if(index<0)break;delete s.intelligenceReports[owned[index].id];owned.splice(index,1);}
 }

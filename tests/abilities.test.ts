@@ -43,11 +43,11 @@ describe("explicit adopted ability handlers", () => {
     a.cost.stocks.P = 999;
     expect(ability("istari_radagast", "support").cost.stocks.P).toBe(10);
   });
-  it("reports unsupported domains and refuses execution without fake generic wards", () => {
+  it("directs dedicated powers to their specific action and refuses generic execution", () => {
     const s = setup("vaire"),
       before = structuredClone(s);
     expect(abilityAvailability(s, "p1", "support", "p1:training")).toMatch(
-      /unavailable|not implemented/i,
+      /use its dedicated .* action/i,
     );
     expect(() =>
       resolveAbility(s, "p1", "support", "p1:training", callbacks()),
@@ -581,10 +581,10 @@ describe("explicit adopted ability handlers", () => {
     expect(c.damage).toHaveBeenCalledWith(u.id, 18, false);
     expect(Object.values(s.tacticalOrders).some(q=>q.unit===u.id)).toBe(false);
   });
-  it("Belegost remains unavailable until typed protection kits and hazard selection exist", () => {
+  it("Belegost generic casting directs players to the existing kit and hazard interface", () => {
     const s = setup("dwarf_belegost");
     expect(abilityAvailability(s, "p1", "field", "p1:company:0")).toMatch(
-      /unavailable/i,
+      /Economy.*Carried protection and armor fitting.*kit.*hazard/i,
     );
     expect(supportedAbilities.has("dwarf_belegost:field")).toBe(false);
   });

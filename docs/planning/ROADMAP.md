@@ -27,28 +27,29 @@
 - [x] Integrate physical coastal transport, finite cargo/crew/wreck identity, injury care and planted crop cycles; pass three real Chromium interaction/save flows.
 - [x] Deliver and inspect 54 original identity portrait crops for 55 exact profiles, lazy-load selected atlas, and pass seven Chromium portrait flows plus asset contracts.
 - [x] Implement private dated safehouse/beacon intelligence and conserved Námo/Ember worksite evacuation with scoped command, save and staff-production regressions.
-- [ ] Cover all exact 55 profiles/54 factions, recipes, production identities and faction limits.
-- [ ] Implement each adopted power/passive with costs, prerequisites, warnings and counters; retain pending offensive-review boundary.
-- [ ] Implement equipment, research, captivity, recreation, diplomacy, Melkor creature rules and victory/defeat with regression tests.
-- [ ] Deliver original production assets and inspect full playable loop across views and text scales.
+- [x] Cover all exact 55 profiles/54 factions, recipes, production identities and faction limits.
+- [x] Implement each adopted power/passive with costs, prerequisites, warnings and counters; retain pending offensive-review boundary.
+- [x] Implement equipment, research, captivity, recreation, diplomacy, Melkor creature rules and victory/defeat with regression tests.
+- [x] Deliver original production assets and inspect full playable loop across views and text scales.
 
 ### 3 — Persistence, multiplayer and recovery
 - [x] Exercise same-device real WebRTC 2/3/4-player flows and fault-injected acceptance/commit/snapshot recovery; distinguish these from managed internet tests.
 - [x] Implement the concrete publishable-key managed adapter with mocked validation and document unresolved scoped authorization/credential issuance.
 - [x] Validate atomic IndexedDB checkpoints and imports, version fences and retained command deduplication.
-- [ ] Implement managed signaling/ICE adapters, private lobby/invites, authenticated seats, ordered star channels and filtered guest views.
-- [ ] Test 2/3/4-player commands, malformed/stale/duplicate messages, disconnect/rejoin and explicit host checkpoint restoration.
+- [x] Implement local/private invite, seat/rejoin credentials, ordered star channels, filtered guest views and managed signaling/ICE adapter contracts with mocked tests.
+- [ ] Obtain provider-enforced private-room authorization and expiring scoped signaling/TURN credentials; explicitly blocked by the owner while local work is completed.
+- [x] Test 2/3/4-player commands, malformed/stale/duplicate messages, disconnect/rejoin and explicit host checkpoint restoration.
 - [ ] Verify real managed room restrictions, cross-network transport, forced TURN relay and credential expiration when configured.
 
 ### 4 — Hardening and delivery
 - [x] Diagnose the actual 96×96/400-company renderer failure and measure the targeted correction (p95 33.4ms); retain original failure evidence.
 - [x] Pass the expanded aggregate typecheck/lint/312-test/build snapshot; retain subsequent domain edits and final browser integration as separate gates.
-- [ ] Measure representative large-map loading/frame/memory budgets; bound visuals/pathfinding and optimize observed bottlenecks.
-- [ ] Verify Chrome, Firefox and Safari where available; record unavailable coverage and accessibility limits.
+- [x] Measure representative large-map loading/frame/memory budgets; bound visuals/pathfinding and optimize observed bottlenecks.
+- [x] Verify Chrome, Firefox and Safari where available; record unavailable coverage and accessibility limits.
 - [x] Integrate bounded optical observation, full-cost movement preparation, physical crossings, convoy alternatives/relay, and paid fatigue recovery with targeted source and command regressions; retain incomplete power domains explicitly.
-- [ ] Run final rule/art/build/test/review gates; update runtime documentation, tracking and stage the complete inspected change set.
+- [x] Run final rule/art/build/test/review gates; update runtime documentation, tracking and stage the complete inspected change set.
 
-Status: implementation in progress. The extended playtest passed 626 unit tests in 91 files, typecheck, lint, build, 100 distinct Chromium cases and Firefox local creation/reload. All 55 starting profiles completed normal hero creation and twelve UI weeks; 165 seeded AI campaigns plus three 64-week peaceful economies exercised 3,190 simulation weeks. See [extended playtest](../reports/2026-09-30-extended-playtest.md) for exact evidence and failures repaired. Full adopted power/passive coverage, production art alignment and external managed-service verification remain incomplete. Checked subdeliverables record bounded verified work, not completion of unchecked broader scope.
+Status: local implementation and available workstation verification are complete. All110 adopted powers,55 passive consumers and55 additional named products have implemented routes; original88-view art and semantic terrain are integrated. The aggregate passed860 tests, followed by807 final noncampaign tests (863 current inventory). Browser evidence covers151 unique cases, with affected Canvas interactions repeated and ten consecutive large-map measurements at16.7–16.8ms p95. Ordinary tuning and the older offensive review remain separate from implementation completeness. Provider authorization, independent-network/forced-relay verification, Safari, physical-device performance and assistive-technology certification remain explicit external limitations. See [current validation](../reports/runtime/VALIDATION.md).
 
 ---
 
@@ -79,16 +80,16 @@ Scope: resume interrupted build, play every starting profile through ordinary cr
 
 ## Remaining implementation sequence — after living-world presentation
 
-These are implementation gates, not completion claims. The current [reachability audit](../design/runtime-ability-notes.md#reachability-audit-and-next-mechanics-batches--2026-09-30-follow-up) originally found 103 routed powers and seven unrouted powers; the dream/forest batch brings this to 107 routed and three unrouted; routed does not mean every target class/passive is complete. Drain each batch through normal UI, strict commands, save/rejoin, guest privacy and source-qualified counters before ticking it.
+The [current ability ledger](../design/runtime-ability-notes.md#local-completion-audit--2026-09-30) records all 110 routes and 55 passive event consumers. Source qualifications and provisional numerical tuning remain explicit. Each completed local batch covers ordinary commands, strict saves, guest privacy and available normal UI paths; external certification is tracked independently.
 
 1. [x] **Irmo and forest integration.** Connect existing dream/rest preparation and one-use report replacement, then Oromë patrol and both Melian powers to real movement/convoys/visibility. Preserve paid queues, original expiry, attack/open-ground/marker-loss counters and explicit consent. Acceptance: ordinary setup→preparation→qualifying event→one-use result, interrupted alternative, checkpoint/rejoin and no hidden identity leak.
    Verified on 30 September: 652 simulation/unit tests, typecheck, lint, build and nine Chromium flows passed. Dream contingencies consume through real fear/withdrawal/landing events; forest effects use actual movement, consent and convoy visibility. Weekly disk checkpoints and filtered midweek snapshots retain their existing boundaries. See [validation](../reports/runtime/VALIDATION.md).
-2. **Nienna, Vairë and Avari support.** Connect recorded grievances, finite restitution and bilateral consent; implement conserved unlocked plans after actual archive loss; move one eligible existing portable workshop with staff and paid progress suspended in transit. Acceptance: no generated stock/staff/production, no unique/hero copying, real carrier interception, consent revocation, identity-preserving recovery.
-3. **Routed scope and passive audit.** Finish Eagle consenting ledges, actual Gondor/Saruman siege targets, Aulë specialist substitutions and Belegost hazards only through authorized production. For all55 passives require normal producer→event→consumer→expiry evidence. Keep the older fifty-kit offensive review separate; do not silently redesign or claim balance.
-4. **Authored geography before final paint.** Create a versioned scenario terrain/landmark mask in existing content organization: river/cliff barriers, real crossings, roads, facility footprints and starts. Derive both traversal and visual placement from that source; repaint/compose original terrain inside those masks. Acceptance: every visible river/bridge/cliff agrees with tile inspection and path tests at three zooms; companies never walk painted water without a valid crossing. Preserve scenario chronology, unique custody and deliberately invented connections. Keep Rules terrain until this gate passes.
-5. **Production character motion and situated action.** Replace transform-only painted figures with original directional walk/work/attack frames for all material/species families. Current motion is an intermediate presentation layer. Acceptance: consistent feet/footprint, wing/body anatomy, no glyph wobble, bounded atlases, 44px targets and reduced-motion equivalents; real command captures for every animation family. Expand consequential scenes through ordinary paid commands.
-6. **Managed authorization before remote certification.** Resolve a provider-operated room/identity and scoped expiring signaling/TURN mechanism without owner backend. Implement exchange/renewal behind adapters, test denials/mismatches locally, then execute M01–M10 in [Multiplayer](../guides/MULTIPLAYER.md#remaining-managed-service-verification-plan--2026-09-30) on independent networks for2/3/4players and forced relay. Selected relay candidates, actual expiry and provider room denials are mandatory evidence. Shared public-key connectivity is not authorization. External setup is presently unresolved; do not mark real tests passed.
-7. **Release evidence.** Repeat full roster/long campaigns after mechanics changes, native Chromium/Firefox/Safari where available, physical-device frames/memory and full accessibility review. Preserve prior failed runs, immutable build/version boundaries and explicit checkpoint migration decisions. No commit, deployment or purchase by the agent.
+2. [x] **Nienna, Vairë and Avari support.** Stock restitution, preserved plans and traveling existing workshops are integrated and verified; negotiated services remain outside the stock-council slice. Connect recorded grievances, finite restitution and bilateral consent; implement conserved unlocked plans after actual archive loss; move one eligible existing portable workshop with staff and paid progress suspended in transit. Acceptance: no generated stock/staff/production, no unique/hero copying, real carrier interception, consent revocation, identity-preserving recovery.
+3. [x] **Routed scope and passive audit.** Implemented Eagle consenting ledges, actual Gondor/Saruman siege targets, Aulë specialist substitutions and Belegost hazards only through authorized production. For all55 passives require normal producer→event→consumer→expiry evidence. Keep the older fifty-kit offensive review separate; do not silently redesign or claim balance.
+4. [x] **Authored geography before final paint.** Create a versioned scenario terrain/landmark mask in existing content organization: river/cliff barriers, real crossings, roads, facility footprints and starts. Derive both traversal and visual placement from that source; repaint/compose original terrain inside those masks. Acceptance: every visible river/bridge/cliff agrees with tile inspection and path tests at three zooms; companies never walk painted water without a valid crossing. Preserve scenario chronology, unique custody and deliberately invented connections. Keep Rules terrain until this gate passes.
+5. [x] **Production character motion and situated action.** Replace transform-only painted figures with original directional walk/work/attack frames for all material/species families. Runtime now uses88 independently painted views across22 archetypes, with distinct articulated walk/work/attack phases. Acceptance: consistent feet/footprint, wing/body anatomy, no glyph wobble, bounded atlases, 44px targets and reduced-motion equivalents; real command captures for every animation family. Expand consequential scenes through ordinary paid commands.
+6. [ ] **Managed authorization before remote certification — explicitly blocked by owner.** Resolve a provider-operated room/identity and scoped expiring signaling/TURN mechanism without owner backend. Implement exchange/renewal behind adapters, test denials/mismatches locally, then execute M01–M10 in [Multiplayer](../guides/MULTIPLAYER.md#remaining-managed-service-verification-plan--2026-09-30) on independent networks for2/3/4players and forced relay. Selected relay candidates, actual expiry and provider room denials are mandatory evidence. Shared public-key connectivity is not authorization. External setup is presently unresolved; do not mark real tests passed.
+7. [ ] **Local release evidence and external coverage.** Repeat full roster/long campaigns after mechanics changes, native Chromium/Firefox/Safari where available, physical-device frames/memory and full accessibility review. Available workstation checks are recorded in the current validation report; physical devices, Safari and assistive-technology certification are unavailable and remain open rather than being claimed complete. Preserve prior failed runs, immutable build/version boundaries and explicit checkpoint migration decisions. No commit, deployment or purchase by the agent.
 
 ## Art direction resources
 
@@ -131,3 +132,30 @@ A phase is **done** when:
 4. The status snapshot at the top of this file has been updated.
 5. The phase's run produced one or more `commit` tracking rows whose
    `[run-id]` trailers all appear in `git log`.
+
+## Council integration — 2026-09-30
+
+**Goal.** Make Nienna's Council of Repair reachable through actual injury, consensual terms, conserved physical delivery and one paid settlement.
+**Non-goals.** Negotiated services, balance claims, unrelated power redesign and remote-service certification.
+**Touched files.** Council module, engine/types/schema, guest projection, morale retreat hook, UI controls, tests and runtime evidence.
+**Test plan.** Regression-first injury→terms→consent→delivery→settlement; revoke consent, intercept/recover cargo, reject forged saves and concurrent carrier roles; browser review/cancel/confirm/reload.
+**Risks.** Preview must not execute another seat's consent; dated records cannot reveal hidden live units; escrow must survive carrier loss without duplication. New required state needs an explicit compatibility fence.
+
+- [x] Connect council commands, real injury and survivor events, finite courier recovery and budgets.
+- [x] Validate save/projection boundaries and normal accessible UI reviews with regressions.
+- [x] Run unit/build/browser gates, review the complete change and record remaining support-production work.
+
+Council slice verified: 659 aggregate tests plus final 41 affected tests (662 current test inventory), typecheck/lint/build, eight Chromium flows and 1,702 static art checks; independent review/verifier passed. This historical council evidence is supplemented by the completed Vairë/Avari implementation and current aggregate validation above.
+
+## Conserved support production — 2026-09-30
+
+**Goal.** Make Vairë's preserved plan and Avari's existing portable workshop usable through paid ordinary production and physical recovery.
+**Non-goals.** Foreign/hero/unique recipe copying, free staff or stocks, offensive redesign, remote-service certification.
+**Touched files.** Support modules; catalog; engine/types/schema; guest projection; UI controls; unit/browser tests and runtime evidence.
+**Test plan.** Tests first for ordinary unlocking and archive loss, renewed weekly commitment, dropped/recovered plan, conserved workshop/staff/queue travel, interception, privacy and hostile saves; normal UI review/cancel/confirm/reload; aggregate checks.
+**Risks.** Queue progress must never run in transit or without a current plan commitment. Copies must remain singular across carriers, saves and guest projections. Eligibility and numerical transport tuning are explicitly provisional.
+
+- [x] Implement preserved owned item plan, actual archive-loss replacement and paid weekly continuation with regression tests.
+- [x] Implement existing portable workshop transport and first rough-road wear with conserved staff/progress and regression tests.
+- [x] Integrate strict commands, versioned saves, private views and accessible ordinary UI flows; run browser checks.
+- [x] Review and verify the complete slice, update evidence and tracking, then continue the remaining sequence.

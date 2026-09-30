@@ -6,7 +6,7 @@ async function fixture(page: Page, profile: string) {
     const e = await import("/src/simulation/engine.ts" as string);
     const p = await import("/src/persistence/checkpoints.ts" as string);
     const s = e.createMatch([profile, "human_gondor"], 84);
-    s.map.terrain.fill("meadow");s.seaHazards={};s.shallowWater={};s.infrastructureSites={};
+    s.map.terrain.fill("meadow");s.waterChannels={};s.seaHazards={};s.shallowWater={};s.infrastructureSites={};
     s.players.p2.ai = false;
     const owner = s.players.p1, u = s.units["p1:company:0"];
     owner.hero.status = "living";

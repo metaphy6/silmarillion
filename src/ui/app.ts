@@ -1,3 +1,7 @@
+import {attachedMountFatigue} from "../simulation/remounts";
+import {localSupportPanel,localSupportAction} from "./local-support-controls";
+import {productionSupportPanel,productionSupportAction} from "./production-support-controls";
+import {councilPanel,councilAction} from "./council-controls";
 import {panel as forestPanel,actionBuilder as forestAction} from "./forest-controls";
 import { dreamPanel, dreamAction } from "./dream-controls";
 import { panel as nightPanel, actionBuilder as nightAction, describe as nightDescription } from "./night-relay-controls";
@@ -23,7 +27,7 @@ import {
   type StructuralMaterial,
 } from "../simulation/fieldworks";
 import { situatedScenes } from "../content/narrative";
-import { navalRoute } from "../simulation/naval";
+import { navalRoute, vesselClassDescription } from "../simulation/naval";
 import { effectiveRelation } from "../simulation/diplomacy";
 import { fatigue } from "../simulation/fatigue";
 import { repairCost, repairPowerProfiles } from "../simulation/repair";
@@ -494,7 +498,7 @@ function economyPanel(s: Match) {
     fs = Object.values(s.facilities).filter(
       (f) => f.owner === seat && f.hp > 0,
     );
-  return `<p>Sources are access, not extra stocks: ${esc(p.sources.join(", "))}.</p><p>Established queues progress separately. Costs below are reserved now and paid at resolution.</p><label>Facility<select id="facility">${fs.map((f) => `<option value="${f.id}" ${f.id === selected ? "selected" : ""}>${esc(f.name)} · ${f.job ? `${f.job.recipe} (${f.job.remaining})` : f.repair ? `repair (${f.repair.remaining})` : f.rest ? `rest (${f.rest.remaining})` : "available"}</option>`).join("")}</select></label><div id="recipes">${recipeList(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}</div>${repairPanel(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}${equipmentServicePanel(s)}${civilianPanel(s, seat)}${restPanel(s)}${dreamPanel(s, seat)}${carePanel(s)}${cropPanel(s)}${worksitePanel(s)}${infrastructurePanel(s)}${fleetPanel(s)}${logisticsPanel(s)}${huntingPanel(s)}${crossingPanel(s)}${transportPanel(s)}<details><summary>Independent recovery economy</summary><p>Exchange 20P + 10M → 10K (provisional rate, one operation). Core ritual: 20M + 10K → 10E over 2 weeks. Missing-source component: 30M + 20K + 10E over 3 weeks.</p>${button("Review exchange", "exchange")}</details><h2>Work and identity</h2><p>${esc(economy(p.profile).production)}</p><p>${esc(economy(p.profile).magicEquipment)}</p>`;
+  return `<p>Sources are access, not extra stocks: ${esc(p.sources.join(", "))}.</p><p>Established queues progress separately. Costs below are reserved now and paid at resolution.</p><label>Facility<select id="facility">${fs.map((f) => `<option value="${f.id}" ${f.id === selected ? "selected" : ""}>${esc(f.name)} · ${f.job ? `${f.job.recipe} (${f.job.remaining})` : f.repair ? `repair (${f.repair.remaining})` : f.rest ? `rest (${f.rest.remaining})` : "available"}</option>`).join("")}</select></label><div id="recipes">${recipeList(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}</div>${repairPanel(s, fs.find((f) => f.id === selected)?.id ?? fs[0]?.id)}${equipmentServicePanel(s)}${civilianPanel(s, seat)}${restPanel(s)}${dreamPanel(s, seat)}${councilPanel(s,seat)}${productionSupportPanel(s,seat)}${siegePanel(s)}${localSupportPanel(s,seat)}${carePanel(s)}${cropPanel(s)}${worksitePanel(s)}${infrastructurePanel(s)}${fleetPanel(s)}${logisticsPanel(s)}${huntingPanel(s)}${crossingPanel(s)}${transportPanel(s)}<details><summary>Independent recovery economy</summary><p>Exchange 20P + 10M → 10K (provisional rate, one operation). Core ritual: 20M + 10K → 10E over 2 weeks. Missing-source component: 30M + 20K + 10E over 3 weeks.</p>${button("Review exchange", "exchange")}</details><h2>Work and identity</h2><p>${esc(economy(p.profile).production)}</p><p>${esc(economy(p.profile).magicEquipment)}</p>`;
 }
 function recipeList(s: Match, facility: string) {
   if (!facility)
@@ -508,7 +512,7 @@ function recipeList(s: Match, facility: string) {
   if (f.job)
     return `<p>Pending ${esc(f.job.recipe)} · ${f.job.remaining} weeks. Cancellation returns half stock cost; consumed hero component does not return.</p>${button("Review cancel queue", `cancel:${facility}`)}`;
   return recipeKeys
-    .filter((k) => recipe(p.profile, k)?.facility === f.kind)
+    .filter((k) => recipe(p.profile, k)?.facility === f.kind || (p.profile==="elf_avari"&&f.kind==="portable-workshop"&&k==="equipment"))
     .map((k) => {
       const r = recipe(p.profile, k)!;
       const a: Action = { kind: "produce", facility, recipe: k };
@@ -538,7 +542,7 @@ function repairPanel(s: Match, facility: string) {
         (u) =>
           u.owner === seat &&
           u.alive &&
-          u.kind === "construct" &&
+          (u.kind === "construct" || !!u.siege) &&
           u.hp < u.maxHp,
       )
       .map((u) => ({
@@ -546,8 +550,9 @@ function repairPanel(s: Match, facility: string) {
         name: `${u.name} · condition ${u.hp}/${u.maxHp}`,
       })),
   ];
-  return `<details><summary>Paid repairs and equipment wear</summary><p>Ordinary repairs: ${cost(repairCost(s, seat, "ordinary"))}, one operation, two weeks; restore up to 25%. Values are provisional. Workshop, compatible material access and target beside the worksite required. A broken item has no equipment bonuses until repaired; it is never duplicated.</p><label>Existing damaged target<select id="repair-target">${targets.map((t) => `<option value="${t.id}">${esc(t.name)}</option>`).join("")}</select></label>${button("Review ordinary repair", "repair:ordinary", targets.length ? "" : "disabled")}${repairPowerProfiles.has(p.profile) ? `<p>${esc(profile(p.profile).support_power.name)}: ${esc(profile(p.profile).support_power.cost)}. ${esc(profile(p.profile).support_power.effect)}</p>${button("Review repair power", "repair:power", targets.length ? "" : "disabled")}` : ""}</details>`;
+  return `<details><summary>Paid repairs and equipment wear</summary><p>Ordinary repairs: ${cost(repairCost(s, seat, "ordinary"))}, one operation, two weeks; restore up to 25%. Values are provisional. Workshop, compatible material access and target beside the worksite required. A broken item has no equipment bonuses until repaired; it is never duplicated.</p><label>Existing damaged target<select id="repair-target">${targets.map((t) => `<option value="${t.id}">${esc(t.name)}</option>`).join("")}</select></label>${p.profile==="istari_forge"?`<label>Own unused construct repair kit<select id="construct-repair-kit"><option value="">No kit (other repairs)</option>${Object.values(s.items).filter(i=>i.owner===seat&&s.toolMetadata[i.id]?.function==="repair-kit"&&s.toolMetadata[i.id]?.maker===seat).map(i=>`<option value="${i.id}">${esc(i.name)}</option>`).join("")}</select></label>`:""}${button("Review ordinary repair", "repair:ordinary", targets.length ? "" : "disabled")}${repairPowerProfiles.has(p.profile) ? `<p>${esc(profile(p.profile).support_power.name)}: ${esc(profile(p.profile).support_power.cost)}. ${esc(profile(p.profile).support_power.effect)}</p>${button("Review repair power", "repair:power", targets.length ? "" : "disabled")}` : ""}</details>`;
 }
+function siegePanel(s:Match){const units=Object.values(s.units).filter(u=>u.owner===seat&&u.alive&&u.siege);if(!units.length)return '';return `<details><summary>Siege ammunition</summary><p>Reload an existing siege engine beside a staffed depot or workshop: 5P + 10M and one operation, up to three ordinary shots. Repair restores condition separately; no ammunition is restored by repair.</p><label>Siege engine<select id="siege-unit">${units.map(u=>`<option value="${u.id}">${esc(u.name)} · ${u.siege!.ammunition}/3 shots</option>`).join('')}</select></label><label>Loading worksite<select id="siege-site">${Object.values(s.facilities).filter(f=>f.owner===seat&&f.hp>0&&['workshop','depot'].includes(f.kind)).map(f=>`<option value="${f.id}">${esc(f.name)}</option>`).join('')}</select></label>${button('Review reload siege','reload-siege')}</details>`;}
 function infrastructurePanel(s: Match) {
   const sites = Object.values(s.infrastructureSites).filter(
     (q) => q.owner === seat && visible(s, seat, q),
@@ -634,7 +639,7 @@ function carePanel(s: Match) {
       f.hp > 0 &&
       ["refuge", "medicine-nursery"].includes(f.kind),
   );
-  return `<details><summary>Injury recovery</summary><p>Normal care costs 5P + 2M and one operation, takes two weekly advances, and occupies a staffed refuge or nursery. Rest removes an existing recoverable injury; it never restores casualties or HP. Ordinary values are provisional. Cancel care before moving; renewed injury cancels care; missing supply or threats pause it.</p><label>Injured patient<select id="care-unit">${patients.map((u) => `<option value="${u.id}">${esc(u.name)} (${u.x},${u.y})</option>`).join("")}</select></label><label>Recovery site<select id="care-facility">${facilities.map((f) => `<option value="${f.id}">${esc(f.name)}</option>`).join("")}</select></label>${button("Review normal care", "care:ordinary")}${button("Review cancel care", "cancel-care")}${s.players[seat].profile === "este" ? button("Review Rest Without Walls", "care:este") : ""}${["elf_finarfin", "istari_grove"].includes(s.players[seat].profile) ? `<p>${esc(profile(s.players[seat].profile).support_power.effect)} ${esc(profile(s.players[seat].profile).support_power.cost)}</p>${s.players[seat].profile === "istari_grove" ? `<label>Optional second patient<select id="care-unit-2"><option value="">None</option>${patients.map((u) => `<option value="${u.id}">${esc(u.name)}</option>`).join("")}</select></label>` : ""}${button("Review recovery power", "care-power")}` : ""}${Object.values(
+  return `<details><summary>Injury recovery</summary><p>Normal care costs 5P + 2M and one operation, takes two weekly advances, and occupies a staffed refuge or nursery. Rest removes an existing recoverable injury; it never restores casualties or HP. Ordinary values are provisional. Use evacuation below to move paid care; renewed injury cancels care; missing supply or threats pause it.</p><label>Injured patient<select id="care-unit">${patients.map((u) => `<option value="${u.id}">${esc(u.name)} (${u.x},${u.y})</option>`).join("")}</select></label><label>Recovery site<select id="care-facility">${facilities.map((f) => `<option value="${f.id}">${esc(f.name)}</option>`).join("")}</select></label>${button("Review normal care", "care:ordinary")}${button("Review cancel care", "cancel-care")}${s.players[seat].profile === "este" ? button("Review Rest Without Walls", "care:este") : ""}${["elf_finarfin", "istari_grove"].includes(s.players[seat].profile) ? `<p>${esc(profile(s.players[seat].profile).support_power.effect)} ${esc(profile(s.players[seat].profile).support_power.cost)}</p>${s.players[seat].profile === "istari_grove" ? `<label>Optional second patient<select id="care-unit-2"><option value="">None</option>${patients.map((u) => `<option value="${u.id}">${esc(u.name)}</option>`).join("")}</select></label>` : ""}${button("Review recovery power", "care-power")}` : ""}${Object.values(
     s.recoveries,
   )
     .filter((q) => q.owner === seat)
@@ -652,7 +657,7 @@ function fleetPanel(s: Match) {
       u.alive &&
       ["company", "worker", "hero"].includes(u.kind),
   );
-  return `<details><summary>Coastal transport</summary><p>Build a harbor beside water, then queue a paid hull with an existing free worker crew. Hulls carry 20 stock, one ordinary party and one hero. Every order spends one operation. Handling takes one week plus local delay; sailing advances three water tiles weekly. Upkeep 2P + 1M plus crew upkeep. These ordinary values are provisional.</p>${ships.map((v) => `<p>${esc(v.name)} (${v.x},${v.y}) · ${esc(v.phase)} · hull ${v.hp}/${v.maxHp} · cargo ${cost(v.cargo)} · crew ${esc(v.crew)} · party ${esc(v.passenger ?? "none")} · hero ${esc(v.aboardHero ?? "none")}</p>`).join("")}<label>Own vessel<select id="fleet-ship">${ships.map((v) => `<option value="${v.id}">${esc(v.id)} (${v.x},${v.y}) · ${esc(v.phase)}</option>`).join("")}</select></label><label>Existing party<select id="fleet-unit">${passengers.map((u) => `<option value="${u.id}">${esc(u.name)} (${u.x},${u.y})</option>`).join("")}</select></label><div class="form-row"><label>Destination / landing X<input id="fleet-x" type="number" min="0" max="${s.map.width - 1}" value="${selectedTile?.x ?? 0}"></label><label>Destination / landing Y<input id="fleet-y" type="number" min="0" max="${s.map.height - 1}" value="${selectedTile?.y ?? 0}"></label></div>${["P", "M", "K", "E"].map((k) => `<label>Cargo ${k}<input id="fleet-${k}" type="number" min="0" max="20" value="0"></label>`).join("")}${["sail", "embark", "disembark", "rescue-passenger", "load-cargo", "unload-cargo", "repair-ship"].map((k) => button("Review " + k, "fleet:" + k)).join("")}${["elf_falmari", "uinen", "osse"].includes(s.players[seat].profile) ? `<h3>Naval hero powers</h3><p>${esc(profile(s.players[seat].profile).field_power.effect)}</p>${button("Review naval field power", "naval-power:field")}${s.players[seat].profile !== "osse" ? `<p>${esc(profile(s.players[seat].profile).support_power.effect)}</p>${button("Review naval support power", "naval-power:support")}` : ""}` : ""}<h3>Observed water conditions</h3>${
+  return `<details><summary>Coastal transport</summary><p>Build a harbor beside water, then queue a paid hull with an existing free worker crew. Each hull carries one ordinary party and one hero; stock capacity, draft, speed and upkeep depend on its paid class. Every order spends one operation. Handling takes one week plus local delay. An embarked supplied Current Guide removes one handling delay. Protected fishing craft reduces storm losses; it does not generate food. These ordinary values are provisional.</p>${ships.map((v) => `<p>${esc(v.name)} (${v.x},${v.y}) · ${esc(v.phase)} · hull ${v.hp}/${v.maxHp} · cargo ${cost(v.cargo)} · ${esc(vesselClassDescription(s,v))} · crew ${esc(v.crew)} · party ${esc(v.passenger ?? "none")} · hero ${esc(v.aboardHero ?? "none")}</p>`).join("")}<label>Own vessel<select id="fleet-ship">${ships.map((v) => `<option value="${v.id}">${esc(v.id)} (${v.x},${v.y}) · ${esc(v.phase)}</option>`).join("")}</select></label><label>Existing party<select id="fleet-unit">${passengers.map((u) => `<option value="${u.id}">${esc(u.name)} (${u.x},${u.y})</option>`).join("")}</select></label><div class="form-row"><label>Destination / landing X<input id="fleet-x" type="number" min="0" max="${s.map.width - 1}" value="${selectedTile?.x ?? 0}"></label><label>Destination / landing Y<input id="fleet-y" type="number" min="0" max="${s.map.height - 1}" value="${selectedTile?.y ?? 0}"></label></div>${["P", "M", "K", "E"].map((k) => `<label>Cargo ${k}<input id="fleet-${k}" type="number" min="0" max="40" value="0"></label>`).join("")}${["sail", "embark", "disembark", "prepare-rescue-rig", "rescue-passenger", "load-cargo", "unload-cargo", "repair-ship"].map((k) => button("Review " + k, "fleet:" + k)).join("")}${["elf_falmari", "uinen", "osse"].includes(s.players[seat].profile) ? `<h3>Naval hero powers</h3><p>${esc(profile(s.players[seat].profile).field_power.effect)}</p>${button("Review naval field power", "naval-power:field")}${s.players[seat].profile !== "osse" ? `<p>${esc(profile(s.players[seat].profile).support_power.effect)}</p>${button("Review naval support power", "naval-power:support")}` : ""}` : ""}<h3>Observed water conditions</h3>${
     Object.entries(s.seaHazards)
       .filter(([key]) => {
         const [x, y] = key.split(",").map(Number);
@@ -697,7 +702,7 @@ function logisticsPanel(s: Match) {
     )
     .join(
       "",
-    )}${button("Review ordinary fleet organization", "logistics:ordinary")}${s.players[seat].profile === "human_numenor" ? button("Review Convoy Command", "logistics:power") : ""}${s.players[seat].profile === "eagle_eyrie" ? `<h3>Lift the Stranded</h3><p>One willing light nonhero ally, picked up by contact and carried along one exposed flight over two phases to a safe landing within20metres. Normal total flight allowance remains. Light classification is explicit provisional unit data; large bodies and heroes are excluded.</p><label>Existing light ally<select id="lift-unit">${parties.map((u) => `<option value="${u.id}">${esc(u.name)} · ${esc(u.loadClass ?? "standard")}</option>`).join("")}</select></label><label>Landing X<input id="lift-x" type="number" min="0" max="${s.map.width - 1}" value="${selectedTile?.x ?? 4}"></label><label>Landing Y<input id="lift-y" type="number" min="0" max="${s.map.height - 1}" value="${selectedTile?.y ?? 4}"></label>${button("Review light rescue flight", "logistics:lift")}` : ""}${Object.values(
+    )}${button("Review ordinary fleet organization", "logistics:ordinary")}${s.players[seat].profile === "human_numenor" ? button("Review Convoy Command", "logistics:power") : ""}${s.players[seat].profile === "eagle_eyrie" ? `<h3>Lift the Stranded</h3><p>One willing light nonhero ally, picked up by contact and carried along one exposed flight over two phases to a safe landing within20metres. Normal total flight allowance remains. Light classification is explicit provisional unit data; large bodies and heroes are excluded.</p><label>Existing light ally<select id="lift-unit">${parties.map((u) => `<option value="${u.id}">${esc(u.name)} · ${esc(u.loadClass ?? "standard")}</option>`).join("")}</select></label><label>Landing X<input id="lift-x" type="number" min="0" max="${s.map.width - 1}" value="${selectedTile?.x ?? 4}"></label><label>Landing Y<input id="lift-y" type="number" min="0" max="${s.map.height - 1}" value="${selectedTile?.y ?? 4}"></label>${button("Review light rescue flight", "logistics:lift")}<h3>Ordinary Rescue Flights</h3><p>Produce a Rescue Flight at the Harness Perch. Take off with the normal flight toggle, then carry one existing light ally for 2P and one operation over two physical phases.</p><label>Existing Rescue Flight<select id="rescue-flight-carrier">${Object.values(s.units).filter(u=>u.owner===seat&&u.alive&&u.secondary==="rescue-flight").map(u=>`<option value="${u.id}">${esc(u.name)}</option>`).join("")}</select></label>${button("Review ordinary rescue flight","logistics:rescue-flight")}` : ""}${Object.values(
     s.logisticsJobs,
   )
     .filter((j) => j.owner === seat)
@@ -766,11 +771,11 @@ function restPanel(s: Match) {
   const refuges = Object.values(s.facilities).filter(
     (f) => f.owner === seat && f.hp > 0 && f.kind === "refuge",
   );
-  return `<details><summary>Rest and travel fatigue</summary><p>Each ordinary company travel leg adds 1 fatigue, up to 6. Every 3 fatigue removes 1 movement allowance, minimum 1. A staffed refuge recovers 2 fatigue for 2P and one weekly queue advance. Provisional ordinary tuning.</p><label>Company<select id="rest-unit">${companies.map((u) => `<option value="${u.id}">${esc(u.name)} · fatigue ${fatigue(s, u)}/6</option>`).join("")}</select></label><label>Refuge<select id="rest-facility">${refuges.map((f) => `<option value="${f.id}">${esc(f.name)} (${f.x},${f.y})</option>`).join("")}</select></label>${button("Review paid rest", "rest")}</details>`;
+  return `<details><summary>Rest and travel fatigue</summary><p>Each ordinary company travel leg adds 1 fatigue, up to 6. Every 3 fatigue removes 1 movement allowance, minimum 1. A staffed refuge recovers 2 company fatigue and 2 attached-mount fatigue for 2P and one weekly queue advance; animals and species remain unchanged. Provisional ordinary tuning.</p><label>Company<select id="rest-unit">${companies.map((u) => `<option value="${u.id}">${esc(u.name)} · fatigue ${fatigue(s, u)}/6 · mount fatigue ${attachedMountFatigue(s,u)}/6</option>`).join("")}</select></label><label>Refuge<select id="rest-facility">${refuges.map((f) => `<option value="${f.id}">${esc(f.name)} (${f.x},${f.y})</option>`).join("")}</select></label>${button("Review paid rest", "rest")}</details>`;
 }
 function transportPanel(s: Match) {
   const fs = Object.values(s.facilities).filter(
-    (f) => f.owner === seat && f.hp > 0,
+    (f) => f.hp > 0 && (f.owner === seat || (s.players[seat].profile==='eagle_eyrie' && f.kind==='ledge' && visible(s,seat,f) && Object.values(s.ledgeConsents).some(q=>q.ledge===f.id&&q.visitor===seat&&q.owner===f.owner))),
   );
   const units = Object.values(s.units).filter(
     (u) =>
@@ -783,7 +788,7 @@ function transportPanel(s: Match) {
       (f) => `<option value="${f.id}">${esc(f.name)} (${f.x},${f.y})</option>`,
     )
     .join("");
-  return `<details><summary>Physical convoys</summary><p>Reserve existing stocks as cargo: capacity 20 total, plus 1P loading supplies and one operation. One week loading, actual carrier movement, then one week unloading. Normal upkeep continues. Carrier cannot take separate actions while committed. Provisional transport tuning; endpoint destruction or blocked roads pauses travel.</p><label>Carrier<select id="convoy-carrier">${units.map((u) => `<option value="${u.id}">${esc(u.name)} (${u.x},${u.y})</option>`).join("")}</select></label><label>Origin<select id="convoy-origin">${options}</select></label><label>Destination<select id="convoy-destination">${options}</select></label>${["P", "M", "K", "E"].map((k) => `<label>${k} cargo<input id="convoy-${k}" type="number" min="0" max="20" value="${k === "P" ? 5 : 0}"></label>`).join("")}${button("Review convoy", "convoy")}${s.players[seat].profile === "eagle_eyrie" ? button("Review Eyrie Relay", "eyrie-relay") : ""}<p>Cargo comes from the faction's existing stock; this sandbox does not yet have independent household or depot inventories.</p>${Object.values(
+  return `<details><summary>Physical convoys</summary><label>Owned prepared ledge<select id="consent-ledge">${fs.filter(f=>f.owner===seat&&f.kind==='ledge').map(f=>`<option value="${esc(f.id)}">${esc(f.name)}</option>`).join('')}</select></label><label>Visiting Skywarden<select id="ledge-visitor">${Object.values(s.players).filter(p=>p.seat!==seat&&p.profile==='eagle_eyrie').map(p=>`<option value="${p.seat}">${esc(p.seat)}</option>`).join('')}</select></label>${button('Review landing consent','ledge-allow')}${button('Review revoke landing consent','ledge-revoke')}${s.players[seat].profile==='eagle_eyrie'?`<p>Landing Survey: one dated line-of-sight observation before rescue or delivery; known terrain and observed space only. No movement or remote revelation.</p><label>Survey X<input id="landing-x" type="number" min="0" max="${s.map.width-1}" value="${selectedTile?.x??4}"></label><label>Survey Y<input id="landing-y" type="number" min="0" max="${s.map.height-1}" value="${selectedTile?.y??4}"></label>${button('Review Landing Survey','landing-survey')}${s.landingSurveys[seat]?`<p>Week ${s.landingSurveys[seat].turn}: ${esc(s.landingSurveys[seat].terrain)} at ${s.landingSurveys[seat].destination.x},${s.landingSurveys[seat].destination.y}; ${s.landingSurveys[seat].spaceAvailable?'no visible occupant':'visible occupant present'}. Dated observation.</p>`:''}`:''}<p>Reserve existing stocks as cargo: capacity 20 total, plus 1P loading supplies and one operation. One week loading, actual carrier movement, then one week unloading. Normal upkeep continues. Carrier cannot take separate actions while committed. Provisional transport tuning; endpoint destruction or blocked roads pauses travel.</p><label>Carrier<select id="convoy-carrier">${units.map((u) => `<option value="${u.id}">${esc(u.name)} (${u.x},${u.y})</option>`).join("")}</select></label><label>Origin<select id="convoy-origin">${options}</select></label><label>Destination<select id="convoy-destination">${options}</select></label>${["P", "M", "K", "E"].map((k) => `<label>${k} cargo<input id="convoy-${k}" type="number" min="0" max="20" value="${k === "P" ? 5 : 0}"></label>`).join("")}${button("Review convoy", "convoy")}${s.players[seat].profile === "eagle_eyrie" ? button("Review Eyrie Relay", "eyrie-relay") : ""}<p>Cargo comes from the faction's existing stock; this sandbox does not yet have independent household or depot inventories.</p>${Object.values(
     s.convoys,
   )
     .filter((c) => c.owner === seat)
@@ -847,6 +852,7 @@ function patrolPanel(s: Match) {
 }
 function powerRouteHint(id: string, power: string): string {
   const routes: Record<string, string> = {
+    "nienna:support": "Economy → Council of Repair: agree exact stocks, deliver with a real courier, then settle the recorded grievance with both parties consent.",
     "irmo:support": "Economy → Rehearsal in Dream: prepare a company in paid rest; replace once with a fresh verified night report.",
     "orome:support": "World → Keep the Wild Road: personally patrol an actual surveyed route.",
     "melian:field": "World → Woodland roads and thresholds: veil an existing paid withdrawal with explicit allied consent.",
@@ -956,7 +962,7 @@ function heroPanel(s: Match) {
   )
     .map((which) => {
       const t = q[which === "field" ? "field_power" : "support_power"];
-      return `<article class="recipe"><h3>${esc(t.name)}</h3><p>${esc(t.effect)}</p><p>${esc(t.cost)}</p><p>${esc(t.range)} · ${esc(t.duration)}</p><p>Counter: ${esc(t.counter)}</p>${supportedAbilities.has(`${p.profile}:${which}`) ? button("Review power", `cast:${which}`) : ["nessa", "elf_nandor", "eonwe", "melkor_dark_architect"].includes(p.profile) && which === "field" ? `<p>Use Declared movement power below to select routes and formations.</p>` : ["ent_grove", "spider_brood"].includes(p.profile) && which === "support" ? `<p>Construct a paid physical crossing under Economy → Physical crossings.</p>` : p.profile === "eagle_eyrie" && which === "support" ? `<p>Use Eyrie Relay under Economy → Physical convoys: up to 20 existing P/K between your staffed landing ledges.</p>` : p.profile === "sauron" && which === "support" ? `<p>Prepare Redundant Supply for an existing depot convoy under Economy → Physical convoys.</p>` : p.profile === "manwe" && which === "support" ? `<p>Use Heralds on the Wind in Economy → Physical convoys to revise one existing convoy route without a relay.</p>` : repairPowerProfiles.has(p.profile) && which === "support" ? `<p>Use the paid repair action on the Economy tab. Exact target and worksite prerequisites are checked before commitment.</p>` : p.profile === "istari_saruman" && which === "support" ? `<p>Commission through the paid Resonant Sentinel recipe in an Orthanc Workshop on the Economy tab.</p>` : powerRouteHint(p.profile, which) ? `<p>${esc(powerRouteHint(p.profile, which))}</p>` : `<p class="reason">Unavailable: this adopted power needs a simulation domain not implemented yet. Source contract retained.</p>`}</article>`;
+      return `<article class="recipe"><h3>${esc(t.name)}</h3><p>${esc(t.effect)}</p><p>${esc(t.cost)}</p><p>${esc(t.range)} · ${esc(t.duration)}</p><p>Counter: ${esc(t.counter)}</p>${supportedAbilities.has(`${p.profile}:${which}`) ? button("Review power", `cast:${which}`) : ["nessa", "elf_nandor", "eonwe", "melkor_dark_architect"].includes(p.profile) && which === "field" ? `<p>Use Declared movement power below to select routes and formations.</p>` : ["ent_grove", "spider_brood"].includes(p.profile) && which === "support" ? `<p>Construct a paid physical crossing under Economy → Physical crossings.</p>` : p.profile === "eagle_eyrie" && which === "support" ? `<p>Use Eyrie Relay under Economy → Physical convoys: up to 20 existing P/K between owned or explicitly consenting staffed landing ledges.</p>` : p.profile === "sauron" && which === "support" ? `<p>Prepare Redundant Supply for an existing depot convoy under Economy → Physical convoys.</p>` : p.profile === "manwe" && which === "support" ? `<p>Use Heralds on the Wind in Economy → Physical convoys to revise one existing convoy route without a relay.</p>` : repairPowerProfiles.has(p.profile) && which === "support" ? `<p>Use the paid repair action on the Economy tab. Exact target and worksite prerequisites are checked before commitment.</p>` : p.profile === "istari_saruman" && which === "support" ? `<p>Commission through the paid Resonant Sentinel recipe in an Orthanc Workshop on the Economy tab.</p>` : powerRouteHint(p.profile, which) ? `<p>${esc(powerRouteHint(p.profile, which))}</p>` : `<p class="reason">Unavailable: this adopted power needs a simulation domain not implemented yet. Source contract retained.</p>`}</article>`;
     })
     .join(
       "",
@@ -995,6 +1001,11 @@ function showReview(a: Action) {
   if(a.kind === "forest-entrance") info="One normal operation assigns Melian to remember anonymous dated passage at this existing staffed entrance. No hidden identities or future route knowledge.";
   if(a.kind === "harass-convoy") info="One ordinary operation attempts minor harassment of an identified adjacent hostile party. Convoy membership and travel outcome remain private. No extra attack, stolen stock or damage.";
   if(a.kind === "inspect-forest") info="One normal operation inspects adjacent observed ground for anonymous dated tracks. No hidden identity, numbers or future route is disclosed.";
+  if(a.kind==='council-drop')info='Release this courier without a new operation. Its existing escrow remains at the current physical location; no stock is refunded or duplicated.';
+  if(a.kind==='council-terms') info=`Offer exact payment: ${a.payment.P}P ${a.payment.M}M ${a.payment.K}K ${a.payment.E}E. Changes revoke previous consents; no stock is spent until physical dispatch.`;
+  if(a.kind==='council-consent') {const q=state!.grievances[a.grievance];info=a.accept?`Accept terms ${a.termsVersion}: ${q?.payment?.P??0}P ${q?.payment?.M??0}M ${q?.payment?.K??0}K ${q?.payment?.E??0}E. No settlement before actual delivery. Withdrawal remains possible.`:'Withdraw consent before delivery or settlement. Existing escrow stays conserved; delivered stocks are not refunded.';}
+  if(a.kind==='council-deliver'||a.kind==='council-recover')info='One normal operation. Existing ordinary courier, open surveyed route and both consents required. Exact existing cargo is reserved once; injury, capture, hostile occupation or consent withdrawal can interrupt delivery. Recovery requires reaching the actual lost cargo.';
+  if(a.kind==='council-settle')info='3 readiness and one weekly hero commitment. Resolve only this recorded grievance after actual delivery and both consents. No healing, revived units or immunity to later injury.';
   if(a.kind === "prepare-dream") info="3 readiness and one weekly hero commitment. Requires the existing paid 2P rest assignment and ordinary upkeep. Rest completion enables one matching coordination reduction within the following week; injury or interrupted rest cancels it. No extra action or HP protection.";
   if(a.kind === "replace-dream") info="Replace this preparation once using fresh owned nonempty verified night-patrol evidence. No additional payment or rest. Original expiry and single-use limit remain.";
   if (a.kind === "produce") {
@@ -1087,7 +1098,7 @@ function showReview(a: Action) {
     info = `${profile(p.profile).support_power.name}: ${profile(p.profile).support_power.cost}. ${profile(p.profile).support_power.effect} Existing funded care remains occupied for at least a full weekly advance.`;
   if (a.kind === "logistics")
     info =
-      a.mode === "lift"
+      a.mode === "rescue-flight" ? "Ordinary Rescue Flight: 2P and one operation. Existing airborne carrier lifts one willing light nonhero through actual exposed flight over two phases. No hero readiness, free movement or replacement body." : a.mode === "lift"
         ? "Lift the Stranded:2 readiness and one tactical hero action; one existing willing light nonhero ally, exposed physical flight over two phases. Guarded or blocked landing pauses; no extra range, replacement body or cargo duplication."
         : `${a.method === "power" ? "Convoy Command:5P,3 readiness and personal commitment; bypass one ordinary organization step" : "One ordinary operation; organization and handling require two weekly steps"}. Only selected existing ships, unchanged total cargo and escort identities, normal capacities and no voyage speed bonus.`;
   if (a.kind === "inspect-trace")
@@ -1160,7 +1171,7 @@ function showReview(a: Action) {
         ? "Heralds on the Wind: 3 readiness and one personal commitment. Manwë replaces the staffed relay; cargo, route, carrier movement and normal upkeep remain."
         : "Revised route: staffed connected relay, 2K and one operation. No immediate movement or cargo refund.";
   if (a.kind === "eyrie-relay")
-    info = `Eyrie Relay: carry up to 20 existing P/K, pay 10P + 5M plus 3 readiness and one hero commitment. Skywarden must physically fly the complete route within normal movement between owned staffed landing ledges. Contested landings pause; cargo loss is recoverable, never duplicated. Reserved cargo: ${cost(a.cargo)}.`;
+    info = `Eyrie Relay: carry up to 20 existing P/K, pay 10P + 5M plus 3 readiness and one hero commitment. Skywarden must physically fly the complete route within normal movement between owned or explicitly consenting staffed landing ledges. Contested landings pause; cargo loss is recoverable, never duplicated. Reserved cargo: ${cost(a.cargo)}.`;
   if (a.kind === "movement-power")
     info = `Prepare ${profile(p.profile).field_power.name}: ${p.profile === "melkor_dark_architect" ? 3 : 2} readiness and ${p.profile === "melkor_dark_architect" ? "weekly hero commitment" : "one tactical hero action within the encounter"}; reserve ${reason ? "the full route’s" : movementPowerOperations(state!, seat, a)} ordinary operations across all planned phases. One response phase before physical movement; preparation can be interrupted. ${a.members.map((m) => `${m.unit} → (${m.to.x},${m.to.y})`).join("; ")}`;
   if (a.kind === "crossing")
@@ -1171,7 +1182,7 @@ function showReview(a: Action) {
       "Strike a hostile crossing beside your selected armed formation: one strategic operation, ordinary attack strength damages its structure. Destroyed crossings no longer provide a route.";
   if (a.kind === "rest")
     info =
-      "Paid rest: 2P and one operation; occupy a staffed refuge for one weekly queue advance. Recover 2 existing fatigue, with source-specific local hero bonuses. No HP healing; absence or lost supply pauses. Cancellation returns 1P. Provisional ordinary tuning.";
+      "Paid rest: 2P and one operation; occupy a staffed refuge for one weekly queue advance. Recover 2 existing company fatigue and 2 attached-mount fatigue, with source-specific local hero bonuses affecting company fatigue only. No HP healing; absence or lost supply pauses. Cancellation returns 1P. Provisional ordinary tuning.";
   if (a.kind === "convoy")
     info = `Physical convoy ${a.carrier}: reserve ${cost(a.cargo)} as real cargo plus 1P consumed loading supplies; one operation, loading one week, ordinary travel, unloading one week. Carrier is busy; loss leaves cargo at its location, never an automatic refund.`;
   if (a.kind === "prepare-supply")
@@ -1184,6 +1195,30 @@ function showReview(a: Action) {
   }
   if (a.kind === "move")
     info = `Move ${a.unit} to (${a.x}, ${a.y}). ${a.unit === p.hero.id ? "One hero commitment" : "One strategic operation"}. Other orders may change the route before resolution.`;
+  if(a.kind==='portable')info=a.mode==='consent'?`Explicit ${a.willing?'consent':'revocation'} for this owned settlement. No operation, hero commitment or stock charge.`:a.mode==='relocate'?`Traveling Compact: 3 readiness, one weekly hero commitment, one normal transport operation, 5P compact plus 1P loading. Carry the same workshop, staff and paid queue along ${a.route.map(p=>`(${p.x},${p.y})`).join(' → ')}. No production in transit; interception leaves recoverable escrow.`:`Recover the same interrupted workshop, staff and paid progress: 1P loading and one operation. Route ${a.route.map(p=>`(${p.x},${p.y})`).join(' → ')}; destination consent and free plot required.`;
+  if(a.kind==='preserve-plan')info='Preserve one already unlocked own equipment plan at this staffed archive: one ordinary operation, no stocks or readiness. Vairë must be beside the archive. No item, hero recipe or foreign recipe is copied.';
+  if(a.kind==='remember-workshop')info='The Remembered Workshop: 3 readiness and one weekly hero commitment after actual specialist archive loss. Queue the preserved item separately at its full normal recipe, crew and time. Renew this commitment each unfinished week. Destroyed plan or interrupted workshop stops production.';
+  if(a.kind==='recover-plan'||a.kind==='destroy-plan')info=`${a.kind==='recover-plan'?'Recover the original dropped plan':'Destroy this dropped plan'}: one ordinary operation, physical contact required. No stocks or equipment are created.`;
+  if(a.kind==='consent-ledge')info=`${a.allow?'Grant':'Revoke'} this visiting Skywarden's landing consent. No stock, operation or hero charge. Permission grants no stocks or facility ownership; revocation pauses delivery.`;
+  if(a.kind==='survey-landing')info='Landing Survey: one dated line-of-sight observation this week, before rescue or delivery. No operation, readiness or stock charge. Records terrain and visible occupancy only; no remote intelligence or extra movement.';
+  if(a.kind==="prepare-rescue-rig")info="Prepare existing rescue equipment: 1P and one operation. Rescue still needs real movement, passenger capacity, and ordinary handling. Uinen can omit one deployment delay with the equipped craft nearby.";
+  if(a.kind==="evacuate-care")info="Move the existing paid recovery queue: 2P and one operation, ordinary route and movement limits. Travel does not heal; normal evacuation resets care to two steps. Qualified personal treatment can retain one completed step once per injury and week.";
+  if(a.kind==="carry-heavy")info="Pick up one existing heavy item: one operation. It grants no equipment stats while carried, occupies 10 transport capacity and prevents sprinting. Use an actual worker porter or the Troll hero.";
+  if(a.kind==="drop-heavy")info="Put down the same carried item at its actual bearer position: one operation. No duplication, resources or equipment bonuses.";
+  if(a.kind==="lay-false-trail")info="Lay physical misleading signs at the actor’s current location: 2M and one operation. Lasts three revisions; disrupts future trail inference without rewriting historical observations.";
+  if(a.kind==="logging")info="Harvest one existing mature tree: 5P + 2M and one operation, one normal work week. Worker and tree stay reserved; completion yields 10M once and consumes the vegetation. Paid inputs are not refunded on loss.";
+  if(a.kind==="survey-beacon-link")info="Record the hero’s actual walked link between two staffed beacons: one operation. No movement or new observations are granted.";
+  if(a.kind==="signal-beacon")info="Send an existing dated report between staffed beacons: 2K and one operation. Delivery takes a weekly advance and respects solid cover, storms and fog; the surveyed Star link bypasses light fog once per week only.";
+  if(a.kind==="capture-agent")info="Capture an adjacent identified weakened ordinary courier with a real current assignment: one operation. No hero capture or stock transfer; learned contacts are limited to carried assignment evidence.";
+  if(a.kind==="free-agent")info="Release or rescue an existing ordinary captive: one operation and an adjacent actor. Rescue requires defeating or displacing the guard; no healing or recovered assignment is granted.";
+  if(a.kind==="agree-reward")info=`Agree ${cost(a.reward)} due week ${a.due}: one operation. The company must participate in a later real attack; stocks are paid separately in full. Late payment causes an ordinary dispute.`;
+  if(a.kind==="pay-reward")info="Pay the complete agreed reward at the local staffed core or depot: one operation plus all recorded stocks. Nearby living Orc hero prevents only the first timely distribution dispute this week; existing grievances remain.";
+  if(a.kind==="inspect-local")info="Inspect actual local conditions beside the hero: one operation. No movement or remote revelation; the report stays a dated observation. Unknown physical conditions remain unknown.";
+  if(a.kind==="inspect-worksite")info="Inspect one adjacent owned staffed worksite: one operation. Reduce its next routine wear this week by one severity step, from 4 to 2 condition. No repair or production discount.";
+  if(a.kind==="pack-rations")info=`Reserve ${a.amount} existing Provisions: one operation, capacity five in one ordinary company. These supplies pay only that company’s own upkeep and are lost if it is destroyed.`;
+  if(a.kind==='deploy-device')info='Deploy this existing fitted device: one operation consumes the item into a local obstacle or screen for two tactical revisions. Adjacent dry ground is required; root snares require woodland. This does not use or grant a hero power.';
+  if(a.kind==='assign-mining-engine')info=a.facility?'Assign this existing mining engine at the mine: one operation. It replaces one ordinary staffing role while physically present and remains vulnerable with normal upkeep. No free Materials or duplicate workers.':'Release this mining engine from its current mine: one operation; production loses its staffing substitution.';
+  if(a.kind==='reload-siege')info='Reload the existing siege engine: 5P + 10M and one ordinary operation at an adjacent staffed depot or workshop. Fill to three shots; no repair, new machine or stock refund.';
   info = nightDescription(a) ?? equipmentLogisticsDescription(a) ?? info;
   d.innerHTML = `<h2>Review ${esc(a.kind)}</h2><p>${esc(info)}</p><p>${esc(reason || "Ready to reserve. Final legality is checked at resolution; invalidated orders charge nothing.")}</p><div class="button-row"><button id="confirm" class="primary" ${reason ? "disabled" : ""}>Confirm order</button><button id="cancel-review">Cancel</button></div>`;
   document.body.append(d);
@@ -1214,6 +1249,7 @@ function showReview(a: Action) {
       d.close();
       d.remove();
       render();
+      restoreActionFocus(opener?.dataset.action);
     } catch (e) {
       d.close();
       d.remove();
@@ -1226,6 +1262,17 @@ function review(a: Action) {
   pending = a;
   opener = document.activeElement as HTMLElement;
   showReview(a);
+}
+/** Rendering replaces controls. Restore their semantic action, falling back to
+ * the active view when a completed order disables or removes its old opener. */
+function restoreActionFocus(action?: string) {
+  const buttons = [...root().querySelectorAll<HTMLButtonElement>('button[data-action]')];
+  const target = buttons.find(b => b.dataset.action === action && !b.disabled)
+    ?? buttons.find(b => b.dataset.action === `tab:${tab}`);
+  if (!target) return;
+  for (let ancestor = target.parentElement; ancestor; ancestor = ancestor.parentElement)
+    if (ancestor instanceof HTMLDetailsElement) ancestor.open = true;
+  target.focus();
 }
 function bind() {
   root()
@@ -1276,12 +1323,14 @@ async function handle(action: string) {
     if (action === "toggle-panel") {
       panelHidden = !panelHidden;
       render();
+      restoreActionFocus(action);
       return;
     }
     if (action.startsWith("tab:")) {
       panelHidden = false;
       tab = action.slice(4);
       render();
+      restoreActionFocus(action);
       return;
     }
     if (action === "network") {
@@ -1538,6 +1587,7 @@ async function handle(action: string) {
       });
       return;
     }
+    if (action === "logistics:rescue-flight") {review({kind:"logistics",mode:"rescue-flight",carrier:value("rescue-flight-carrier"),unit:value("lift-unit"),to:{x:Number(value("lift-x")),y:Number(value("lift-y"))}});return;}
     if (action === "logistics:lift") {
       review({
         kind: "logistics",
@@ -1580,7 +1630,7 @@ async function handle(action: string) {
       });
       return;
     }
-    const domainOrder = forestAction(action,state,seat,value) ?? dreamAction(action, preview(state, seat), value) ?? nightAction(action, state, seat, value) ?? equipmentLogisticsAction(action, state, seat, value);
+    const domainOrder = productionSupportAction(action,preview(state,seat),seat,value) ?? councilAction(action,preview(state,seat),value) ?? forestAction(action,state,seat,value) ?? dreamAction(action, preview(state, seat), value) ?? nightAction(action, state, seat, value) ?? equipmentLogisticsAction(action, state, seat, value);
     if (domainOrder) { review(domainOrder); return; }
     const formationOrder = formationAction(action, state, seat, value);
     if (formationOrder) {
@@ -1878,7 +1928,7 @@ async function handle(action: string) {
         review({ kind, ship, unit });
       else if (kind === "disembark")
         review({ kind, ship, unit, landing: destination });
-      else if (kind === "repair-ship") review({ kind, ship });
+      else if (kind === "repair-ship" || kind === "prepare-rescue-rig") review({ kind, ship });
       return;
     }
     if (action === "rescue") {
@@ -1965,6 +2015,10 @@ async function handle(action: string) {
       });
       return;
     }
+    if(action==='ledge-allow'||action==='ledge-revoke'){review({kind:'consent-ledge',ledge:value('consent-ledge'),visitor:value('ledge-visitor'),allow:action==='ledge-allow'});return;}
+    if(action==='landing-survey'){review({kind:'survey-landing',destination:{x:Number(value('landing-x')),y:Number(value('landing-y'))}});return;}
+    const localSupport=localSupportAction(action,state!,seat,value);if(localSupport){review(localSupport);return;}
+    if(action==='reload-siege'){review({kind:"reload-siege",unit:value("siege-unit"),facility:value("siege-site")});return;}
     if (action === "eyrie-relay") {
       review({
         kind: "eyrie-relay",
@@ -1999,6 +2053,7 @@ async function handle(action: string) {
         kind: "repair",
         facility: value("facility"),
         target: value("repair-target"),
+        ...(value("construct-repair-kit")?{kit:value("construct-repair-kit")}:{}),
         method: action === "repair:power" ? "power" : "ordinary",
       });
       return;
@@ -2104,7 +2159,10 @@ async function handle(action: string) {
     showError(e);
   }
 }
-export function start() {
+export async function start() {
+  // Load the bundled body face before Phaser bakes any canvas text. The declared
+  // fallback stack still permits play if the optional font asset cannot load.
+  await Promise.allSettled([document.fonts.load('15px "Noto Sans"'),document.fonts.load('600 15px "Noto Sans"'),document.fonts.load('32px "Noto Serif"')]);
   window.addEventListener("pagehide", () => network?.close());
   world = bootWorld(
     (id) => {

@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import { createMatch } from "../src/simulation/engine";
 import {
   startEyrieRelay,
+  setLedgeConsent, inspectLanding, validateEyrieState, pruneEyrieState, type EyrieState,
   eyrieRelayReason,
   progressConvoys,
   settleConvoyLosses,
@@ -114,4 +115,70 @@ it("threatened landing prevents launch and one hero cannot take a second load", 
   enemy.x += 10;
   startEyrieRelay(s, "p1", a, finder);
   expect(eyrieRelayReason(s, "p1", a, finder)).toMatch(/busy/);
+});
+
+it("explicit ledge consent allows foreign endpoints without transferring cargo and revocation pauses flight", () => {
+  const {s,p,dest,a,h} = setup();
+  dest.owner = "p2";
+  const otherStock = {...s.players.p2.stock};
+  expect(eyrieRelayReason(s,"p1",a,finder)).toMatch(/owned/);
+  expect(()=>setLedgeConsent(s,"p1",dest.id,"p1",true)).toThrow(/owned/);
+  setLedgeConsent(s,"p2",dest.id,"p1",true);
+  expect(eyrieRelayReason(s,"p1",a,finder)).toBe("");
+  const c = startEyrieRelay(s,"p1",a,finder);
+  setLedgeConsent(s,"p2",dest.id,"p1",false);
+  progressConvoys(s,finder);
+  expect(c.index).toBe(0);
+  expect(c.cargo).toEqual(a.cargo);
+  expect(c.pauseReason).toMatch(/consent/);
+  setLedgeConsent(s,"p2",dest.id,"p1",true);
+  s.turn++;
+  progressConvoys(s,finder);
+  expect(h.x).toBe(dest.x);
+  expect(p.stock).toEqual({P:90,M:95,K:100,E:100});
+  expect(s.players.p2.stock).toEqual(otherStock);
+  expect(s.convoys[c.id]).toBeUndefined();
+});
+
+it("landing survey requires current sight and remains one dated anonymous observation per week", () => {
+  const {s,dest,a} = setup();
+  expect(()=>inspectLanding(s,"p1",dest,()=>false,()=>true)).toThrow(/sight/);
+  const q = inspectLanding(s,"p1",dest,()=>true,()=>false);
+  expect(q).toEqual({owner:"p1",destination:{x:dest.x,y:dest.y},turn:s.turn,revision:s.revision,terrain:s.map.terrain[dest.y*s.map.width+dest.x],spaceAvailable:false});
+  expect(()=>inspectLanding(s,"p1",dest,()=>true,()=>true)).toThrow(/week/);
+  expect(()=>validateEyrieState(s)).not.toThrow();
+  const copy = structuredClone(s);
+  expect(()=>validateEyrieState(copy)).not.toThrow();
+  expect(()=>validateEyrieState(copy,"p2")).toThrow(/survey/);
+  startEyrieRelay(s,"p1",a,finder);
+  s.turn++;
+  pruneEyrieState(s);
+  expect((s as EyrieState).landingSurveys?.p1).toBeUndefined();
+});
+
+it("both foreign endpoints need consent, and capture never carries permission to the new owner", () => {
+  const {s,origin,dest,a} = setup();
+  origin.owner = "p2";
+  dest.owner = "p2";
+  setLedgeConsent(s,"p2",dest.id,"p1",true);
+  expect(eyrieRelayReason(s,"p1",a,finder)).toMatch(/consenting/);
+  setLedgeConsent(s,"p2",origin.id,"p1",true);
+  expect(eyrieRelayReason(s,"p1",a,finder)).toBe("");
+  expect(()=>validateEyrieState(s)).not.toThrow();
+  origin.hp = 0;
+  pruneEyrieState(s);
+  expect(Object.values((s as EyrieState).ledgeConsents!).map(q=>q.ledge)).toEqual([dest.id]);
+  dest.owner = "p1";
+  pruneEyrieState(s);
+  expect(Object.keys((s as EyrieState).ledgeConsents!)).toHaveLength(0);
+});
+
+it("survey does not inspect during delivery and invariant rejects future observations", () => {
+  const {s,dest,a} = setup();
+  const q = inspectLanding(s,"p1",dest,()=>true,()=>true);
+  q.revision = s.revision + 1;
+  expect(()=>validateEyrieState(s)).toThrow(/survey/);
+  q.revision = s.revision;
+  startEyrieRelay(s,"p1",a,finder);
+  expect(()=>inspectLanding(s,"p1",dest,()=>true,()=>true)).toThrow(/before/);
 });

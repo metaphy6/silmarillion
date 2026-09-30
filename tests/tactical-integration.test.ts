@@ -4,7 +4,7 @@ import {parseMatch,parseOrder} from '../src/simulation/schema';
 import {guestSnapshot} from '../src/network/protocol';
 import type {Match,Action} from '../src/simulation/types';
 function fixture(profile='istari_star'){
- const s=createMatch([profile,'human_rohan'],74);s.map.terrain.fill('meadow');s.seaHazards={};s.shallowWater={};s.infrastructureSites={};const p=s.players.p1;p.hero.status='living';p.hero.readiness=6;
+ const s=createMatch([profile,'human_rohan'],74);s.map.terrain.fill('meadow');s.waterChannels={};s.seaHazards={};s.shallowWater={};s.infrastructureSites={};const p=s.players.p1;p.hero.status='living';p.hero.readiness=6;
  const u=s.units['p1:company:0'];Object.assign(u,{x:10,y:10,move:4,hp:100,maxHp:100,armor:0,attack:0});s.units[p.hero.id]={...structuredClone(u),id:p.hero.id,kind:'hero',x:9,y:9};
  Object.assign(s.units['p2:company:0'],{x:9,y:10,attack:20,armor:0});return s;
 }

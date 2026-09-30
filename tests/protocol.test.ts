@@ -77,7 +77,7 @@ import {
 } from "../src/persistence/checkpoints";
 it("projects a silhouette without identity, allegiance, equipment or authoritative save access", () => {
   const s = createMatch(["varda", "human_gondor"], 6);
-  s.map.terrain.fill("meadow");s.seaHazards={};s.shallowWater={};s.infrastructureSites={};
+  s.map.terrain.fill("meadow");s.waterChannels={};s.seaHazards={};s.shallowWater={};s.infrastructureSites={};
   const enemy = s.units["p1:company:0"];
   const observer = s.units["p2:company:0"];
   Object.assign(observer, { x: 10, y: 10 });

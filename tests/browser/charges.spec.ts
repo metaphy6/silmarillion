@@ -7,7 +7,7 @@ test("Rohan reviews a real approach, waits for response, then moves its existing
     const e = await import("/src/simulation/engine.ts" as string),
       p = await import("/src/persistence/checkpoints.ts" as string);
     const s = e.createMatch(["human_rohan", "human_gondor"], 53);
-    s.map.terrain.fill("meadow");
+    s.map.terrain.fill("meadow");s.waterChannels={};
     s.seaHazards = {};s.shallowWater={};
     s.infrastructureSites = {};
     s.players.p2.ai = false;

@@ -6,7 +6,7 @@ import {parseMatch} from '../src/simulation/schema';
 import type {Match,Action} from '../src/simulation/types';
 function order(s:Match,a:Action,seat='p1'){const r=submit(s,{id:`night:${seat}:${s.turn}:${s.nextSeq[seat]}`,seat,seq:s.nextSeq[seat],turn:s.turn,revision:s.revision,action:a});expect(r.ok,r.reason).toBe(true);return r.state;}
 function finish(s:Match){const turn=s.turn;for(let n=0;n<6&&s.turn===turn;n++)s=resolveWeek(s);expect(s.turn).toBe(turn+1);return s;}
-function fixture(profile:string){const s=createMatch([profile,'human_rohan'],3);s.infrastructureSites={};s.shallowWater={};s.seaHazards={};s.map.terrain.fill('meadow');s.players.p2.ai=false;s.players.p1.stock={P:500,M:500,K:500,E:500};return s;}
+function fixture(profile:string){const s=createMatch([profile,'human_rohan'],3);s.infrastructureSites={};s.shallowWater={};s.seaHazards={};s.map.terrain.fill('meadow');s.waterChannels={};s.players.p2.ai=false;s.players.p1.stock={P:500,M:500,K:500,E:500};return s;}
 it('normal scout training creates a usable patrol and dated report, roundtrips and hides foreign reports',()=>{
  let s=fixture('human_gondor');const unit=Object.values(s.units).find(u=>u.owner==='p1'&&u.kind==='company')!;unit.x=3;unit.y=3;unit.move=5;
  s=order(s,{kind:'night',mode:'train-scout',unit:unit.id});s=finish(s);expect(s.scoutCredentials[unit.id].ready).toBe(true);s=finish(s);s=finish(s);expect(s.nightRegions['night:p1'].period).toBe('night');

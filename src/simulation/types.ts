@@ -1,4 +1,21 @@
-import type {ForestConsent,ForestRoute,ForestVeil,ForestReport,ForestEntrance,ForestRequest} from "./forest-routes";
+import type {FinalProductKey} from "../content/final-production";
+import type {ExtendedKey} from "../content/extended-production";
+import type {MilitaryKey} from "../content/military-production";
+import type {CompanionKey} from "../content/companion-production";
+import type {SecondaryKey} from "../content/secondary-production";
+import type {HeavyAction} from "./heavy-equipment";
+import type {AgentCaptivity,AgentDisclosure} from "./agent-captivity";
+import type {WaterChannel,LoggingJob,LoggingAction} from "./ordinary-environment";
+import type {BeaconLink,BeaconSignal,BeaconSurveyCandidate} from "./relay-messages";
+import type {RewardAction,WarbandAgreement} from "./warband-rewards";
+import type {LocalKnowledgeAction,LocalKnowledgeReport,LocalGroundTrace,GroveDisturbance} from "./local-knowledge";
+import type {RoutineAction,RoutineInspection,RoutineWearUse,HabitatWear,TunnelAir,AirflowWarning,RoutineTravelEvent} from "./routine-environment";
+import type {SiegeMagazine} from "./siege";
+import type {LedgeConsent,LandingSurvey} from "./transport";
+import type {PortableWorkshop,PortableConsent,PortableRequest} from "./portable-workshop";
+import type {ProductionPlan,PlanAction} from "./preserved-plan";
+import type { Grievance, Restitution, SurvivorMemory, CouncilAction } from "./council";
+import type {ForestConsent,ForestRoute,ForestVeil,ForestReport,ForestEntrance,ForestRequest,FalseTrail} from "./forest-routes";
 import type { DreamPlan, DreamContingency } from "./dream-preparation";
 import type {ToolMetadata,ToolJob,ToolAction} from './tool-services';
 import type {MountLot,MountJob,MountAction} from './remounts';
@@ -42,7 +59,7 @@ import type {
 } from "./tactical-orders";
 import type { NavalEffect, NavalPowerAction } from "./naval-powers";
 import type { CropCycle } from "./crops";
-import type { CareRequest, CarePower, CareQueue } from "./recovery";
+import type { CareRequest, CarePower, CareQueue, CareEvacuationRequest } from "./recovery";
 import type {
   IntelligenceRequest,
   IntelligenceReport,
@@ -88,6 +105,9 @@ export interface Player {
   memory: string[];
 }
 export interface Unit extends Pos {
+  secondary?:SecondaryKey;companion?:CompanionKey;extended?:ExtendedKey;military?:MilitaryKey;finalProduct?:FinalProductKey;mineWork?:string;
+  siege?:SiegeMagazine;
+  reserveProvisions?:number;
   engineer?:"trained"|"nogrod";
   id: string;
   owner: string;
@@ -148,7 +168,7 @@ export interface Facility extends Pos {
 export interface RepairWork {
   id: string;
   target: string;
-  kind: "item" | "structure" | "construct";
+  kind: "item" | "structure" | "construct" | "siege";
   remaining: number;
   started: number;
   cost: Stock;
@@ -168,6 +188,7 @@ export interface Job {
   crew?: string;
 }
 export interface Item extends Pos {
+  heavy?:true;carried?:true;companion?:CompanionKey;extended?:ExtendedKey;military?:MilitaryKey;finalProduct?:FinalProductKey;
   id: string;
   name: string;
   owner: string | null;
@@ -192,7 +213,7 @@ export interface GameEvent {
   text: string;
   audience: string[] | "public";
 }
-export type Action = {kind:"consent-veil";unit:string;melian:string;accept:boolean}
+export type Action = {kind:"lay-false-trail";unit:string} | HeavyAction | {kind:"capture-agent";unit:string;target:string} | {kind:"free-agent";unit:string;capture:string} | LoggingAction | {kind:"survey-beacon-link";origin:string;destination:string;trace:string} | {kind:"signal-beacon";origin:string;destination:string;report:string} | RewardAction | LocalKnowledgeAction | RoutineAction | ({kind:"evacuate-care"}&CareEvacuationRequest) | {kind:"pack-rations";unit:string;facility:string;amount:number} | {kind:"reload-siege";unit:string;facility:string} | {kind:"consent-ledge";ledge:string;visitor:string;allow:boolean} | {kind:"survey-landing";destination:Pos} | ({kind:"portable"}&PortableRequest) | PlanAction | CouncilAction | {kind:"consent-veil";unit:string;melian:string;accept:boolean}
  | ({kind:"forest-power"}&ForestRequest)
  | {kind:"harass-convoy";unit:string;target:string} | {kind:"forest-entrance";facility:string} | {kind:"release-forest";id:string} | {kind:"inspect-forest";unit:string;point:Pos}
  | {kind:"prepare-dream";unit:string;facility:string;contingency:DreamContingency}
@@ -222,6 +243,7 @@ export type Action = {kind:"consent-veil";unit:string;melian:string;accept:boole
   | { kind: "cancel"; facility: string }
   | {
       kind: "repair";
+      kit?:string;
       facility: string;
       target: string;
       method: "ordinary" | "power";
@@ -248,6 +270,8 @@ export type Action = {kind:"consent-veil";unit:string;melian:string;accept:boole
   | { kind: "trade"; target: string; resource: keyof Stock; amount: number }
   | { kind: "rescue"; unit: string; target: string }
   | { kind: "capture"; unit: string; target: string }
+  | {kind:"deploy-device";unit:string;item:string;at:Pos}
+  | {kind:"assign-mining-engine";unit:string;facility:string|null}
   | { kind: "equip"; unit: string; item: string }
   | { kind: "annex"; facility: string; unit: string }
   | { kind: "perk"; branch: "craft" | "guard" | "path" }
@@ -314,6 +338,19 @@ export interface Receipt {
   fingerprint: string;
 }
 export interface Match {
+  falseTrails:Record<string,FalseTrail>;
+  agentCaptivities:Record<string,AgentCaptivity>;agentDisclosures:Record<string,AgentDisclosure>;
+  waterChannels:Record<string,WaterChannel>;loggingJobs:Record<string,LoggingJob>;loggedVegetation:Record<string,true>;
+  beaconSurveyCandidates:Record<string,BeaconSurveyCandidate>;beaconLinks:Record<string,BeaconLink>;beaconSignals:Record<string,BeaconSignal>;beaconFogUses:Record<string,number>;
+  warbandAgreements:Record<string,WarbandAgreement>;
+  localKnowledgeReports:Record<string,LocalKnowledgeReport>; localGroundTraces:Record<string,LocalGroundTrace>; groveDisturbances:Record<string,GroveDisturbance>;
+  routineInspections:Record<string,RoutineInspection>; routineWearUses:Record<string,RoutineWearUse>; routineWorksiteWear:Record<string,number>; habitatWear:Record<string,HabitatWear>; tunnelAir:Record<string,TunnelAir>; airflowWarnings:Record<string,AirflowWarning>; routineTravelEvents:Record<string,RoutineTravelEvent>;
+  ledgeConsents:Record<string,LedgeConsent>;
+  landingSurveys:Record<string,LandingSurvey>;
+  portableWorkshops:Record<string,PortableWorkshop>;
+  portableConsents:Record<string,PortableConsent>;
+  productionPlans:Record<string,ProductionPlan>;
+  grievances: Record<string,Grievance>; restitutions: Record<string,Restitution>; survivorMemories: Record<string,SurvivorMemory>;
   dreamPlans: Record<string, DreamPlan>;
   forestConsents:Record<string,ForestConsent>;
   forestRoutes:Record<string,ForestRoute>;forestVeils:Record<string,ForestVeil>;forestReports:Record<string,ForestReport>;forestEntrances:Record<string,ForestEntrance>;
@@ -330,7 +367,7 @@ export interface Match {
   facilities: Record<string, Facility>;
   items: Record<string, Item>;
   sites: Site[];
-  map: { width: number; height: number; terrain: string[] };
+  map: { width: number; height: number; terrain: string[]; scenarioId?:"cross-era-basin-v1" };
   orders: Order[];
   receipts: Record<string, Receipt[]>;
   nextSeq: Record<string, number>;
@@ -348,7 +385,7 @@ export interface Match {
       name: string;
       owner: string;
       hp: number;
-      maxHp: 80;
+      maxHp: number;
       phase: "idle" | "loading" | "sailing" | "unloading" | "wreck";
     }
   >;
@@ -440,5 +477,5 @@ export interface Profile {
   compensates: string;
   retained_weakness: string;
 }
-export const VERSION = `r6-sim-11-${CONTENT_FINGERPRINT}-protocol-2-save-2`;
+export const VERSION = `r6-sim-13-${CONTENT_FINGERPRINT}-protocol-2-save-2`;
 export const stocks = (P = 0, M = 0, K = 0, E = 0): Stock => ({ P, M, K, E });

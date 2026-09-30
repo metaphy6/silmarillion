@@ -11,6 +11,7 @@ export interface Grievance extends Pos {
   revision: number;
   injury: number;
   payment: Stock | null;
+  termsVersion: number;
   consents: string[];
   delivered: boolean;
   resolved: boolean;
@@ -86,10 +87,17 @@ export function recordGrievance(
     const old = Object.values(s.grievances).find(
       (q) =>
         q.resolved &&
-        !Object.values(s.restitutions).some((j) => j.grievance === q.id),
+        !Object.values(s.restitutions).some(
+          (j) =>
+            j.grievance === q.id &&
+            (j.phase !== "arrived" || keys.some((k) => j.cargo[k] !== 0)),
+        ),
     );
-    if (old) delete s.grievances[old.id];
-    else return;
+    if (old) {
+      for (const [id, j] of Object.entries(s.restitutions))
+        if (j.grievance === old.id) delete s.restitutions[id];
+      delete s.grievances[old.id];
+    } else return;
   }
   const id = `grievance:${s.nextId++}`;
   const q: Grievance = {
@@ -104,6 +112,7 @@ export function recordGrievance(
     revision: s.revision,
     injury,
     payment: null,
+    termsVersion: 0,
     consents: [],
     delivered: false,
     resolved: false,
@@ -150,6 +159,7 @@ export function offerTerms(
     null;
   if (chosen && s.players[chosen]?.profile !== "nienna")
     throw new Error("Mediator must be an existing Nienna player");
+  q.termsVersion++;
   q.payment = { ...payment };
   q.consents = [seat];
   q.mediator = chosen;
@@ -161,7 +171,7 @@ export function consentTerms(
   accept: boolean,
 ): void {
   const q = s.grievances[id];
-  if (!q || q.resolved || !q.payment || !parties(q).includes(seat))
+  if (consentReason(s, seat, id))
     throw new Error(
       "Actual participating party and offered exact terms required",
     );
@@ -383,6 +393,21 @@ export function validateCouncils(s: CouncilState, guestSeat?: string): void {
       q.revision < 0 ||
       q.revision > s.revision ||
       q.injury <= 0 ||
+      (q.payment ? q.termsVersion < 1 : q.termsVersion !== 0) ||
+      (q.mediator !== null && s.players[q.mediator]?.profile !== "nienna") ||
+      (q.payment !== null &&
+        (keys.some(
+          (k) => !Number.isSafeInteger(q.payment![k]) || q.payment![k] < 0,
+        ) ||
+          keys.reduce((n, k) => n + q.payment![k], 0) < 1 ||
+          keys.reduce((n, k) => n + q.payment![k], 0) > 20)) ||
+      (!q.payment && (q.consents.length > 0 || q.delivered || q.resolved)) ||
+      (q.resolved && (!q.delivered || !willing(q))) ||
+      (!guestSeat &&
+        q.delivered !==
+          Object.values(s.restitutions).some(
+            (j) => j.grievance === id && j.phase === "arrived",
+          )) ||
       new Set(q.consents).size !== q.consents.length ||
       q.consents.some((p) => !parties(q).includes(p)) ||
       (guestSeat &&
@@ -391,6 +416,17 @@ export function validateCouncils(s: CouncilState, guestSeat?: string): void {
     )
       throw new Error("Invalid recorded grievance");
   }
+  for (const [id, m] of Object.entries(s.survivorMemories))
+    if (
+      id !== m.id ||
+      s.players[m.owner]?.profile !== "nienna" ||
+      !s.players[m.knownOwner] ||
+      !bounded(m) ||
+      m.turn > s.turn ||
+      m.revision > s.revision ||
+      (guestSeat && m.owner !== guestSeat)
+    )
+      throw new Error("Invalid dated survivor memory");
   const ids = new Set<string>();
   for (const [id, j] of Object.entries(s.restitutions)) {
     const q = s.grievances[j.grievance];
@@ -399,6 +435,11 @@ export function validateCouncils(s: CouncilState, guestSeat?: string): void {
       !q ||
       j.owner !== q.offenderSeat ||
       !bounded(j) ||
+      !q.payment ||
+      d(j, j.route[j.index] ?? { x: -1, y: -1 }) !== 0 ||
+      (j.phase !== "arrived" &&
+        keys.some((k) => j.cargo[k] !== q.payment![k])) ||
+      (j.phase === "arrived" && !q.delivered) ||
       j.index < 0 ||
       j.index >= j.route.length ||
       j.route.some(
@@ -532,4 +573,47 @@ export function rememberSurvivors(
       .sort((a, b) => a.revision - b.revision || a.id.localeCompare(b.id));
     while (rows.length > 64) delete s.survivorMemories[rows.shift()!.id];
   }
+}
+
+export type CouncilAction =
+  | { kind: "council-drop"; restitution: string }
+  | {
+      kind: "council-terms";
+      grievance: string;
+      payment: Stock;
+      mediator: string;
+    }
+  | {
+      kind: "council-consent";
+      grievance: string;
+      accept: boolean;
+      termsVersion: number;
+    }
+  | {
+      kind: "council-deliver";
+      grievance: string;
+      carrier: string;
+      origin: string;
+      destination: string;
+      route: Pos[];
+    }
+  | {
+      kind: "council-recover";
+      restitution: string;
+      carrier: string;
+      route: Pos[];
+    }
+  | { kind: "council-settle"; grievance: string };
+export function consentReason(
+  s: CouncilState,
+  seat: string,
+  id: string,
+): string {
+  const q = s.grievances[id];
+  return !q || q.resolved || !q.payment || !parties(q).includes(seat)
+    ? "Actual participating party and offered exact terms required"
+    : "";
+}
+export function councilVisible(q: Grievance, seat: string): boolean {
+  return parties(q).includes(seat) || (q.mediator === seat && willing(q));
 }

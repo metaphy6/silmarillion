@@ -4,6 +4,39 @@
 
 These contracts are PROJECT gameplay adaptations, not Tolkien lore claims or demonstrated balance. The older fifty kits still await the separately authorized offensive review. The five named Wizard attack-equivalent numbers are adopted provisional tuning, not a complete combat-stat system.
 
+## Local completion audit — 2026-09-30
+
+This section supersedes the older unrouted lists: Vairë and Avari now have dedicated strict command, paid production, save, private-view and ordinary UI routes. The route inventory is **110/110 (36 dispatcher + 74 dedicated)**. Route coverage remains distinct from balance and source scope: ordinary numeric tuning is provisional; the older fifty offensive kits were not redesigned; Nienna's negotiated restitution uses existing stocks, with negotiated services outside the recorded council slice.
+
+Vairë preserves one researched owned equipment plan. Actual archive loss enables one basic workshop only while the living carrier renews three readiness and its weekly commitment. Full recipe prices, workers, duration and inputs remain. Death drops the plan, recovery preserves its identity, and an observed dropped enemy plan can be destroyed without exporting archive/research details. Avari relocates one existing portable workshop and staff in conserved cargo. Its paid job is suspended in transit; consent withdrawal, blocked passage or interception prevent completion and leave recoverable physical identity. Normal transport capacity and costs remain.
+
+The passive audit now connects the previously missing environmental, equipment, maritime and information events. The following groups identify actual event consumers and their limiting records; they are not grants based merely on a hero's name.
+
+| Profiles | Producer → consumer and limit |
+| --- | --- |
+| Manwë, Tulkas, Námo, Vanyar, Gandalf, Fingolfin | Actual verified order/fear/withdrawal → bounded coordination or facing response; conscious nearby hero, encounter marker, no extra action or healing. |
+| Varda, Tilion | Actual surveyed route and trained scout/patrol → one existing navigation delay removed; barriers, supply and movement allowance unchanged. |
+| Ulmo, Vána, Ossë, Wolf, Ent, Spider, Eagle | Actual nearby channel/plant/ground trace/grove disturbance/intact web crossing/visible landing site → dated local report; no remote identity, invented weather or stock. Ossë/Ent inspection is weekly. |
+| Aulë, Gondor, Khazad-dûm | Actual staffed maintenance or blocked-shaft pressure → first wear reduction or prior local airflow warning; no repair or combat immunity. |
+| Yavanna, Nessa, Nandor, Rohan, Hobbit | Actual accompanied movement → habitat wear, separation, fresh-track lifetime, rider fatigue or rain-fatigue adjustment. Capacity, barriers and combat losses remain. |
+| Irmo, Nienna, Oromë, Melian | Existing report/dream, observed separated survivor, personally observed passage, or staffed entrance crossing → replacement or retained dated knowledge with original scope and expiry. Weather/false trails contest pursuit clues. |
+| Estë, Grove | Personally treated existing patient → preserve one earned recovery step through the first routine evacuation; same injury and paid queue, no extra healing. |
+| Vairë, Avari | Owned researched plan or existing workshop rig → recoverable physical copy or first accompanied rough-road wear reduction; one identity, no duplicate output/staff. |
+| Fëanor, Belegost, Nogrod, Forge, Troll | Actual owned item/armor/breach tool/finite repair kit/heavy item → qualified wear, fitting or carriage consumer; current durability, real paid repair, capacity and ordinary movement preserved. Belegost fitting covers actual ordinary arrows/impact hazards; no invented additional hazard producer is implied. |
+| Finarfin, Ember | Completed ordinary paid rest at the hero's staffed supplied refuge → one extra fatigue reduction weekly; no health/readiness refund. |
+| Falmari, Númenor, Uinen | Actual aboard hero handling/minor storm loss/prepared rescue rig → first qualifying delay or existing cargo-loss reduction; ordinary capacity, base handling and catastrophic/combat consequences remain. |
+| Sindar, Arien, Ilmarë, Star | Actual revisited route, dawn crossing, physical relay receipt or personally surveyed beacon link → bounded dated evidence or one light-fog delivery; no new observation, solid-cover bypass or remote commands. |
+| Orc, Sauron | Actual timely agreed reward payment or deducted depot P → dispute avoidance or finite carried upkeep reserve; old grievance/cargo-loss consequences remain. |
+| Saruman, Radagast, Alatar, Pallando | Actual authorized siege hit, existing adjacent beast interception, full still preparation phase or magical cast interruption → encounter-limited response with ordinary defenses and costs. |
+| Veil, Eönwë | Actual captured assigned agent or previously written mission → compartmented known contacts or retained declared fallback; no automatic rescue or new remote order. |
+| Both Melkor profiles | Worldbreaker's explicit readiness/recovery values; Dark Architect's paid completed Brood Discipline research → future eligible creature queues only, never hero recreation, stock discount or duplicated presence. |
+
+Regression families include `routine-environment`, `ordinary-environment`, `local-knowledge`, `travel-passives`, `naval-passives`, `recovery-care`, `warband-rewards`, `reserved-rations`, `forge-kits`, `heavy-equipment`, `beacon-signals`, `agent-captivity`, `forest-routes`, `morale`, `passives`, `dream-integration`, `preserved-plan-integration` and `portable-workshop-integration`. Aggregate and rendered evidence is recorded separately in [validation](../reports/runtime/VALIDATION.md); passing these mechanics does not certify managed remote multiplayer or balance.
+
+## Historical implementation evidence
+
+The following dated handoffs retain earlier failures and partial coverage. Their pending counts and missing-domain statements describe those builds; the local completion audit above supersedes them for current scope. Source restrictions and disclosed numerical assumptions remain binding.
+
 ## Consumption rules
 
 - `source` is preserved verbatim. `restrictions` and `cost.additionalRequirements` remain binding, including staffing, ordinary actions, input recipes, queues, capacity, source access, consent, known routes, real movement and upkeep. Explicit stock amounts are additive, not a replacement for variable recipe costs. A zero numeric stock entry does not waive those requirements.
@@ -234,3 +267,13 @@ The existing dream/forest modules now participate in strict commands, engine bud
 Forest wards affect the shared visibility consumer, so hidden carriers are omitted from guest identities. Trail veils mark only actual traversed tracks as concealed, not future movement or the party's body. Foreign parties require mutual alliance plus explicit, revocable consent tied to the existing paid withdrawal; consent exports no route. Minor harassment has the same public receipt with or without private cargo, spends one normal operation and delays a real travel step without damage or theft. Physical patrols revalidate traversability after the response phase. Markers and Anchor reservations expire at the ordinary week boundary, including released wards; death suspends route protection without refund.
 
 Known Thresholds records only anonymous actual entrance passage; Oromë retains bounded dated personally observed crossing evidence. These are narrow passive consumers, not a completed all-profile passive audit. The isolated council module and portable-production/plan work remain pending. See [runtime validation](../reports/runtime/VALIDATION.md) for current tests and [runtime guide](../guides/GAME_RUNTIME.md#dream-preparation-and-forest-routes) for UI and compatibility boundaries.
+
+## Council integration — 2026-09-30
+
+`nienna:support` now has an engine/UI route: actual identified injury → versioned stock terms → both owners consent → existing courier and escrow → actual delivery → one paid settlement. This raises the current route count to **108/110 (36 dispatcher + 72 dedicated)**; `vaire:support` and `elf_avari:support` remain unimplemented. Earlier dated coverage snapshots above are historical.
+
+The stock-only bounded implementation supports 1–20 stocks per delivery, one physical operation for dispatch/recovery, ordinary surveyed movement, interception and identity-preserving cargo recovery. Offers/consent/drop have no strategic operation charge (provisional interface decisions). Consent revocation takes priority over settlement; changed terms require fresh acceptance. Nienna pays 3 readiness and the weekly commitment only for an eligible settlement. Continued injuries generate separate records; no global peace, morale immunity or health restoration is granted.
+
+The survivor passive consumes an actual declared withdrawal of an injured allied company, requires separation from allied companies and nearby living Nienna with sightline, and stores only dated known evidence. Provisional scales: three Manhattan tiles to Nienna, two to nearby companies, 64 records per Nienna, 128 council grievances. Only settled history with empty arrived escrow can retire; a fully unresolved cap declines further records. Stock services, other injury populations and general unknown-survivor discovery are not claimed.
+
+New required Match fields and strict council commands use `r6-sim-12`; old saves/peers are rejected without migration. Host save validation checks terms, escrow conservation, delivery evidence and private projection. UI facility choices use observed visibility even in full host state.

@@ -1,3 +1,5 @@
+import {militaryCapabilities} from "../content/military-production";
+import {siegeAttackReason} from "./siege";
 import { retreatMorale, refreshOrderlyFallback } from "./morale";
 import {recordPatrolMovement} from "./patrols";
 import type {Match,Pos,Unit} from './types';
@@ -43,8 +45,9 @@ export function tacticalOrderReason(s:TacticalState,seat:string,a:TacticalReques
  const target=s.units[a.target];
  if(!ordinary(u)||u.attack<1||unable(s,u)||activeEffects(s,u).some(e=>e.kind==='rout'))return 'An armed company capable of a normal attack is required';
  if(!target?.alive||!ordinary(target)||effectiveRelation(s,seat,target.owner)!=='war'||observation(s,seat,target)!=='identified')return 'Identify a living hostile ordinary party';
+ if(a.kind==='ranged-attack'&&u.siege){const reason=siegeAttackReason(s,u);if(reason)return reason;}
  if(a.kind==='ranged-attack'&&distance(u,target)<=1)return 'Prepared ranged attack requires a target beyond adjacent melee';
- if(distance(u,target)>2||!sightline(s,u,target))return 'Reach the visible local pursuit approach';
+ if(distance(u,target)>(a.kind==='ranged-attack'?(militaryCapabilities(s,u)?.rangedRange??2):2)||!sightline(s,u,target))return 'Reach the visible local pursuit approach';
  return '';
 }
 export function declareTacticalOrder(s:TacticalState,seat:string,a:TacticalRequest,path:MovementRouteFinder):TacticalOrder {
@@ -98,7 +101,7 @@ export interface TacticalCallbacks {ranged?:(attacker:string,target:string)=>voi
 export function resolveTacticalOrders(s:TacticalState,path:MovementRouteFinder,callbacks:TacticalCallbacks):void {
  // Explicit paid aim preparations resolve after counter-movement and ability
  // warnings. Two-tile range is the existing provisional ordinary weapon rule.
- for(const q of Object.values(s.tacticalOrders).filter(q=>q.kind==='ranged-attack'&&q.createdRevision<s.revision).sort((a,b)=>reactionDelay(s,a.unit)-reactionDelay(s,b.unit)||a.unit.localeCompare(b.unit))){if(q.kind!=='ranged-attack')continue;delete s.tacticalOrders[q.id];const u=s.units[q.unit],target=s.units[q.target];if(q.until<s.revision||q.createdTurn!==s.turn||!u?.alive||!u.active||!u.supplied||!target?.alive||!target.active||u.owner!==q.owner||distance(u,q.origin)!==0||unable(s,u)||activeEffects(s,u).some(e=>e.kind==='rout')||effectiveRelation(s,u.owner,target.owner)!=='war'||distance(u,target)!==2||observation(s,u.owner,target)!=='identified'||!sightline(s,u,target))continue;callbacks.ranged?.(u.id,target.id);}
+ for(const q of Object.values(s.tacticalOrders).filter(q=>q.kind==='ranged-attack'&&q.createdRevision<s.revision).sort((a,b)=>reactionDelay(s,a.unit)-reactionDelay(s,b.unit)||a.unit.localeCompare(b.unit))){if(q.kind!=='ranged-attack')continue;delete s.tacticalOrders[q.id];const u=s.units[q.unit],target=s.units[q.target];if(q.until<s.revision||q.createdTurn!==s.turn||!u?.alive||!u.active||!u.supplied||!target?.alive||!target.active||u.owner!==q.owner||distance(u,q.origin)!==0||unable(s,u)||activeEffects(s,u).some(e=>e.kind==='rout')||effectiveRelation(s,u.owner,target.owner)!=='war'||distance(u,target)<2||distance(u,target)>(militaryCapabilities(s,u)?.rangedRange??2)||observation(s,u.owner,target)!=='identified'||!sightline(s,u,target))continue;callbacks.ranged?.(u.id,target.id);}
  for(const u of Object.values(s.units))refreshOrderlyFallback(s,u);
  for(const [id,q] of Object.entries(s.tacticalOrders))if(q.kind==='grapple'){const h=s.units[q.unit],u=s.units[q.target];if(q.until<=s.revision||!h?.alive||!h.active||!u?.alive||!u.active||distance(h,q.origin)!==0||distance(u,q.targetOrigin)!==0||distance(h,u)!==1||unable(s,h)||effectiveRelation(s,q.owner,u.owner)!=='war'){releaseTacticalOrder(s,id);continue;}if(q.createdRevision<s.revision&&q.phase==='warning'){if(activeEffects(s,u).some(e=>e.kind==='disable-grace')){releaseTacticalOrder(s,id);continue;}q.phase='holding';u.effects.push({kind:'disable-grace',value:1,until:q.until+2,source:`grapple:${q.id}`});}}
  for(const [id,q] of Object.entries(s.tacticalOrders))if(q.kind==='drowsing'){const h=s.units[q.unit],u=s.units[q.target];if(q.until<=s.revision||!h?.alive||!h.active||!u?.alive||!u.active||distance(u,q.targetOrigin)>1||(q.phase==='warning'&&(distance(h,q.origin)!==0||unable(s,h)||!sightline(s,h,q.targetOrigin)))){delete s.tacticalOrders[id];continue;}if(q.createdRevision<s.revision)q.phase='active';}

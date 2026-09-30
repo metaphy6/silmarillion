@@ -1,3 +1,10 @@
+import {finalKeys,finalProduction} from "./final-production";
+import {navalProductionKeys,navalProduction} from "./naval-production";
+import {extendedKeys,extendedProduction} from "./extended-production";
+import {militaryKeys,militaryProduction} from "./military-production";
+import {companionKeys,companionProduction} from "./companion-production";
+import {secondaryKeys,secondaryProduction} from "./secondary-production";
+import {siegeRecipe} from "../simulation/siege";
 import { civilianProfiles, creatureCapabilities, factionProduction } from "./production";
 import factions from "./factions.json";
 import roster from "../../hero-balance-roster.json";
@@ -56,6 +63,12 @@ export function heroRecipe(id: string): Recipe {
   };
 }
 export function recipe(id: string, key: string): Recipe | undefined {
+  const final=finalProduction(id,key);if(final)return final.recipe;
+  const naval=navalProduction(id,key);if(naval)return naval.recipe;
+  const extended=extendedProduction(id,key);if(extended)return extended.recipe;
+  const military=militaryProduction(id,key);if(military)return military.recipe;
+  const companion=companionProduction(id,key);if(companion)return companion.recipe;
+  const secondary=secondaryProduction(id,key);if(secondary)return secondary.recipe;
   if (creatureCapabilities[id] && !creatureCapabilities[id].recipes.includes(key)) return undefined;
   if (key === "hero") return heroRecipe(id);
   const production = factionProduction(id);
@@ -117,6 +130,7 @@ export function recipe(id: string, key: string): Recipe | undefined {
     provisional,
   });
   const common: Record<string, Recipe | undefined> = {
+    siege:siegeRecipe.profiles.includes(id)?make("Ordinary siege engine",siegeRecipe.cost,siegeRecipe.turns,siegeRecipe.facility,'unit',siegeRecipe.supply,0,0,['timber','metal']):undefined,
     hull: make(
       "Ordinary coastal transport",
       stocks(20, 60, 10),
@@ -185,6 +199,7 @@ export function recipe(id: string, key: string): Recipe | undefined {
       0,
       production.equipment.access,
     ),
+    "plan-equipment": id==='vaire'?make("Unlock owned equipment plan",stocks(0,10,10),1,"archive","research"):undefined,
     "tool-breach":make("Tool breach",stocks(0,10,10),1,"research","research"),
     "tool-repair":make("Tool repair",stocks(0,10,10),1,"research","research"),
     technique: make(
@@ -277,6 +292,8 @@ export function recipe(id: string, key: string): Recipe | undefined {
   return common[key];
 }
 export const recipeKeys = [
+  ...secondaryKeys,...companionKeys,...extendedKeys,...militaryKeys,...navalProductionKeys,...finalKeys,
+  "siege",
   "hull",
   "component",
   "synthesis",
@@ -289,6 +306,7 @@ export const recipeKeys = [
   "equipment",
   "technique",
   "defenses",
+  "plan-equipment",
   "tool-breach",
   "tool-repair",
   "summon",
@@ -304,6 +322,7 @@ export const buildings: Record<
   string,
   { name: string; cost: Stock; income: Stock }
 > = {
+  "portable-workshop":{name:"Portable clan workshop",cost:stocks(15,40,10),income:stocks()},
   // Provisional ordinary construction prices; ability activation prices are adopted.
   "mirror-station":{name:"Maintained mirror station",cost:stocks(0,10,5),income:stocks()},
   "dawn-watch":{name:"Occupied dawn watchpost",cost:stocks(5,15,5),income:stocks()},
@@ -515,6 +534,7 @@ export function factionBuilding(
   key: string,
 ): FactionBuilding | undefined {
   const b = buildings[key];
+  if(key==="portable-workshop"&&id!=="elf_avari")return undefined;
   if (key === "relay-stable" && !civilianProfiles.includes(id)) return undefined;
   if (!b || (creatureCapabilities[id] && !creatureCapabilities[id].facilities.includes(key))) return undefined;
   if (key === "service-depot" && id !== "istari_forge") return undefined;

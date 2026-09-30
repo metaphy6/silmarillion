@@ -1,3 +1,5 @@
+import {hullStatistics} from '../content/naval-production';
+import {secondaryCapabilities} from '../content/secondary-production';
 import {fittingMovementPenalty} from "./equipment-service";
 import { type Match, type Pos, type Stock, type Unit } from "./types";
 import { effectiveRelation } from "./diplomacy";
@@ -39,7 +41,8 @@ export type LogisticsRequest =
       harbor: string;
       loads: ShipLoad[];
     }
-  | { mode: "lift"; unit: string; to: Pos };
+  | { mode: "lift"; unit: string; to: Pos }
+  | { mode: "rescue-flight"; carrier: string; unit: string; to: Pos };
 export type LogisticsJob =
   | {
       id: string;
@@ -56,6 +59,7 @@ export type LogisticsJob =
       id: string;
       owner: string;
       kind: "eagle-lift";
+      method?: "ordinary";
       hero: string;
       passenger: string;
       route: Pos[];
@@ -79,8 +83,7 @@ const keys = ["P", "M", "K", "E"] as const;
 const distance = (a: Pos, b: Pos) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 const validStock = (c: Stock) =>
   Object.keys(c).sort().join(",") === "E,K,M,P" &&
-  keys.every((k) => Number.isSafeInteger(c[k]) && c[k] >= 0) &&
-  keys.reduce((a, k) => a + c[k], 0) <= 20;
+  keys.every((k) => Number.isSafeInteger(c[k]) && c[k] >= 0);
 const bounded = (s: Match, p: Pos) =>
   Number.isInteger(p.x) &&
   Number.isInteger(p.y) &&
@@ -144,7 +147,7 @@ function compatibleLoads(
       threatened(s, seat, v)
     )
       return "Existing own crewed idle ships at unblocked harbor required";
-    if (!validStock(l.cargo)) return "Each unchanged hull has capacity20";
+    if (!validStock(l.cargo)||keys.reduce((n,k)=>n+l.cargo[k],0)>(hullStatistics(s.players[v.owner].profile,v.hullClass)?.capacity??0)) return "Cargo exceeds this existing hull class capacity";
     if (l.passenger) {
       const u = s.units[l.passenger];
       if (!u?.alive || u.owner !== seat || u.kind !== "company")
@@ -182,7 +185,7 @@ export function logisticsReason(
   route: LogisticsRoute,
 ): string {
   const p = s.players[seat],
-    h = p && s.units[p.hero.id];
+    h = p && s.units[a.mode === "rescue-flight" ? a.carrier : p.hero.id];
   if (!p || p.eliminated) return "Active owner required";
   if (a.mode === "redistribute") {
     const reason = compatibleLoads(s, seat, a.harbor, a.loads);
@@ -204,7 +207,11 @@ export function logisticsReason(
     return p.stock.P >= 5 ? "" : "Handling crews require5P";
   }
   const u = s.units[a.unit];
-  if (
+  if(a.mode === "rescue-flight") {
+    if(!h?.alive||!h.active||!h.supplied||h.owner!==seat||h.landed||!secondaryCapabilities(s,h)?.rescuePassengers||activeEffects(s,h).some(e=>["stunned","incapacitated","rout"].includes(e.kind)))return "Existing active supplied airborne Rescue Flight required";
+    if(p.stock.P<2||p.operations<1)return "Ordinary rescue needs two Provisions and one operation";
+    if(Object.values(s.convoys).some(q=>q.carrier===h.id&&q.phase!=="lost")||Object.values(s.vessels).some(q=>q.phase!=="wreck"&&(q.crew===h.id||q.passenger===h.id||q.aboardHero===h.id)))return "Rescue carrier already assigned";
+  } else if (
     p.profile !== "eagle_eyrie" ||
     p.hero.status !== "living" ||
     !h?.alive ||
@@ -292,8 +299,8 @@ export function startLogistics(
       p.hero.readiness -= 3;
     }
   } else {
-    const h = s.units[p.hero.id];
-    p.hero.readiness -= 2;
+    const h = s.units[a.mode === "rescue-flight" ? a.carrier : p.hero.id];
+    if(a.mode === "rescue-flight"){p.stock.P-=2;p.operations--;}else p.hero.readiness -= 2;
     for (const [oldId, old] of Object.entries(s.logisticsJobs))
       if (
         old.kind === "eagle-lift" &&
@@ -305,6 +312,7 @@ export function startLogistics(
       id,
       owner: seat,
       kind: "eagle-lift",
+      ...(a.mode === "rescue-flight" ? {method:"ordinary" as const} : {}),
       hero: h.id,
       passenger: a.unit,
       route: route(s, h, a.to, h)!.map((p) => ({ x: p.x, y: p.y })),
@@ -363,6 +371,8 @@ export function progressLogistics(
     if (
       !h?.alive ||
       !h.active ||
+      h.owner!==j.owner ||
+      (j.method === "ordinary" && (!h.supplied||!secondaryCapabilities(s,h)?.rescuePassengers)) ||
       !u?.alive ||
       distance(h, j.route[j.index]) !== 0 ||
       (j.phase === 1 && distance(u, h) !== 0) ||
@@ -374,6 +384,7 @@ export function progressLogistics(
     const end = j.route.at(-1)!;
     if (
       threatened(s, j.owner, end) ||
+      (j.method === "ordinary" && (h.landed||activeEffects(s,h).some(e=>["stunned","incapacitated","rout"].includes(e.kind)))) ||
       !route(s, h, end, h) ||
       activeEffects(s, h).some((e) => e.kind === "root")
     )
@@ -414,7 +425,7 @@ export function validateLogisticsState(s: LogisticsState): void {
       )
         throw new Error("Invalid ship handling queue");
       for (const l of j.loads) {
-        if (ids.has(l.ship) || !s.vessels[l.ship] || !validStock(l.cargo))
+        if (ids.has(l.ship) || !s.vessels[l.ship] || !validStock(l.cargo)||keys.reduce((n,k)=>n+l.cargo[k],0)>(hullStatistics(s.players[j.owner].profile,s.vessels[l.ship]?.hullClass)?.capacity??0))
           throw new Error("Invalid hull reservation");
         ids.add(l.ship);
       }
@@ -443,8 +454,7 @@ export function validateLogisticsState(s: LogisticsState): void {
         !s.units[j.hero] ||
         !s.units[j.passenger] ||
         s.players[j.owner].profile !== "eagle_eyrie" ||
-        s.players[j.owner].hero.id !== j.hero ||
-        s.units[j.hero].kind !== "hero" ||
+        (j.method === "ordinary" ? !secondaryCapabilities(s,s.units[j.hero])?.rescuePassengers : (s.players[j.owner].hero.id !== j.hero || s.units[j.hero].kind !== "hero")) ||
         s.units[j.hero].owner !== j.owner ||
         !["worker", "company"].includes(s.units[j.passenger].kind) ||
         s.units[j.passenger].loadClass !== "light" || fittingMovementPenalty(s,j.passenger)>0 ||

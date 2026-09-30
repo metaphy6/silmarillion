@@ -5,7 +5,14 @@ import { isAboard, isNavalCrew } from "../simulation/naval";
 
 export const MAX_CUES = 32;
 export type CueKind =
-  "travel" | "impact" | "arrival" | "loss" | "work" | "capture" | "magic";
+  | "travel"
+  | "attack"
+  | "impact"
+  | "arrival"
+  | "loss"
+  | "work"
+  | "capture"
+  | "magic";
 export interface VisualEntity extends Pos {
   id: string;
   owner: string;
@@ -17,6 +24,9 @@ export interface VisualEntity extends Pos {
   remaining: number;
   workShape: "person" | "tree" | "bird" | "wolf" | "spider";
   hearth: boolean;
+  profile: string;
+  companion?: string;
+  secondary?: string;
 }
 export interface ViewFrame {
   match: string;
@@ -27,12 +37,15 @@ export interface ViewFrame {
   entities: Record<string, VisualEntity>;
   sites: Record<string, { owner: string | null; x: number; y: number }>;
   zones: Record<string, Pos>;
+  witnessedAttacks: string[];
+  attackTargets: Record<string, Pos>;
 }
 export interface VisualCue extends Pos {
   kind: CueKind;
   entity: string;
   amount?: number;
   route?: Pos[];
+  target?: Pos;
 }
 const workShapes: Record<string, VisualEntity["workShape"]> = {
   ent_grove: "tree",
@@ -63,8 +76,11 @@ export function captureView(s: Match, seat: string): ViewFrame {
         alive: u.alive,
         building: false,
         kind: u.kind,
+        companion: u.companion,
+        secondary: u.secondary,
         working: false,
         remaining: 0,
+        profile: s.players[u.owner]?.profile ?? "",
         ...workAppearance(s.players[u.owner]?.profile ?? ""),
       };
   for (const f of Object.values(s.facilities))
@@ -87,6 +103,7 @@ export function captureView(s: Match, seat: string): ViewFrame {
               f.rest?.remaining ??
               0)
             : 0,
+        profile: s.players[f.owner]?.profile ?? "",
         ...workAppearance(s.players[f.owner]?.profile ?? ""),
       };
   const zones: ViewFrame["zones"] = {};
@@ -104,6 +121,18 @@ export function captureView(s: Match, seat: string): ViewFrame {
       s.sites.map((v) => [v.id, { owner: v.owner, x: v.x, y: v.y }]),
     ),
     zones,
+    witnessedAttacks: Object.values(s.witnessedAttacks)
+      .filter((w) => w.owner === seat)
+      .map((w) => w.id),
+    attackTargets: Object.fromEntries(
+      s.orders
+        .filter((o) => o.seat === seat && o.action.kind === "attack")
+        .flatMap((o) => {
+          if (o.action.kind !== "attack") return [];
+          const target = entities[o.action.target];
+          return target ? [[o.action.unit, { x: target.x, y: target.y }]] : [];
+        }),
+    ),
   };
 }
 export function transitionCues(
@@ -121,6 +150,25 @@ export function transitionCues(
   )
     return [];
   const cues: VisualCue[] = [];
+  // A dated private identity-bearing combat observation is necessary. Injury
+  // alone cannot name an attacker, and enemy orders never enter this view.
+  for (const witness of Object.values(s.witnessedAttacks)) {
+    const actor = after.entities[witness.attacker];
+    if (
+      witness.owner !== after.seat ||
+      before.witnessedAttacks.includes(witness.id) ||
+      !actor?.alive ||
+      actor.owner !== after.seat
+    )
+      continue;
+    cues.push({
+      kind: "attack",
+      entity: actor.id,
+      x: actor.x,
+      y: actor.y,
+      target: before.attackTargets[actor.id],
+    });
+  }
   for (const e of Object.values(after.entities)) {
     const old = before.entities[e.id];
     if (!old) {

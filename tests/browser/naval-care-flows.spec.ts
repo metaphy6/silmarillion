@@ -2,7 +2,7 @@ import {test,expect,type Page} from '@playwright/test';
 async function setup(page:Page,mode:'naval'|'care'|'crop'){
  await page.goto('/');await page.evaluate(async mode=>{
  const e=await import('/src/simulation/engine.ts' as string),p=await import('/src/persistence/checkpoints.ts' as string),r=await import('/src/simulation/recovery.ts' as string);
- const s=e.createMatch([mode==='crop'?'vana':'elf_falmari','human_rohan'],44);s.players.p2.ai=false;s.map.terrain.fill('meadow');s.seaHazards={};s.shallowWater={};s.infrastructureSites={};s.players.p1.stock={P:500,M:500,K:500,E:500};const f=s.facilities['p1:core'],u=s.units['p1:company:0'];Object.assign(f,{x:4,y:4,kind:mode==='naval'?'harbor':mode==='care'?'refuge':'crop-plot'});Object.assign(u,{x:4,y:4});
+ const s=e.createMatch([mode==='crop'?'vana':'elf_falmari','human_rohan'],44);s.players.p2.ai=false;s.map.terrain.fill('meadow');s.waterChannels={};s.seaHazards={};s.shallowWater={};s.infrastructureSites={};s.players.p1.stock={P:500,M:500,K:500,E:500};const f=s.facilities['p1:core'],u=s.units['p1:company:0'];Object.assign(f,{x:4,y:4,kind:mode==='naval'?'harbor':mode==='care'?'refuge':'crop-plot'});Object.assign(u,{x:4,y:4});
  if(mode==='naval'){for(let x=4;x<=9;x++)s.map.terrain[5*s.map.width+x]='water';for(const worker of Object.values(s.units) as Array<{owner:string;kind:string;x:number;y:number}>)if(worker.owner==='p1'&&worker.kind==='worker')Object.assign(worker,{x:4,y:4});}
  if(mode==='care'){u.hp=30;r.recordRecoverableInjury(s,u,30);}
  if(mode==='crop'){s.facilities.water={...structuredClone(f),id:'water',kind:'irrigation',x:5};const owner=s.players.p1;owner.hero.status='living';owner.hero.readiness=6;s.units[owner.hero.id]={...structuredClone(u),id:owner.hero.id,kind:'hero'};}

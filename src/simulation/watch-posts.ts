@@ -1,3 +1,4 @@
+import {traceFresh} from "./patrols";
 import {limits} from "../content/catalog";
 import type {Match,Pos,Unit,Stock} from './types';import {stocks} from './types';import {activeEffects} from './effects';
 export interface WatchGear{id:string;owner:string;facility:string;active:boolean}
@@ -26,7 +27,7 @@ export function borderMemory(s:WatchState,u:Unit,route:Pos[]){
  if(s.players[u.owner]?.profile!=='elf_sindar'||s.players[u.owner].hero.id!==u.id||!able(s,u)||route.length<2)return;
  const previous=Object.values(s.borderSurveys).filter(q=>q.owner===u.owner&&q.points.some(p=>route.some(at=>d(p,at)===0))).sort((a,b)=>b.turn-a.turn||b.revision-a.revision)[0];
  if(previous&&!Object.values(s.borderReports).some(r=>r.owner===u.owner&&r.turn===s.turn)){
-  const points=route.filter(at=>previous.points.some(p=>d(p,at)===0)&&Object.values(s.movementTraces).some(t=>t.owner!==u.owner&&!t.erased&&t.turn>=s.turn-1&&(t.turn>previous.turn||t.turn===previous.turn&&t.revision>previous.revision)&&t.route.some(p=>d(p,at)===0)));
+  const points=route.filter(at=>previous.points.some(p=>d(p,at)===0)&&Object.values(s.movementTraces).some(t=>t.owner!==u.owner&&traceFresh(s,t)&&(t.turn>previous.turn||t.turn===previous.turn&&t.revision>previous.revision)&&t.route.some(p=>d(p,at)===0)));
   if(points.length){const id=`border:${s.nextId++}`;s.borderReports[id]={id,owner:u.owner,turn:s.turn,revision:s.revision,points:structuredClone(points),text:'Fresh crossing disturbance since this hero personally visited. Identity, numbers and current position unknown.'};}
  }
  const id=`border-survey:${s.nextId++}`;s.borderSurveys[id]={id,owner:u.owner,turn:s.turn,revision:s.revision,points:structuredClone(route)};

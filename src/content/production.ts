@@ -27,9 +27,9 @@ const habitatFacilities = ['core','training','workshop','research','farm','mine'
 const habitatRecipes = ['hero','component','synthesis','essence','company','worker','equipment','technique','defenses'];
 export const creatureCapabilities: Record<string,{facilities:readonly string[];recipes:readonly string[];workshop:string}> = {
  ent_grove:{facilities:[...habitatFacilities,'medicine-nursery','cover','barricade'],recipes:habitatRecipes,workshop:'Rootworks'},
- eagle_eyrie:{facilities:[...habitatFacilities],recipes:habitatRecipes,workshop:'Harness Perch'},
- wolf_pack:{facilities:[...habitatFacilities],recipes:habitatRecipes,workshop:'Pack Ground'},
- spider_brood:{facilities:[...habitatFacilities],recipes:habitatRecipes,workshop:'Brood Chamber'},
+ eagle_eyrie:{facilities:[...habitatFacilities],recipes:[...habitatRecipes,'rescue-flight'],workshop:'Harness Perch'},
+ wolf_pack:{facilities:[...habitatFacilities],recipes:[...habitatRecipes,'pack-runner'],workshop:'Pack Ground'},
+ spider_brood:{facilities:[...habitatFacilities],recipes:[...habitatRecipes,'venom-stalker'],workshop:'Brood Chamber'},
 };
 
 /** Every numerical value in this module is provisional ordinary-production tuning.

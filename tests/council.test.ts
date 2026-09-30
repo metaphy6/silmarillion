@@ -148,3 +148,33 @@ it("later injury creates a new grievance and dead carriers retain escrow", () =>
   s.revision++; // A later actual injury, rather than aggregation of this same response.
   expect(recordGrievance(s, a, b, 1)?.id).not.toBe(q.id);
 });
+it("resolved history retires together with empty arrived escrow before capacity is exhausted", () => {
+  const { s, a, b } = fixture();
+  s.grievances = {};
+  for (let i = 0; i < 129; i++) {
+    s.revision++;
+    const q = recordGrievance(s, a, b, 1);
+    expect(q).toBeDefined();
+    q!.resolved = true;
+    q!.delivered = true;
+    q!.payment = { P: 1, M: 0, K: 0, E: 0 };
+    q!.termsVersion = 1;
+    q!.consents = ["p1", "p2"];
+    s.restitutions[`r:${i}`] = {
+      id: `r:${i}`,
+      grievance: q!.id,
+      owner: "p2",
+      carrier: a.id,
+      origin: "p2:core",
+      destination: "p1:core",
+      route: [{ x: 5, y: 4 }],
+      index: 0,
+      x: 5,
+      y: 4,
+      cargo: { P: 0, M: 0, K: 0, E: 0 },
+      phase: "arrived",
+    };
+  }
+  expect(Object.keys(s.grievances)).toHaveLength(128);
+  expect(Object.keys(s.restitutions)).toHaveLength(128);
+});

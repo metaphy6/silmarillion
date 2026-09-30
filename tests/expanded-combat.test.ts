@@ -21,7 +21,7 @@ function act(s: Match, seat: string, action: Action) {
 }
 function livingProfile(id: string) {
   const s = createMatch([id, "human_gondor"], 81);
-  s.map.terrain.fill("meadow");
+  s.map.terrain.fill("meadow");s.waterChannels={};
   s.seaHazards = {};
   s.shallowWater = {};
   s.infrastructureSites = {};

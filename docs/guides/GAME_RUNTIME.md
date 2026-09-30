@@ -1,6 +1,8 @@
 # Browser runtime guide
 
-The repository now contains a runnable Phaser + TypeScript + Vite alpha. It is not the completed full-game implementation. Its default scenario is **Cross-era sandbox**: chronology, artifact custody and invented geographic connections are deliberate scenario adaptations, not claims that all factions coexisted.
+The repository contains a runnable Phaser + TypeScript + Vite local alpha. All adopted roster mechanics and named production routes are implemented; numerical balance and managed internet certification are separate gates. Its default scenario is **Cross-era sandbox**: chronology, artifact custody and invented geographic connections are deliberate scenario adaptations, not claims that all factions coexisted.
+
+Software GPUs identified as SwiftShader, llvmpipe, softpipe or a software rasterizer use the same scene through Canvas, avoiding costly WebGL framebuffer readback. Hardware and unidentified GPUs retain automatic Phaser renderer selection.
 
 ## Install and run
 
@@ -44,7 +46,7 @@ The [validation report](../reports/runtime/VALIDATION.md) records actual checks,
 |---|---|
 | `src/simulation/` | Serializable state/commands, rule validation, seeded randomness, deterministic resolution, AI, abilities and version checks; independent of Phaser/DOM/animation/transport |
 | `src/content/` | Derived profile/economy data, explicit production catalog and ability contracts; provisional values remain labeled |
-| `src/render/` | Phaser camera, input, eight-by-eight terrain chunks, visibility culling, reusable tiny markers and cosmetic movement tweens |
+| `src/render/` | Phaser camera/input, authoritative terrain masks, bounded terrain chunks, visibility culling and articulated painted figures |
 | `src/ui/` | Accessible DOM controls, setup/tutorial, inspection, confirmation, turn status and session integration |
 | `src/persistence/` | Validated committed authoritative checkpoints in atomic IndexedDB transactions and export/import |
 | `src/network/` | Managed/local signaling adapters, reliable ordered WebRTC star topology, host validation, seat identity/rejoin, filtered snapshots and recovery |
@@ -53,13 +55,13 @@ Order resolution is an explicit simulation process rather than network arrival o
 
 ## Current scope and honest limitations
 
-All 55 exact starting profiles across 54 factions are selectable. One Melkor identity retains its chosen doctrine, and the three human kingdoms retain their fixed heroes. Hero creation, occupancy, death/recreation, source access and creature-exclusivity invariants have runtime tests; tests do not establish balance or imply every adopted mechanic is finished.
+All 55 exact starting profiles across 54 factions are selectable. One Melkor identity retains its chosen doctrine, and the three human kingdoms retain their fixed heroes. Hero creation, occupancy, death/recreation, source access and creature-exclusivity invariants have runtime tests; tests establish the exercised invariants, not competitive balance.
 
-The current dispatcher and dedicated command routes are individually listed in [ability coverage](../design/runtime-ability-notes.md). Routing is not full source completion: target qualifications, missing normal domains, incomplete passives and unavailable default-scenario prerequisites remain explicit. The older fifty kits have not been offensively redesigned or demonstrated balanced.
+The current dispatcher and dedicated command routes are individually listed in [ability coverage](../design/runtime-ability-notes.md). The local completion audit records source-qualified targets, event consumers and counters for every adopted power and passive; provisional tuning and bounded interpretations remain explicit. The older fifty kits have not been offensively redesigned or demonstrated balanced.
 
 Paid repair and fitting queues, finite cargo and civilian stores, physical loading/travel/unloading, recovery, naval counterplay, finite hunting, cultivated plots, terrain zones, staffed defenses, old woodland trails and mutual-consent diplomacy have integrated rules and regressions. Household ledgers preserve finite people and deposited Provisions; general settlement economies still use faction stocks. Faction output and ordinary numbers are provisional. See [content notes](../design/runtime-content-notes.md).
 
-Original 54 identity portraits cover 55 profiles with one shared Melkor face. Sixteen original painted building/habitat studies are integrated; sixteen painted world-figure archetypes supplement procedural fallbacks and move through cosmetic tweens. The huge landscape painting is atmospheric and does not yet align every feature with authoritative terrain. Use **Rules terrain** for the exact tile categories and distinct color-independent marks; this inspection overlay does not claim to solve the underlying art alignment. Three original situated dialogue scenes route through normal paid commands; this is not a complete narrative library. See [asset provenance](../design/runtime-assets.md).
+Original 54 identity portraits cover 55 profiles with one shared Melkor face. Sixteen painted building/habitat studies and 22 figure archetypes are integrated. Four independently painted views per archetype supply articulated walk, work and attack frames; companies retain three figures. The authored basin provides the same river, ford, cliff and road masks to traversal and rendering. Original material paint is clipped to those masks; **Rules terrain** remains available for exact tile inspection and color-independent marks. Locally bundled Noto fonts cover the roster’s diacritics. Three situated dialogue scenes route through ordinary paid commands; they are a bounded narrative set. See [asset provenance](../design/runtime-assets.md) and [available browser/visual evidence](../reports/runtime/VALIDATION.md).
 
 
 Private multiplayer implementation includes local test signaling and a concrete managed provider adapter. Same-device browser tests are distinct from real internet matches. Scoped provider authorization, short-lived credential guarantees, forced TURN relay and service restrictions remain external requirements; see [Multiplayer](MULTIPLAYER.md). No claim of remote reliability follows from local-tab tests.
@@ -93,7 +95,7 @@ SILMARILLION_DEV_TEST_URL=http://127.0.0.1:5180 npm run test:browser
 
 Recorded own movement now plays along the real route; visible damage, arrival, losses, public control and zone changes have bounded map effects. Birds/mist and working-site gestures are decorative and do not advance turns. Settings → World motion follows system reduced motion or stops all ambient/idle effects; preference is local and persists. Creature work silhouettes remain nonhuman. See [delivery and limits](../reports/2026-09-30-living-world.md).
 
-**Version boundary:** this build is `r6-sim-11-1ba24d66-protocol-2-save-2`. Previous `r6-sim-10-1ba24d66-protocol-2-save-2` saves/peers are rejected; no automatic or manual migration is implemented. Preserve original exports and use their original build to finish those matches. Start a new match for this build. Do not update an active multiplayer match.
+**Version boundary:** this build is `r6-sim-13-1ba24d66-protocol-2-save-2`. Previous `r6-sim-12-1ba24d66-protocol-2-save-2` saves/peers are rejected; no automatic or manual migration is implemented. Preserve original exports and use their original build to finish those matches. Start a new match for this build. Do not update an active multiplayer match.
 
 ### Dream preparation and forest routes
 
@@ -102,3 +104,34 @@ Irmo's **Economy → Rehearsal in Dream** uses an existing paid rest assignment.
 Oromë's **World → Keep the Wild Road** uses a route created by actual movement. The hero starts at its origin, pays ordinary travel supplies and personally traverses it after a response phase. Only nearby minor convoy harassment is deterred; normal attacks remain effective. Melian's **World → Woodland roads and thresholds** wards an existing wooded supply route for the current week, or veils the trail of an already declared ordinary withdrawal. **Consent to a departing veil** grants/revokes a foreign allied company's specific permission without exporting its route. Own parties use the owner's declaration. A ward needs two owned staffed endpoints and paid markers; close patrol, destroyed markers, cleared cover and captured endpoints counter it. Neither power grants extra travel, cargo or health.
 
 New orders use the standard review/cancel/confirm flow and guest filtering. Midweek state is carried by validated network snapshots; authoritative disk checkpoints remain restricted to committed weekly boundaries. Guest Road expires at that boundary, while a completed dream can remain ready for the following week. No save policy was relaxed. Ordinary travel supplies (1P), marker durability (20HP), local patrol/inspection reach and one-step coordination reduction remain provisional tuning.
+
+### Nienna council and recovery records
+
+**Economy → Council of Repair** records identified ordinary groups injured by actual attacks. Participating owners offer 1–20 existing stocks (provisional courier capacity), invite the existing Nienna seat, and explicitly accept the exact version of the terms. Offers and consent consume no operation or stock; dispatch reserves the agreed stock once and costs one normal operation. Each party must resolve its consent before the other can rely on it. Changed terms clear consent; withdrawal resolves before settlement. Negotiated service is not implemented.
+
+An existing supplied ordinary courier carries the escrow along a surveyed open route within ordinary movement. Hostile occupation, unavailable recipient facilities or withdrawn consent pause delivery. **Cargo drop** frees the courier without refund and preserves the same cargo on the ground; death/capture also leaves recoverable escrow. Recovery requires an existing courier at that physical location and renewed consent. Delivery transfers the cargo exactly once. Nienna then spends 3 readiness and one weekly commitment to settle that grievance while both original groups remain alive in the connected region. New injuries remain separate grievances.
+
+**Leave None Uncounted** retains at most 64 private dated records of known injured, separated allied companies after an actual nearby withdrawal. It does not track later movement, disclose unknown survivors, heal or resurrect. Terms go only to the participating seats and their mutually invited mediator; courier routes/cargo stay private to the payer. Completed council history retires at the 128-record bound only together with empty arrived escrow. Unresolved records are retained; new records at full unresolved capacity are not added.
+
+
+### Preserved plans and traveling workshops
+
+**Economy → The Remembered Workshop** first requires Vairë's ordinary archive research (10M + 10K, one week) and a personal archive visit. Preserve one equipment plan, then use it only after actual archive destruction. Each replacement production week costs three readiness and a hero commitment; the ordinary equipment queue still needs its full recipe, staff, inputs and time. Death drops the same plan. Its owner can recover it; a nearby opponent can discover and destroy the dropped copy without learning the original archive location or research ledger.
+
+**Economy → Traveling Compact** moves the same existing portable workshop, staff and paid queue between explicitly consenting owned settlements. The carrier pays six existing Provisions (five for the power plus one ordinary loading ration), one operation, three readiness and the weekly hero commitment. Rig and staff occupy finite capacity. Production pauses in transit. Interception leaves the same recoverable workshop and progress; destination refusal prevents dispatch. The latest consent choice in a phase is authoritative. Accompanied first rough-road wear falls from four to three HP; ordinary attack damage is unchanged.
+
+### Local inspections and physical support
+
+**Local knowledge** reports dated observations of nearby real water, plants or tracks. Water channels have explicit draft data; unspecified depth stays unknown. Heavy cargo and passengers increase required draft. **Finite timber harvest** reserves an ordinary worker beside one mature tree for one week, costs 5P + 2M and produces 10M once while consuming that tree. These ordinary numbers are provisional. Neither inspecting a grove nor waiting creates replacement trees.
+
+Staffed worksites have ordinary maintenance wear. Aulë can personally inspect one site for a reduced first event; Gondor bracing affects a nearby defensive structure. Blocked tunnel shafts build airflow pressure, and a locally present Khazad-dûm hero receives warning before the next production penalty. Rough-ground accompaniment, fresh track expiry and scheduled rain consume actual movement and weather events.
+
+**Declared shares** records an Orc company's finite reward before actual participation, then requires the agreed stocks at a real staffed payout site by its deadline. Old disputes remain. Sauron's **Reserved provisions** transfers up to five existing P into one ordinary company's carried reserve; normal upkeep consumes it and loss destroys it. Paid siege engines have a three-round magazine and require physical paid reloading. Preview reserves ammunition, so the same last round cannot fund multiple attacks.
+
+**Visual beacon signals** uses an existing dated report and staffed endpoints. Star must personally traverse and survey the link before its one light-fog exception; storms, heavy fog and solid cover still block it. **Ordinary agent captivity** requires an identified, adjacent, weakened agent with a real current assignment. Captivity preserves the body at the capture site; rescuers must remove the guard. Veil disclosures contain only that assignment and its contacts.
+
+A paid Forge repair kit is consumed alongside normal materials and repair time. Heavy equipment can be carried by a porter or the Troll hero, occupying capacity and slowing ordinary movement until equipped or dropped. Personally treated Estë/Grove patients retain only existing recovery progress through their first eligible evacuation. Prepared Uinen rescue rigging saves deployment delay, with normal transport and capacity still required.
+
+### Remote certification boundary
+
+For this implementation pass, the owner explicitly chose to keep remote certification blocked and finish local work. No provider credentials, room authorization, independent-network participants, forced TURN results or credential-expiration evidence are fabricated. The local adapter and same-device RTC tests remain usable; see the separate managed-service gate in [Multiplayer](MULTIPLAYER.md).

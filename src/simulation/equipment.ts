@@ -26,7 +26,7 @@ function changeDurability(s: Match, item: Item, next: number) {
   const old = item.durability;
   item.durability = Math.max(0, Math.min(item.maxDurability, next));
   const bearer = item.bearer ? s.units[item.bearer] : undefined;
-  if (!bearer || !bearer.alive || !bearer.inventory.includes(item.id)) return;
+  if (item.carried || !bearer || !bearer.alive || !bearer.inventory.includes(item.id)) return;
   const sign =
     old > 0 && item.durability === 0
       ? -1
@@ -54,7 +54,7 @@ export function wearEquipment(
   const breachName = factionProduction("dwarf_nogrod").equipment.name;
   for (const id of [...new Set(u.inventory)]) {
     const item = s.items[id];
-    if (!item || item.bearer !== u.id || item.durability <= 0) continue;
+    if (!item || item.carried || item.bearer !== u.id || item.durability <= 0) continue;
     const breachTool = item.name === breachName || item.name === "Field breach tools" || s.toolMetadata[item.id]?.function === "breach";
     if (role === "attack" && (!(item.attackBonus ?? 0) || breachTool)) continue;
     if (role === "armor" && item.bonus <= 0) continue;

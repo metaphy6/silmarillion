@@ -1,28 +1,447 @@
-import type {Match,Pos,Unit} from './types';
-import {conscious,lightAt,type NightWorkState} from './night-work';
-import {observation} from './visibility';
-export interface ScoutCredential{unit:string;owner:string;started:number;ready:boolean}
-export interface NightObservation extends Pos{direction:'north'|'south'|'east'|'west';turn:number;revision:number}
-export interface NightPatrol{id:string;owner:string;unit:string;companion?:string;method:'ordinary'|'moon';route:Pos[];started:number;createdRevision:number;lastRevision:number;delay:number;phase:'waiting'|'observing'|'interrupted';observations:NightObservation[]}
-export interface NightReport{id:string;owner:string;patrol:string;createdTurn:number;createdRevision:number;verified:true;observations:NightObservation[]}
-export interface PersonalNightSurvey{id:string;owner:string;hero:string;route:Pos[];turn:number}
-export interface NightPatrolRequest{unit:string;route:Pos[];method:'ordinary'|'moon';companion?:string}
-export type NightPatrolState=NightWorkState&{scoutCredentials:Record<string,ScoutCredential>;nightPatrols:Record<string,NightPatrol>;nightReports:Record<string,NightReport>;personalNightSurveys:Record<string,PersonalNightSurvey>;nightBearingUses:Record<string,number>};
-export type NightRoute=(s:Match,u:Unit,route:Pos[])=>boolean;
-export type NightCost=(s:Match,u:Unit,route:Pos[])=>number;
-const d=(a:Pos,b:Pos)=>Math.abs(a.x-b.x)+Math.abs(a.y-b.y);
-export const nightBusy=(s:NightPatrolState,id:string)=>Object.values(s.nightPatrols).some(q=>q.unit===id||q.companion===id)||Object.values(s.scoutCredentials).some(q=>q.unit===id&&!q.ready);
-export function trainScoutReason(s:NightPatrolState,seat:string,id:string){const u=s.units[id],p=s.players[seat];return !p||!conscious(s,u)||u.owner!==seat||!u.supplied||!['worker','company','beast'].includes(u.kind)||s.scoutCredentials[id]?'Existing untrained supplied ordinary formation required':p.stock.P<5||p.stock.K<5?'Scout training requires5P5K and one week':'';}
-export function trainScout(s:NightPatrolState,seat:string,id:string){const reason=trainScoutReason(s,seat,id);if(reason)throw new Error(reason);s.players[seat].stock.P-=5;s.players[seat].stock.K-=5;s.scoutCredentials[id]={unit:id,owner:seat,started:s.turn,ready:false};}
-export function finishScoutTraining(s:NightPatrolState){for(const[id,q]of Object.entries(s.scoutCredentials)){const u=s.units[id];if(!u?.alive||u.owner!==q.owner){delete s.scoutCredentials[id];continue;}if(q.started<s.turn&&conscious(s,u)&&u.supplied)q.ready=true;}}
-export function nightPatrolReason(s:NightPatrolState,seat:string,a:NightPatrolRequest,route:NightRoute,cost:NightCost){const p=s.players[seat],u=s.units[a.unit];if(!p||!conscious(s,u)||u.owner!==seat||!u.supplied||nightBusy(s,u.id))return 'Free supplied active patrol party required';if(a.method==='moon'){if(p.profile!=='tilion'||p.hero.status!=='living'||p.hero.id!==u.id||p.hero.readiness<3||p.commitment<1)return 'Tilion must personally patrol with3readiness and weekly commitment';}else if(!s.scoutCredentials[u.id]?.ready)return 'Actual trained scout identity required';if(p.stock.P<(a.method==='moon'?10:3))return 'Normal patrol provisions required';if(a.route.length<2||a.route.length>128||d(a.route[0],u)!==0||a.route.some((p,i)=>lightAt(s,p)!=='night'||i>0&&d(p,a.route[i-1])!==1)||!route(s,u,a.route)||cost(s,u,a.route)>u.move)return 'Known traversable night route within normal movement required';if(a.companion){const v=s.units[a.companion];if(a.method!=='moon'||!conscious(s,v)||v.owner!==seat||!v.supplied||v.kind!=='company'||!s.scoutCredentials[v.id]?.ready||nightBusy(s,v.id)||d(u,v)!==0||!route(s,v,a.route)||cost(s,v,a.route)>v.move)return 'One actual trained accompanying own scout with its own movement required';}return '';}
-export function startNightPatrol(s:NightPatrolState,seat:string,a:NightPatrolRequest,route:NightRoute,cost:NightCost){const reason=nightPatrolReason(s,seat,a,route,cost);if(reason)throw new Error(reason);const p=s.players[seat];p.stock.P-=a.method==='moon'?10:3;if(a.method==='moon')p.hero.readiness-=3;
- let delay=1;const survey=a.companion&&Object.values(s.personalNightSurveys).some(q=>q.owner===seat&&q.hero===a.unit&&a.route.every((at,i)=>!i||q.route.some((p,n)=>n>0&&((d(p,at)===0&&d(q.route[n-1],a.route[i-1])===0)||(d(p,a.route[i-1])===0&&d(q.route[n-1],at)===0)))));if(survey&&s.nightBearingUses[seat]!==s.turn){delay=0;s.nightBearingUses[seat]=s.turn;}
- const id=`night-patrol:${s.nextId++}`;s.nightPatrols[id]={id,owner:seat,unit:a.unit,...(a.companion?{companion:a.companion}:{}),method:a.method,route:structuredClone(a.route),started:s.turn,createdRevision:s.revision,lastRevision:-1,delay,phase:'waiting',observations:[]};return id;}
-export function advanceNightPatrols(s:NightPatrolState,route:NightRoute,cost:NightCost,moved?:(u:Unit,path:Pos[])=>void){for(const q of Object.values(s.nightPatrols)){if(q.phase!=='waiting'||q.lastRevision===s.revision)continue;q.lastRevision=s.revision;const u=s.units[q.unit],v=q.companion?s.units[q.companion]:undefined;if(!conscious(s,u)||u.owner!==q.owner||!u.supplied||d(u,q.route[0])!==0||(q.companion&&(!conscious(s,v)||v.owner!==q.owner||!v.supplied||d(v,u)!==0))){q.phase='interrupted';continue;}if(q.delay){q.delay--;continue;}if(!route(s,u,q.route)||cost(s,u,q.route)>u.move||v&&(!route(s,v,q.route)||cost(s,v,q.route)>v.move)){q.phase='interrupted';continue;}for(const member of [u,...(v?[v]:[])]){const end=q.route.at(-1)!;member.x=end.x;member.y=end.y;moved?.(member,q.route);}q.phase='observing';if(q.method==='moon'){const id=`night-survey:${s.nextId++}`;s.personalNightSurveys[id]={id,owner:q.owner,hero:u.id,route:structuredClone(q.route),turn:s.turn};}}}
-export function recordNightMovement(s:NightPatrolState,u:Unit,route:Pos[]){if(!u.alive||route.length<2)return;for(const q of Object.values(s.nightPatrols)){const observer=s.units[q.unit];if(q.started!==s.turn||q.phase==='interrupted'||!conscious(s,observer))continue;for(let i=1;i<route.length;i++){const at=route[i],from=route[i-1];if(Math.hypot(observer.x-at.x,observer.y-at.y)>4||!q.route.some(p=>d(p,at)===0)||(q.phase==='waiting'&&d(q.route[0],at)!==0))continue;const view:Match={...s,units:{[observer.id]:observer,[u.id]:{...u,...at}},facilities:{}};if(observation(view,q.owner,{...u,...at})==='hidden')continue;const direction=at.x>from.x?'east':at.x<from.x?'west':at.y>from.y?'south':'north';if(q.observations.length<64)q.observations.push({x:at.x,y:at.y,direction,turn:s.turn,revision:s.revision});break;}}}
+import { effectiveRelation } from "./diplomacy";
+import type { Match, Pos, Unit } from "./types";
+import { conscious, lightAt, type NightWorkState } from "./night-work";
+import { observation } from "./visibility";
+export interface ScoutCredential {
+  unit: string;
+  owner: string;
+  started: number;
+  ready: boolean;
+}
+export interface NightObservation extends Pos {
+  direction: "north" | "south" | "east" | "west";
+  turn: number;
+  revision: number;
+}
+export interface NightPatrol {
+  id: string;
+  owner: string;
+  unit: string;
+  companion?: string;
+  method: "ordinary" | "moon";
+  route: Pos[];
+  started: number;
+  createdRevision: number;
+  lastRevision: number;
+  delay: number;
+  phase: "waiting" | "observing" | "interrupted";
+  observations: NightObservation[];
+}
+export interface NightReport {
+  id: string;
+  owner: string;
+  patrol: string;
+  createdTurn: number;
+  createdRevision: number;
+  verified: true;
+  observations: NightObservation[];
+}
+export interface PersonalNightSurvey {
+  id: string;
+  owner: string;
+  hero: string;
+  route: Pos[];
+  turn: number;
+}
+export interface NightPatrolRequest {
+  unit: string;
+  route: Pos[];
+  method: "ordinary" | "moon";
+  companion?: string;
+}
+export type NightPatrolState = NightWorkState & {
+  scoutCredentials: Record<string, ScoutCredential>;
+  nightPatrols: Record<string, NightPatrol>;
+  nightReports: Record<string, NightReport>;
+  personalNightSurveys: Record<string, PersonalNightSurvey>;
+  nightBearingUses: Record<string, number>;
+};
+export type NightRoute = (s: Match, u: Unit, route: Pos[]) => boolean;
+export type NightCost = (s: Match, u: Unit, route: Pos[]) => number;
+const d = (a: Pos, b: Pos) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+export const nightBusy = (s: NightPatrolState, id: string) =>
+  Object.values(s.nightPatrols).some(
+    (q) => q.unit === id || q.companion === id,
+  ) || Object.values(s.scoutCredentials).some((q) => q.unit === id && !q.ready);
+export function trainScoutReason(
+  s: NightPatrolState,
+  seat: string,
+  id: string,
+) {
+  const u = s.units[id],
+    p = s.players[seat];
+  return !p ||
+    !conscious(s, u) ||
+    u.owner !== seat ||
+    !u.supplied ||
+    !["worker", "company", "beast"].includes(u.kind) ||
+    s.scoutCredentials[id]
+    ? "Existing untrained supplied ordinary formation required"
+    : p.stock.P < 5 || p.stock.K < 5
+      ? "Scout training requires5P5K and one week"
+      : "";
+}
+export function trainScout(s: NightPatrolState, seat: string, id: string) {
+  const reason = trainScoutReason(s, seat, id);
+  if (reason) throw new Error(reason);
+  s.players[seat].stock.P -= 5;
+  s.players[seat].stock.K -= 5;
+  s.scoutCredentials[id] = {
+    unit: id,
+    owner: seat,
+    started: s.turn,
+    ready: false,
+  };
+}
+export function finishScoutTraining(s: NightPatrolState) {
+  for (const [id, q] of Object.entries(s.scoutCredentials)) {
+    const u = s.units[id];
+    if (!u?.alive || u.owner !== q.owner) {
+      delete s.scoutCredentials[id];
+      continue;
+    }
+    if (q.started < s.turn && conscious(s, u) && u.supplied) q.ready = true;
+  }
+}
+export function nightPatrolReason(
+  s: NightPatrolState,
+  seat: string,
+  a: NightPatrolRequest,
+  route: NightRoute,
+  cost: NightCost,
+) {
+  const p = s.players[seat],
+    u = s.units[a.unit];
+  if (
+    !p ||
+    !conscious(s, u) ||
+    u.owner !== seat ||
+    !u.supplied ||
+    nightBusy(s, u.id)
+  )
+    return "Free supplied active patrol party required";
+  if (a.method === "moon") {
+    if (
+      p.profile !== "tilion" ||
+      p.hero.status !== "living" ||
+      p.hero.id !== u.id ||
+      p.hero.readiness < 3 ||
+      p.commitment < 1
+    )
+      return "Tilion must personally patrol with3readiness and weekly commitment";
+  } else if (!s.scoutCredentials[u.id]?.ready)
+    return "Actual trained scout identity required";
+  if (p.stock.P < (a.method === "moon" ? 10 : 3))
+    return "Normal patrol provisions required";
+  if (
+    a.route.length < 2 ||
+    a.route.length > 128 ||
+    d(a.route[0], u) !== 0 ||
+    a.route.some(
+      (p, i) =>
+        lightAt(s, p) !== "night" || (i > 0 && d(p, a.route[i - 1]) !== 1),
+    ) ||
+    !route(s, u, a.route) ||
+    cost(s, u, a.route) > u.move
+  )
+    return "Known traversable night route within normal movement required";
+  if (a.companion) {
+    const v = s.units[a.companion];
+    if (
+      a.method !== "moon" ||
+      !conscious(s, v) ||
+      v.owner !== seat ||
+      !v.supplied ||
+      v.kind !== "company" ||
+      !s.scoutCredentials[v.id]?.ready ||
+      nightBusy(s, v.id) ||
+      d(u, v) !== 0 ||
+      !route(s, v, a.route) ||
+      cost(s, v, a.route) > v.move
+    )
+      return "One actual trained accompanying own scout with its own movement required";
+  }
+  return "";
+}
+export function startNightPatrol(
+  s: NightPatrolState,
+  seat: string,
+  a: NightPatrolRequest,
+  route: NightRoute,
+  cost: NightCost,
+) {
+  const reason = nightPatrolReason(s, seat, a, route, cost);
+  if (reason) throw new Error(reason);
+  const p = s.players[seat];
+  p.stock.P -= a.method === "moon" ? 10 : 3;
+  if (a.method === "moon") p.hero.readiness -= 3;
+  let delay = 1;
+  const survey =
+    a.companion &&
+    Object.values(s.personalNightSurveys).some(
+      (q) =>
+        q.owner === seat &&
+        q.hero === a.unit &&
+        a.route.every(
+          (at, i) =>
+            !i ||
+            q.route.some(
+              (p, n) =>
+                n > 0 &&
+                ((d(p, at) === 0 && d(q.route[n - 1], a.route[i - 1]) === 0) ||
+                  (d(p, a.route[i - 1]) === 0 && d(q.route[n - 1], at) === 0)),
+            ),
+        ),
+    );
+  if (survey && s.nightBearingUses[seat] !== s.turn) {
+    delay = 0;
+    s.nightBearingUses[seat] = s.turn;
+  }
+  const id = `night-patrol:${s.nextId++}`;
+  // The ordinary navigation phase is a real existing delay, not extra movement.
+  // Provisional nearby radius3; every traversed edge needs prior survey evidence.
+  const surveyed = a.route.every(
+    (at, i) =>
+      !i ||
+      Object.values(s.routeSurveys).some(
+        (q) =>
+          q.owner === seat &&
+          q.route.some(
+            (point, n) =>
+              n > 0 &&
+              ((d(point, at) === 0 &&
+                d(q.route[n - 1], a.route[i - 1]) === 0) ||
+                (d(point, a.route[i - 1]) === 0 &&
+                  d(q.route[n - 1], at) === 0)),
+          ),
+      ),
+  );
+  const guide = Object.values(s.players).find(
+    (v) =>
+      v.profile === "varda" &&
+      v.hero.status === "living" &&
+      effectiveRelation(s, seat, v.seat) === "alliance" &&
+      conscious(s, s.units[v.hero.id]) &&
+      d(s.units[v.hero.id], s.units[a.unit]) <= 3,
+  );
+  if (delay > 0 && surveyed && guide) {
+    delay--;
+    const u = s.units[a.unit];
+    u.effects = u.effects.filter((e) => e.kind !== "steady-bearing");
+    u.effects.push({
+      kind: "steady-bearing",
+      value: 1,
+      source: `journey:${id}`,
+      until: 1000000,
+    });
+  }
+  s.nightPatrols[id] = {
+    id,
+    owner: seat,
+    unit: a.unit,
+    ...(a.companion ? { companion: a.companion } : {}),
+    method: a.method,
+    route: structuredClone(a.route),
+    started: s.turn,
+    createdRevision: s.revision,
+    lastRevision: -1,
+    delay,
+    phase: "waiting",
+    observations: [],
+  };
+  return id;
+}
+export function advanceNightPatrols(
+  s: NightPatrolState,
+  route: NightRoute,
+  cost: NightCost,
+  moved?: (u: Unit, path: Pos[]) => void,
+) {
+  for (const q of Object.values(s.nightPatrols)) {
+    if (q.phase !== "waiting" || q.lastRevision === s.revision) continue;
+    q.lastRevision = s.revision;
+    const u = s.units[q.unit],
+      v = q.companion ? s.units[q.companion] : undefined;
+    if (
+      !conscious(s, u) ||
+      u.owner !== q.owner ||
+      !u.supplied ||
+      d(u, q.route[0]) !== 0 ||
+      (q.companion &&
+        (!conscious(s, v) ||
+          v.owner !== q.owner ||
+          !v.supplied ||
+          d(v, u) !== 0))
+    ) {
+      q.phase = "interrupted";
+      continue;
+    }
+    if (q.delay) {
+      q.delay--;
+      continue;
+    }
+    if (
+      !route(s, u, q.route) ||
+      cost(s, u, q.route) > u.move ||
+      (v && (!route(s, v, q.route) || cost(s, v, q.route) > v.move))
+    ) {
+      q.phase = "interrupted";
+      continue;
+    }
+    for (const member of [u, ...(v ? [v] : [])]) {
+      const end = q.route.at(-1)!;
+      member.x = end.x;
+      member.y = end.y;
+      moved?.(member, q.route);
+    }
+    q.phase = "observing";
+    if (q.method === "moon") {
+      const id = `night-survey:${s.nextId++}`;
+      s.personalNightSurveys[id] = {
+        id,
+        owner: q.owner,
+        hero: u.id,
+        route: structuredClone(q.route),
+        turn: s.turn,
+      };
+    }
+  }
+}
+export function recordNightMovement(
+  s: NightPatrolState,
+  u: Unit,
+  route: Pos[],
+) {
+  if (!u.alive || route.length < 2) return;
+  for (const q of Object.values(s.nightPatrols)) {
+    const observer = s.units[q.unit];
+    if (
+      q.started !== s.turn ||
+      q.phase === "interrupted" ||
+      !conscious(s, observer)
+    )
+      continue;
+    for (let i = 1; i < route.length; i++) {
+      const at = route[i],
+        from = route[i - 1];
+      if (
+        Math.hypot(observer.x - at.x, observer.y - at.y) > 4 ||
+        !q.route.some((p) => d(p, at) === 0) ||
+        (q.phase === "waiting" && d(q.route[0], at) !== 0)
+      )
+        continue;
+      const view: Match = {
+        ...s,
+        units: { [observer.id]: observer, [u.id]: { ...u, ...at } },
+        facilities: {},
+      };
+      if (observation(view, q.owner, { ...u, ...at }) === "hidden") continue;
+      const direction =
+        at.x > from.x
+          ? "east"
+          : at.x < from.x
+            ? "west"
+            : at.y > from.y
+              ? "south"
+              : "north";
+      if (q.observations.length < 64)
+        q.observations.push({
+          x: at.x,
+          y: at.y,
+          direction,
+          turn: s.turn,
+          revision: s.revision,
+        });
+      break;
+    }
+  }
+}
 /** Called after turn/revision advance: reports never masquerade as immediate live sight. */
-export function publishNightReports(s:NightPatrolState){for(const[id,q]of Object.entries(s.nightPatrols)){if(q.started>=s.turn)continue;const report=`night-report:${s.nextId++}`;s.nightReports[report]={id:report,owner:q.owner,patrol:q.id,createdTurn:s.turn,createdRevision:s.revision,verified:true,observations:structuredClone(q.observations)};delete s.nightPatrols[id];}}
-export function validateNightPatrols(s:NightPatrolState,guestSeat?:string){for(const[id,q]of Object.entries(s.scoutCredentials))if(id!==q.unit||!s.players[q.owner]||!s.units[id]||s.units[id].owner!==q.owner||q.started>s.turn||(guestSeat&&q.owner!==guestSeat))throw new Error('Invalid scout training');const parties=new Set<string>();for(const[id,q]of Object.entries(s.nightPatrols)){if(id!==q.id||!s.players[q.owner]||q.started>s.turn||q.createdRevision>s.revision||q.lastRevision>s.revision||q.delay<0||q.delay>1||q.route.length<2||q.route.some((p,i)=>i>0&&d(p,q.route[i-1])!==1)||(q.method==='moon'&&s.players[q.owner].profile!=='tilion')||(guestSeat&&q.owner!==guestSeat))throw new Error('Invalid night patrol');for(const unit of [q.unit,...(q.companion?[q.companion]:[])]){if(parties.has(unit)||!s.units[unit])throw new Error('Duplicate night party');parties.add(unit);}}for(const[id,q]of Object.entries(s.nightReports))if(id!==q.id||!s.players[q.owner]||q.createdTurn>s.turn||q.createdRevision>s.revision||!q.verified||(guestSeat&&q.owner!==guestSeat)||q.observations.some(o=>o.turn>q.createdTurn||o.revision>q.createdRevision))throw new Error('Invalid dated night report');for(const[id,q]of Object.entries(s.personalNightSurveys))if(id!==q.id||s.players[q.owner]?.profile!=='tilion'||q.turn>s.turn||(guestSeat&&q.owner!==guestSeat))throw new Error('Invalid personally surveyed route');}
+export function publishNightReports(s: NightPatrolState) {
+  for (const [id, q] of Object.entries(s.nightPatrols)) {
+    if (q.started >= s.turn) continue;
+    const report = `night-report:${s.nextId++}`;
+    s.nightReports[report] = {
+      id: report,
+      owner: q.owner,
+      patrol: q.id,
+      createdTurn: s.turn,
+      createdRevision: s.revision,
+      verified: true,
+      observations: structuredClone(q.observations),
+    };
+    delete s.nightPatrols[id];
+  }
+}
+export function validateNightPatrols(s: NightPatrolState, guestSeat?: string) {
+  for (const [id, q] of Object.entries(s.scoutCredentials))
+    if (
+      id !== q.unit ||
+      !s.players[q.owner] ||
+      !s.units[id] ||
+      s.units[id].owner !== q.owner ||
+      q.started > s.turn ||
+      (guestSeat && q.owner !== guestSeat)
+    )
+      throw new Error("Invalid scout training");
+  const parties = new Set<string>();
+  for (const [id, q] of Object.entries(s.nightPatrols)) {
+    if (
+      id !== q.id ||
+      !s.players[q.owner] ||
+      q.started > s.turn ||
+      q.createdRevision > s.revision ||
+      q.lastRevision > s.revision ||
+      q.delay < 0 ||
+      q.delay > 1 ||
+      q.route.length < 2 ||
+      q.route.some((p, i) => i > 0 && d(p, q.route[i - 1]) !== 1) ||
+      (q.method === "moon" && s.players[q.owner].profile !== "tilion") ||
+      (guestSeat && q.owner !== guestSeat)
+    )
+      throw new Error("Invalid night patrol");
+    for (const unit of [q.unit, ...(q.companion ? [q.companion] : [])]) {
+      if (parties.has(unit) || !s.units[unit])
+        throw new Error("Duplicate night party");
+      parties.add(unit);
+    }
+  }
+  for (const [id, q] of Object.entries(s.nightReports))
+    if (
+      id !== q.id ||
+      !s.players[q.owner] ||
+      q.createdTurn > s.turn ||
+      q.createdRevision > s.revision ||
+      !q.verified ||
+      (guestSeat && q.owner !== guestSeat) ||
+      q.observations.some(
+        (o) => o.turn > q.createdTurn || o.revision > q.createdRevision,
+      )
+    )
+      throw new Error("Invalid dated night report");
+  for (const [id, q] of Object.entries(s.personalNightSurveys))
+    if (
+      id !== q.id ||
+      s.players[q.owner]?.profile !== "tilion" ||
+      q.turn > s.turn ||
+      (guestSeat && q.owner !== guestSeat)
+    )
+      throw new Error("Invalid personally surveyed route");
+}
 
-export function settleNightParties(s:NightPatrolState){for(const[id,q]of Object.entries(s.scoutCredentials)){const u=s.units[id];if(!u?.alive||u.owner!==q.owner)delete s.scoutCredentials[id];}for(const q of Object.values(s.nightPatrols)){const u=s.units[q.unit],v=q.companion?s.units[q.companion]:undefined;if(!conscious(s,u)||u.owner!==q.owner||(q.companion&&(!conscious(s,v)||v.owner!==q.owner)))q.phase='interrupted';}}
+export function settleNightParties(s: NightPatrolState) {
+  for (const [id, q] of Object.entries(s.scoutCredentials)) {
+    const u = s.units[id];
+    if (!u?.alive || u.owner !== q.owner) delete s.scoutCredentials[id];
+  }
+  for (const q of Object.values(s.nightPatrols)) {
+    const u = s.units[q.unit],
+      v = q.companion ? s.units[q.companion] : undefined;
+    if (
+      !conscious(s, u) ||
+      u.owner !== q.owner ||
+      (q.companion && (!conscious(s, v) || v.owner !== q.owner))
+    )
+      q.phase = "interrupted";
+  }
+}

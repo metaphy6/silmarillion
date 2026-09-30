@@ -1,4 +1,10 @@
 import { LivingWorld } from "./living-world";
+import {
+  motionAppearance,
+  COMPANION_FRAMES,
+  DIRECTIONAL_SHEETS,
+  directionalMaster,
+} from "./figure-motion";
 import { buildingFrame, figureFrame } from "./building-art";
 import { isAboard, isNavalCrew } from "../simulation/naval";
 import Phaser from "phaser";
@@ -6,6 +12,7 @@ import type { Match, Pos } from "../simulation/types";
 import type { Zone } from "../simulation/zones";
 import { visible, silhouetteContacts } from "../simulation/engine";
 import { art, economy } from "../content/catalog";
+import { createBasinScenario } from "../content/scenario";
 const TILE_X = 68,
   TILE_Y = 34;
 export const iso = (x: number, y: number) => ({
@@ -29,6 +36,69 @@ export function chunkBounds(
   };
 }
 export const markerTargetSize = (zoom: number) => Math.max(44 / zoom, 44);
+/** Original code-authored pigment studies. Every stroke remains inside its
+ * terrain diamond; these are not sampled landmarks from the independent plate.
+ * Six broad strokes per cell are baked into the existing bounded chunk cache.
+ */
+export function terrainPaint(kind: string, x: number, y: number) {
+  const palette: Record<
+    string,
+    { base: number; light: number; shadow: number; feature: string }
+  > = {
+    meadow: {
+      base: 0x344d43,
+      light: 0x718475,
+      shadow: 0x293f42,
+      feature: "grass",
+    },
+    woodland: {
+      base: 0x214b48,
+      light: 0x59786b,
+      shadow: 0x19343e,
+      feature: "canopy",
+    },
+    water: {
+      base: 0x28505c,
+      light: 0x96b7bc,
+      shadow: 0x253e59,
+      feature: "flow",
+    },
+    stone: {
+      base: 0x4d5962,
+      light: 0x939caa,
+      shadow: 0x383d59,
+      feature: "mineral",
+    },
+    cliff: {
+      base: 0x343342,
+      light: 0x7c7d8e,
+      shadow: 0x252738,
+      feature: "strata",
+    },
+  };
+  const paint = palette[kind] ?? {
+    base: 0x192a30,
+    light: 0x7e9699,
+    shadow: 0x101c22,
+    feature: "unknown",
+  };
+  const hash = ((x * 73856093) ^ (y * 19349663)) >>> 0;
+  const strokes = Array.from({ length: 6 }, (_, i) => {
+    const yy = -22 + i * 8,
+      half = 68 * (1 - Math.abs(yy) / 34) - 5;
+    const shift = ((hash >>> (i * 3)) % 7) - 3;
+    return {
+      color: i % 3 ? paint.light : paint.shadow,
+      alpha: i % 3 ? 0.16 : 0.24,
+      width: 4 + ((hash + i) % 5),
+      points: [
+        { x: -half + 4 + shift, y: yy },
+        { x: half - 4 + shift, y: yy },
+      ],
+    };
+  });
+  return { ...paint, opacity: 1, strokes };
+}
 export const displayedZones = (s: Match, seat: string) =>
   Object.values(s.zones).filter(
     (z) => z.until > s.revision && (z.owner === seat || visible(s, seat, z)),
@@ -68,18 +138,66 @@ export const isEditingTarget = (target: Element | null) =>
 export const TERRAIN_CACHE_LIMIT = 16;
 export const TERRAIN_CACHE_MAX_BYTES = 16 * 1148 * 634 * 4;
 /** Inspection layer reads only the public terrain array, never entity state. */
-export const RULES_TERRAIN_LEGEND = "Rules terrain: Meadow = three grass strokes; Woodland = tree triangle; Water = parallel waves; Stone = square; Cliff = double chevrons; Unknown = cross. Tile type alone does not promise a clear route.";
-export function rulesTerrainStyle(terrain:string):{fill:number;symbol:string}{
- switch(terrain){case'meadow':return{fill:0x304e42,symbol:'grass'};case'woodland':return{fill:0x163f3b,symbol:'tree'};case'water':return{fill:0x284d60,symbol:'waves'};case'stone':return{fill:0x454955,symbol:'square'};case'cliff':return{fill:0x302e40,symbol:'chevrons'};default:return{fill:0x192a30,symbol:'unknown'};}
+export const RULES_TERRAIN_LEGEND =
+  "Rules terrain: Meadow = three grass strokes; Woodland = tree triangle; Water = parallel waves; Stone = square; Cliff = double chevrons; Unknown = cross. Tile type alone does not promise a clear route.";
+export function rulesTerrainStyle(terrain: string): {
+  fill: number;
+  symbol: string;
+} {
+  switch (terrain) {
+    case "meadow":
+      return { fill: 0x304e42, symbol: "grass" };
+    case "woodland":
+      return { fill: 0x163f3b, symbol: "tree" };
+    case "water":
+      return { fill: 0x284d60, symbol: "waves" };
+    case "stone":
+      return { fill: 0x454955, symbol: "square" };
+    case "cliff":
+      return { fill: 0x302e40, symbol: "chevrons" };
+    default:
+      return { fill: 0x192a30, symbol: "unknown" };
+  }
 }
-function drawRuleMark(g:Phaser.GameObjects.Graphics,p:Pos,symbol:string):void{
- g.lineStyle(3,0xf2e8d5,1);
- if(symbol==='grass'){for(const dx of [-12,0,12])g.lineBetween(p.x+dx-3,p.y+8,p.x+dx+3,p.y-8);}
- else if(symbol==='tree'){g.strokeTriangle(p.x,p.y-13,p.x-15,p.y+8,p.x+15,p.y+8);g.lineBetween(p.x,p.y+8,p.x,p.y+14);}
- else if(symbol==='waves'){for(const dy of [-7,5])g.strokePoints([{x:p.x-20,y:p.y+dy},{x:p.x-10,y:p.y+dy-4},{x:p.x,y:p.y+dy},{x:p.x+10,y:p.y+dy-4},{x:p.x+20,y:p.y+dy}],false);}
- else if(symbol==='square')g.strokeRect(p.x-11,p.y-10,22,20);
- else if(symbol==='chevrons'){for(const dy of [-7,7])g.strokePoints([{x:p.x-17,y:p.y+dy+5},{x:p.x,y:p.y+dy-5},{x:p.x+17,y:p.y+dy+5}],false);}
- else{g.lineBetween(p.x-9,p.y-9,p.x+9,p.y+9);g.lineBetween(p.x-9,p.y+9,p.x+9,p.y-9);}
+function drawRuleMark(
+  g: Phaser.GameObjects.Graphics,
+  p: Pos,
+  symbol: string,
+): void {
+  g.lineStyle(3, 0xf2e8d5, 1);
+  if (symbol === "grass") {
+    for (const dx of [-12, 0, 12])
+      g.lineBetween(p.x + dx - 3, p.y + 8, p.x + dx + 3, p.y - 8);
+  } else if (symbol === "tree") {
+    g.strokeTriangle(p.x, p.y - 13, p.x - 15, p.y + 8, p.x + 15, p.y + 8);
+    g.lineBetween(p.x, p.y + 8, p.x, p.y + 14);
+  } else if (symbol === "waves") {
+    for (const dy of [-7, 5])
+      g.strokePoints(
+        [
+          { x: p.x - 20, y: p.y + dy },
+          { x: p.x - 10, y: p.y + dy - 4 },
+          { x: p.x, y: p.y + dy },
+          { x: p.x + 10, y: p.y + dy - 4 },
+          { x: p.x + 20, y: p.y + dy },
+        ],
+        false,
+      );
+  } else if (symbol === "square") g.strokeRect(p.x - 11, p.y - 10, 22, 20);
+  else if (symbol === "chevrons") {
+    for (const dy of [-7, 7])
+      g.strokePoints(
+        [
+          { x: p.x - 17, y: p.y + dy + 5 },
+          { x: p.x, y: p.y + dy - 5 },
+          { x: p.x + 17, y: p.y + dy + 5 },
+        ],
+        false,
+      );
+  } else {
+    g.lineBetween(p.x - 9, p.y - 9, p.x + 9, p.y + 9);
+    g.lineBetween(p.x - 9, p.y + 9, p.x + 9, p.y - 9);
+  }
 }
 type Chunk = {
   image?: Phaser.GameObjects.Image;
@@ -87,6 +205,7 @@ type Chunk = {
   failed?: boolean;
   graphics: Phaser.GameObjects.Graphics;
   bounds: Phaser.Geom.Rectangle;
+  cells: { x: number; y: number; terrain: string }[];
 };
 
 export class World extends Phaser.Scene {
@@ -105,10 +224,10 @@ export class World extends Phaser.Scene {
   private motionQuery?: MediaQueryList;
   private selection?: Phaser.GameObjects.Graphics;
   private textureKeys = new Set<string>();
+  private materialPaint = new Map<string, HTMLCanvasElement>();
   private labels?: Phaser.GameObjects.Graphics;
   private keys?: Phaser.Types.Input.Keyboard.CursorKeys;
   private loaded = false;
-  private backdrop?: Phaser.GameObjects.Image;
   private onSelect: (id: string) => void;
   private onTile: (p: Pos) => void;
   constructor(select: (id: string) => void, tile: (p: Pos) => void) {
@@ -117,9 +236,24 @@ export class World extends Phaser.Scene {
     this.onTile = tile;
   }
   preload() {
+    for (const sheet of DIRECTIONAL_SHEETS) {
+      this.load.image(
+        sheet.key,
+        `${import.meta.env.BASE_URL}assets/sm-${sheet.key}-v1.png`,
+      );
+    }
+
     this.load.image(
-      "basin",
-      `${import.meta.env.BASE_URL}assets/sm-environment-cross-era-basin-v1.png`,
+      "companion-paint",
+      `${import.meta.env.BASE_URL}assets/sm-companion-figures-color-v1.png`,
+    );
+    this.load.image(
+      "companion-matte",
+      `${import.meta.env.BASE_URL}assets/sm-companion-figures-matte-v1.png`,
+    );
+    this.load.image(
+      "basin-materials",
+      `${import.meta.env.BASE_URL}assets/sm-terrain-materials-v1.png`,
     );
     this.load.atlas(
       "buildings",
@@ -136,13 +270,127 @@ export class World extends Phaser.Scene {
     });
   }
   create() {
-    this.cameras.main.setBackgroundColor("#203d45");
-    if (this.textures.exists("basin")) {
-      this.backdrop = this.add
-        .image(0, 1000, "basin")
-        .setDisplaySize(4400, 2600)
-        .setDepth(-10);
+    for (const sheet of DIRECTIONAL_SHEETS) {
+      if (!this.textures.exists(sheet.key)) continue;
+      const original = this.textures
+        .get(sheet.key)
+        .getSourceImage() as HTMLImageElement;
+      const canvas = document.createElement("canvas");
+      canvas.width = original.width;
+      canvas.height = original.height;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(original, 0, 0);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      ctx.putImageData(pixels, 0, 0);
+      this.textures.remove(sheet.key);
+      const atlas = this.textures.addCanvas(sheet.key, canvas)!;
+      // Generated paintings use measured gutters, not assumed perfect equal cells.
+      const count = (x: number, y: number) =>
+        pixels.data[(y * canvas.width + x) * 4 + 3] > 32 ? 1 : 0;
+      const rowCuts = [0];
+      for (let row = 1; row < sheet.archetypes.length; row++) {
+        const ideal = (canvas.height * row) / sheet.archetypes.length,
+          radius = (canvas.height / sheet.archetypes.length) * 0.4;
+        let best = Math.round(ideal),
+          score = Infinity;
+        for (let y = Math.ceil(ideal - radius); y < ideal + radius; y++) {
+          let ink = 0;
+          for (let x = 0; x < canvas.width; x++) ink += count(x, y);
+          const cost = ink + Math.abs(y - ideal) * 0.001;
+          if (cost < score) {
+            score = cost;
+            best = y;
+          }
+        }
+        rowCuts.push(best);
+      }
+      rowCuts.push(canvas.height);
+      sheet.archetypes.forEach((name, row) => {
+        const cuts = [0],
+          y0 = rowCuts[row],
+          y1 = rowCuts[row + 1];
+        for (let col = 1; col < 4; col++) {
+          const ideal = (canvas.width * col) / 4,
+            radius = canvas.width * 0.045;
+          let best = Math.round(ideal),
+            score = Infinity;
+          for (let x = Math.ceil(ideal - radius); x < ideal + radius; x++) {
+            let ink = 0;
+            for (let y = y0; y < y1; y++) ink += count(x, y);
+            const cost = ink + Math.abs(x - ideal) * 0.001;
+            if (cost < score) {
+              score = cost;
+              best = x;
+            }
+          }
+          cuts.push(best);
+        }
+        cuts.push(canvas.width);
+        ["north", "east", "south", "west"].forEach((direction, col) => {
+          let left = cuts[col + 1],
+            top = y1,
+            right = cuts[col],
+            bottom = y0;
+          for (let y = y0; y < y1; y++)
+            for (let x = cuts[col]; x < cuts[col + 1]; x++)
+              if (count(x, y)) {
+                left = Math.min(left, x);
+                right = Math.max(right, x);
+                top = Math.min(top, y);
+                bottom = Math.max(bottom, y);
+              }
+          if (right >= left && bottom >= top)
+            atlas.add(
+              `${name}:${direction}`,
+              0,
+              left,
+              top,
+              right - left + 1,
+              bottom - top + 1,
+            );
+        });
+      });
     }
+
+    if (
+      this.textures.exists("companion-paint") &&
+      this.textures.exists("companion-matte")
+    ) {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1536;
+      canvas.height = 1024;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(
+        this.textures
+          .get("companion-matte")
+          .getSourceImage() as CanvasImageSource,
+        0,
+        0,
+      );
+      const mask = ctx.getImageData(0, 0, 1536, 1024);
+      ctx.clearRect(0, 0, 1536, 1024);
+      ctx.drawImage(
+        this.textures
+          .get("companion-paint")
+          .getSourceImage() as CanvasImageSource,
+        0,
+        0,
+      );
+      const paint = ctx.getImageData(0, 0, 1536, 1024);
+      for (let i = 0; i < paint.data.length; i += 4)
+        paint.data[i + 3] = Math.max(
+          0,
+          Math.min(255, ((mask.data[i] - 32) * 255) / 191),
+        );
+      ctx.putImageData(paint, 0, 0);
+      const atlas = this.textures.addCanvas("companion-figures", canvas)!;
+      for (const [name, [x, y, w, h]] of Object.entries(COMPANION_FRAMES))
+        atlas.add(name, 0, x, y, w, h);
+      this.textures.remove("companion-paint");
+      this.textures.remove("companion-matte");
+    }
+
+    this.cameras.main.setBackgroundColor("#203d45");
     this.motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     this.life = new LivingWorld(this, iso);
     const motionChanged = () => this.setMotionMode(this.motionMode);
@@ -172,6 +420,7 @@ export class World extends Phaser.Scene {
       this.loaded = false;
       for (const key of this.textureKeys) this.textures.remove(key);
       this.textureKeys.clear();
+      this.materialPaint.clear();
     });
     this.input.on(
       "wheel",
@@ -217,23 +466,32 @@ export class World extends Phaser.Scene {
       this.locate(`${this.seat}:core`);
     }
   }
-  getMotionMode() { return this.motionMode; }
+  getMotionMode() {
+    return this.motionMode;
+  }
   setMotionMode(mode: "system" | "reduced") {
     this.motionMode = mode;
     this.reducedMotion = mode === "reduced" || !!this.motionQuery?.matches;
     this.life?.setEnabled(!this.reducedMotion);
   }
-  motionStats() { return this.life?.stats(); }
-  getRulesTerrain():boolean { return this.rulesTerrain; }
-  setRulesTerrain(enabled:boolean):void {
-    if(this.rulesTerrain===enabled)return;
-    this.rulesTerrain=enabled;
-    if(this.loaded){this.drawTerrain();this.refresh();}
+  motionStats() {
+    return this.life?.stats();
+  }
+  getRulesTerrain(): boolean {
+    return this.rulesTerrain;
+  }
+  setRulesTerrain(enabled: boolean): void {
+    if (this.rulesTerrain === enabled) return;
+    this.rulesTerrain = enabled;
+    if (this.loaded) {
+      this.drawTerrain();
+      this.refresh();
+    }
   }
   setState(s: Match, seat: string, selected: string) {
-    const stamp = `${s.map.width}:${s.map.height}:${s.map.terrain.join(",")}`;
+    const stamp = `${s.map.scenarioId ?? "legacy"}:${s.map.width}:${s.map.height}:${s.map.terrain.join(",")}`;
     const changed = this.state?.id !== s.id || this.terrainStamp !== stamp;
-    this.terrainStamp=stamp;
+    this.terrainStamp = stamp;
     this.life?.accept(s, seat);
     this.state = s;
     this.seat = seat;
@@ -252,6 +510,15 @@ export class World extends Phaser.Scene {
     }
     this.chunks = [];
     const s = this.state;
+    const mapId = (s.map as Match["map"] & { scenarioId?: string }).scenarioId;
+    const scenario =
+      mapId === "cross-era-basin-v1" && s.map.width === s.map.height
+        ? createBasinScenario(s.map.width)
+        : undefined;
+    const roadKeys = new Set(scenario?.roads.map((p) => `${p.x},${p.y}`) ?? []);
+    const fordKeys = new Set(
+      scenario?.crossings.map((p) => `${p.x},${p.y}`) ?? [],
+    );
     for (let cy = 0; cy < s.map.height; cy += 8)
       for (let cx = 0; cx < s.map.width; cx += 8) {
         const width = Math.min(8, s.map.width - cx),
@@ -268,22 +535,22 @@ export class World extends Phaser.Scene {
           .graphics()
           .setPosition(bounds.x, bounds.y)
           .setDepth(-5);
-        this.chunks.push({ graphics: g, bounds });
+        const cells: Chunk["cells"] = [];
+        this.chunks.push({ graphics: g, bounds, cells });
         for (let y = cy; y < cy + height; y++)
           for (let x = cx; x < cx + width; x++) {
             const world = iso(x, y),
               p = { x: world.x - bounds.x, y: world.y - bounds.y },
               terrain = s.map.terrain[y * s.map.width + x];
-            const col =
-              terrain === "water"
-                ? 0x84b5ba
-                : terrain === "woodland"
-                  ? 0x366964
-                  : terrain === "stone"
-                    ? 0x8c9ca9
-                    : 0x5f806d;
+            cells.push({ x, y, terrain });
             const rule = rulesTerrainStyle(terrain);
-            g.fillStyle(this.rulesTerrain ? rule.fill : col, this.rulesTerrain ? 1 : this.backdrop ? 0.13 : 0.72);
+            const paint = terrainPaint(terrain, x, y);
+            g.fillStyle(
+              this.rulesTerrain ? rule.fill : paint.base,
+              this.rulesTerrain || !this.textures.exists("basin-materials")
+                ? 1
+                : 0.28,
+            );
             g.fillPoints(
               [
                 { x: p.x, y: p.y - TILE_Y },
@@ -293,37 +560,122 @@ export class World extends Phaser.Scene {
               ],
               true,
             );
-            if(this.rulesTerrain){
-              g.lineStyle(1,0x7e9699,0.85);
-              g.strokePoints([{x:p.x,y:p.y-TILE_Y},{x:p.x+TILE_X,y:p.y},{x:p.x,y:p.y+TILE_Y},{x:p.x-TILE_X,y:p.y}],true);
-              drawRuleMark(g,p,rule.symbol);
+            if (this.rulesTerrain) {
+              g.lineStyle(1, 0x7e9699, 0.85);
+              g.strokePoints(
+                [
+                  { x: p.x, y: p.y - TILE_Y },
+                  { x: p.x + TILE_X, y: p.y },
+                  { x: p.x, y: p.y + TILE_Y },
+                  { x: p.x - TILE_X, y: p.y },
+                ],
+                true,
+              );
+              drawRuleMark(g, p, rule.symbol);
               continue;
             }
-            if (terrain === "water") {
-              g.lineStyle(2, 0xb1d6d3, 0.55);
-              g.lineBetween(p.x - 23, p.y + 3, p.x + 16, p.y + 7);
-              g.lineStyle(1, 0x96c4d0, 0.4);
-              g.lineBetween(p.x - 12, p.y - 6, p.x + 25, p.y - 2);
+            for (const stroke of paint.strokes) {
+              g.lineStyle(
+                stroke.width,
+                stroke.color,
+                this.textures.exists("basin-materials")
+                  ? stroke.alpha * 0.2
+                  : stroke.alpha,
+              );
+              g.strokePoints(
+                stroke.points.map((at) => ({ x: p.x + at.x, y: p.y + at.y })),
+                false,
+              );
             }
-            if (terrain === "woodland" && !this.backdrop) {
-              g.fillStyle(0x284f4c, 0.9);
-              g.fillTriangle(
-                p.x,
-                p.y - 45,
-                p.x - 22,
-                p.y + 6,
-                p.x + 24,
-                p.y + 5,
+            if (terrain === "water") {
+              // Flow follows the river's tile axis; bright ripples never imply land.
+              g.lineStyle(2, paint.light, 0.52);
+              g.lineBetween(p.x - 18, p.y - 10, p.x + 19, p.y + 9);
+              g.lineStyle(1, 0xd0dace, 0.32);
+              g.lineBetween(p.x - 9, p.y + 4, p.x + 10, p.y + 13);
+            } else if (terrain === "cliff") {
+              // Dark face and pale lip fit within the blocked footprint.
+              g.fillStyle(paint.shadow, 0.7);
+              g.fillPoints(
+                [
+                  { x: p.x - 44, y: p.y },
+                  { x: p.x - 5, y: p.y - 20 },
+                  { x: p.x + 42, y: p.y + 1 },
+                  { x: p.x + 5, y: p.y + 24 },
+                ],
+                true,
               );
-              g.fillStyle(0x648b76, 0.65);
-              g.fillTriangle(
-                p.x - 5,
-                p.y - 40,
-                p.x - 20,
-                p.y + 2,
-                p.x + 3,
-                p.y - 6,
+              for (const dy of [-9, 0, 9]) {
+                g.lineStyle(3, paint.light, 0.6);
+                g.strokePoints(
+                  [
+                    { x: p.x - 26, y: p.y + dy + 6 },
+                    { x: p.x, y: p.y + dy - 7 },
+                    { x: p.x + 25, y: p.y + dy + 4 },
+                  ],
+                  false,
+                );
+              }
+            } else if (
+              terrain === "woodland" &&
+              !this.textures.exists("basin-materials")
+            ) {
+              // Layered canopy masses, kept clear of neighbouring road/water cells.
+              for (const [dx, dy, r] of [
+                [-18, 0, 18],
+                [13, 2, 23],
+                [0, -11, 17],
+              ]) {
+                g.fillStyle(paint.shadow, 0.7);
+                g.fillEllipse(p.x + dx + 3, p.y + dy + 4, r * 1.7, r);
+                g.fillStyle(paint.light, 0.42);
+                g.fillEllipse(p.x + dx, p.y + dy, r * 1.5, r);
+                g.lineStyle(2, 0x9eac88, 0.25);
+                g.lineBetween(
+                  p.x + dx - 5,
+                  p.y + dy - 3,
+                  p.x + dx + 5,
+                  p.y + dy - 6,
+                );
+              }
+            } else if (terrain === "stone") {
+              g.fillStyle(paint.light, 0.28);
+              g.fillPoints(
+                [
+                  { x: p.x - 22, y: p.y + 3 },
+                  { x: p.x - 4, y: p.y - 12 },
+                  { x: p.x + 17, y: p.y - 3 },
+                  { x: p.x + 4, y: p.y + 8 },
+                ],
+                true,
               );
+            }
+            const key = `${x},${y}`;
+            if (roadKeys.has(key) && !["water", "cliff"].includes(terrain)) {
+              // Authored roads are visual routes, not an extra movement discount.
+              g.lineStyle(9, 0xb29c76, 0.42);
+              for (const [dx, dy] of [
+                [1, 0],
+                [-1, 0],
+                [0, 1],
+                [0, -1],
+              ])
+                if (roadKeys.has(`${x + dx},${y + dy}`)) {
+                  const edge = iso(dx / 2, dy / 2);
+                  g.lineBetween(p.x, p.y, p.x + edge.x, p.y + edge.y);
+                }
+            }
+            if (fordKeys.has(key) && !["water", "cliff"].includes(terrain)) {
+              g.lineStyle(5, 0xc6b8a0, 0.8);
+              g.lineBetween(p.x - 31, p.y - 15, p.x + 31, p.y + 15);
+              g.lineStyle(1, 0x283f43, 0.8);
+              for (let i = -2; i <= 2; i++)
+                g.lineBetween(
+                  p.x + i * 11 - 6,
+                  p.y + i * 5 + 3,
+                  p.x + i * 11 + 6,
+                  p.y + i * 5 - 3,
+                );
             }
           }
       }
@@ -497,6 +849,7 @@ export class World extends Phaser.Scene {
     kind: string,
     building: boolean,
     friendly: boolean,
+    appearance?: string,
   ): string {
     const e = profile ? economy(profile) : undefined;
     const family = profile ? art(profile).family : "dominion-works";
@@ -513,7 +866,7 @@ export class World extends Phaser.Scene {
       this.cameras.main.zoom < 0.45 && kind === "company" && !building;
     const painted = building
       ? buildingFrame(profile, family, kind)
-      : figureFrame(profile, coarse ? "worker" : kind);
+      : (appearance ?? figureFrame(profile, coarse ? "worker" : kind));
     const key = `world-marker:${painted ?? variant}:${kind}:${building}:${friendly}:${hue}:${coarse}`;
     if (this.textures.exists(key)) return key;
     const g = this.add.graphics();
@@ -524,7 +877,16 @@ export class World extends Phaser.Scene {
     if (friendly) g.strokeTriangle(-18, 8, -14, 2, -10, 8);
     else g.strokeRect(-17, 3, 6, 6);
     const color = Phaser.Display.Color.HexStringToColor(hue).color;
-    const atlas = building ? "buildings" : "world-figures";
+    const master =
+      !building && painted ? directionalMaster(painted, "east") : undefined;
+    const atlas =
+      master && this.textures.exists(master.texture)
+        ? master.texture
+        : building
+          ? "buildings"
+          : painted && COMPANION_FRAMES[painted]
+            ? "companion-figures"
+            : "world-figures";
     if (painted && this.textures.exists(atlas)) {
       const texture = this.textures.addDynamicTexture(key, 96, 96)!;
       const offsets =
@@ -536,7 +898,8 @@ export class World extends Phaser.Scene {
               x: 48 + offset,
               y: building ? 58 : 52 + Math.abs(offset) / 5,
               key: atlas,
-              frame: painted,
+              frame:
+                master && atlas === master.texture ? master.frame : painted,
             },
             false,
           )
@@ -636,7 +999,20 @@ export class World extends Phaser.Scene {
     const friendly = owner === this.seat;
     const ownerProfile = this.state!.players[owner]?.profile ?? "";
     sprite.setTexture(
-      this.markerTexture(ownerProfile, kind, building, friendly),
+      this.markerTexture(
+        ownerProfile,
+        kind,
+        building,
+        friendly,
+        this.state?.units[id]?.companion || ["dragon", "drake"].includes(kind)
+          ? motionAppearance(
+              ownerProfile,
+              kind,
+              this.state?.units[id]?.companion,
+              this.state?.units[id]?.secondary,
+            ).frame
+          : undefined,
+      ),
     );
     c.setData("building", building);
     // Hidden text previously allocated hundreds of separate canvas textures.
@@ -646,7 +1022,7 @@ export class World extends Phaser.Scene {
       if (!label) {
         label = this.add
           .text(0, 18, "", {
-            fontFamily: "Arial",
+            fontFamily: "Noto Sans, sans-serif",
             fontSize: "15px",
             color: "#f2e8d5",
             backgroundColor: "#192a30",
@@ -868,6 +1244,133 @@ export class World extends Phaser.Scene {
             );
             if (!this.textures.exists(key))
               throw new Error("Terrain texture unavailable");
+            if (!this.rulesTerrain && this.textures.exists("basin-materials")) {
+              const texture = this.textures.get(key);
+              const canvas = texture.getSourceImage() as HTMLCanvasElement;
+              const context = canvas.getContext("2d");
+              if (context) {
+                // Source-specific material crops of our original painting. None
+                // contains an authored settlement, bridge or crossing. Painting
+                // is clipped to rules masks; it cannot introduce another river.
+                const crops: Record<
+                  string,
+                  [number, number, number, number][]
+                > = {
+                  meadow: [
+                    [24, 24, 220, 220],
+                    [260, 30, 220, 220],
+                    [120, 270, 220, 220],
+                  ],
+                  woodland: [
+                    [536, 24, 220, 220],
+                    [772, 30, 220, 220],
+                    [632, 270, 220, 220],
+                  ],
+                  water: [
+                    [1048, 24, 220, 220],
+                    [1284, 30, 220, 220],
+                    [1144, 270, 220, 220],
+                  ],
+                  stone: [
+                    [24, 536, 220, 220],
+                    [260, 542, 220, 220],
+                    [120, 782, 220, 220],
+                  ],
+                  cliff: [
+                    [536, 536, 220, 220],
+                    [772, 542, 220, 220],
+                    [632, 782, 220, 220],
+                  ],
+                };
+                const source = this.textures
+                  .get("basin-materials")
+                  .getSourceImage() as HTMLImageElement;
+                const patterns: Record<string, CanvasPattern> = {};
+                for (const [kind, palette] of Object.entries(crops)) {
+                  let sample = this.materialPaint.get(kind);
+                  if (!sample) {
+                    sample = document.createElement("canvas");
+                    sample.width = 512;
+                    sample.height = 512;
+                    const brush = sample.getContext("2d")!;
+                    brush.fillStyle = `#${terrainPaint(kind, 0, 0).base.toString(16).padStart(6, "0")}`;
+                    brush.fillRect(0, 0, 512, 512);
+                    const patch = document.createElement("canvas");
+                    patch.width = 192;
+                    patch.height = 192;
+                    const ink = patch.getContext("2d")!;
+                    // Irregular overlapping same-material paint, wrapped at edges.
+                    // No mirrored rows, material swaps, semantic rivers or buildings.
+                    for (let i = 0; i < 70; i++) {
+                      const seed =
+                        (i * 2654435761 + kind.length * 1013904223) >>> 0;
+                      const crop = palette[i % palette.length],
+                        size = 125 + (seed % 90);
+                      ink.clearRect(0, 0, 192, 192);
+                      ink.globalCompositeOperation = "source-over";
+                      ink.drawImage(source, ...crop, 0, 0, 192, 192);
+                      ink.globalCompositeOperation = "destination-in";
+                      const fade = ink.createRadialGradient(
+                        96,
+                        96,
+                        22,
+                        96,
+                        96,
+                        96,
+                      );
+                      fade.addColorStop(0, "#fff");
+                      fade.addColorStop(0.55, "rgba(255,255,255,.9)");
+                      fade.addColorStop(1, "rgba(255,255,255,0)");
+                      ink.fillStyle = fade;
+                      ink.fillRect(0, 0, 192, 192);
+                      const px = seed % 512,
+                        py = ((seed >>> 9) + i * 137) % 512;
+                      for (const dx of [-512, 0, 512])
+                        for (const dy of [-512, 0, 512])
+                          brush.drawImage(
+                            patch,
+                            px + dx - size / 2,
+                            py + dy - size / 2,
+                            size,
+                            size,
+                          );
+                    }
+                    this.materialPaint.set(kind, sample);
+                  }
+                  const pattern = context.createPattern(sample, "repeat");
+                  if (pattern) patterns[kind] = pattern;
+                }
+                context.save();
+                context.globalCompositeOperation = "destination-over";
+                for (const cell of chunk.cells) {
+                  const pattern = patterns[cell.terrain];
+                  if (!pattern) continue;
+                  const world = iso(cell.x, cell.y),
+                    x = world.x - chunk.bounds.x,
+                    y = world.y - chunk.bounds.y;
+                  context.save();
+                  context.beginPath();
+                  context.moveTo(x, y - TILE_Y - 0.5);
+                  context.lineTo(x + TILE_X + 0.5, y);
+                  context.lineTo(x, y + TILE_Y + 0.5);
+                  context.lineTo(x - TILE_X - 0.5, y);
+                  context.closePath();
+                  context.clip();
+                  context.fillStyle = pattern;
+                  context.translate(-chunk.bounds.x, -chunk.bounds.y);
+                  context.fillRect(
+                    world.x - TILE_X,
+                    world.y - TILE_Y,
+                    TILE_X * 2,
+                    TILE_Y * 2,
+                  );
+                  context.restore();
+                }
+                context.restore();
+                if ("refresh" in texture)
+                  (texture as Phaser.Textures.CanvasTexture).refresh();
+              }
+            }
             chunk.image = this.add
               .image(chunk.bounds.x, chunk.bounds.y, key)
               .setOrigin(0)
@@ -900,13 +1403,53 @@ export class World extends Phaser.Scene {
     }
   }
 }
+/** Software WebGL forces a framebuffer readback into the browser compositor.
+ * Canvas draws the identical scene directly; real/unknown GPUs retain AUTO. */
+export function rendererPreference(renderer: string): "canvas" | "auto" {
+  return /swiftshader|llvmpipe|softpipe|software rasterizer|microsoft basic render driver/i.test(
+    renderer,
+  )
+    ? "canvas"
+    : "auto";
+}
+export function detectWorldRenderer(
+  createCanvas: () => HTMLCanvasElement = () =>
+    document.createElement("canvas"),
+): "canvas" | "auto" {
+  const canvas = createCanvas();
+  let gl: WebGLRenderingContext | WebGL2RenderingContext | null = null;
+  try {
+    gl = canvas.getContext("webgl2") ?? canvas.getContext("webgl");
+    if (!gl) return "auto";
+    const info = gl.getExtension("WEBGL_debug_renderer_info");
+    return info
+      ? rendererPreference(
+          String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)),
+        )
+      : "auto";
+  } catch {
+    return "auto";
+  } finally {
+    try {
+      gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    } catch {
+      /* Probe cleanup is best effort on a lost browser context. */
+    }
+    canvas.width = 0;
+    canvas.height = 0;
+  }
+}
+let worldRendererPreference: "canvas" | "auto" | undefined;
 export function bootWorld(
   select: (id: string) => void,
   tile: (p: Pos) => void,
 ) {
   const scene = new World(select, tile);
   const game = new Phaser.Game({
-    type: Phaser.AUTO,
+    type:
+      (worldRendererPreference ??= detectWorldRenderer()) === "canvas"
+        ? Phaser.CANVAS
+        : Phaser.AUTO,
     parent: "world",
     backgroundColor: "#203d45",
     scale: {

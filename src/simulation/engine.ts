@@ -1,4 +1,23 @@
-import { forestReason, consentVeilReason, consentVeil, prepareForest, resolveForestPatrols, forestAttack, harassmentReason, harassConvoy, releaseForest, forestWeekly, entranceReason, assignForestEntrance, inspectForestReason, inspectForestTrail, settleForest } from "./forest-routes";
+import {finalProduction,finalDeviceReason,deployFinalDevice} from "../content/final-production";
+import {extendedProduction,extendedCapabilities} from "../content/extended-production";
+import {militaryProduction,militaryCapabilities} from "../content/military-production";
+import {companionProduction} from "../content/companion-production";
+import {secondaryProduction,secondaryCapabilities,secondaryVenomHit,progressSecondaryVenom} from "../content/secondary-production";
+import {carryHeavy,heavyCarryReason,dropHeavy,heavyDropReason,heavyLoad,settleHeavyEquipment} from "./heavy-equipment";
+import {captureAgentReason,captureAgent,freeAgentReason,freeAgent,settleAgentCaptivities} from "./agent-captivity";
+import {initializeWaterChannels,loggingReason,startLogging,loggingWorkerBusy,progressLogging} from "./ordinary-environment";
+import {beaconSurveyReason,surveyBeaconLink,beaconSignalReason,startBeaconSignal,progressBeaconSignals} from "./relay-messages";
+import {agreeWarbandRewardReason,agreeWarbandReward,payWarbandRewardReason,payWarbandReward,recordWarbandParticipation,progressWarbandRewards} from "./warband-rewards";
+import {localKnowledgeReason,inspectLocalKnowledge,pruneLocalKnowledge} from "./local-knowledge";
+import {inspectWorksiteReason,inspectWorksite,progressRoutineEnvironment,tunnelProductionPenalty,pruneRoutineEnvironment} from "./routine-environment";
+import {reserveReason,packRations,payReservedUpkeep} from "./reserved-rations";
+import {createBasinScenario} from "../content/scenario";
+import {siegeRecipe,isOrdinarySiege,siegeAttackReason,consumeSiegeShot,siegeReloadReason,reloadSiege} from "./siege";
+import {ledgeConsentReason,landingSurveyReason,setLedgeConsent,inspectLanding,pruneEyrieState} from "./transport";
+import {portableReason,applyPortable,progressPortableWorkshops,settlePortableLosses,portableBusy} from "./portable-workshop";
+import {preserveReason,preservePlan,rememberReason,rememberWorkshop,planAllowsProduction,dropPlans,planRecoveryReason,recoverPlan,refreshPlans} from "./preserved-plan";
+import { recordGrievance, termsReason, offerTerms, consentReason, consentTerms, deliveryReason, deliverRestitution, recoveryReason as restitutionRecoveryReason, recoverRestitution, councilReason, settleCouncil, restitutionBusy, progressRestitution, type CouncilChecks } from "./council";
+import { falseTrailReason,layFalseTrail,forestReason, consentVeilReason, consentVeil, prepareForest, resolveForestPatrols, forestAttack, harassmentReason, harassConvoy, releaseForest, forestWeekly, entranceReason, assignForestEntrance, inspectForestReason, inspectForestTrail, settleForest } from "./forest-routes";
 import { dreamReason, prepareDream, replacementReason, replaceDream, pruneDreams, interruptDream, type DreamChecks } from "./dream-preparation";
 import {queueToolReason,queueTool,refitToolReason,refitTool,fieldRepairReason,fieldRepair,progressTools,toolUnitBusy,toolFacilityBusy} from './tool-services';
 import {queueMountsReason,queueMounts,recoverMountsReason,recoverMounts,remountReason,startRemount,progressMounts,mountUnitBusy,mountFacilityBusy,initializeMounts,createCompanyMounts} from './remounts';
@@ -78,6 +97,7 @@ import {
   progressCrops,
 } from "./crops";
 import {
+  careEvacuationReason,applyCareEvacuation,
   careReason,
   startCare,
   carePowerReason,
@@ -449,8 +469,16 @@ export function createMatch(
     throw new Error("Duplicate faction / hero identity");
   if (!Number.isInteger(seed) || size < 24 || size > 128)
     throw new Error("Invalid scenario parameters");
+  const scenario = createBasinScenario(size);
   const s: Match = {
-    dreamPlans: {},forestConsents:{},forestRoutes:{},forestVeils:{},forestReports:{},forestEntrances:{},
+    grievances:{},restitutions:{},survivorMemories:{},
+    falseTrails:{},
+    agentCaptivities:{},agentDisclosures:{},
+    waterChannels:{},loggingJobs:{},loggedVegetation:{},beaconSurveyCandidates:{},beaconLinks:{},beaconSignals:{},beaconFogUses:{},
+    warbandAgreements:{},
+    localKnowledgeReports:{},localGroundTraces:{},groveDisturbances:{},
+    routineInspections:{},routineWearUses:{},routineWorksiteWear:{},habitatWear:{},tunnelAir:{},airflowWarnings:{},routineTravelEvents:{},
+    ledgeConsents:{},landingSurveys:{},portableWorkshops:{},portableConsents:{},productionPlans:{},dreamPlans: {},forestConsents:{},forestRoutes:{},forestVeils:{},forestReports:{},forestEntrances:{},
     version: VERSION,
     id: matchId ?? `basin-${seed}-${ids.join("-")}`,
     scenario: "Cross-era sandbox",
@@ -464,7 +492,7 @@ export function createMatch(
     facilities: {},
     items: {},
     sites: [],
-    map: { width: size, height: size, terrain: [] },
+    map: {...scenario.map,scenarioId:scenario.id},
     orders: [],
     receipts: {},
     nextSeq: {},
@@ -503,17 +531,6 @@ export function createMatch(
     vessels: {},
     seaHazards: {},
   };
-  for (let y = 0; y < size; y++)
-    for (let x = 0; x < size; x++)
-      s.map.terrain.push(
-        Math.abs(x - size / 2) < 1 && y % 8 !== 0
-          ? "water"
-          : (x + y) % 13 === 0
-            ? "woodland"
-            : (x * 3 + y) % 17 === 0
-              ? "stone"
-              : "meadow",
-      );
   // Cross-era sandbox adaptation: sparse, fixed coastal hazards. Wave severity1,
   // a fog delay and one handling delay per river segment are provisional values.
   // These are scenario facts, not historical geography or extra randomness.
@@ -528,12 +545,7 @@ export function createMatch(
     if (y % 8 === 6)
       s.seaHazards[`${x},${y}`] = { wave: 0, fog: false, handling: 1 };
   }
-  const corners = [
-    { x: 4, y: 4 },
-    { x: size - 5, y: size - 5 },
-    { x: size - 5, y: 4 },
-    { x: 4, y: size - 5 },
-  ];
+  const corners = scenario.starts;
   ids.forEach((id, i) => {
     const seat = `p${i + 1}`,
       p = profile(id),
@@ -652,23 +664,7 @@ export function createMatch(
     if (l.supply === 12) s.players[seat].stock.P = 150;
   });
   const mid = Math.floor(size / 2);
-  s.sites = [
-    { id: "site:ford", name: "Lantern Ford", x: mid, y: 8, owner: null },
-    {
-      id: "site:stones",
-      name: "The Witness Stones",
-      x: mid - 4,
-      y: mid,
-      owner: null,
-    },
-    {
-      id: "site:orchard",
-      name: "Old Orchard",
-      x: mid + 4,
-      y: mid + 5,
-      owner: null,
-    },
-  ];
+  s.sites = scenario.landmarks.map(site=>({...site,owner:null}));
   [
     ["drake", mid - 6, 8],
     ["balrog", mid + 5, mid - 4],
@@ -697,7 +693,7 @@ export function createMatch(
     "Cross-era sandbox: invented connected basin; unique canonical artifacts absent. Hold two sites from week 8 for three resolutions.",
   );
   initializeHouseholds(s);
-  initializeNight(s);
+  initializeNight(s);initializeWaterChannels(s);
   initializeMounts(s);
   return s;
 }
@@ -783,6 +779,7 @@ const tactical = (p: Player, a: Action) =>
     a.unit === p.hero.id &&
     ["move", "attack", "capture"].includes(a.kind));
 const navalKinds = new Set([
+  "prepare-rescue-rig",
   "load-cargo",
   "unload-cargo",
   "embark",
@@ -793,7 +790,7 @@ const navalKinds = new Set([
 ]);
 const hullCrew = (s: Match, id: string) =>
   Object.values(s.facilities).some(
-    (f) => f.job?.recipe === "hull" && f.job.crew === id,
+    (f) => !!f.job && recipe(s.players[f.owner].profile,f.job.recipe)?.kind === "vessel" && f.job.crew === id,
   );
 function freeWorker(s: Match, seat: string, f: Facility): Unit | undefined {
   return Object.values(s.units)
@@ -806,7 +803,7 @@ function freeWorker(s: Match, seat: string, f: Facility): Unit | undefined {
         u.supplied &&
         distance(u, f) <= 1 &&
         !Object.values(s.recoveries).some((q) => q.unit === u.id) &&
-        !nightBusy(s,u.id) && !relayBusy(s,u.id) &&
+        !loggingWorkerBusy(s,u.id) && !portableBusy(s,u.id) && !restitutionBusy(s,u.id) && !nightBusy(s,u.id) && !relayBusy(s,u.id) &&
         !civilianBusy(s,u.id) &&
         !isChargeMember(s,u.id) &&
         !isIntelligenceCourier(s, u.id) &&
@@ -843,16 +840,27 @@ function actionReason(s: Match, seat: string, a: Action): string {
   if (p.eliminated) return "Faction has lost its recovery footholds";
   if (p.ready && a.kind !== "ready") return "Seat already committed";
   if (a.kind === "ready") return "";
+  if(a.kind!=='assign-mining-engine'&&([...('unit'in a?[a.unit]:[]),...('carrier'in a&&a.carrier?[a.carrier]:[]),...('worker'in a?[a.worker]:[]),...('crew'in a?[a.crew]:[]),...(a.kind==='declare-tactical'?[a.order.unit]:[]),...(a.kind==='movement-power'||a.kind==='formation-power'?a.members.map(m=>m.unit):[])].some(id=>s.units[id]?.mineWork)))return 'Mining engine is assigned to a worksite; release it first';
+  if(a.kind==='consent-ledge')return ledgeConsentReason(s,seat,a.ledge,a.visitor,a.allow);
+  if(a.kind==='survey-landing')return landingSurveyReason(s,seat,a.destination,at=>visible(s,seat,at));
+  if(a.kind==='portable'&&a.mode==='consent')return portableReason(s,seat,a,civilianChecks(s));
+  if(a.kind!=='portable'&&([...('unit'in a?[a.unit]:[]),...('carrier'in a&&a.carrier?[a.carrier]:[]),...('worker'in a?[a.worker]:[]),...('crew'in a?[a.crew]:[]),...(a.kind==='movement-power'||a.kind==='formation-power'?a.members.map(m=>m.unit):[])].some(id=>portableBusy(s,id))))return 'Carrier is committed to a portable workshop';
   if(a.kind==="consent-veil")return consentVeilReason(s,seat,a.unit,a.melian,a.accept);
   if(a.kind==="release-forest")return s.forestRoutes[a.id]?.owner===seat?"":"Own maintained route required";
   if (a.kind === "replace-dream") return replacementReason(s, seat, a.plan, a.report, dreamChecks(s));
+  if(a.kind==='council-drop'){const j=s.restitutions[a.restitution];return j?.owner===seat&&j.phase==='travel'?'':'Own traveling restitution required';}
+  if(a.kind==='council-terms')return termsReason(s,seat,a.grievance,a.payment)||(s.players[a.mediator]?.profile==='nienna'?'':'Existing Nienna mediator required');
+  if(a.kind==='council-consent')return consentReason(s,seat,a.grievance)||(a.accept&&s.grievances[a.grievance].termsVersion!==a.termsVersion?'Terms changed; review the current exact payment':'');
+  const councilUnits=[...('unit' in a?[a.unit]:[]),...('carrier' in a&&a.carrier?[a.carrier]:[]),...('worker' in a?[a.worker]:[]),...('crew' in a?[a.crew]:[]),...('courier' in a?[a.courier]:[]),...(a.kind==='movement-power'||a.kind==='formation-power'?a.members.map(m=>m.unit):[]),...(a.kind==='declare-tactical'?[a.order.unit]:[])];
+  if(councilUnits.some(id=>restitutionBusy(s,id)))return 'Courier is committed to conserved restitution';
   const reservedNight=(id:string)=>nightBusy(s,id)||relayBusy(s,id);
   if(("unit"in a&&reservedNight(a.unit))||("worker"in a&&reservedNight(a.worker))||("carrier"in a&&a.carrier&&reservedNight(a.carrier))||("crew"in a&&reservedNight(a.crew))||("courier"in a&&reservedNight(a.courier))||(a.kind==="movement-power"&&a.members.some(m=>reservedNight(m.unit)))||(a.kind==="declare-tactical"&&reservedNight(a.order.unit)))return "Party is committed to night work or a physical message";
   if (("unit" in a&&civilianBusy(s,a.unit))||("worker" in a&&civilianBusy(s,a.worker))||("carrier" in a&&a.carrier&&civilianBusy(s,a.carrier))||("crew" in a&&civilianBusy(s,a.crew))||(a.kind==="movement-power"&&a.members.some(m=>civilianBusy(s,m.unit)))||(a.kind==="declare-tactical"&&civilianBusy(s,a.order.unit)))return "Carrier is committed to civilian transport";
   if ((a.kind === "attack" || a.kind === "capture" || a.kind === "attack-ship") && s.units[a.unit]?.owner===seat && activeEffects(s,s.units[a.unit]).some(e=>e.kind==="rout")) return "Routed company must withdraw or rally before attacking";
 
   const serviceBusy=(id:string)=>toolUnitBusy(s,id)||mountUnitBusy(s,id)||watchUnitBusy(s,id);
-  const serviceUnits=[...("unit" in a?[a.unit]:[]),...("crew" in a?[a.crew]:[]),...("worker" in a?[a.worker]:[]),...("rider" in a?[a.rider]:[]),...("carrier" in a&&a.carrier?[a.carrier]:[]),...(a.kind==='declare-tactical'?[a.order.unit]:[]),...(a.kind==='movement-power'?a.members.map(m=>m.unit):[])];
+  const serviceUnits=[...councilUnits,...("rider" in a?[a.rider]:[]),...("item" in a&&s.items[a.item]?.bearer?[s.items[a.item].bearer!]:[])];
+  if(serviceUnits.some(id=>loggingWorkerBusy(s,id)))return 'Worker is committed to finite logging';
   if(serviceUnits.some(serviceBusy))return 'Company is committed to a funded tool, mount or watch job';
   if('facility' in a&&a.facility&&(toolFacilityBusy(s,a.facility)||mountFacilityBusy(s,a.facility)||watchFacilityBusy(s,a.facility)))return 'Facility queue is committed to tools, mounts or watch equipment';
   if(("unit" in a&&equipmentServiceBusy(s,a.unit))||("carrier" in a&&a.carrier&&equipmentServiceBusy(s,a.carrier))||("worker" in a&&equipmentServiceBusy(s,a.worker))||("crew" in a&&equipmentServiceBusy(s,a.crew))||(a.kind==="movement-power"&&a.members.some(m=>equipmentServiceBusy(s,m.unit)))||(a.kind==="declare-tactical"&&equipmentServiceBusy(s,a.order.unit)))return "Company is committed to armor refitting";
@@ -889,7 +897,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       "scout-power",
       "habitat-power",
       "formation-power",
-      "forest-power", "prepare-dream",
+      "forest-power", "prepare-dream", "council-settle", "remember-workshop",
       "surrender",
     ].includes(a.kind)
   )
@@ -1071,11 +1079,11 @@ function actionReason(s: Match, seat: string, a: Action): string {
       path(state, x, y, u.flying, u),
     );
   }
-  const heroAction =
+  const heroAction = (a.kind==='portable'&&a.mode==='relocate') ||
     equipmentPower(a) ||
     (a.kind==="night"&&nightPower(a)) ||
     (a.kind==="civilian"&&"method" in a&&a.method!=="ordinary") ||
-    (a.kind === "logistics" && (a.mode === "lift" || a.method === "power")) ||
+    (a.kind === "logistics" && (a.mode === "lift" || a.mode === "redistribute"&&a.method === "power")) ||
     (a.kind === "hunting" && a.mode === "survey") ||
     a.kind === "care-power" ||
     (a.kind === "care" && a.method === "este") ||
@@ -1109,7 +1117,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       "scout-power",
       "habitat-power",
       "formation-power",
-      "forest-power", "prepare-dream",
+      "forest-power", "prepare-dream", "council-settle", "remember-workshop",
     ].includes(a.kind) ||
     ("unit" in a &&
       a.unit === p.hero.id &&
@@ -1129,6 +1137,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
     )
   )
     return "Hero is aboard a vessel; land before a separate commitment";
+  if(heroAction&&portableBusy(s,p.hero.id))return 'Hero carries a portable workshop';
   if (heroAction && grappleOccupiesHero(s, p.hero.id))
     return "Hero is maintaining a grapple; cancel it before another action";
   if (heroAction && a.kind !== "logistics" && logisticsUnitBusy(s, p.hero.id))
@@ -1160,6 +1169,39 @@ function actionReason(s: Match, seat: string, a: Action): string {
     p.operations < 1
   )
     return "No strategic operations remain";
+  if(a.kind==='deploy-device')return finalDeviceReason(s,seat,a.unit,a.item,a.at);
+  if(a.kind==='assign-mining-engine'){
+    const u=s.units[a.unit],f=a.facility?s.facilities[a.facility]:undefined;if(!u||u.owner!==seat||!u.alive||!u.active||!extendedCapabilities(s,u)?.miningWork)return 'Own active mining engine required';
+    if(a.facility===null)return u.mineWork?'':'Engine has no mining assignment';
+    if(u.mineWork)return 'Release the existing mining assignment first';
+    const busy=actionReason(s,seat,{kind:'move',unit:u.id,x:u.x,y:u.y});if(busy)return busy;
+    if(!u.supplied||activeEffects(s,u).some(e=>['stunned','incapacitated','rout'].includes(e.kind))||!f||f.owner!==seat||f.kind!=='mine'||f.hp<=0||distance(u,f)>1)return 'Supplied engine beside an owned mine required';
+    return Object.values(s.units).some(v=>v.mineWork===f.id)?'One mechanical worker per mine':'';
+  }
+  if(a.kind==="lay-false-trail"){const u=s.units[a.unit];if(!u)return "Existing actor required";return actionReason(s,seat,{kind:"move",unit:u.id,x:u.x,y:u.y})||falseTrailReason(s,seat,a.unit);}
+  if(a.kind==="carry-heavy"){const u=s.units[a.carrier];if(!u)return "Existing carrier required";return actionReason(s,seat,{kind:"move",unit:u.id,x:u.x,y:u.y})||heavyCarryReason(s,seat,a.item,a.carrier);}
+  if(a.kind==="drop-heavy")return heavyDropReason(s,seat,a.item);
+  if(a.kind==="capture-agent"||a.kind==="free-agent"){const u=s.units[a.unit];if(!u)return "Existing actor required";const busy=actionReason(s,seat,{kind:"move",unit:u.id,x:u.x,y:u.y});return busy||(a.kind==="capture-agent"?captureAgentReason(s,seat,a.unit,a.target):freeAgentReason(s,seat,a.unit,a.capture));}
+  if(a.kind==="survey-beacon-link")return beaconSurveyReason(s,seat,a.origin,a.destination,a.trace);
+  if(a.kind==="signal-beacon")return beaconSignalReason(s,seat,a);
+  if(a.kind==="logging"){const u=s.units[a.worker];if(!u)return "Existing worker required";const busy=actionReason(s,seat,{kind:"move",unit:u.id,x:u.x,y:u.y});return busy||loggingReason(s,seat,a.worker,a.vegetation,a.facility);}
+  if(a.kind==="agree-reward")return agreeWarbandRewardReason(s,seat,a.unit,a.reward,a.due);
+  if(a.kind==="pay-reward")return payWarbandRewardReason(s,seat,a.unit,a.facility);
+  if(a.kind==="inspect-local")return localKnowledgeReason(s,seat,a.point,{visible:at=>visible(s,seat,at),connected:(a,b)=>Boolean(path(s,a,b))});
+  if(a.kind==="inspect-worksite")return inspectWorksiteReason(s,seat,a.facility);
+  if(a.kind==="evacuate-care")return careEvacuationReason(s,seat,a,civilianChecks(s));
+  if(a.kind==='pack-rations')return reserveReason(s,seat,a.unit,a.facility,a.amount);
+  if(a.kind==='reload-siege')return siegeReloadReason(s,seat,a.unit,a.facility);
+  if(a.kind==='portable')return portableReason(s,seat,a,civilianChecks(s));
+  if(a.kind==='preserve-plan')return preserveReason(s,seat,a.archive,a.recipe);
+  if(a.kind==='remember-workshop')return rememberReason(s,seat,a.plan,a.facility,(x,y)=>Boolean(path(s,x,y)));
+  if(a.kind==='recover-plan'||a.kind==='destroy-plan')return planRecoveryReason(s,seat,a.plan,a.unit,a.kind==='destroy-plan');
+  if(a.kind==='council-settle')return councilReason(s,seat,a.grievance,councilChecks(s));
+  if(a.kind==='council-deliver'||a.kind==='council-recover'){
+   const u=s.units[a.carrier];if(!u)return 'Existing courier required';
+   const busy=actionReason(s,seat,{kind:'move',unit:u.id,x:u.x,y:u.y});if(busy)return busy;
+   return a.kind==='council-deliver'?deliveryReason(s,seat,a.grievance,a.carrier,a.origin,a.destination,a.route,councilChecks(s)):restitutionRecoveryReason(s,seat,a.restitution,a.carrier,a.route,councilChecks(s));
+  }
   if(a.kind==="prepare-dream")return dreamReason(s,seat,a.unit,a.facility,dreamChecks(s));
   if(a.kind==="forest-power")return forestReason(s,seat,a,(x,y)=>Boolean(path(s,x,y,false,s.units[p.hero.id])));
   if(a.kind==="forest-entrance")return entranceReason(s,seat,a.facility);
@@ -1252,6 +1294,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
     return recoverCargoReason(s, seat, a.convoy, a.carrier, (state, x, y, u) =>
       path(state, x, y, u.flying, u),
     );
+  if(a.kind==="logistics"&&a.mode==="rescue-flight"){for(const id of [a.carrier,a.unit]){const u=s.units[id];if(!u)return "Existing carrier and passenger required";const busy=actionReason(s,u.owner,{kind:"move",unit:id,x:u.x,y:u.y});if(busy)return busy;}return logisticsReason(s,seat,a,(state,x,y,u)=>path(state,x,y,u?.flying??false,u));}
   if (a.kind === "logistics")
     return logisticsReason(s, seat, a, (state, x, y, u) =>
       path(state, x, y, u?.flying ?? false, u),
@@ -1279,6 +1322,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       ? clearableZone(s, seat, u, z)
       : "Choose an observed obstacle and owned company";
   }
+  if((a.kind==="attack-ship"||a.kind==="break-crossing")&&s.units[a.unit]?.siege){const reason=siegeAttackReason(s,s.units[a.unit]);if(reason)return reason;}
   if (a.kind === "attack-ship") {
     const u = s.units[a.unit],
       v = s.vessels[a.ship] ?? s.vesselContacts?.find((v) => v.id === a.ship);
@@ -1295,7 +1339,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
     if (effectiveRelation(s, seat, v.owner) !== "war")
       return "Cannot attack own or peaceful vessel";
     if (!sightline(s, u, v)) return "Solid cover blocks the attack line";
-    return distance(u, v) <= 2 ? "" : "Vessel beyond ordinary attack range";
+    return distance(u, v) <= (militaryCapabilities(s,u)?.rangedRange??2) ? "" : "Vessel beyond ordinary attack range";
   }
   if (a.kind === "repair")
     return repairReason(s, seat, a, (x, y) => Boolean(path(s, x, y)));
@@ -1372,6 +1416,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
     if (!f || f.owner !== seat || f.hp <= 0)
       return "Owned working facility required";
     if (!r) return "Unknown or faction-unavailable recipe";
+    if(a.recipe==="equipment"&&!planAllowsProduction(s,f,(x,y)=>Boolean(path(s,x,y))))return "Unlocked equipment plan and staffed archive or current Remembered Workshop commitment required";
     if (a.recipe === "sentinel") {
       if (
         p.hero.status !== "living" ||
@@ -1403,7 +1448,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       return "Facility queue occupied";
     if (r.kind === "vessel" && (!freeWorker(s, seat, f) || !launchTile(s, f)))
       return "A free supplied crew and unoccupied adjacent water launch tile are required";
-    if (f.kind !== r.facility) return `Requires ${r.facility} facility`;
+    if (f.kind !== r.facility && !(p.profile==="elf_avari"&&f.kind==="portable-workshop"&&r.kind==="item"&&a.recipe==="equipment")) return `Requires ${r.facility} facility`;
     if (f.workers < 1) return "Staff required";
     if (!afford(p, r.cost)) return "Insufficient P / M / K / E";
     if (r.access.some((x) => !p.sources.includes(x)))
@@ -1416,11 +1461,11 @@ function actionReason(s: Match, seat: string, a: Action): string {
       Object.values(s.facilities).filter(
         (f) =>
           f.owner === seat &&
-          f.job &&
+          f.job && !tunnelProductionPenalty(s,f.id) &&
           f.job.recipe !== "hero" &&
           f.job.recipe !== "component" &&
           f.job.recipe !== "synthesis",
-      ).length >= limits(p.profile).queues &&
+      ).length + Object.values(s.portableWorkshops).filter(j=>j.owner===seat&&j.phase!=="arrived"&&j.workshop?.job).length >= limits(p.profile).queues &&
       !["hero", "component", "synthesis"].includes(a.recipe)
     )
       return "Ordinary queue limit reached";
@@ -1494,7 +1539,7 @@ function actionReason(s: Match, seat: string, a: Action): string {
       return "Faction city limit reached";
     if (
       !["hold", "core"].includes(a.building) &&
-      fs.filter((f) => !["core", "hold"].includes(f.kind)).length + fieldworkPlotReservations(s,seat) >=
+      fs.filter((f) => !["core", "hold"].includes(f.kind)).length + Object.values(s.portableWorkshops).filter(j=>j.owner===seat&&j.phase!=="arrived").length + fieldworkPlotReservations(s,seat) >=
         limits(p.profile).plots
     )
       return "Support plots full";
@@ -1550,13 +1595,15 @@ function actionReason(s: Match, seat: string, a: Action): string {
     return "";
   }
   if (a.kind === "attack" || a.kind === "capture") {
+    if(s.units[a.unit]&&activeEffects(s,s.units[a.unit]).some(e=>e.kind==="facing-unready"))return "Formation is recovering its facing after withdrawal";
     if (!owned(s, seat, a.unit)) return "Owned attacker required";
     const u = s.units[a.unit],
       t = entityAt(s, a.target);
+    if(u.siege){if(a.kind==='capture')return "Siege engines cannot take captives";const reason=siegeAttackReason(s,u);if(reason)return reason;}
     if (!t || !visible(s, seat, t)) return "Choose an observed target";
     if (t.owner === seat || effectiveRelation(s, seat, t.owner) !== "war")
       return "Cannot attack own or peaceful target";
-    if (distance(u, t) > 2) return "Target beyond attack range (2 tiles)";
+    if (distance(u, t) > (militaryCapabilities(s,u)?.rangedRange??2)) return "Target beyond ordinary weapon range";
     if (!sightline(s, u, t)) return "Solid cover blocks the attack line";
     if (("alive" in t && !t.alive) || t.hp <= 0) return "Target already lost";
     if (
@@ -1653,12 +1700,17 @@ function actionReason(s: Match, seat: string, a: Action): string {
   if (a.kind === "equip") {
     const u = s.units[a.unit],
       i = s.items[a.item];
+    if(i?.extended==='saddle'&&u&&!Object.values(s.mountLots).some(l=>l.unit===u.id&&l.owner===seat))return 'A saddle requires an existing mounted formation';
+    if(i?.extended&&u&&!['company','worker','hero'].includes(u.kind))return 'Humanoid equipment requires a fitting ordinary bearer';
     return u &&
       owned(s, seat, u.id) &&
       i &&
-      !i.bearer &&
+      (!i.bearer||(i.bearer===u.id&&i.carried)) &&
+      (!heavyLoad(s,u)||i.bearer===u.id) &&
       (!i.owner || i.owner === seat) &&
-      distance(u, i) <= 1
+      // Carried equipment follows its physical bearer; loose-item coordinates
+      // record its previous ground position until it is put down.
+      distance(u, i.bearer ? s.units[i.bearer] : i) <= 1
       ? ""
       : "Reach an available owned or dropped item";
   }
@@ -1768,7 +1820,7 @@ function spendBudget(s: Match, seat: string, a: Action) {
       "scout-power",
       "habitat-power",
       "formation-power",
-      "forest-power", "prepare-dream",
+      "forest-power", "prepare-dream", "council-settle", "remember-workshop",
     ].includes(a.kind) ||
     ("unit" in a &&
       a.unit === p.hero.id &&
@@ -1789,6 +1841,8 @@ function spendBudget(s: Match, seat: string, a: Action) {
     p.operations--;
 }
 export function kill(s: Match, id: string) {
+  dropPlans(s,id);
+  if(s.units[id]){delete s.units[id].reserveProvisions;delete s.units[id].mineWork;}
   const u = s.units[id];
   if (!u || !u.alive) return;
   u.alive = false;
@@ -1798,6 +1852,7 @@ export function kill(s: Match, id: string) {
     const i = s.items[item];
     if (i) {
       i.bearer = null;
+      delete i.carried;
       i.owner = null;
       i.x = u.x;
       i.y = u.y;
@@ -1818,6 +1873,7 @@ function damage(
   amount: number,
   ability = false,
   reductionPercent = 0,
+  attacker?: Unit,
 ) {
   const t = entityAt(s, target);
   if (!t || t.hp <= 0) return;
@@ -1849,7 +1905,10 @@ function damage(
         }
   }
   if (hit > 0 && "inventory" in t) wearEquipment(s, t, "armor");
+  const actualInjury=Math.min(t.hp,hit);
+  if(attacker && "alive" in t && actualInjury>0 && visible(s,t.owner,attacker) && visible(s,attacker.owner,t))recordGrievance(s,attacker,t,actualInjury);
   t.hp -= hit;
+  if(!ability&&attacker&&"alive" in t)secondaryVenomHit(s,attacker,t,actualInjury);
   if ("alive" in t && hit > 0) recordRecoverableInjury(s, t, hit);
   if (!ability && "alive" in t) afterOrdinaryDamage(s, t, hit);
   if ("alive" in t && hit > 0) damageMorale(s,t,hit,(u,route)=>route.length>1&&route[0].x===u.x&&route[0].y===u.y&&route.slice(1).every((at,i)=>path(s,route[i],at,u.flying,u)?.length===2&&!Object.values(s.units).some(v=>v.id!==u.id&&v.alive&&v.active&&distance(v,at)===0)));
@@ -1873,7 +1932,8 @@ function weaponDamage(
   reductionPercent = 0,
 ) {
   const target = entityAt(s, targetId);
-  if (!target) return;
+  if (!target || activeEffects(s,attacker).some(e=>e.kind==="facing-unready")) return;
+  if(attacker.siege){if(siegeAttackReason(s,attacker))return;consumeSiegeShot(s,attacker);}
   if (distance(attacker, target) > 1) {
     const penalty = Math.max(
       0,
@@ -1895,7 +1955,9 @@ function weaponDamage(
       return;
     }
   }
-  amount = passiveOrdinaryHit(s, attacker, target, amount);
+  if(!("alive" in target)&&["core","hold","gate","cover","barricade","siege-brace"].includes(target.kind))amount+=(secondaryCapabilities(s,attacker)?.structuralAttackBonus??0)+(militaryCapabilities(s,attacker)?.structuralAttackBonus??0);
+  if(!("alive" in target)&&target.kind==='guest-marker')amount+=attacker.inventory.filter(id=>{const i=s.items[id];return i?.military==='ward-breaker-tools'&&i.durability>0&&!i.carried;}).length?2:0;
+  amount = passiveOrdinaryHit(s, attacker, target, amount,isOrdinarySiege(s,attacker));
   passiveActivity(s, attacker);
   if (
     !("alive" in target) &&
@@ -1922,7 +1984,7 @@ function weaponDamage(
       ? "breach"
       : "attack",
   );
-  damage(s, targetId, amount, false, Math.max(reductionPercent,fieldworkCoverReduction(s,attacker,target),"alive" in target?fittingReduction(s,target.id,distance(attacker,target)>1?"arrows":"impact",Object.values(s.units).some(u=>u.alive&&u.owner===attacker.owner&&u.id!==attacker.id&&distance(u,target)===1&&(u.x-target.x)*(attacker.x-target.x)+(u.y-target.y)*(attacker.y-target.y)<0)):0));
+  damage(s, targetId, amount, false, Math.max(reductionPercent,fieldworkCoverReduction(s,attacker,target),"alive" in target?fittingReduction(s,target.id,distance(attacker,target)>1?"arrows":"impact",Object.values(s.units).some(u=>u.alive&&u.owner===attacker.owner&&u.id!==attacker.id&&distance(u,target)===1&&(u.x-target.x)*(attacker.x-target.x)+(u.y-target.y)*(attacker.y-target.y)<0)):0),attacker);
 }
 function performOrdinaryAttack(
   s: Match,
@@ -1935,6 +1997,7 @@ function performOrdinaryAttack(
     u = s.units[unit],
     a = { target };
   forestAttack(s,u.id);
+  recordWarbandParticipation(s,u);
   recordObservedAttack(s, u);
   recordWitnessedAttack(s,u);
   const intended = s.units[a.target];
@@ -1984,7 +2047,7 @@ function performOrdinaryAttack(
   const intendedHit=!interceptor&&(entityAt(s,a.target)?.hp??0)<intendedHp;
   const t = s.units[interceptor?.id ?? a.target];
 
-  if (t?.alive && !activeEffects(s,t).some(e=>e.kind==="rout"))
+  if (t?.alive && distance(t,u)<=(militaryCapabilities(s,t)?.rangedRange??2) && sightline(s,t,u) && !activeEffects(s,t).some(e=>e.kind==="rout"))
     weaponDamage(
       s,
       t,
@@ -1998,9 +2061,40 @@ function performOrdinaryAttack(
   return intendedHit;
 }
 function apply(s: Match, seat: string, a: Action, preview = false) {
+  if(a.kind==='pack-rations'){packRations(s,seat,a.unit,a.facility,a.amount);s.players[seat].operations--;return;}
+  if(a.kind==="lay-false-trail"){layFalseTrail(s,seat,a.unit);spendBudget(s,seat,a);return;}
+  if(a.kind==="carry-heavy"){carryHeavy(s,seat,a.item,a.carrier);return;}
+  if(a.kind==="drop-heavy"){dropHeavy(s,seat,a.item);return;}
+  if(a.kind==="capture-agent"){captureAgent(s,seat,a.unit,a.target);spendBudget(s,seat,a);return;}
+  if(a.kind==="free-agent"){freeAgent(s,seat,a.unit,a.capture);spendBudget(s,seat,a);return;}
+  if(a.kind==="survey-beacon-link"){surveyBeaconLink(s,seat,a.origin,a.destination,a.trace);spendBudget(s,seat,a);return;}
+  if(a.kind==="signal-beacon"){startBeaconSignal(s,seat,a);spendBudget(s,seat,a);return;}
+  if(a.kind==="logging"){startLogging(s,seat,a.worker,a.vegetation,a.facility);return;}
+  if(a.kind==="agree-reward"){agreeWarbandReward(s,seat,a.unit,a.reward,a.due);return;}
+  if(a.kind==="pay-reward"){payWarbandReward(s,seat,a.unit,a.facility);return;}
+  if(a.kind==="inspect-local"){inspectLocalKnowledge(s,seat,a.point,{visible:at=>visible(s,seat,at),connected:(a,b)=>Boolean(path(s,a,b))});spendBudget(s,seat,a);return;}
+  if(a.kind==="inspect-worksite"){inspectWorksite(s,seat,a.facility);spendBudget(s,seat,a);return;}
+  if(a.kind==="evacuate-care"){applyCareEvacuation(s,seat,a,civilianChecks(s));spendBudget(s,seat,a);return;}
+  if(a.kind==='reload-siege'){reloadSiege(s,seat,a.unit,a.facility);return;}
+  if(a.kind==='consent-ledge'){setLedgeConsent(s,seat,a.ledge,a.visitor,a.allow);return;}
+  if(a.kind==='survey-landing'){inspectLanding(s,seat,a.destination,at=>visible(s,seat,at),at=>!Object.values(s.units).some(u=>u.alive&&u.active&&visible(s,seat,u)&&distance(u,at)===0));return;}
+  if(a.kind==='portable'){applyPortable(s,seat,a,civilianChecks(s));if(a.mode!=='consent')s.players[seat].operations--;if(a.mode==='relocate')s.players[seat].commitment--;return;}
+  if(a.kind==='preserve-plan'){preservePlan(s,seat,a.archive,a.recipe);spendBudget(s,seat,a);return;}
+  if(a.kind==='remember-workshop'){rememberWorkshop(s,seat,a.plan,a.facility,(x,y)=>Boolean(path(s,x,y)));spendBudget(s,seat,a);return;}
+  if(a.kind==='recover-plan'){recoverPlan(s,seat,a.plan,a.unit);spendBudget(s,seat,a);return;}
+  if(a.kind==='destroy-plan'){delete s.productionPlans[a.plan];spendBudget(s,seat,a);return;}
+  if(a.kind==='council-drop'){s.restitutions[a.restitution].phase='lost';return;}
+  if(a.kind==='council-terms'){offerTerms(s,seat,a.grievance,a.payment,a.mediator);return;}
+  if(a.kind==='council-consent'){consentTerms(s,seat,a.grievance,a.accept);return;}
+  if(a.kind==='council-deliver'){deliverRestitution(s,seat,a.grievance,a.carrier,a.origin,a.destination,a.route,councilChecks(s));spendBudget(s,seat,a);return;}
+  if(a.kind==='council-recover'){recoverRestitution(s,seat,a.restitution,a.carrier,a.route,councilChecks(s));spendBudget(s,seat,a);return;}
+  if(a.kind==='council-settle'){settleCouncil(s,seat,a.grievance,councilChecks(s));spendBudget(s,seat,a);return;}
+
   if(a.kind==="consent-veil"){consentVeil(s,seat,a.unit,a.melian,a.accept);return;}
   if(a.kind==="forest-power"){prepareForest(s,seat,a,(x,y)=>Boolean(path(s,x,y,false,s.units[s.players[seat].hero.id])));spendBudget(s,seat,a);return;}
   if(a.kind==="forest-entrance"){assignForestEntrance(s,seat,a.facility);spendBudget(s,seat,a);return;}
+  if(a.kind==='deploy-device'){deployFinalDevice(s,seat,a.unit,a.item,a.at);return;}
+  if(a.kind==='assign-mining-engine'){if(a.facility===null)delete s.units[a.unit].mineWork;else s.units[a.unit].mineWork=a.facility;spendBudget(s,seat,a);return;}
   if(a.kind==="harass-convoy"){harassConvoy(s,seat,a.unit,a.target);spendBudget(s,seat,a);return;}
   if(a.kind==="inspect-forest"){inspectForestTrail(s,seat,a.unit,a.point);spendBudget(s,seat,a);return;}
   if(a.kind==="release-forest"){releaseForest(s,seat,a.id);return;}
@@ -2024,7 +2118,7 @@ function apply(s: Match, seat: string, a: Action, preview = false) {
     startLogistics(s, seat, a, (state, x, y, u) =>
       path(state, x, y, u?.flying ?? false, u),
     );
-    spendBudget(s, seat, a);
+    if(a.mode!=="rescue-flight")spendBudget(s, seat, a);
     return;
   }
   if (a.kind === "infrastructure-work" || a.kind === "infrastructure-power") {
@@ -2192,6 +2286,7 @@ function apply(s: Match, seat: string, a: Action, preview = false) {
   spendBudget(s, seat, a);
   switch (a.kind) {
     case "attack-ship":
+      if(s.units[a.unit].siege)consumeSiegeShot(s,s.units[a.unit]);
       if (!preview) {
         recordObservedAttack(s, s.units[a.unit]);
         recordWitnessedAttack(s,s.units[a.unit]);
@@ -2209,6 +2304,7 @@ function apply(s: Match, seat: string, a: Action, preview = false) {
       passiveActivity(s, s.units[a.unit]);
       break;
     case "break-crossing":
+      if(s.units[a.unit].siege)consumeSiegeShot(s,s.units[a.unit]);
       damageCrossing(s, a.crossing, Math.max(1, s.units[a.unit].attack));
       passiveActivity(s, s.units[a.unit]);
       break;
@@ -2322,6 +2418,7 @@ function apply(s: Match, seat: string, a: Action, preview = false) {
       break;
     }
     case "attack": {
+      if(preview&&s.units[a.unit].siege)consumeSiegeShot(s,s.units[a.unit]);
       if (!preview) performOrdinaryAttack(s, seat, a.unit, a.target);
       break;
     }
@@ -2411,8 +2508,9 @@ function apply(s: Match, seat: string, a: Action, preview = false) {
         i = s.items[a.item];
       i.bearer = u.id;
       i.owner = seat;
-      u.inventory.push(i.id);
-      if (u.kind === "hero") p.hero.equipment.push(i.id);
+      if(!u.inventory.includes(i.id))u.inventory.push(i.id);
+      delete i.carried;
+      if (u.kind === "hero"&&!p.hero.equipment.includes(i.id)) p.hero.equipment.push(i.id);
       if (i.durability > 0) {
         u.armor += i.bonus;
         u.attack += i.attackBonus ?? 0;
@@ -2534,7 +2632,7 @@ function finishJob(s: Match, f: Match["facilities"][string]) {
       j.remaining = 1;
       return;
     }
-    spawnVessel(s, f.owner, f.id, crew.id, at);
+    spawnVessel(s, f.owner, f.id, crew.id, at, j.recipe);
   } else if (r.kind === "hero") {
     p.hero.status = "living";
     p.hero.readiness = p.profile === "melkor_worldbreaker" ? 12 : 6;
@@ -2583,10 +2681,16 @@ function finishJob(s: Match, f: Match["facilities"][string]) {
       durability: 100,
       maxDurability: 100,
       crafted: true,
+      ...(p.profile==="troll_hold"&&j.recipe==="equipment"?{heavy:true as const}:{}),
       materials: j.recipe === "field-tools" ? ["metal"] : [...factionProduction(p.profile).equipment.access],
       x: f.x,
       y: f.y,
     };
+    const extended=extendedProduction(p.profile,j.recipe),military=militaryProduction(p.profile,j.recipe);
+    if(extended?.item)Object.assign(s.items[id],extended.item,{name:extended.recipe.name,extended:j.recipe});
+    if(military?.kind==='item'){const {bonus,attackBonus,materials,durability}=military.item;Object.assign(s.items[id],{bonus,attackBonus,materials,durability,maxDurability:100,name:military.recipe.name,military:j.recipe});}
+    const final=finalProduction(p.profile,j.recipe);if(final?.kind==='item')Object.assign(s.items[id],final.item,{name:final.recipe.name,finalProduct:j.recipe});
+    const companion=companionProduction(p.profile,j.recipe);if(companion?.item)Object.assign(s.items[id],companion.item,{name:companion.recipe.name,companion:j.recipe});
   } else {
     const id = `unit:${s.nextId++}`;
     const kind = [
@@ -2626,9 +2730,19 @@ function finishJob(s: Match, f: Match["facilities"][string]) {
       });
     }
     if(j.recipe === "engineers"){u.kind="company";u.engineer="trained";u.name="Field Engineers";u.hp=60;u.maxHp=60;u.attack=12;u.armor=3;u.move=3;u.loadClass="standard";u.upkeep=stocks(2);}
+    const companion=companionProduction(p.profile,j.recipe);if(companion?.stats)Object.assign(u,companion.stats,{companion:j.recipe});
+    const extended=extendedProduction(p.profile,j.recipe),military=militaryProduction(p.profile,j.recipe);
+    if(extended?.stats)Object.assign(u,extended.stats,{extended:j.recipe});
+    if(military?.kind==='unit'){Object.assign(u,military.stats,{military:j.recipe});if(military.capabilities.magazine)u.siege={ammunition:3,capacity:3};}
+    const secondary=secondaryProduction(p.profile,j.recipe);if(secondary)Object.assign(u,secondary.stats,{secondary:j.recipe});
+    const final=finalProduction(p.profile,j.recipe);if(final?.kind==='unit')Object.assign(u,final.stats,{finalProduct:j.recipe});
     s.units[id] = u;
-    createCompanyMounts(s,u);
+    if(j.recipe==='siege'){Object.assign(u,{kind:'company',name:'Ordinary siege engine',hp:siegeRecipe.maxHp,maxHp:siegeRecipe.maxHp,armor:siegeRecipe.armor+(p.research.includes('defenses')?1:0),attack:siegeRecipe.attack+(p.research.includes('technique')?2:0),move:siegeRecipe.move,loadClass:'large',flying:false,upkeep:{...siegeRecipe.upkeep},siege:{ammunition:3,capacity:3}});}
+    if(!u.siege&&!u.secondary&&!u.companion&&!u.military)createCompanyMounts(s,u);
+    const mounts=militaryCapabilities(s,u)?.trainedMounts;if(mounts){const lot=`mounts:${s.nextId++}`;s.mountLots[lot]={id:lot,owner:u.owner,count:12,fatigue:0,stable:null,unit:u.id,species:mounts.species};}
+    if(u.extended==='elven-archers'||u.extended==='mounted-scout'||u.military==='hunters')s.scoutCredentials[u.id]={unit:u.id,owner:u.owner,started:s.turn,ready:true};
   }
+  if(j.recipe==='equipment')for(const q of Object.values(s.productionPlans))if(q.workshop===f.id){delete q.workshop;delete q.committedTurn;}
   delete f.job;
 }
 function cancelSeparatedTreatments(s: Match) {
@@ -2685,7 +2799,7 @@ function resolveWarnings(s: Match) {
         w.power,
         w.target,
         {
-          damage: (id, amount, ability) => {if(amount>0){const caster=s.units[s.players[w.seat].hero.id];if(caster)recordWitnessedAttack(s,caster);}damage(s, id, amount, ability);},
+          damage: (id, amount, ability) => {if(amount>0){const caster=s.units[s.players[w.seat].hero.id];if(caster)recordWitnessedAttack(s,caster);}damage(s, id, amount, ability,0,s.units[s.players[w.seat].hero.id]);},
           event: (text) => event(s, text, [w.seat]),
         },
         anchoredArea ? w : undefined,
@@ -2727,7 +2841,8 @@ export function resolveWeek(state: Match): Match {
       (seats.indexOf(seat) + seats.length - (s.turn % seats.length)) %
       seats.length;
   const phase = (a: Action) =>
-    [
+    (a.kind === "council-consent" && !a.accept || a.kind === "consent-ledge" && !a.allow || a.kind==="portable"&&a.mode==="consent"&&!a.willing) ? -1 : [
+      "consent-ledge", "survey-landing", "portable", "preserve-plan", "remember-workshop", "recover-plan", "destroy-plan", "council-drop", "council-terms", "council-consent", "council-deliver", "council-recover", "council-settle",
       "consent-veil", "prepare-dream", "replace-dream", "forest-power", "forest-entrance", "release-forest", "inspect-forest", "harass-convoy",
       "tool-service", "mounts", "watch-gear",
       "produce",
@@ -2787,7 +2902,8 @@ export function resolveWeek(state: Match): Match {
         : a.kind === "attack" || a.kind === "capture"
           ? 3
           : 2;
-  const orders = [...s.orders].sort(
+  const permissionKey=(o:Order)=>o.action.kind==='consent-ledge'?`${o.seat}:ledge:${o.action.ledge}:${o.action.visitor}`:o.action.kind==='portable'&&o.action.mode==='consent'?`${o.seat}:portable:${o.action.settlement}`:undefined;
+  const orders = s.orders.filter(o=>{const key=permissionKey(o);return !key||!s.orders.some(later=>later.seq>o.seq&&permissionKey(later)===key);}).sort(
     (a, b) =>
       phase(a.action) - phase(b.action) ||
       rank(a.seat) - rank(b.seat) ||
@@ -2884,8 +3000,8 @@ export function resolveWeek(state: Match): Match {
   ) {
     endPassivePhase(s);
     s.combatPhase++;
-    s.revision++;
-    settleForest(s);pruneDreams(s);
+    s.revision++;progressSecondaryVenom(s);
+    settleAgentCaptivities(s);settleHeavyEquipment(s);settleForest(s);pruneDreams(s);
     pruneScouting(s);
     for (const [id, plan] of Object.entries(s.movementPlans))
       if (plan.until <= s.revision) delete s.movementPlans[id];
@@ -2901,6 +3017,8 @@ export function resolveWeek(state: Match): Match {
   progressRelayMessages(s,civilianChecks(s).route,civilianChecks(s).cost,(u,route)=>civilianChecks(s).moved?.(s,u,route));
   progressIntelligence(s, (state, x, y, u) => path(state, x, y, u.flying, u));
   resolveHunting(s,(state,x,y,u)=>path(state,x,y,u.flying,u),(u,route)=>{passiveActivity(s,u);recordPatrolMovement(s,u,route);u.effects=u.effects.filter(e=>!e.source.startsWith("circle:")&&!e.source.startsWith("formation:"));cancelSeparatedTreatments(s);});
+  settleAgentCaptivities(s);settleHeavyEquipment(s);progressLogging(s);progressBeaconSignals(s);
+  progressRoutineEnvironment(s);
   progressCare(s);
   progressCrops(s);
   progressCivilians(s,civilianChecks(s));
@@ -2909,7 +3027,7 @@ export function resolveWeek(state: Match): Match {
   for (const f of Object.values(s.facilities).sort((a, b) =>
     a.id.localeCompare(b.id),
   )) {
-    if (f.hp <= 0 || f.workers < 1) continue;
+    if (f.hp <= 0 || (f.workers < 1 && !(f.kind==='mine'&&Object.values(s.units).some(u=>u.mineWork===f.id&&u.owner===f.owner&&u.alive&&u.active&&u.supplied&&distance(u,f)<=1&&!activeEffects(s,u).some(e=>['stunned','incapacitated','rout'].includes(e.kind)))))) continue;
     const p = s.players[f.owner],
       income =
         f.kind === "core"
@@ -2922,9 +3040,8 @@ export function resolveWeek(state: Match): Match {
   )) {
     if (!u.alive || !u.active || !s.players[u.owner]) continue;
     const p = s.players[u.owner];
-    u.supplied = afford(p, u.upkeep);
-    if (u.supplied) pay(p, u.upkeep);
-    else if (exclusive(u)) p.hero.readiness = Math.max(0, p.hero.readiness - 1);
+    u.supplied = payReservedUpkeep(s,u);
+    if (!u.supplied && exclusive(u)) p.hero.readiness = Math.max(0, p.hero.readiness - 1);
     u.effects = u.effects.filter((e) => e.until > s.revision);
   }
   for (const f of Object.values(s.facilities).sort((a, b) =>
@@ -2933,7 +3050,8 @@ export function resolveWeek(state: Match): Match {
     if (f.hp <= 0) continue;
     const p = s.players[f.owner];
     if (
-      f.job &&
+      f.job && !tunnelProductionPenalty(s,f.id) &&
+      (f.job.recipe!=="equipment" || planAllowsProduction(s,f,(x,y)=>Boolean(path(s,x,y)))) &&
       f.workers > 0 &&
       (!f.job.great ||
         !Object.values(s.units).some(
@@ -2944,6 +3062,11 @@ export function resolveWeek(state: Match): Match {
       if (f.job.remaining <= 0) finishJob(s, f);
     }
   }
+  progressPortableWorkshops(s,civilianChecks(s));
+  pruneEyrieState(s);
+  refreshPlans(s);
+  settlePortableLosses(s);
+  progressRestitution(s,councilChecks(s));
   progressConvoys(s, (state, x, y, u) => path(state, x, y, u.flying, u));
   progressTools(s,(x,y)=>Boolean(path(s,x,y)));
   progressMounts(s,equipmentChecks(s));
@@ -3010,7 +3133,8 @@ export function resolveWeek(state: Match): Match {
   s.orders = [];
   s.combatPhase = 0;
   s.turn++;
-  s.revision++;
+  s.revision++;progressSecondaryVenom(s);
+  pruneRoutineEnvironment(s);pruneLocalKnowledge(s);progressWarbandRewards(s);
   pruneDreams(s);
   forestWeekly(s);
   finishScoutTraining(s);publishNightReports(s);advanceNightRegions(s);
@@ -3190,4 +3314,9 @@ function dreamChecks(s: Match): DreamChecks {
     r.observations.some(o=>o.turn>turn || o.turn===turn && o.revision>revision);
   }
  };
+}
+
+function councilChecks(s:Match):CouncilChecks{
+ const c=civilianChecks(s);
+ return {connected:(a,b,u)=>Boolean(path(s,a,b,false,u)),route:(state,u,route)=>c.route(state,u,route)&&route.every(at=>!Object.values(state.units).some(v=>v.alive&&v.active&&effectiveRelation(state,u.owner,v.owner)==='war'&&distance(v,at)===0)),cost:c.cost,moved:(u,route)=>c.moved?.(s,u,route)};
 }

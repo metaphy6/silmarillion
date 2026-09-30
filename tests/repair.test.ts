@@ -1,3 +1,4 @@
+import { repairInvariant, repairMaterials, progressRepairs } from "../src/simulation/repair";
 import { expect, it } from "vitest";
 import {
   createMatch,
@@ -238,7 +239,8 @@ it("Gondor depot refit restores existing fortification only, not a destroyed str
     method: "power",
   };
   expect(order(s, a).ok).toBe(true);
-  expect(resolveWeek(order(s, a).state).facilities.gate.hp).toBe(65);
+  // Full +25 repair, followed by the first nearby Gondor routine wear event (4 × .75).
+  expect(resolveWeek(order(s, a).state).facilities.gate.hp).toBe(40 + 25 - 3);
   s.facilities.gate.hp = 0;
   expect(order(s, a).ok).toBe(false);
 });
@@ -306,4 +308,44 @@ it("Aule substitutes the workshop without accelerating the ordinary two-week rec
   s = decodeCheckpoint(encodeCheckpoint(s)).state;
   s = resolveWeek(s);
   expect(s.items.gear.durability).toBe(45);
+});
+
+it("Aule substitutes an existing staffed non-specialist worksite while ordinary repairs cannot", () => {
+  const s = fixture("aule");
+  s.facilities.work.kind = "refuge";
+  const worker = Object.values(s.units).find(u => u.owner === "p1" && u.kind === "worker")!;
+  Object.assign(worker, {x:s.facilities.work.x,y:s.facilities.work.y});
+  const a: Action = {kind:"repair",facility:"work",target:"gear",method:"power"};
+  expect(order(s, {...a,method:"ordinary"}).ok).toBe(false);
+  const r = order(s,a);
+  expect(r.ok).toBe(true);
+  const reserved = preview(r.state,"p1");
+  expect(reserved.facilities.work.repair?.cost).toEqual({P:0,M:20,K:5,E:0});
+  expect(reserved.facilities.work.repair?.remaining).toBe(2);
+  expect(reserved.players.p1.commitment).toBe(0);
+  expect(() => repairInvariant(reserved,reserved.facilities.work)).not.toThrow();
+  reserved.facilities.work.repair!.method = "ordinary";
+  expect(() => repairInvariant(reserved,reserved.facilities.work)).toThrow(/repair/i);
+  s.facilities.work.workers = 0;
+  expect(order(s,a).ok).toBe(false);
+});
+
+it("fieldwork repairs retain the constructed structural material through progress", () => {
+  const s = fixture("aule");
+  s.players.p1.sources = ["stone"];
+  const f = s.facilities.work;
+  s.facilities.brace = {...f,id:"brace",kind:"siege-brace",hp:20,maxHp:100};
+  s.fieldworks.brace = {id:"brace",owner:"p1",kind:"siege-brace",material:"stone"};
+  const a:Action = {kind:"repair",facility:"work",target:"brace",method:"ordinary"};
+  expect(repairMaterials(s,"brace")).toEqual(["stone"]);
+  expect(order(s,a).ok).toBe(true);
+  const funded = preview(order(s,a).state,"p1");
+  funded.players.p1.sources = ["timber"];
+  progressRepairs(funded,()=>true,()=>{});
+  expect(funded.facilities.work.repair?.remaining).toBe(2);
+  funded.players.p1.sources = ["stone"];
+  progressRepairs(funded,()=>true,()=>{});
+  expect(funded.facilities.work.repair?.remaining).toBe(1);
+  s.players.p1.sources = ["timber"];
+  expect(order(s,a).reason).toMatch(/material source/);
 });

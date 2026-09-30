@@ -1,8 +1,8 @@
 {
-  "run_id": "dream-forest-20260930",
-  "step": "Dream and forest integration verified; ready for staging. Full project remains in progress.",
-  "scope": "Phaser TypeScript Vite full playable game request; all54factions55profiles retained; implementation continues, not complete",
-  "last_command": "npm run check: 652 tests passed; nine Chromium dream/forest/native WebRTC flows passed.",
+  "run_id": "local-completion-20260930",
+  "step": "staged: local implementation and available workstation gates completed",
+  "scope": "All authorized local implementation; external remote certification remains blocked by owner direction.",
+  "last_command": "807 final noncampaign tests, full lint/typecheck/build,151 browser-case inventory,33 final render cases and10 stability measurements passed.",
   "completed": [
     "playable local alpha",
     "all55 roster identities and recipes",
@@ -14,18 +14,25 @@
     "equipment/night UI and tool research routes; privacy/save/focus regressions repaired",
     "Rules terrain inspection overlay and bounded texture soak",
     "Verified own-route movement, species-aware work, atmospheric nature and bounded action feedback; reduced-motion controls; seven-batch completion plan",
-    "Irmo dream preparation and report replacement; Orome patrol; Melian consenting withdrawal veil and Guest Road integrated into commands, UI, actual events and private snapshots"
+    "Irmo dream preparation and report replacement; Orome patrol; Melian consenting withdrawal veil and Guest Road integrated into commands, UI, actual events and private snapshots",
+    "Nienna observed-injury council, exact versioned consent, finite physical restitution/drop/recovery, paid settlement and private dated survivor records integrated into engine/UI/save/guest state",
+    "Vaire preserved-plan archive-loss production and Avari portable workshop integration with private normal UI flows",
+    "Routine environment, local knowledge, finite logging, wardband rewards, recovery/naval/travel passives, heavy equipment, beacon signals and ordinary agent captivity",
+    "Companion/secondary paid production and utility regressions",
+    "All110 adopted power routes and55 passive event consumers reviewed",
+    "All55 additional named products and physical utilities integrated with paid queues/save/guest validation",
+    "22 original figure archetypes with88 independent directional views, articulated phases, semantic terrain masks and licensed Noto fonts",
+    "Review fixes: foreign mount privacy, actual hull contacts, finite product stats, paid mount rest, device threshold isolation, stranded workshop loads and carried equipment fitting",
+    "Keyboard focus restoration and software-GPU Canvas fallback; measured readback bottleneck fixed and ten consecutive frame-time gates passed."
   ],
   "pending": [
-    "Integrate Nienna council, Vaire archive-loss plans and Avari portable workshop mechanics",
-    "Audit remaining adopted powers and passive consumers against authoritative source",
-    "Finish terrain/painting alignment and production figure animation",
-    "Managed room authorization and scoped expiring TURN credentials; real service tests remain external"
+    "Remote certification blocked by owner; Safari, physical-device and assistive-technology certification unavailable."
   ],
   "external_dependencies": [
     "managed production room authorization and short-lived scoped TURN credential mechanism unresolved; no owner backend",
     "Safari unavailable; realcrossnetwork and forcedrelay service tests unexecuted"
   ],
   "policy": "No commit push deploy purchase. Parent finaltracking/staging after scope and gates; preserve unrelatedchanges.",
-  "last_verified": "652 tests /94 files, typecheck lint production build; nine Chromium flows. External service tests remain unexecuted."
+  "last_verified": "863 unit-test inventory:860 aggregate then807 final noncampaign;151 unique browser cases; native Firefox;1800 static checks; ten frame p95 samples16.7\u201316.8ms.",
+  "next_action": "Human commit and push via make git after mandatory staging."
 }

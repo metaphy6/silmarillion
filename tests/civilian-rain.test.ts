@@ -1,0 +1,12 @@
+import {expect,it} from 'vitest';
+import {createMatch} from '../src/simulation/engine';
+import {applyCivilian,progressCivilians,type CivilianChecks} from '../src/simulation/civilians';
+import {civilianRainAt,civilianWeatherLabel} from '../src/simulation/civilian-rain';
+import {fatigue} from '../src/simulation/fatigue';
+function setup(near=true){const s=createMatch(['hobbit_shire','human_gondor'],9),p=s.players.p1,u=s.units['p1:company:0'],f=s.facilities['p1:core'];s.turn=4;u.x=f.x;u.y=f.y;s.map.terrain[f.y*s.map.width+f.x+1]='grass';s.facilities.ref={...f,id:'ref',kind:'refuge',x:f.x+1};s.households.home={id:'home',owner:'p1',home:f.id,x:f.x,y:f.y,population:12,provisions:10,willing:true};s.units[p.hero.id]={...structuredClone(u),id:p.hero.id,kind:'hero',x:f.x+(near?0:8),effects:[],inventory:[]};p.hero.status='living';const checks:CivilianChecks={route:()=>true,busy:()=>false,connected:()=>true,cost:(_s,_u,r)=>r.length-1};const route=[{x:f.x,y:f.y},{x:f.x+1,y:f.y}];return{s,p,u,f,checks,route};}
+it('normal civilian store journey consumes fee/cargo and rain causes fatigue unless accompanied by Hobbit first event',()=>{for(const near of [true,false]){const{s,p,u,checks,route}=setup(near),before=p.stock.P;expect(civilianRainAt(s,route[1])).toBe(true);expect(civilianWeatherLabel(s)).toMatch(/rain/i);applyCivilian(s,'p1',{mode:'stores',household:'home',carrier:u.id,destination:'ref',route,amount:5,method:'ordinary'},checks);progressCivilians(s,checks);expect(fatigue(s,u)).toBe(near?0:1);expect(p.stock.P).toBe(before-2);expect(Object.values(s.households).reduce((n,h)=>n+h.provisions,0)).toBe(10);}});
+it('first-event immunity expires by week and never protects a second rainy civilian journey',()=>{
+ const{s,u,checks,route}=setup(true);applyCivilian(s,'p1',{mode:'stores',household:'home',carrier:u.id,destination:'ref',route,amount:5,method:'ordinary'},checks);progressCivilians(s,checks);expect(fatigue(s,u)).toBe(0);
+ const destination=Object.values(s.households).find(h=>h.home==='ref')!;s.facilities['p1:core'].kind='refuge';applyCivilian(s,'p1',{mode:'stores',household:destination.id,carrier:u.id,destination:'p1:core',route:[...route].reverse(),amount:5,method:'ordinary'},checks);progressCivilians(s,checks);expect(fatigue(s,u)).toBe(1);progressCivilians(s,checks);expect(fatigue(s,u)).toBe(1);
+ s.turn=5;expect(civilianRainAt(s,route[0])).toBe(false);expect(civilianWeatherLabel(s)).toMatch(/Dry/);
+});

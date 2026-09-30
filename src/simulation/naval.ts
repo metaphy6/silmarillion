@@ -1,4 +1,9 @@
-import {bindLanding,completeLanding} from "./shore-powers";
+import {consumeFinalItem,type FinalProductKey} from '../content/final-production';
+import {navalProduction,hullStatistics,type NavalProductionKey} from '../content/naval-production';
+import {militaryCapabilities} from '../content/military-production';
+import {draftRouteReason} from "./ordinary-environment";
+import { activeEffects } from "./effects";
+import { bindLanding, completeLanding } from "./shore-powers";
 import { logisticsShipBusy } from "./logistics-support";
 import { infrastructureBlocked } from "./infrastructure-work";
 import { stocks, type Match, type Pos, type Stock } from "./types";
@@ -17,11 +22,13 @@ export interface Vessel extends Pos {
   id: string;
   owner: string;
   name: string;
+  hullClass?: NavalProductionKey;
   hp: number;
   maxHp: number;
   move: number;
   crew: string;
   crewRescued?: boolean;
+  rescueRigged?: boolean;
   passenger: string | null;
   aboardHero: string | null;
   cargo: Stock;
@@ -45,6 +52,7 @@ export interface Vessel extends Pos {
   };
 }
 export type NavalAction =
+  | { kind: "prepare-rescue-rig"; ship: string }
   | { kind: "load-cargo" | "unload-cargo"; ship: string; cargo: Stock }
   | { kind: "embark" | "rescue-passenger"; ship: string; unit: string }
   | { kind: "disembark"; ship: string; unit: string; landing: Pos }
@@ -109,6 +117,7 @@ export function spawnVessel(
   harborId: string,
   crewId: string,
   pos: Pos,
+  recipeKey = "hull",
 ): Vessel {
   const f = s.facilities[harborId],
     u = s.units[crewId];
@@ -131,15 +140,19 @@ export function spawnVessel(
     throw new Error(
       "Existing staffed harbor, free own crew and adjacent water required",
     );
+  const specification=recipeKey === "hull" ? undefined : navalProduction(s.players[seat].profile,recipeKey);
+  if(recipeKey!=="hull"&&!specification)throw new Error("Unauthorized named hull production");
+  const stats=specification?.hull??hullStatistics(s.players[seat].profile)!;
   s.vessels ??= {};
   s.seaHazards ??= {};
   const v: Vessel = {
     id: `vessel:${s.nextId++}`,
     owner: seat,
-    name: "Ordinary coastal transport",
-    hp: 80,
-    maxHp: 80,
-    move: 3,
+    name: specification?.recipe.name??"Ordinary coastal transport",
+    ...(specification?{hullClass:recipeKey as NavalProductionKey}:{}),
+    hp: stats.hp,
+    maxHp: stats.hp,
+    move: stats.move,
     crew: crewId,
     passenger: null,
     aboardHero: null,
@@ -194,16 +207,24 @@ export function navalOrderReason(
     return "Hull is reserved by a physical cargo transfer";
   if (v.phase !== "idle" || v.repair)
     return "Vessel is busy with its existing order";
+  if (a.kind === "prepare-rescue-rig")
+    return v.rescueRigged
+      ? "Rescue rig already prepared"
+      : !harbor(s, v)
+        ? "Owned staffed harbor required"
+        : p.stock.P < 1
+          ? "Rescue preparation requires 1P"
+          : "";
   if (a.kind === "sail")
     return routeValid(s, v, a.route)
-      ? ""
+      ? vesselDraftReason(s,v,a.route)
       : "Declare one continuous simple water route from the vessel";
   if (a.kind === "load-cargo" || a.kind === "unload-cargo") {
     if (!harbor(s, v)) return "Owned staffed accessible harbor required";
     if (!validStock(a.cargo) || total(a.cargo) < 1)
       return "Positive integer four-stock cargo required";
-    if (a.kind === "load-cargo" && total(v.cargo) + total(a.cargo) > 20)
-      return "Vessel cargo capacity is 20";
+    if (a.kind === "load-cargo" && total(v.cargo) + total(a.cargo) > vesselCapacity(s,v))
+      return `Vessel cargo capacity is ${vesselCapacity(s,v)}`;
     if (
       keys.some(
         (k) => (a.kind === "load-cargo" ? p.stock[k] : v.cargo[k]) < a.cargo[k],
@@ -247,6 +268,7 @@ export function navalOrderReason(
     return "Passenger slot already occupied";
   if (distance(u, v) > 1) return "Passenger must physically reach the vessel";
   if (a.kind === "rescue-passenger") {
+    if (!v.rescueRigged) return "Existing prepared rescue rig required";
     const wreck = Object.values(s.vessels).find(
       (x) =>
         x.phase === "wreck" &&
@@ -273,6 +295,11 @@ export function startNavalOrder(s: Match, seat: string, a: NavalAction): void {
   if (reason) throw new Error(reason);
   const v = s.vessels[a.ship],
     p = s.players[seat];
+  if (a.kind === "prepare-rescue-rig") {
+    p.stock.P--;
+    v.rescueRigged = true;
+    return;
+  }
   if (a.kind === "sail") {
     v.route = a.route.map((p) => ({ ...p }));
     v.index = 0;
@@ -320,12 +347,71 @@ export function startNavalOrder(s: Match, seat: string, a: NavalAction): void {
       unit: u.id,
     };
   }
-  if(a.kind==="disembark")bindLanding(s,v.id,a.unit,a.landing);
-  v.handlingRemaining = 1 + (hazard(s, v)?.handling ?? 0);
+  if (a.kind === "disembark") bindLanding(s, v.id, a.unit, a.landing);
+  let delay = Math.max(0,(hazard(s, v)?.handling ?? 0)-currentGuideHandling(s,v));
+  if(delay>0&&consumeNavalEquipment(s,v,"calm-passage-charm"))delay--;
+  if (
+    delay > 0 &&
+    ["load-cargo", "unload-cargo"].includes(a.kind) &&
+    navalPassive(s, v, "elf_falmari", "familiar-rigging", true)
+  )
+    delay = 0;
+  let deployment = a.kind === "rescue-passenger" ? 1 : 0;
+  if (
+    deployment &&
+    v.rescueRigged &&
+    navalPassive(s, v, "uinen", "ready-lifelines", false)
+  )
+    deployment = 0;
+  v.handlingRemaining = 1 + delay + deployment;
   v.phase =
     a.kind === "unload-cargo" || a.kind === "disembark"
       ? "unloading"
       : "loading";
+}
+/** Existing hero effects hold one-use markers, shared across all owned hulls.
+ * Encounter boundaries are the current weekly tactical encounter, as elsewhere. */
+function navalPassive(
+  s: Match,
+  v: Vessel,
+  profile: string,
+  kind: string,
+  aboard: boolean,
+): boolean {
+  const p = s.players[v.owner],
+    h = s.units[p.hero.id];
+  if (
+    p.profile !== profile ||
+    p.hero.status !== "living" ||
+    !h?.alive ||
+    !h.active ||
+    h.hp <= 0 ||
+    activeEffects(s, h).some((e) =>
+      ["stunned", "incapacitated"].includes(e.kind),
+    ) ||
+    (aboard
+      ? v.aboardHero !== h.id || distance(h, v) !== 0
+      : distance(h, v) > 1) ||
+    h.effects.some((e) => e.kind === kind && e.source === `naval:${s.turn}`)
+  )
+    return false;
+  h.effects = h.effects.filter((e) => e.kind !== kind);
+  h.effects.push({ kind, value: 1, source: `naval:${s.turn}`, until: 1000000 });
+  return true;
+}
+/** Provisional minor-storm loss4, only on entering ordinary wave1 water.
+ * Integer stock loss rounds upward after mitigation; hull damage is separate. */
+function stormCargo(s: Match, v: Vessel): void {
+  let loss = Math.min(Math.max(0,4-vesselStats(s,v).cargoProtection), total(v.cargo));
+  if (!loss) return;
+  if (navalPassive(s, v, "human_numenor", "fixed-lashings", true))
+    loss = Math.ceil(loss * 0.75);
+  for (const k of keys) {
+    const part = Math.min(loss, v.cargo[k]);
+    v.cargo[k] -= part;
+    loss -= part;
+    if (!loss) break;
+  }
 }
 export function damageVessel(s: Match, id: string, amount: number): void {
   if (!Number.isSafeInteger(amount) || amount < 0)
@@ -367,18 +453,17 @@ export function progressVessels(
     if (v.phase === "wreck" || v.lastProgress >= s.turn) continue;
     v.lastProgress = s.turn;
     const p = s.players[v.owner],
-      u = s.units[v.crew];
+      u = s.units[v.crew],
+      upkeep=vesselStats(s,v).upkeep;
     if (
       !u?.alive ||
       !u.active ||
       u.owner !== v.owner ||
       !u.supplied ||
-      p.stock.P < 2 ||
-      p.stock.M < 1
+      keys.some(k=>p.stock[k]<upkeep[k])
     )
       continue;
-    p.stock.P -= 2;
-    p.stock.M--;
+    for(const k of keys)p.stock[k]-=upkeep[k];
     if (v.repair) {
       if (!harbor(s, v) || effectiveWave(s, v, v) > 0) continue;
       if (--v.repair.remaining === 0) {
@@ -404,7 +489,7 @@ export function progressVessels(
       if (h.kind === "disembark") {
         const unit = s.units[h.unit!];
         if (unit?.alive && h.landing) {
-          completeLanding(s,v.id,unit,h.landing);
+          completeLanding(s, v.id, unit, h.landing);
           unit.x = h.landing.x;
           unit.y = h.landing.y;
         }
@@ -420,7 +505,7 @@ export function progressVessels(
     for (let step = 0; step < v.move && v.index < v.route.length - 1; step++) {
       const next = v.route[v.index + 1];
       if (
-        !water(s, next) ||
+        !water(s, next) || !!vesselDraftReason(s,v,[next]) ||
         infrastructureBlocked(s, next, "sea") ||
         threatened(s, v.owner, next)
       )
@@ -438,7 +523,8 @@ export function progressVessels(
       v.y = next.y;
       moveOccupants(s, v);
       const wave = effectiveWave(s, v, next);
-      if (wave) damageVessel(s, v.id, wave * 2);
+      if (wave === 1) stormCargo(s, v);
+      if (wave) {let loss=Math.max(0,wave*2-vesselStats(s,v).stormArmor);if(loss>0&&consumeNavalEquipment(s,v,"sea-ward"))loss--;damageVessel(s,v.id,loss);}
       if (v.hp === 0) break;
     }
     if (v.hp > 0 && v.index === v.route.length - 1) v.phase = "idle";
@@ -452,7 +538,8 @@ export function validateVesselState(
   const fail = (message = "Invalid vessel checkpoint") => {
     throw new Error(message);
   };
-  const crew = s.units[v.crew];
+  const crew = s.units[v.crew],stats=hullStatistics(s.players[v.owner]?.profile,v.hullClass);
+  if(!stats)fail("Unauthorized hull class");
   if (
     s.vessels[v.id] !== v ||
     !s.players[v.owner] ||
@@ -461,15 +548,15 @@ export function validateVesselState(
     (crew && crew.kind !== "worker") ||
     (v.crewRescued !== undefined && typeof v.crewRescued !== "boolean") ||
     (v.crewRescued && v.phase !== "wreck") ||
-    v.maxHp !== 80 ||
-    v.move !== 3 ||
+    v.maxHp !== stats!.hp ||
+    v.move !== stats!.move ||
     !Number.isSafeInteger(v.hp) ||
     v.hp < 0 ||
-    v.hp > 80 ||
+    v.hp > stats!.hp ||
     !["idle", "loading", "sailing", "unloading", "wreck"].includes(v.phase) ||
     (v.phase === "wreck") !== (v.hp === 0) ||
     !validStock(v.cargo) ||
-    total(v.cargo) > 20 ||
+    total(v.cargo) > stats!.capacity ||
     !Number.isInteger(v.lastProgress) ||
     v.lastProgress < 0 ||
     v.lastProgress > s.turn ||
@@ -537,7 +624,9 @@ export function validateVesselState(
     Boolean(h) !== ["loading", "unloading"].includes(v.phase) ||
     !Number.isInteger(v.handlingRemaining) ||
     v.handlingRemaining < 0 ||
-    v.handlingRemaining > 4 ||
+    v.handlingRemaining > (h?.kind === "rescue" ? 5 : 4) ||
+    (v.rescueRigged !== undefined && typeof v.rescueRigged !== "boolean") ||
+    (h?.kind === "rescue" && !v.rescueRigged) ||
     (!h && v.handlingRemaining !== 0)
   )
     fail("Invalid vessel handling phase");
@@ -550,7 +639,7 @@ export function validateVesselState(
         !h.cargo ||
         !validStock(h.cargo) ||
         total(h.cargo) < 1 ||
-        total(h.cargo) > 20 ||
+        total(h.cargo) > stats!.capacity ||
         keys.some((k) => h.cargo![k] > v.cargo[k]) ||
         v.phase !== (h.kind === "load" ? "loading" : "unloading")
       )
@@ -632,3 +721,14 @@ export function navalRoute(s: Match, start: Pos, end: Pos): Pos[] | null {
   cache.routes.set(key, copy(result));
   return copy(result);
 }
+
+function vesselStats(s:Match,v:Vessel){const q=hullStatistics(s.players[v.owner]?.profile,v.hullClass);if(!q)throw new Error('Unauthorized hull class');return q;}
+export function vesselCapacity(s:Match,v:Vessel):number{return vesselStats(s,v).capacity;}
+/** Guide must be the actual existing embarked passenger, supplied and active.
+ * No benefit from a remote guide, adjacent unit, hero or name-only impersonation. */
+export function currentGuideHandling(s:Match,v:Vessel):number{const u=v.passenger?s.units[v.passenger]:undefined;return u?.alive&&u.active&&u.supplied&&u.owner===v.owner&&distance(u,v)===0&&!activeEffects(s,u).some(e=>['stunned','incapacitated','rout'].includes(e.kind))?(militaryCapabilities(s,u)?.currentHandling??0):0;}
+function vesselDraftReason(s:Match,v:Vessel,route:Pos[]):string{if(!v.hullClass)return draftRouteReason(s,v,route);const draft=vesselStats(s,v).draft;return route.some(p=>{const c=s.waterChannels?.[`${p.x},${p.y}`];return c&&c.depth<draft;})?'Authored channel depth is below this hull class draft':'';}
+
+export function vesselClassDescription(s:Match,v:Vessel):string{const q=vesselStats(s,v);return `Capacity ${q.capacity} stock · ${q.move} water tiles/week · upkeep ${q.upkeep.P}P + ${q.upkeep.M}M · ${v.hullClass?`draft class ${q.draft}`:'draft1 light /2 loaded'}${q.stormArmor?` · ordinary wave hull loss reduced by ${q.stormArmor}`:''}${q.cargoProtection?` · minor-storm cargo loss reduced by ${q.cargoProtection}`:''}. Provisional hull tuning.`;}
+
+function consumeNavalEquipment(s:Match,v:Vessel,key:FinalProductKey):boolean{for(const id of [v.crew,v.passenger,v.aboardHero]){const u=id?s.units[id]:undefined;if(u&&u.owner===v.owner&&distance(u,v)===0&&consumeFinalItem(s,u,key))return true;}return false;}

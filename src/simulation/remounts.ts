@@ -1,5 +1,5 @@
 import type {Match,Pos,Unit,Stock} from './types';import {stocks} from './types';import {activeEffects} from './effects';
-export interface MountLot{id:string;owner:string;count:number;fatigue:number;stable:string|null;unit:string|null}
+export interface MountLot{species?:'wolf'|'horse';id:string;owner:string;count:number;fatigue:number;stable:string|null;unit:string|null}
 export interface MountJob{id:string;owner:string;kind:'breed'|'recover'|'exchange';facility:string;phase:'working'|'outbound'|'returning'|'lost';remaining:number;started:number;lastProgress:number;cost:Stock;lot?:string;crew?:string;rider?:string;tired?:string;route:Pos[];index:number}
 export type MountState=Match&{mountLots:Record<string,MountLot>;mountJobs:Record<string,MountJob>};
 export interface MountChecks{open:(s:Match,u:Unit,route:Pos[])=>boolean;budget:(s:Match,u:Unit)=>number;connected?:(a:Pos,b:Pos,u:Unit)=>boolean;cost?:(s:Match,u:Unit,route:Pos[])=>number;moved?:(s:Match,u:Unit,route:Pos[])=>void}
@@ -13,6 +13,11 @@ export function createCompanyMounts(s:MountState,u:Unit){if(s.players[u.owner]?.
 export function initializeMounts(s:MountState){for(const u of Object.values(s.units))createCompanyMounts(s,u);}
 export function travelMounts(s:MountState,u:Unit,from:Pos,to:Pos){if(d(from,to)===0)return;const q=Object.values(s.mountLots).find(q=>q.unit===u.id&&q.owner===u.owner);if(q)q.fatigue=Math.min(6,q.fatigue+1);}
 export function mountPenalty(s:MountState,u:Unit){const q=Object.values(s.mountLots).find(q=>q.unit===u.id&&q.owner===u.owner);return q?Math.floor(q.fatigue/3):0;}
+export function attachedMountFatigue(s:MountState,u:Unit):number{return Object.values(s.mountLots).find(q=>q.unit===u.id&&q.owner===u.owner)?.fatigue??0;}
+/** Provisional ordinary fodder/rest recovery accompanies the existing paid
+ * staffed refuge week. It preserves the attached animals, species and count;
+ * it grants neither Rohan's immediate remount exchange nor new mounts. */
+export function restAttachedMounts(s:MountState,u:Unit):void{if(!u.alive||!u.active||!u.supplied||u.kind!=='company')return;const q=Object.values(s.mountLots).find(q=>q.unit===u.id&&q.owner===u.owner);if(q)q.fatigue=Math.max(0,q.fatigue-2);}
 export function queueMountsReason(s:MountState,seat:string,facility:string){const f=stable(s,seat,facility),p=s.players[seat];if(!f||p.profile!=='human_rohan'||f.job||f.repair||f.rest||mountFacilityBusy(s,facility))return 'Free staffed Rohan stable queue required';return p.stock.P<30||p.stock.M<10?'Thirty Provisions and ten Materials required':'';}
 /** Provisional breeding/training batch:12 mounts,30P10M,three staffed weeks. */
 export function queueMounts(s:MountState,seat:string,facility:string){const reason=queueMountsReason(s,seat,facility);if(reason)throw new Error(reason);s.players[seat].stock.P-=30;s.players[seat].stock.M-=10;const id=`mount-job:${s.nextId++}`;s.mountJobs[id]={id,owner:seat,kind:'breed',facility,phase:'working',remaining:3,started:s.turn,lastProgress:s.turn-1,cost:stocks(30,10),route:[],index:0};return id;}

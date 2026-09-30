@@ -4,7 +4,7 @@ import {parseMatch} from '../src/simulation/schema';
 import {guestSnapshot} from '../src/network/protocol';
 import type {Action,Match} from '../src/simulation/types';
 function fixture(profile='human_rohan'){
- const s=createMatch([profile,'human_gondor'],53);s.map.terrain.fill('meadow');s.seaHazards={};s.shallowWater={};const p=s.players.p1;p.hero.status='living';p.hero.readiness=6;s.units[p.hero.id]={...structuredClone(s.units['p1:company:0']),id:p.hero.id,kind:'hero',x:8,y:9,move:4,effects:[]};
+ const s=createMatch([profile,'human_gondor'],53);s.map.terrain.fill('meadow');s.waterChannels={};s.seaHazards={};s.shallowWater={};const p=s.players.p1;p.hero.status='living';p.hero.readiness=6;s.units[p.hero.id]={...structuredClone(s.units['p1:company:0']),id:p.hero.id,kind:'hero',x:8,y:9,move:4,effects:[]};
  const a=s.units['p1:company:0'],target=s.units['p2:company:0'];Object.assign(a,{x:8,y:10,move:4,attack:20});Object.assign(target,{x:11,y:10,hp:100,maxHp:100,armor:0,attack:0});
  for(const u of Object.values(s.units))if(u.owner==='p2'&&u!==target){u.x=28;u.y=28;}
  return s;

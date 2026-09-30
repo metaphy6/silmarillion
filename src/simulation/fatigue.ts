@@ -1,5 +1,5 @@
 import { completeDreamRest } from "./dream-preparation";
-import {travelMounts} from './remounts';
+import {travelMounts,attachedMountFatigue,restAttachedMounts} from './remounts';
 import type { Match, Unit, Pos, Facility } from "./types";
 import { stocks } from "./types";
 import { factionProduction } from "../content/production";
@@ -104,7 +104,7 @@ export function restReason(
     )
   )
     return "Finish the active convoy before resting";
-  if (fatigue(s, u) < 1) return "Company has no fatigue to recover";
+  if (fatigue(s, u) < 1 && attachedMountFatigue(s,u)<1) return "Company has no fatigue to recover";
   return p.stock.P >= 2 ? "" : "Paid rest requires 2P";
 }
 export function startRest(
@@ -157,6 +157,7 @@ export function progressRest(s: Match): void {
       mark(s, h, "refuge-rest-used");
     }
     setFatigue(u, Math.max(0, fatigue(s, u) - recovery));
+    restAttachedMounts(s,u);
     completeDreamRest(s,f.id,j.id);
     delete f.rest;
   }

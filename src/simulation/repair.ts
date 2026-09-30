@@ -1,3 +1,4 @@
+import { isOrdinarySiege } from "./siege";
 import { restoreItemDurability } from "./equipment";
 import {
   stocks,
@@ -7,7 +8,7 @@ import {
   type RepairWork,
 } from "./types";
 
-type RepairAction = Extract<Action, { kind: "repair" }>;
+type RepairAction = Extract<Action, { kind: "repair" }> & { kit?: string };
 type Connected = (a: Pos, b: Pos) => boolean;
 const distance = (a: Pos, b: Pos) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 export const repairPowerProfiles = new Set([
@@ -42,6 +43,14 @@ export function repairTarget(s: Match, id: string) {
       max: item.maxDurability,
     };
   const u = s.units[id];
+  if (u?.alive && isOrdinarySiege(s, u))
+    return {
+      kind: "siege" as const,
+      target: u,
+      pos: u,
+      current: u.hp,
+      max: u.maxHp,
+    };
   if (u?.kind === "construct" && u.alive)
     return {
       kind: "construct" as const,
@@ -67,9 +76,35 @@ export function repairTarget(s: Match, id: string) {
 export function repairMaterials(s: Match, id: string): string[] {
   if (s.items[id]) return s.items[id].materials;
   if (s.units[id]) return ["metal"];
+  // Paid fieldworks retain their actual construction tag; no timber substitution.
+  if (s.fieldworks[id]) return [s.fieldworks[id].material];
   return ["cover", "barricade", "siege-brace"].includes(s.facilities[id]?.kind)
     ? ["timber"]
     : ["stone"];
+}
+function kitReason(s: Match, seat: string, a: RepairAction) {
+  const required =
+    a.method === "ordinary" &&
+    s.players[seat].profile === "istari_forge" &&
+    repairTarget(s, a.target)?.kind === "construct";
+  if (!required)
+    return a.kit
+      ? "Repair kit is only used for ordinary Forge construct repairs"
+      : "";
+  const i = s.items[a.kit ?? ""],
+    m = s.toolMetadata[a.kit ?? ""],
+    f = s.facilities[a.facility],
+    at = i?.bearer ? s.units[i.bearer] : i;
+  return !i ||
+    i.owner !== seat ||
+    m?.function !== "repair-kit" ||
+    m.maker !== seat ||
+    i.durability !== 1 ||
+    !at ||
+    !f ||
+    distance(at, f) > 1
+    ? "Local unused repair kit made by this Forge order required"
+    : "";
 }
 export function repairReason(
   s: Match,
@@ -83,6 +118,8 @@ export function repairReason(
     h = s.units[p.hero.id];
   if (!f || f.owner !== seat || f.hp <= 0 || f.workers < 1)
     return "Owned staffed repair worksite required";
+  // Master's Repair replaces the specialist workshop, not the worksite,
+  // full normal recipe, crew or provisional two-week repair duration.
   const power = a.method === "power";
   if (power && !repairPowerProfiles.has(p.profile))
     return "This profile has no repair-queue support power";
@@ -98,9 +135,9 @@ export function repairReason(
     return "Hero must be present in the connected worksite region";
   if (
     !["workshop", "depot", "service-depot"].includes(f.kind) &&
-    !(power && p.profile === "aule" && f.kind === "core")
+    !(power && p.profile === "aule")
   )
-    return "Staffed workshop or depot repair queue required (Aulë may substitute his core worksite)";
+    return "Staffed workshop or depot repair queue required (Aulë may substitute an existing staffed worksite)";
   if (
     power &&
     p.profile === "human_gondor" &&
@@ -121,8 +158,13 @@ export function repairReason(
     return "Required compatible target material source access is missing";
   if (power && p.profile === "elf_feanor" && t.kind !== "item")
     return "Rework the Setting requires one existing crafted item";
-  if (power && p.profile === "human_gondor" && t.kind !== "structure")
-    return "Supply Refit requires an existing fortification; siege machines are not yet represented";
+  if (
+    power &&
+    p.profile === "human_gondor" &&
+    t.kind !== "structure" &&
+    t.kind !== "siege"
+  )
+    return "Supply Refit requires an existing fortification or ordinary siege engine";
   if (
     power &&
     p.profile === "aule" &&
@@ -159,7 +201,7 @@ export function repairReason(
     )
   )
     return "Insufficient repair stocks";
-  return "";
+  return kitReason(s, seat, a);
 }
 function completeRepair(s: Match, f: Match["facilities"][string]) {
   const j = f.repair!;
@@ -171,6 +213,21 @@ function completeRepair(s: Match, f: Match["facilities"][string]) {
   delete f.repair;
 }
 export function startRepair(s: Match, seat: string, a: RepairAction) {
+  const invalidKit = kitReason(s, seat, a);
+  if (invalidKit) throw new Error(invalidKit);
+  if (a.kit) {
+    const i = s.items[a.kit];
+    if (i.bearer)
+      s.units[i.bearer].inventory = s.units[i.bearer].inventory.filter(
+        (id) => id !== a.kit,
+      );
+    s.players[seat].hero.equipment = s.players[seat].hero.equipment.filter(
+      (id) => id !== a.kit,
+    );
+    delete s.items[a.kit];
+    delete s.toolMetadata[a.kit];
+  }
+
   const p = s.players[seat],
     f = s.facilities[a.facility],
     cost = repairCost(s, seat, a.method);
@@ -202,6 +259,8 @@ export function repairInvariant(s: Match, f: Match["facilities"][string]) {
   if (
     f.job ||
     f.rest ||
+    (!["workshop", "depot", "service-depot"].includes(f.kind) &&
+      !(j.method === "power" && s.players[f.owner].profile === "aule")) ||
     f.hp <= 0 ||
     !t ||
     t.target.owner !== f.owner ||

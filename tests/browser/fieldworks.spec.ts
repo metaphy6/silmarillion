@@ -7,7 +7,7 @@ test("an actual worker constructs a paid timber defense without creating new sta
     const e = await import("/src/simulation/engine.ts" as string),
       p = await import("/src/persistence/checkpoints.ts" as string);
     const s = e.createMatch(["human_gondor", "human_rohan"], 93);
-    s.map.terrain.fill("meadow");
+    s.map.terrain.fill("meadow");s.waterChannels={};
     s.seaHazards = {};s.shallowWater={};
     s.infrastructureSites = {};
     s.players.p2.ai = false;
